@@ -2,6 +2,13 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public class CreatedInfo
+{
+    //만들어진 게임오브젝트
+    public GameObject go;
+    //선택된 오브젝트의 idx
+    public int idx;
+}
 public class MapPool_YDW : MonoBehaviour
 {
     public GameObject objFactory;
@@ -11,8 +18,12 @@ public class MapPool_YDW : MonoBehaviour
     public float createTime = 0.1f;
     // 경과 시간
     float currentTime = 0;
+    //objectList에 들어있는 애들의 이름
+    string[] objectListName;
+
     void Start()
     {
+
         // 오브젝트 풀에 비활성화된 게임오브젝트(아이템)을 담고 싶다.
         for (int i = 0; i < objPoolSize; i++)
         {
@@ -28,11 +39,9 @@ public class MapPool_YDW : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         // 일정 시간마다 복셀을 만들고 싶다.
         // 1. 경과 시간이 흐른다.
         currentTime += Time.deltaTime;
-
         // 2. 경과 시간이 생성 시간을 초과했다면
         if (Input.GetButtonDown("Fire1") && currentTime > createTime)
         {
@@ -58,14 +67,17 @@ public class MapPool_YDW : MonoBehaviour
                     if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
                     {
                         obbj.transform.position = new Vector3((int)hitInfo.point.x, hitInfo.point.y + 0.5f, (int)hitInfo.point.z);
+
+
                     }
                     // 5. 오브젝트 풀에서 게임오브젝트을 제거한다.
                     objPool.RemoveAt(0);
-                    
+
                 }
             }
         }
     }
+
 
 }
 

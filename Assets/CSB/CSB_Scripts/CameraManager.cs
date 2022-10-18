@@ -26,7 +26,7 @@ public class CameraManager : MonoBehaviour
 
     void Update()
     {
-        if (!EventSystem.current.IsPointerOverGameObject())  // 만약 UI 위라면 return
+        if (!EventSystem.current.IsPointerOverGameObject())  // 만약 UI 위 아니라면
         {
             GetTouchDragValue();
             GetTouchZoomInOut();

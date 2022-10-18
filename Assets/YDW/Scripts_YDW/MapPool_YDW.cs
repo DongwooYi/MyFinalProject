@@ -61,7 +61,7 @@ public class MapPool_YDW : MonoBehaviour
                     }
                     // 5. 오브젝트 풀에서 게임오브젝트을 제거한다.
                     objPool.RemoveAt(0);
-                    //
+                    
                 }
             }
         }

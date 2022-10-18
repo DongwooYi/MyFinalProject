@@ -12,6 +12,6 @@ EditorBuildSettings:
     path: Assets/CSB/CSB_Scenes/CSB_MyProfile.unity
     guid: 950a39d8b73024a418ca110902b1c1d6
   - enabled: 1
-    path: Assets/CSB/CSB_Scenes/CSB_Player.unity
-    guid: b5386e954602d6c40902c966462efe72
+    path: Assets/YDW/Scenes_YDW/Scene_YDW.unity
+    guid: edf428a3af6090e47b065db0376d5d52
   m_configObjects: {}

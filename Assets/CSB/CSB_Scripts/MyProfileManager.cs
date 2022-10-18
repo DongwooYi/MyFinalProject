@@ -14,7 +14,7 @@ public class MyProfileManager : MonoBehaviour
     {
         if (Input.anyKeyDown)
         {
-            SceneManager.LoadScene("CSB_Player");
+            SceneManager.LoadScene("Scene_YDW");
         }
     }
 }

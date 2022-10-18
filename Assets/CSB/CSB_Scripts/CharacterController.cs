@@ -23,10 +23,8 @@ public class CharacterController : MonoBehaviour
         //float h = Input.GetAxis("Horizontal");
         //float v = Input.GetAxis("Vertical");
 
-        Vector2 moveInput = inputDir;
-
         // 이동 방향
-        Vector3 moveDir = inputDir;
+        Vector3 moveDir = new Vector3(inputDir.x, 0, inputDir.y);
 
         // 이동
         transform.position += moveDir * Time.deltaTime * speed;

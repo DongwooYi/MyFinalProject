@@ -51,8 +51,8 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         Debug.Log("Drag");
 
         ControlJoystickInnerCircle(eventData);
-        isInput = false;
-        print(isInput);
+        //isInput = false;
+        //print(isInput);
 
     }
 
@@ -63,6 +63,7 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         Debug.Log("End");
 
         innerCircle.anchoredPosition = Vector2.zero;
+        isInput = false;
         //characterController.Move(Vector2.zero);
     }
 

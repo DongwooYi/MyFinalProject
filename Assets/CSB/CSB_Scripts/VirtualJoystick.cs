@@ -26,6 +26,12 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
         outerCircle = GetComponent<RectTransform>();
     }
 
+    private void Start()
+    {
+        Screen.orientation = ScreenOrientation.LandscapeRight;
+        print("?");
+
+    }
     private void Update()
     {
         if (isInput)

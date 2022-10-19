@@ -35,6 +35,7 @@ public class InventoryManager : MonoBehaviour
     private void Update()
     {
         items = rewardedItems;
+        SetSlot();
     }
 
     // Slot 정리해서 보여줌 (setting)

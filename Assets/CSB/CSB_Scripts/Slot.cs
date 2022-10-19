@@ -18,6 +18,7 @@ public class Slot : MonoBehaviour
             _item = value;  // item 에 들어오는 정보값 _item 에 저장
             if(_item != null)   // 만약 item 이 있다면
             {
+                print("아이템 들어옴");
                 image.sprite = item.itemImage;
                 image.color = new Color(1, 1, 1, 1);
             }

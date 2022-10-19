@@ -17,9 +17,9 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private float joystickRange;
 
     public CharacterController characterController;
+    public bool isInput;
 
     private Vector2 inputVector;
-    public bool isInput;
 
     private void Awake()
     {
@@ -28,9 +28,7 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
 
     private void Start()
     {
-        Screen.orientation = ScreenOrientation.LandscapeRight;
-        print("?");
-
+        Screen.orientation = ScreenOrientation.LandscapeRight;  // 씬 화면 고정
     }
     private void Update()
     {
@@ -54,6 +52,7 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     // Drag 중 (마우스 멈추면 이벤트가 들어오지 않음)
     public void OnDrag(PointerEventData eventData)
     {
+      
         Debug.Log("Drag");
 
         ControlJoystickInnerCircle(eventData);
@@ -67,9 +66,9 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("End");
-
-        innerCircle.anchoredPosition = Vector2.zero;
-        isInput = false;
+      
+        innerCircle.anchoredPosition = Vector2.zero;    // 원점으로 돌아옴
+        isInput = false;    // 입력 끝
         //characterController.Move(Vector2.zero);
     }
 

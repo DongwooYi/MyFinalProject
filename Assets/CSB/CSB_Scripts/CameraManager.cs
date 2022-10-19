@@ -21,6 +21,7 @@ public class CameraManager : MonoBehaviour
 
     void Start()
     {
+   
         
     }
 
@@ -51,7 +52,7 @@ public class CameraManager : MonoBehaviour
             {
                 currentPos = touch.position - touch.deltaPosition;
                 movePos = (Vector3)(prePos - currentPos) * Time.deltaTime * camMoveSpeed;
-                GetComponent<Camera>().transform.Translate(movePos);
+                Camera.main.transform.Translate(movePos);
                 prePos = touch.position - touch.deltaPosition;
             }
         }

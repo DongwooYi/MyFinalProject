@@ -5,15 +5,6 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/CSB/CSB_Scenes/CSB_Login.unity
-    guid: 37a7c8ab15d402748aea69d6ea3cc7d2
-  - enabled: 0
-    path: Assets/CSB/CSB_Scenes/CSB_MyProfile.unity
-    guid: 950a39d8b73024a418ca110902b1c1d6
-  - enabled: 0
-    path: Assets/CSB/CSB_Scenes/CSB_Player.unity
-    guid: 326c7d26d9693e344ae244ca6f3ba5e6
   - enabled: 1
     path: Assets/Scenes/CombineScene.unity
     guid: ca830bd9b61a8854dbdddfdb9c438261

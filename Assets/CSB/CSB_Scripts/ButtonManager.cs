@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 
 // UI 상의 버튼들 관리
 public class ButtonManager : MonoBehaviour
@@ -25,6 +27,13 @@ public class ButtonManager : MonoBehaviour
 
     InventoryManager inventoryManager;  // InventoryManager 가져오기 
 
+    /* 리워드 꺼내기 관련 */
+    public float minClickTime = 2f; // 최소 클릭 시간
+
+    private float clickTime;    // 클릭 중 시간
+    public bool isClick;   // 클릭 중 판단
+
+
     void Start()
     {
         inventoryPanel.SetActive(false);
@@ -36,6 +45,18 @@ public class ButtonManager : MonoBehaviour
         rewardPanel.SetActive(false);
 
         inventoryManager = GetComponent<InventoryManager>();
+    }
+
+    private void Update()
+    {
+        if (isClick)
+        {
+            clickTime += Time.deltaTime;
+        }
+        else
+        {
+            clickTime = 0;
+        }
     }
 
 
@@ -105,5 +126,42 @@ public class ButtonManager : MonoBehaviour
     public void CheckNonPass()
     {
         isPass = false;
+    }
+
+    // ==========================================================================================================
+    // 인벤토리에서 오브젝트 꺼내기 관련
+    // (일정 시간 동안 누르면 인벤토리에서 오브젝트 제거 & 인벤토리 창 끄기)
+    // 만약 배치가 되지 않으면 인벤토리 창에 다시 넣음
+    public void HoldReward()
+    {
+        // 인벤토리에서 리워드 제거(slot 의 index 받아서)
+        rewardList.RemoveAt(btnIndex);
+        // 인벤토리 창 끄기
+        inventoryPanel.SetActive(false);
+        isInventory = false;
+
+    }
+
+    // 눌린 버튼 인덱스
+    private int btnIndex;
+    public void ButtonDown()
+    {
+        isClick = true;
+        print(EventSystem.current.currentSelectedGameObject.name);  // 현재 눌린 버튼의 이름
+        string btnName = EventSystem.current.currentSelectedGameObject.name;
+
+        // slot 의 인덱스 받기
+        btnIndex = GameObject.Find("Content").transform.FindChild(btnName).GetSiblingIndex();
+        print(btnIndex);
+    }
+
+    public void ButtonUp()
+    {
+        isClick = false;
+
+        if(clickTime >= minClickTime)
+        {
+            HoldReward();
+        }
     }
 }

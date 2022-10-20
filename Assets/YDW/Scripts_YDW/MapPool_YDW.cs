@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.EventSystems;
 public class MapPool_YDW : MonoBehaviour
 {
 
@@ -39,27 +39,34 @@ public class MapPool_YDW : MonoBehaviour
     void Update()
     {
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Input.GetButton("Fire1"))
+        //if (Input.GetButton("Fire1"))
+        if(Input.GetMouseButton(0))
         {
-            prewviewItem.SetActive(true);
-            // 2. 마우스의 위치가 바닥 위에 위치해 있다면
-            if (Physics.Raycast(ray, out hitInfo))
+            //모바일 경우 
+            //if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false) //____1. 모바일 경우
+            if (EventSystem.current.IsPointerOverGameObject() == false)//____2. PC 경우
             {
-                prewviewItem.transform.position = new Vector3((int)hitInfo.point.x, (int)hitInfo.point.y, (int)hitInfo.point.z);
-                // 충돌 체크용 함수
-                if (hitInfo.transform.gameObject.layer != LayerMask.NameToLayer("Ground"))
+                prewviewItem.SetActive(true);
+                // 2. 마우스의 위치가 바닥 위에 위치해 있다면
+                if (Physics.Raycast(ray, out hitInfo))
                 {
-                    isunabletomake = true;
-                    prewviewItem.GetComponentInChildren<Renderer>().material.color = Color.red;
-                }
-                else
-                {
-                    isunabletomake = false;
-                    prewviewItem.GetComponentInChildren<Renderer>().material.color = Color.green;
+                    prewviewItem.transform.position = new Vector3((int)hitInfo.point.x, (int)hitInfo.point.y, (int)hitInfo.point.z);
+                    // 충돌 체크용 함수
+                    if (hitInfo.transform.gameObject.layer != LayerMask.NameToLayer("Ground"))
+                    {
+                        isunabletomake = true;
+                        prewviewItem.GetComponentInChildren<Renderer>().material.color = Color.red;
+                    }
+                    else
+                    {
+                        isunabletomake = false;
+                        prewviewItem.GetComponentInChildren<Renderer>().material.color = Color.green;
+                    }
                 }
             }
         }
-        else if (Input.GetButtonDown("Fire2"))
+        //else if (Input.GetButtonDown("Fire2"))
+        else if  (Input.GetMouseButtonDown(0))
         {
             if (Physics.Raycast(ray, out hitInfo))
             {
@@ -74,7 +81,8 @@ public class MapPool_YDW : MonoBehaviour
         }
 
         // 경과 시간이 생성 시간을 초과했다면
-        if (Input.GetButtonUp("Fire1"))
+        //  if (Input.GetButtonUp("Fire1"))
+        if (Input.GetMouseButtonUp(0))
         {
             // 오브젝트 풀 이용하기
             // 1. 만약 오브젝트 풀에 게임오브젝트가 있다면
@@ -83,21 +91,24 @@ public class MapPool_YDW : MonoBehaviour
 
                 // 2. 오브젝트 풀에서 게임오브젝트 하나 가져온다.
                 GameObject obj = objPool[0];
-                if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Ground") && isunabletomake == false)
+                //모바일 경우 
+               //if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false) //____1. 모바일 경우
+                if (EventSystem.current.IsPointerOverGameObject() == false)//____2. PC 경우
                 {
-                    
-                    // 3. 게임오브젝트을 활성화한다.
-                    obj.SetActive(true);
-                    // 4.배치하고 싶다.
-                    obj.transform.position = prewviewItem.transform.position;
+                    if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Ground") && isunabletomake == false)
+                    {
+                        // 3. 게임오브젝트을 활성화한다.
+                        obj.SetActive(true);
+                        // 4.배치하고 싶다.
+                        obj.transform.position = prewviewItem.transform.position;
+
+                    }
+                    prewviewItem.SetActive(false);
+                    // 5. 오브젝트 풀에서 게임오브젝트을 제거한다.
+                    objPool.RemoveAt(0);
 
                 }
-                prewviewItem.SetActive(false);
-                // 5. 오브젝트 풀에서 게임오브젝트을 제거한다.
-                objPool.RemoveAt(0);
-
             }
-
 
         }
     }

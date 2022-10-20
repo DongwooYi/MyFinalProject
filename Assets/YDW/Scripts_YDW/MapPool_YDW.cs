@@ -2,25 +2,23 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CreatedInfo
-{
-    //만들어진 게임오브젝트
-    public GameObject go;
-    //선택된 오브젝트의 idx
-    public int idx;
-}
 public class MapPool_YDW : MonoBehaviour
 {
-    public GameObject objFactory;
-    public int objPoolSize = 10;
-    public static List<GameObject> objPool = new List<GameObject>();
-    // 생성 시간
-    public float createTime = 0.1f;
-    // 경과 시간
-    float currentTime = 0;
-    //objectList에 들어있는 애들의 이름
-    string[] objectListName;
 
+
+
+    public GameObject objFactory;
+    //오브젝트 풀의 크기
+    public int objPoolSize = 10;
+    //오브젝트 풀
+    public static List<GameObject> objPool = new List<GameObject>();
+    //프리뷰 아이템
+    public GameObject prewviewItem;
+    // 2) 마우스가 향하는 방향으로 시선 만들기
+    Ray ray;
+    RaycastHit hitInfo;
+
+    Touch touch;
     void Start()
     {
 
@@ -34,50 +32,81 @@ public class MapPool_YDW : MonoBehaviour
             // 3. 오브젝트 풀에 담고 싶다.
             objPool.Add(obj);
         }
+
     }
 
-    // Update is called once per frame
+    bool isunabletomake;
     void Update()
     {
-        // 일정 시간마다 복셀을 만들고 싶다.
-        // 1. 경과 시간이 흐른다.
-        currentTime += Time.deltaTime;
-        // 2. 경과 시간이 생성 시간을 초과했다면
-        if (Input.GetButtonDown("Fire1") && currentTime > createTime)
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Input.GetButton("Fire1"))
         {
-            // 2) 마우스가 향하는 방향으로 시선 만들기
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hitInfo = new RaycastHit();
-
+            prewviewItem.SetActive(true);
             // 2. 마우스의 위치가 바닥 위에 위치해 있다면
             if (Physics.Raycast(ray, out hitInfo))
             {
-                // 오브젝트 풀 이용하기
-                // 1. 만약 오브젝트 풀에 게임오브젝트가 있다면
-                if (objPool.Count > 0)
+                prewviewItem.transform.position = new Vector3((int)hitInfo.point.x, (int)hitInfo.point.y, (int)hitInfo.point.z);
+                // 충돌 체크용 함수
+                if (hitInfo.transform.gameObject.layer != LayerMask.NameToLayer("Ground"))
                 {
-                    // 생성했을 때만 경과 시간을 초기화해준다.
-                    currentTime = 0;
-                    // 2. 오브젝트 풀에서 게임오브젝트 하나 가져온다.
-                    GameObject obbj = objPool[0];
-                    // 3. 게임오브젝트을 활성화한다.
-                    obbj.SetActive(true);
-                    /* // 4. 복셀을 배치하고 싶다.
-                     obbj.transform.position = hitInfo.point;*/
-                    if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
-                    {
-                        obbj.transform.position = new Vector3((int)hitInfo.point.x, hitInfo.point.y + 0.5f, (int)hitInfo.point.z);
-
-
-                    }
-                    // 5. 오브젝트 풀에서 게임오브젝트을 제거한다.
-                    objPool.RemoveAt(0);
-
+                    isunabletomake = true;
+                    prewviewItem.GetComponentInChildren<Renderer>().material.color = Color.red;
+                }
+                else
+                {
+                    isunabletomake = false;
+                    prewviewItem.GetComponentInChildren<Renderer>().material.color = Color.green;
                 }
             }
         }
+        else if (Input.GetButtonDown("Fire2"))
+        {
+            if (Physics.Raycast(ray, out hitInfo))
+            {
+                if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Object"))
+                {
+                    // 오브젝트 비활성화
+                    DestroyImmediate(hitInfo.transform.gameObject);
+
+                }
+
+            }
+        }
+
+        // 경과 시간이 생성 시간을 초과했다면
+        if (Input.GetButtonUp("Fire1"))
+        {
+            // 오브젝트 풀 이용하기
+            // 1. 만약 오브젝트 풀에 게임오브젝트가 있다면
+            if (objPool.Count > 0)
+            {
+
+                if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Ground") && isunabletomake == false)
+                {
+                // 2. 오브젝트 풀에서 게임오브젝트 하나 가져온다.
+                GameObject obj = objPool[0];
+                    
+                    // 3. 게임오브젝트을 활성화한다.
+                    obj.SetActive(true);
+                    // 4.배치하고 싶다.
+                    obj.transform.position = prewviewItem.transform.position;
+
+                }
+                prewviewItem.SetActive(false);
+                // 5. 오브젝트 풀에서 게임오브젝트을 제거한다.
+                objPool.RemoveAt(0);
+
+            }
+
+
+        }
     }
 
+
+    public void OnClickRemove()
+    {
+
+    }
 
 }
 

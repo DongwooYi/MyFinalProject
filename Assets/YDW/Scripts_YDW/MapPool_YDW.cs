@@ -81,10 +81,10 @@ public class MapPool_YDW : MonoBehaviour
             if (objPool.Count > 0)
             {
 
-                if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Ground") && isunabletomake == false)
-                {
                 // 2. 오브젝트 풀에서 게임오브젝트 하나 가져온다.
                 GameObject obj = objPool[0];
+                if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Ground") && isunabletomake == false)
+                {
                     
                     // 3. 게임오브젝트을 활성화한다.
                     obj.SetActive(true);

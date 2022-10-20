@@ -14,7 +14,10 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/CSB/CSB_Scenes/CSB_Player.unity
     guid: 326c7d26d9693e344ae244ca6f3ba5e6
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CombineScene.unity
     guid: ca830bd9b61a8854dbdddfdb9c438261
+  - enabled: 1
+    path: Assets/CSB/CSB_Scenes/CSB_CombineScene.unity
+    guid: 170b3fc54a375e048b1c30b3984ac426
   m_configObjects: {}

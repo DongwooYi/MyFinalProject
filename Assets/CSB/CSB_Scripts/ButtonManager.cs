@@ -144,7 +144,6 @@ public class ButtonManager : MonoBehaviour
     public void HoldReward()
     {
         // 제거하는 리워드 이름
-        string rewardName = rewardList[btnIndex].name;
         int rewardIndex = itmeList.IndexOf(rewardList[btnIndex]);   // 2D 리워드 의 인덱스 찾기
         print(rewardName);
 
@@ -162,7 +161,7 @@ public class ButtonManager : MonoBehaviour
         
 
     }
-
+    string rewardName;
     // 눌린 버튼 인덱스
     private int btnIndex;
     public void ButtonDown()
@@ -174,6 +173,7 @@ public class ButtonManager : MonoBehaviour
         // slot 의 인덱스 받기
         btnIndex = GameObject.Find("Content").transform.FindChild(btnName).GetSiblingIndex();
         print(btnIndex);
+        rewardName = rewardList[btnIndex].name;
     }
 
     public void ButtonUp()

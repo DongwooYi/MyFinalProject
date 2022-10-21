@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 145163861038114805}
   - component: {fileID: 8516084579158179974}
   - component: {fileID: 7401019304573594100}
+  - component: {fileID: -2671473999067332560}
   m_Layer: 0
   m_Name: Reward_1
   m_TagString: Untagged
@@ -97,3 +98,15 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &-2671473999067332560
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360592445062101676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: eb4be0f33e30db14bb06a23403902046, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

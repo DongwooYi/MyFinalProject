@@ -22,7 +22,7 @@ public class ButtonManager : MonoBehaviour
     public GameObject rewardPanel;
     public bool isPass = false;
 
-    public List<Item> itmeList = new List<Item>();   // 인벤토리에 넣을 아이템 리스트
+    public List<Item> itmeList = new List<Item>();   // 2D 리워드 리스트
     public List<Item> rewardList = new List<Item>();   // 받은 리워드 인벤토리에 넣는 아이템 리스트
 
     InventoryManager inventoryManager;  // InventoryManager 가져오기 
@@ -49,6 +49,12 @@ public class ButtonManager : MonoBehaviour
 
     private void Update()
     {
+        // 리워드 3D 공장
+/*        for(int i = 0; i < reward3DFactory.Length; i++)
+        {
+            //reward3DFactory[i] = 
+        }*/
+
         if (isClick)
         {
             clickTime += Time.deltaTime;
@@ -134,9 +140,14 @@ public class ButtonManager : MonoBehaviour
     // 만약 배치가 되지 않으면 인벤토리 창에 다시 넣음 & 인벤토리 창 열기
     // 만약 배치가 되었다면 인벤토리 창 열기
 
-    public List<GameObject> rewardFactory;
+    public GameObject[] reward3DFactory = new GameObject[4];   // 3D 리워드 펙토리
     public void HoldReward()
     {
+        // 제거하는 리워드 이름
+        string rewardName = rewardList[btnIndex].name;
+        int rewardIndex = itmeList.IndexOf(rewardList[btnIndex]);   // 2D 리워드 의 인덱스 찾기
+        print(rewardName);
+
         // 인벤토리에서 리워드 제거(slot 의 index 받아서)
         rewardList.RemoveAt(btnIndex);
         // 인벤토리 창 끄기
@@ -144,7 +155,7 @@ public class ButtonManager : MonoBehaviour
         isInventory = false;
 
         // 오브젝트(리워드) 3D 생성
-        // 
+        GameObject reward = Instantiate(reward3DFactory[rewardIndex]);
 
         // 만약 Ground 를 터치했다면
 

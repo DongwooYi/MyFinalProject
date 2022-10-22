@@ -354,6 +354,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff75d55d106166f429652d2929414a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instance: {fileID: 0}
   inventoryPanel: {fileID: 666765834}
   certificatePanel: {fileID: 1987585913}
   isCertificate: 0
@@ -365,6 +366,13 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2260e7135b5d5154f8d8b2119c108160, type: 2}
   - {fileID: 11400000, guid: 847f4591e807e3845b0e046180441b86, type: 2}
   rewardList: []
+  minClickTime: 2
+  isClick: 0
+  reward3DFactory:
+  - {fileID: 1360592445062101676, guid: 0456359b71cfa234298d4e2365af8437, type: 3}
+  - {fileID: 1360592445062101676, guid: 4b72ddbc115251843ae6823c830e256c, type: 3}
+  - {fileID: 1360592445062101676, guid: 8b053aa8b30207540836d95ad51eaa7f, type: 3}
+  - {fileID: 1360592445062101676, guid: 5cad4b4975f9a064d8b9c778496a75ce, type: 3}
 --- !u!1 &141514359
 GameObject:
   m_ObjectHideFlags: 0

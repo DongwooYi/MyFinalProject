@@ -8,6 +8,7 @@ using UnityEngine.EventSystems;
 // UI ���� ��ư�� ����
 public class ButtonManager : MonoBehaviour
 {
+    public ButtonManager instance;
     /* �κ��丮 ���� */
     public GameObject inventoryPanel;
 
@@ -30,9 +31,13 @@ public class ButtonManager : MonoBehaviour
     /* ������ ������ ���� */
     public float minClickTime = 2f; // �ּ� Ŭ�� �ð�
 
-    private float clickTime;    // Ŭ�� �� �ð�
+    public float clickTime;    // Ŭ�� �� �ð�
     public bool isClick;   // Ŭ�� �� �Ǵ�
 
+    private void Awake()
+    {
+        instance = this;
+    }
 
     void Start()
     {
@@ -89,6 +94,7 @@ public class ButtonManager : MonoBehaviour
         if (isCertificate)    // ���� ���� â�� ���� �ִٸ�
         {
             certificatePanel.SetActive(false);
+            rewardPanel.SetActive(false);
             isCertificate = false;
         }
         else
@@ -139,7 +145,7 @@ public class ButtonManager : MonoBehaviour
     // (���� �ð� ���� ������ �κ��丮���� ������Ʈ ���� & �κ��丮 â ����)
     // ���� ��ġ�� ���� ������ �κ��丮 â�� �ٽ� ���� & �κ��丮 â ����
     // ���� ��ġ�� �Ǿ��ٸ� �κ��丮 â ����
-
+    PlaceableObject objectToPlace;
     public GameObject[] reward3DFactory = new GameObject[4];   // 3D ������ ���丮
     public void HoldReward()
     {
@@ -155,15 +161,11 @@ public class ButtonManager : MonoBehaviour
 
         // ������Ʈ(������) 3D ����
         GameObject reward = Instantiate(reward3DFactory[rewardIndex]);
-
-        // ���� Ground �� ��ġ�ߴٸ�
-
-        
-
+       
     }
     string rewardName;
     // ���� ��ư �ε���
-    private int btnIndex;
+    public int btnIndex;
     public void ButtonDown()
     {
         isClick = true;
@@ -181,8 +183,23 @@ public class ButtonManager : MonoBehaviour
         isClick = false;
 
         if(clickTime >= minClickTime)
-        {
+        {            
             HoldReward();
+        }
+    }
+
+    public static Vector3 GetMouseWorldPosition()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        {
+          //  new Vector3((int)hitInfo.point.x, (int)hitInfo.point.y, (int)hitInfo.point.z);
+                print(hitInfo.collider.name);
+                return hitInfo.point;
+        }
+        else
+        {
+            return Vector3.zero;
         }
     }
 }

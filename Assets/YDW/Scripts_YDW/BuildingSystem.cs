@@ -14,7 +14,7 @@ public class BuildingSystem : MonoBehaviour
         Green,
         Red
     }
-
+    ButtonManager buttonManager;
     public static BuildingSystem instance;
     public GridLayout gridLayout;
     Grid grid;
@@ -148,6 +148,8 @@ public class BuildingSystem : MonoBehaviour
     #region 건물 건축
     public void InstantiatewithObject(GameObject prefab)
     {
+        int rewardIndex =buttonManager.itmeList.IndexOf(buttonManager.rewardList[buttonManager.btnIndex]);
+        prefab = buttonManager.reward3DFactory[rewardIndex];
         Vector3 position = SnapCoordinatetoGrid(Vector3.zero);
         //objectToPlace = Instantiate(prefab, Vector3.zero, Quaternion.identity);
         GameObject obj = Instantiate(prefab, position, Quaternion.identity);
@@ -157,7 +159,7 @@ public class BuildingSystem : MonoBehaviour
         
     }
 
-    bool canBePlaced(PlaceableObject placeableObject)
+  public  bool canBePlaced(PlaceableObject placeableObject)
     {
         BoundsInt area = new BoundsInt();
         area.position = gridLayout.WorldToCell(objectToPlace.getStartPosition());

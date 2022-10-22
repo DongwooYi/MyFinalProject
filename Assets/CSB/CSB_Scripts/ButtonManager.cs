@@ -5,33 +5,33 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
 
-// UI »óÀÇ ¹öÆ°µé °ü¸®
+// UI ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 public class ButtonManager : MonoBehaviour
 {
-    /* ÀÎº¥Åä¸® °ü·Ã */
+    /* ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½ï¿½ï¿½ */
     public GameObject inventoryPanel;
 
     private bool isInventory;
 
-    /* ÀÎÁõ °ü·Ã */
+    /* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
     public GameObject certificatePanel;
 
     public bool isCertificate;
 
-    /* ÀÎÁõ È®ÀÎ & ¸®¿öµå °ü·Ã */
+    /* ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ & ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
     public GameObject rewardPanel;
     public bool isPass = false;
 
-    public List<Item> itmeList = new List<Item>();   // 2D ¸®¿öµå ¸®½ºÆ®
-    public List<Item> rewardList = new List<Item>();   // ¹ÞÀº ¸®¿öµå ÀÎº¥Åä¸®¿¡ ³Ö´Â ¾ÆÀÌÅÛ ¸®½ºÆ®
+    public List<Item> itmeList = new List<Item>();   // 2D ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
+    public List<Item> rewardList = new List<Item>();   // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½Ö´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 
-    InventoryManager inventoryManager;  // InventoryManager °¡Á®¿À±â 
+    InventoryManager inventoryManager;  // InventoryManager ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 
-    /* ¸®¿öµå ²¨³»±â °ü·Ã */
-    public float minClickTime = 2f; // ÃÖ¼Ò Å¬¸¯ ½Ã°£
+    /* ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
+    public float minClickTime = 2f; // ï¿½Ö¼ï¿½ Å¬ï¿½ï¿½ ï¿½Ã°ï¿½
 
-    private float clickTime;    // Å¬¸¯ Áß ½Ã°£
-    public bool isClick;   // Å¬¸¯ Áß ÆÇ´Ü
+    private float clickTime;    // Å¬ï¿½ï¿½ ï¿½ï¿½ ï¿½Ã°ï¿½
+    public bool isClick;   // Å¬ï¿½ï¿½ ï¿½ï¿½ ï¿½Ç´ï¿½
 
 
     void Start()
@@ -49,7 +49,7 @@ public class ButtonManager : MonoBehaviour
 
     private void Update()
     {
-        // ¸®¿öµå 3D °øÀå
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 3D ï¿½ï¿½ï¿½ï¿½
 /*        for(int i = 0; i < reward3DFactory.Length; i++)
         {
             //reward3DFactory[i] = 
@@ -66,11 +66,11 @@ public class ButtonManager : MonoBehaviour
     }
 
 
-    // ÀÎº¥Åä¸® ¹öÆ°
-    // ¸¸¾à ÀÎº¥Åä¸® ¹öÆ°À» Å¬¸¯ÇÏ¸é isInventory = true
+    // ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½Æ°
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸® ï¿½ï¿½Æ°ï¿½ï¿½ Å¬ï¿½ï¿½ï¿½Ï¸ï¿½ isInventory = true
     public void InventoryButtonManager()
     {
-        if (isInventory)    // ¸¸¾à ÀÎº¥Åä¸® Ã¢ÀÌ ¿­·Á ÀÖ´Ù¸é
+        if (isInventory)    // ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸® Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½
         {
             inventoryPanel.SetActive(false);
             isInventory = false;
@@ -83,10 +83,10 @@ public class ButtonManager : MonoBehaviour
     }
 
 
-    // ÀÎÁõ ¹öÆ°
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
     public void CertificateButton()
     {
-        if (isCertificate)    // ¸¸¾à ÀÎÁõ Ã¢ÀÌ ¿­·Á ÀÖ´Ù¸é
+        if (isCertificate)    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã¢ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ö´Ù¸ï¿½
         {
             certificatePanel.SetActive(false);
             isCertificate = false;
@@ -98,34 +98,34 @@ public class ButtonManager : MonoBehaviour
         }
     }
 
-    // ÀÎÁõ È®ÀÎ Test (Pass ¹öÆ° ´©¸£¸é pass, NonPass ¹öÆ° ´©¸£¸é non pass)
+    // ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½ Test (Pass ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ pass, NonPass ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ non pass)
     public void CheckPass()
     {
         isPass = true;
 
         if (isPass)
         {
-            // ¸®¿öµå È¹µæ ÆË¾÷ true ·Î & ÀÎº¥Åä¸®¿¡ ³Ö±â
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È¹ï¿½ï¿½ ï¿½Ë¾ï¿½ true ï¿½ï¿½ & ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½Ö±ï¿½
             rewardPanel.SetActive(true);
 
-            // ·£´ýÀ¸·Î ¸®¿öµå Á¦°ø
-            int selection = Random.Range(0, itmeList.Count);  // ³­¼ö
-            Item reward = itmeList[selection];    // ¸®¿öµå Á¦°ø
+            // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+            int selection = Random.Range(0, itmeList.Count);  // ï¿½ï¿½ï¿½ï¿½
+            Item reward = itmeList[selection];    // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
 
-            // ÀÎº¥Åä¸®¿¡ ¸®¿öµå Ãß°¡
-            // InventoryManager.cs ÀÇ items ¸®½ºÆ®¿¡ Ãß°¡
-            rewardList.Add(reward); // ÀÌ°É InventoryManager ¿¡¼­ °ü¸®
+            // ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
+            // InventoryManager.cs ï¿½ï¿½ items ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½ß°ï¿½
+            rewardList.Add(reward); // ï¿½Ì°ï¿½ InventoryManager ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
             //inventoryManager.items.Add(reward);
 
-            // ÀÎº¥Åä¸® slot ¿¡ ¸®¿öµå ÀÌ¹ÌÁö·Î Ãß°¡
+            // ï¿½Îºï¿½ï¿½ä¸® slot ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ß°ï¿½
 
 
-            print("¸®¿öµå ¹ÞÀ½");
+            print("ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
             isPass = false;
         }
 
-        // isPass ¸¦ false ·Î
+        // isPass ï¿½ï¿½ false ï¿½ï¿½
 
     }
 
@@ -135,43 +135,43 @@ public class ButtonManager : MonoBehaviour
     }
 
     // ==========================================================================================================
-    // <<<<ÀÎº¥Åä¸®¿¡¼­ ¿ÀºêÁ§Æ® ²¨³»±â °ü·Ã>>>>
-    // (ÀÏÁ¤ ½Ã°£ µ¿¾È ´©¸£¸é ÀÎº¥Åä¸®¿¡¼­ ¿ÀºêÁ§Æ® Á¦°Å & ÀÎº¥Åä¸® Ã¢ ²ô±â)
-    // ¸¸¾à ¹èÄ¡°¡ µÇÁö ¾ÊÀ¸¸é ÀÎº¥Åä¸® Ã¢¿¡ ´Ù½Ã ³ÖÀ½ & ÀÎº¥Åä¸® Ã¢ ¿­±â
-    // ¸¸¾à ¹èÄ¡°¡ µÇ¾ú´Ù¸é ÀÎº¥Åä¸® Ã¢ ¿­±â
+    // <<<<ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½>>>>
+    // (ï¿½ï¿½ï¿½ï¿½ ï¿½Ã°ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ï¿½ï¿½ & ï¿½Îºï¿½ï¿½ä¸® Ã¢ ï¿½ï¿½ï¿½ï¿½)
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Îºï¿½ï¿½ä¸® Ã¢ï¿½ï¿½ ï¿½Ù½ï¿½ ï¿½ï¿½ï¿½ï¿½ & ï¿½Îºï¿½ï¿½ä¸® Ã¢ ï¿½ï¿½ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ï¿½ ï¿½Ç¾ï¿½ï¿½Ù¸ï¿½ ï¿½Îºï¿½ï¿½ä¸® Ã¢ ï¿½ï¿½ï¿½ï¿½
 
-    public GameObject[] reward3DFactory = new GameObject[4];   // 3D ¸®¿öµå ÆåÅä¸®
+    public GameObject[] reward3DFactory = new GameObject[4];   // 3D ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ä¸®
     public void HoldReward()
     {
-        // Á¦°ÅÇÏ´Â ¸®¿öµå ÀÌ¸§
-        int rewardIndex = itmeList.IndexOf(rewardList[btnIndex]);   // 2D ¸®¿öµå ÀÇ ÀÎµ¦½º Ã£±â
+        // ï¿½ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+        int rewardIndex = itmeList.IndexOf(rewardList[btnIndex]);   // 2D ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ Ã£ï¿½ï¿½
         print(rewardName);
 
-        // ÀÎº¥Åä¸®¿¡¼­ ¸®¿öµå Á¦°Å(slot ÀÇ index ¹Þ¾Æ¼­)
+        // ï¿½Îºï¿½ï¿½ä¸®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(slot ï¿½ï¿½ index ï¿½Þ¾Æ¼ï¿½)
         rewardList.RemoveAt(btnIndex);
-        // ÀÎº¥Åä¸® Ã¢ ²ô±â
+        // ï¿½Îºï¿½ï¿½ä¸® Ã¢ ï¿½ï¿½ï¿½ï¿½
         inventoryPanel.SetActive(false);
         isInventory = false;
 
-        // ¿ÀºêÁ§Æ®(¸®¿öµå) 3D »ý¼º
+        // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®(ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½) 3D ï¿½ï¿½ï¿½ï¿½
         GameObject reward = Instantiate(reward3DFactory[rewardIndex]);
 
-        // ¸¸¾à Ground ¸¦ ÅÍÄ¡Çß´Ù¸é
+        // ï¿½ï¿½ï¿½ï¿½ Ground ï¿½ï¿½ ï¿½ï¿½Ä¡ï¿½ß´Ù¸ï¿½
 
         
 
     }
     string rewardName;
-    // ´­¸° ¹öÆ° ÀÎµ¦½º
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ° ï¿½Îµï¿½ï¿½ï¿½
     private int btnIndex;
     public void ButtonDown()
     {
         isClick = true;
-        print(EventSystem.current.currentSelectedGameObject.name);  // ÇöÀç ´­¸° ¹öÆ°ÀÇ ÀÌ¸§
+        print(EventSystem.current.currentSelectedGameObject.name);  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½Ì¸ï¿½
         string btnName = EventSystem.current.currentSelectedGameObject.name;
 
-        // slot ÀÇ ÀÎµ¦½º ¹Þ±â
-        btnIndex = GameObject.Find("Content").transform.FindChild(btnName).GetSiblingIndex();
+        // slot ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½Þ±ï¿½
+        btnIndex = GameObject.Find("Content").transform.Find(btnName).GetSiblingIndex();
         print(btnIndex);
         rewardName = rewardList[btnIndex].name;
     }

@@ -5,14 +5,14 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
-// ¹öÆ°(Ä³¸¯ÅÍ)À» ¼±ÅÃÇÏ¸é ¼±ÅÃµÇÁö ¾ÊÀº Ä³¸¯ÅÍµé Èå¸´ÇØÁü
-// È®ÀÎÀ» ´­·¯¾ß ¸¶ÀÌ Ä³¸¯ÅÍ°¡ º¯ÇÔ
-// Ãë¼Ò ¹öÆ°ÀÌ³ª X ´©¸£¸é ÀúÀåµÇÁö ¾Ê°í °Á ³ª°¨
+// ï¿½ï¿½Æ°(Ä³ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Íµï¿½ ï¿½å¸´ï¿½ï¿½ï¿½ï¿½
+// È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½Ì³ï¿½ X ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-// Content ÀÇ ÀÚ½ÄµéÀÌ Ä³¸¯ÅÍ Á¾·ù¿¡ ÇØ´ç
+// Content ï¿½ï¿½ ï¿½Ú½Äµï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½
 public class MyProfileManager : MonoBehaviour
 {
-    public enum Character   // Ä³¸¯ÅÍ Á¾·ù
+    public enum Character   // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     {
         Character_1,
         Character_2,
@@ -29,12 +29,12 @@ public class MyProfileManager : MonoBehaviour
 
     private List<Button> characterList;
 
-    // Run ÇÏÁö ¾Ê¾Æµµ ¿¡µðÅÍ »ó¿¡¼­ ½ÇÇàÀÌ µÈ´Ù°í ÇÔ..
+    // Run ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Æµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ó¿¡¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È´Ù°ï¿½ ï¿½ï¿½..
     private void OnValidate()
     {
-        characterArr = content.GetComponentsInChildren<Button>();  // Ä³¸¯ÅÍ ¸®½ºÆ® ¹öÆ° ÀúÀå
+        characterArr = content.GetComponentsInChildren<Button>();  // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½
         //characterList = characterArr.ToList();
-        characterList = new List<Button>(characterArr); // ¹è¿­À» ¸®½ºÆ®·Î 
+        characterList = new List<Button>(characterArr); // ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ 
     }
 
 
@@ -51,37 +51,37 @@ public class MyProfileManager : MonoBehaviour
         }
     }
 
-    // °¢ ¹öÆ°µé ÀÔÀå¿¡¼­ "´Ù¸¥ ¾Öµé ¾îµÓ°Ô ¸¸µé¾î¾ßÁö"
-    // È®ÀÎ(ÀúÀå) ¹öÆ° ´©¸£¸é, Ä³¸¯ÅÍ Ã¼ÀÎÁö
-    // ÇöÀç ³ªÀÇ Ä³¸¯ÅÍ´Â ¹à°Ô
+    // ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½å¿¡ï¿½ï¿½ "ï¿½Ù¸ï¿½ ï¿½Öµï¿½ ï¿½ï¿½Ó°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"
+    // È®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Ä³ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½
 
     public void SelectedCharacter()
     {
-        // ³ªÀÇ ÀÌ¸§
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
         string myName = EventSystem.current.currentSelectedGameObject.name;
 
-        // ³ªÀÇ ÀÎµ¦½º ¹Þ¾Æ¿À±â
-        int myIndex = GameObject.Find("Content").transform.FindChild(myName).GetSiblingIndex();
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
+        int myIndex = GameObject.Find("Content").transform.Find(myName).GetSiblingIndex();
 
-        // ´Ù¸¥ ¹öÆ°µé ¾îµÓ°Ô ¸¸µé±â
+        // ï¿½Ù¸ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½Ó°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
         for(int i = 0; i < characterList.Count; i++)
         {
-            // ´Ù¸¥ ¾ÖµéÀÇ ÀÌ¹ÌÁöÀÇ ¾ËÆÄ°ª 90
+            // ï¿½Ù¸ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä°ï¿½ 90
             characterList[i].image.color = new Color(1, 1, 1, 0.5f);
             //Color color = new Color(1, 1, 1, 0.5f);
-            // ¸¸¾à ³ª ÀÚ½Å ÀÌ¶ó¸é continue
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½Ì¶ï¿½ï¿½ continue
             if (i == myIndex) characterList[i].image.color = new Color(1, 1, 1, 1);
         }
     }
 
-    // È®ÀÎ(ÀúÀå)À» ´©¸£¸é CharacterChangerPanel ÀÌ ²¨Áö°í
-    // º¯°æ ³»¿ëÀÌ ÀúÀå µÇ¾î ÀÖÀ½
+    // È®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ CharacterChangerPanel ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½
     public GameObject panel;
     public void SaveChanges()
     {
-        // º¯°æ ³»¿ë ÀúÀå
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        // panel ²ô±â
+        // panel ï¿½ï¿½ï¿½ï¿½
         panel.SetActive(false);
     }
 }

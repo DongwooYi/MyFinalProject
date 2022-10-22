@@ -29,6 +29,8 @@ public class MyProfileManager : MonoBehaviour
 
     private List<Button> characterList;
 
+    GameObject backGround;
+
     // Run 하지 않아도 에디터 상에서 실행이 된다고 함..
     private void OnValidate()
     {
@@ -40,7 +42,7 @@ public class MyProfileManager : MonoBehaviour
 
     void Start()
     {
-
+        backGround = GameObject.Find("CharacterBackground");
     }
 
     void Update()
@@ -55,13 +57,16 @@ public class MyProfileManager : MonoBehaviour
     // 확인(저장) 버튼 누르면, 캐릭터 체인지
     // 현재 나의 캐릭터는 밝게
 
+    string myName;  // 나의 이름
+    int myIndex;    // 나의 인덱스
+
     public void SelectedCharacter()
     {
         // 나의 이름
-        string myName = EventSystem.current.currentSelectedGameObject.name;
+        myName = EventSystem.current.currentSelectedGameObject.name;
 
         // 나의 인덱스 받아오기
-        int myIndex = GameObject.Find("Content").transform.FindChild(myName).GetSiblingIndex();
+        myIndex = GameObject.Find("Content").transform.FindChild(myName).GetSiblingIndex();
 
         // 다른 버튼들 어둡게 만들기
         for(int i = 0; i < characterList.Count; i++)
@@ -69,17 +74,29 @@ public class MyProfileManager : MonoBehaviour
             // 다른 애들의 이미지의 알파값 90
             characterList[i].image.color = new Color(1, 1, 1, 0.5f);
             //Color color = new Color(1, 1, 1, 0.5f);
-            // 만약 나 자신 이라면 continue
+            // 만약 나 자신 이라면
             if (i == myIndex) characterList[i].image.color = new Color(1, 1, 1, 1);
         }
     }
 
-    // 확인(저장)을 누르면 CharacterChangerPanel 이 꺼지고
+    // <<확인(저장)을 누르면>> CharacterChangerPanel 이 꺼지고
     // 변경 내용이 저장 되어 있음
     public GameObject panel;
+    
+    GameObject myCharacter;
+
     public void SaveChanges()
     {
         // 변경 내용 저장
+        // 나의 인덱스 에 해당하는 게임 오브젝트(캐릭터) 찾기
+        myCharacter = backGround.transform.GetChild(myIndex).gameObject;
+
+        for(int i = 0; i < backGround.transform.childCount; i++)
+        {
+            backGround.transform.GetChild(i).gameObject.SetActive(false);
+        }
+        //myCharacter.transform.position = backGround.transform.position;
+        myCharacter.SetActive(true);
 
         // panel 끄기
         panel.SetActive(false);

@@ -81,6 +81,7 @@ public class MyProfileManager : MonoBehaviour
     {
         // 변경 내용 저장
 
+        // panel 끄기
         panel.SetActive(false);
     }
 }

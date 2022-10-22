@@ -16,7 +16,7 @@ public class Reward3DObject : MonoBehaviour
 
     void Update()
     {
-        if (Input.touchCount > 0)   // 만약 터치가 들어오면
+        if (Input.touchCount>0)   // 만약 터치가 들어오면
         {
             // 3D 오브젝트 위치가 손가락을 따르도록
             transform.position = Input.GetTouch(0).position;

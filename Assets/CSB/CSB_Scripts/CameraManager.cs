@@ -27,15 +27,15 @@ public class CameraManager : MonoBehaviour
 
     void Update()
     {
-        if(Input.touchCount>0)
+        if (Input.touchCount > 0)
         {
             if (!EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) || !EventSystem.current.IsPointerOverGameObject(Input.GetTouch(1).fingerId))  // 만약 UI 위 아니라면
             {
                 GetTouchDragValue();
                 GetTouchZoomInOut();
-
             }
         }
+
     }
 
     // 화면 드래그(카메라 이동) 함수

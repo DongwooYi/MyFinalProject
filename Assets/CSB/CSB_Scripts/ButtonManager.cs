@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
+
 
 // UI 상의 버튼들 관리
 public class ButtonManager : MonoBehaviour
@@ -20,10 +22,17 @@ public class ButtonManager : MonoBehaviour
     public GameObject rewardPanel;
     public bool isPass = false;
 
-    public List<Item> itmeList = new List<Item>();   // 리워드 리스트
-    public List<Item> rewardList = new List<Item>();   // 리워드 리스트
+    public List<Item> itmeList = new List<Item>();   // 2D 리워드 리스트
+    public List<Item> rewardList = new List<Item>();   // 받은 리워드 인벤토리에 넣는 아이템 리스트
 
     InventoryManager inventoryManager;  // InventoryManager 가져오기 
+
+    /* 리워드 꺼내기 관련 */
+    public float minClickTime = 2f; // 최소 클릭 시간
+
+    private float clickTime;    // 클릭 중 시간
+    public bool isClick;   // 클릭 중 판단
+
 
     void Start()
     {
@@ -36,6 +45,24 @@ public class ButtonManager : MonoBehaviour
         rewardPanel.SetActive(false);
 
         inventoryManager = GetComponent<InventoryManager>();
+    }
+
+    private void Update()
+    {
+        // 리워드 3D 공장
+/*        for(int i = 0; i < reward3DFactory.Length; i++)
+        {
+            //reward3DFactory[i] = 
+        }*/
+
+        if (isClick)
+        {
+            clickTime += Time.deltaTime;
+        }
+        else
+        {
+            clickTime = 0;
+        }
     }
 
 
@@ -105,5 +132,57 @@ public class ButtonManager : MonoBehaviour
     public void CheckNonPass()
     {
         isPass = false;
+    }
+
+    // ==========================================================================================================
+    // 인벤토리에서 오브젝트 꺼내기 관련
+    // (일정 시간 동안 누르면 인벤토리에서 오브젝트 제거 & 인벤토리 창 끄기)
+    // 만약 배치가 되지 않으면 인벤토리 창에 다시 넣음 & 인벤토리 창 열기
+    // 만약 배치가 되었다면 인벤토리 창 열기
+
+    public GameObject[] reward3DFactory = new GameObject[4];   // 3D 리워드 펙토리
+    public void HoldReward()
+    {
+        // 제거하는 리워드 이름
+        int rewardIndex = itmeList.IndexOf(rewardList[btnIndex]);   // 2D 리워드 의 인덱스 찾기
+        print(rewardName);
+
+        // 인벤토리에서 리워드 제거(slot 의 index 받아서)
+        rewardList.RemoveAt(btnIndex);
+        // 인벤토리 창 끄기
+        inventoryPanel.SetActive(false);
+        isInventory = false;
+
+        // 오브젝트(리워드) 3D 생성
+        GameObject reward = Instantiate(reward3DFactory[rewardIndex]);
+
+        // 만약 Ground 를 터치했다면
+
+        
+
+    }
+    string rewardName;
+    // 눌린 버튼 인덱스
+    private int btnIndex;
+    public void ButtonDown()
+    {
+        isClick = true;
+        print(EventSystem.current.currentSelectedGameObject.name);  // 현재 눌린 버튼의 이름
+        string btnName = EventSystem.current.currentSelectedGameObject.name;
+
+        // slot 의 인덱스 받기
+        btnIndex = GameObject.Find("Content").transform.FindChild(btnName).GetSiblingIndex();
+        print(btnIndex);
+        rewardName = rewardList[btnIndex].name;
+    }
+
+    public void ButtonUp()
+    {
+        isClick = false;
+
+        if(clickTime >= minClickTime)
+        {
+            HoldReward();
+        }
     }
 }

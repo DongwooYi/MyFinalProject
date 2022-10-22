@@ -642,7 +642,7 @@ MonoBehaviour:
   - {fileID: 1652265217}
   - {fileID: 744354477}
   - {fileID: 1806323021}
-  panel: {fileID: 0}
+  panel: {fileID: 892724632}
 --- !u!1 &744354475
 GameObject:
   m_ObjectHideFlags: 0

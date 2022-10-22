@@ -7,9 +7,13 @@ using UnityEngine;
 public class CharacterController : MonoBehaviour
 {
     public float speed = 5f;
+
+    private void Awake()
+    {
+        DontDestroyOnLoad(gameObject);
+    }
     void Start()
     {
-        
     }
 
     void Update()

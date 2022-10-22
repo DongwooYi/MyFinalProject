@@ -77,8 +77,6 @@ public class MyProfileManager : MonoBehaviour
             // 만약 나 자신 이라면
             if (i == myIndex) characterList[i].image.color = new Color(1, 1, 1, 1);
         }
-
-
     }
 
     // <<확인(저장)을 누르면>> CharacterChangerPanel 이 꺼지고

@@ -43,7 +43,7 @@ public class MyProfileManager : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.Find("CharacterBackground");
+        player = GameObject.Find("Player");
 
         for (int i = 0; i < characterList.Count; i++)
         {

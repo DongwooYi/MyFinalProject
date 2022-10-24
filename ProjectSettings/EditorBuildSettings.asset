@@ -8,7 +8,16 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/CombineScene.unity
     guid: ca830bd9b61a8854dbdddfdb9c438261
-  - enabled: 1
+  - enabled: 0
     path: Assets/YDW/Scenes_YDW/CameraScene_YDW.unity
     guid: 1230b0ff34a030246acb5e4ca0a709f8
+  - enabled: 0
+    path: Assets/CSB/CSB_Scenes/CSB_Login.unity
+    guid: 37a7c8ab15d402748aea69d6ea3cc7d2
+  - enabled: 1
+    path: Assets/CSB/CSB_Scenes/CSB_MyProfile.unity
+    guid: 950a39d8b73024a418ca110902b1c1d6
+  - enabled: 1
+    path: Assets/CSB/CSB_Scenes/CSB_YDW_Combine.unity
+    guid: 7a2e8a13cc4776b4a9bd1ad0fd0da5f9
   m_configObjects: {}

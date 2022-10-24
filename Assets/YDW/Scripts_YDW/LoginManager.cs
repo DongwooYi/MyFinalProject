@@ -6,9 +6,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using Newtonsoft.Json.Linq;
 
-public class LoginManager : MonoBehaviour
-{
-    public class Loginmanger : MonoBehaviour
+  public class LoginManager : MonoBehaviour
     {
         public InputField id;
         public InputField pw;
@@ -62,4 +60,4 @@ public class LoginManager : MonoBehaviour
 
         }
     }
-}
+

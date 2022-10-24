@@ -148,8 +148,10 @@ public class BuildingSystem : MonoBehaviour
     #region 건물 건축
     public void InstantiatewithObject(GameObject prefab)
     {
-       
+        int rewardIndex =buttonManager.itmeList.IndexOf(buttonManager.rewardList[buttonManager.btnIndex]);
+        prefab = buttonManager.reward3DFactory[rewardIndex];
         Vector3 position = SnapCoordinatetoGrid(Vector3.zero);
+        //objectToPlace = Instantiate(prefab, Vector3.zero, Quaternion.identity);
         GameObject obj = Instantiate(prefab, position, Quaternion.identity);
         obj.transform.parent = parentsPrefabs.transform;
         objectToPlace = obj.GetComponent<PlaceableObject>();

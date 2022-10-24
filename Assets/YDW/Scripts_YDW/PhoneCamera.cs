@@ -48,10 +48,11 @@ public class PhoneCamera : MonoBehaviour
         }
         float ratio = (float)backCam.width / (float)backCam.height;
         fit.aspectRatio = ratio;
-        float scaleY = backCam.videoVerticallyMirrored ? -10f : 10f;
-        background.rectTransform.localScale = new Vector3(10f, scaleY, 10f);
+        float scaleY = backCam.videoVerticallyMirrored ? -3f : 3f;
+        background.rectTransform.localScale = new Vector3(3f, scaleY, 3f);
         int orient = -backCam.videoRotationAngle;
         background.rectTransform.localEulerAngles = new Vector3(0, 0, orient);
+    
     }
 
     public void CameraOn()
@@ -82,29 +83,38 @@ public class PhoneCamera : MonoBehaviour
         cameraAvailable = true;
     }
     
-    public void CameraOff()
+    public void TakeaShot()
     {
         StartCoroutine(TakeSnap());
+
+    }
+    public void CameraOff()
+    {
+        StopAllCoroutines();
         backCam.Stop();
         cameraAvailable = false;
+       
         
     }
     IEnumerator TakeSnap()
     {
-        //print("111111111111");
+        
         yield return new WaitForEndOfFrame();
+        GetComponent<Renderer>().material.mainTexture = backCam;
         int width = backCam.width;
         int height = backCam.height;
         Texture2D snap = new Texture2D(width, height, TextureFormat.RGB24,false);
 
         // 스크린 샷 정보를 텍스쳐 형식으로 
-        snap.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+        //snap.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+        snap.SetPixels(backCam.GetPixels());
         snap.Apply();
-        //snap.SetPixels(backCam.GetPixels());
-        
-        byte[] bytes = snap.EncodeToPNG();
-        Object.Destroy(snap);
+
+        //byte[] bytes = GetComponent<Renderer>().material.mainTexture.
+         byte[] bytes = snap.EncodeToPNG();
+
         // 테스트용
-         File.WriteAllBytes(Application.dataPath + "/../SavedScreen.png", bytes);
+        File.WriteAllBytes(Application.dataPath + "../SavedScreen.png", bytes);
+        //Object.Destroy(snap);
     }
 }

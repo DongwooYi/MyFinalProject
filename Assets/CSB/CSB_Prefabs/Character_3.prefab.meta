@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/YDW/Materials_YDW/Materials/New Palette.prefab.meta
+guid: 17388d6effbbd374fba0f408ed1a9916
+========
 guid: 6c16e2d0840ea7e46a9ac5c81bbec105
+>>>>>>>> main:Assets/CSB/CSB_Prefabs/Character_3.prefab.meta
 PrefabImporter:
   externalObjects: {}
   userData: 

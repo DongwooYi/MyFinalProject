@@ -5,12 +5,12 @@ using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using UnityEngine.EventSystems;
 
-// ¹öÆ°(Ä³¸¯ÅÍ)À» ¼±ÅÃÇÏ¸é ¼±ÅÃµÇÁö ¾ÊÀº Ä³¸¯ÅÍµé Èå¸´ÇØÁü
-// È®ÀÎÀ» ´­·¯¾ß ¸¶ÀÌ Ä³¸¯ÅÍ°¡ º¯ÇÔ
-// Ãë¼Ò ¹öÆ°ÀÌ³ª X ´©¸£¸é ÀúÀåµÇÁö ¾Ê°í °Á ³ª°¨
-// Content ÀÇ ÀÚ½ÄµéÀÌ Ä³¸¯ÅÍ Á¾·ù¿¡ ÇØ´ç
+// ï¿½ï¿½Æ°(Ä³ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ ï¿½ï¿½ï¿½Ãµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Íµï¿½ ï¿½å¸´ï¿½ï¿½ï¿½ï¿½
+// È®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í°ï¿½ ï¿½ï¿½ï¿½ï¿½
+// ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½Ì³ï¿½ X ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+// Content ï¿½ï¿½ ï¿½Ú½Äµï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½
 
-//========= <<< Ãë¼Ò ¹ö±× >>> ±×Áö °°Áö Àâ¾ÒÀ½.. µðº§·Ó ÇØ ¼öºó¾Æ ==============
+//========= <<< ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ >>> ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½.. ï¿½ðº§·ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ==============
 public class MyProfileManager : MonoBehaviour
 {
     public GameObject panel;
@@ -27,17 +27,17 @@ public class MyProfileManager : MonoBehaviour
     private GameObject player;
     private GameObject myCharacter;
 
-    private string prevMyName;  // ÀÌÀü ³ªÀÇ ÀÌ¸§
-    private string currMyName;  // ¼±ÅÃµÈ ³ªÀÇ ÀÌ¸§
-    private int prevMyIndex = 0;    // ÀÌÀü ³ªÀÇ ÀÎµ¦½º (ÀÏ´ÜÀº 0 ¹øÀ¸·Î)
-    private int currMyIndex = 0;    // ¼±ÅÃµÈ ³ªÀÇ ÀÎµ¦½º
+    private string prevMyName;  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+    private string currMyName;  // ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
+    private int prevMyIndex = 0;    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ (ï¿½Ï´ï¿½ï¿½ï¿½ 0 ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½)
+    private int currMyIndex = 0;    // ï¿½ï¿½ï¿½Ãµï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½
 
-    // Run ÇÏÁö ¾Ê¾Æµµ ¿¡µðÅÍ »ó¿¡¼­ ½ÇÇàÀÌ µÈ´Ù°í ÇÔ..
+    // Run ï¿½ï¿½ï¿½ï¿½ ï¿½Ê¾Æµï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ó¿¡¼ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½È´Ù°ï¿½ ï¿½ï¿½..
     private void OnValidate()
     {
-        characterArr = content.GetComponentsInChildren<Button>();  // Ä³¸¯ÅÍ ¸®½ºÆ® ¹öÆ° ÀúÀå
+        characterArr = content.GetComponentsInChildren<Button>();  // Ä³ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½
         //characterList = characterArr.ToList();
-        characterList = new List<Button>(characterArr); // ¹è¿­À» ¸®½ºÆ®·Î 
+        characterList = new List<Button>(characterArr); // ï¿½è¿­ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ 
     }
 
 
@@ -47,10 +47,10 @@ public class MyProfileManager : MonoBehaviour
 
         for (int i = 0; i < characterList.Count; i++)
         {
-            // ´Ù¸¥ ¾ÖµéÀÇ ÀÌ¹ÌÁöÀÇ ¾ËÆÄ°ª 90
+            // ï¿½Ù¸ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä°ï¿½ 90
             characterList[i].image.color = new Color(1, 1, 1, 0.5f);
             //Color color = new Color(1, 1, 1, 0.5f);
-            // ¸¸¾à ³ª ÀÚ½Å ÀÌ¶ó¸é
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½Ì¶ï¿½ï¿½
             if (i == currMyIndex) characterList[i].image.color = new Color(1, 1, 1, 1);
         }
     }
@@ -70,37 +70,37 @@ public class MyProfileManager : MonoBehaviour
 
 
 
-    // °¢ ¹öÆ°µé ÀÔÀå¿¡¼­ "´Ù¸¥ ¾Öµé ¾îµÓ°Ô ¸¸µé¾î¾ßÁö"
-    // È®ÀÎ(ÀúÀå) ¹öÆ° ´©¸£¸é, Ä³¸¯ÅÍ Ã¼ÀÎÁö
-    // ÇöÀç ³ªÀÇ Ä³¸¯ÅÍ´Â ¹à°Ô
+    // ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½å¿¡ï¿½ï¿½ "ï¿½Ù¸ï¿½ ï¿½Öµï¿½ ï¿½ï¿½Ó°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½"
+    // È®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½, Ä³ï¿½ï¿½ï¿½ï¿½ Ã¼ï¿½ï¿½ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ä³ï¿½ï¿½ï¿½Í´ï¿½ ï¿½ï¿½ï¿½
 
     public void SelectedCharacter()
     {
-        prevMyIndex = currMyIndex;  // ÀÌÀü ³ªÀÇ ÀÎµ¦½º ÀúÀå
+        prevMyIndex = currMyIndex;  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        // ³ªÀÇ ÀÌ¸§
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Ì¸ï¿½
         currMyName = EventSystem.current.currentSelectedGameObject.name;
 
-        // ³ªÀÇ ÀÎµ¦½º ¹Þ¾Æ¿À±â
-        currMyIndex = GameObject.Find("Content").transform.FindChild(currMyName).GetSiblingIndex();
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½Þ¾Æ¿ï¿½ï¿½ï¿½
+        currMyIndex = GameObject.Find("Content").transform.Find(currMyName).GetSiblingIndex();
 
-        // ´Ù¸¥ ¹öÆ°µé ¾îµÓ°Ô ¸¸µé±â
+        // ï¿½Ù¸ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½Ó°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
         for(int i = 0; i < characterList.Count; i++)
         {
-            // ´Ù¸¥ ¾ÖµéÀÇ ÀÌ¹ÌÁöÀÇ ¾ËÆÄ°ª 90
+            // ï¿½Ù¸ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä°ï¿½ 90
             characterList[i].image.color = new Color(1, 1, 1, 0.5f);
             //Color color = new Color(1, 1, 1, 0.5f);
-            // ¸¸¾à ³ª ÀÚ½Å ÀÌ¶ó¸é
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½Ì¶ï¿½ï¿½
             if (i == currMyIndex) characterList[i].image.color = new Color(1, 1, 1, 1);
         }
     }
 
-    // <<È®ÀÎ(ÀúÀå)À» ´©¸£¸é>> CharacterChangerPanel ÀÌ ²¨Áö°í
-    // º¯°æ ³»¿ëÀÌ ÀúÀå µÇ¾î ÀÖÀ½
+    // <<È®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½)ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½>> CharacterChangerPanel ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Ç¾ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void SaveChanges()
     {
-        // º¯°æ ³»¿ë ÀúÀå
-        // ³ªÀÇ ÀÎµ¦½º ¿¡ ÇØ´çÇÏ´Â °ÔÀÓ ¿ÀºêÁ§Æ®(Ä³¸¯ÅÍ) Ã£±â
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®(Ä³ï¿½ï¿½ï¿½ï¿½) Ã£ï¿½ï¿½
         myCharacter = player.transform.GetChild(currMyIndex).gameObject;
 
         for(int i = 0; i < player.transform.childCount; i++)
@@ -110,23 +110,23 @@ public class MyProfileManager : MonoBehaviour
         //myCharacter.transform.position = backGround.transform.position;
         myCharacter.SetActive(true);
 
-        // panel ²ô±â
+        // panel ï¿½ï¿½ï¿½ï¿½
         panel.SetActive(false);
     }
 
-    // X or Ãë¼Ò ¹öÆ°
-    // È®ÀÎ(ÀúÀå) ´©¸£Áö ¾ÊÀ¸¸é ÀÌÀü »óÅÂ·Î µ¹¾Æ°£ ÈÄ CharacterChangerPanel ²ô±â
+    // X or ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
+    // È®ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Â·ï¿½ ï¿½ï¿½ï¿½Æ°ï¿½ ï¿½ï¿½ CharacterChangerPanel ï¿½ï¿½ï¿½ï¿½
     public void DontSave()
     {
         currMyIndex = prevMyIndex;
 
-        // ´Ù¸¥ ¹öÆ°µé ¾îµÓ°Ô ¸¸µé±â
+        // ï¿½Ù¸ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½Ó°ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½
         for (int i = 0; i < characterList.Count; i++)
         {
-            // ´Ù¸¥ ¾ÖµéÀÇ ÀÌ¹ÌÁöÀÇ ¾ËÆÄ°ª 90
+            // ï¿½Ù¸ï¿½ ï¿½Öµï¿½ï¿½ï¿½ ï¿½Ì¹ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ä°ï¿½ 90
             characterList[i].image.color = new Color(1, 1, 1, 0.5f);
             //Color color = new Color(1, 1, 1, 0.5f);
-            // ¸¸¾à ³ª ÀÚ½Å ÀÌ¶ó¸é
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½Ì¶ï¿½ï¿½
             if (i == currMyIndex) characterList[i].image.color = new Color(1, 1, 1, 1);
         }
 
@@ -140,7 +140,7 @@ public class MyProfileManager : MonoBehaviour
         //myCharacter.transform.position = backGround.transform.position;
 
 
-        // panel ²ô±â
+        // panel ï¿½ï¿½ï¿½ï¿½
         panel.SetActive(false);
     }
 }

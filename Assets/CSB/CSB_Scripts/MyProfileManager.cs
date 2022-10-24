@@ -24,7 +24,7 @@ public class MyProfileManager : MonoBehaviour
 
     private List<Button> characterList;
 
-    private GameObject backGround;
+    private GameObject player;
     private GameObject myCharacter;
 
     private string prevMyName;  // 이전 나의 이름
@@ -43,7 +43,7 @@ public class MyProfileManager : MonoBehaviour
 
     void Start()
     {
-        backGround = GameObject.Find("CharacterBackground");
+        player = GameObject.Find("CharacterBackground");
 
         for (int i = 0; i < characterList.Count; i++)
         {
@@ -61,6 +61,11 @@ public class MyProfileManager : MonoBehaviour
         {
             //SceneManager.LoadScene("CSB_Player");
         }
+    }
+
+    public void GoToTheWorld()
+    {
+        SceneManager.LoadScene("CSB_YDW_Combine");
     }
 
 
@@ -96,11 +101,11 @@ public class MyProfileManager : MonoBehaviour
     {
         // 변경 내용 저장
         // 나의 인덱스 에 해당하는 게임 오브젝트(캐릭터) 찾기
-        myCharacter = backGround.transform.GetChild(currMyIndex).gameObject;
+        myCharacter = player.transform.GetChild(currMyIndex).gameObject;
 
-        for(int i = 0; i < backGround.transform.childCount; i++)
+        for(int i = 0; i < player.transform.childCount; i++)
         {
-            backGround.transform.GetChild(i).gameObject.SetActive(false);
+            player.transform.GetChild(i).gameObject.SetActive(false);
         }
         //myCharacter.transform.position = backGround.transform.position;
         myCharacter.SetActive(true);
@@ -126,11 +131,11 @@ public class MyProfileManager : MonoBehaviour
         }
 
 
-        for (int i = 0; i < backGround.transform.childCount; i++)
+        for (int i = 0; i < player.transform.childCount; i++)
         {
-            backGround.transform.GetChild(i).gameObject.SetActive(false);
+            player.transform.GetChild(i).gameObject.SetActive(false);
 
-            if(i==currMyIndex) backGround.transform.GetChild(i).gameObject.SetActive(true);
+            if(i==currMyIndex) player.transform.GetChild(i).gameObject.SetActive(true);
         }
         //myCharacter.transform.position = backGround.transform.position;
 

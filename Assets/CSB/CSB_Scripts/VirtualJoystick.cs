@@ -29,6 +29,7 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     private void Start()
     {
         Screen.orientation = ScreenOrientation.LandscapeRight;  // æ¿ »≠∏È ∞Ì¡§
+        characterController = GameObject.FindObjectOfType<CharacterController>();
     }
     private void Update()
     {

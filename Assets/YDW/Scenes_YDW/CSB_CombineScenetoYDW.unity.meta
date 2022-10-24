@@ -1,11 +1,13 @@
 fileFormatVersion: 2
+<<<<<<< Updated upstream
+=======
 <<<<<<<< HEAD:Assets/CSB/CSB_Prefabs/Character_1.prefab.meta
-guid: e9ea4149706ca6e4c90790ad86cee04a
+guid: a80581db786672648b14bcb6cd9e0644
 PrefabImporter:
 ========
+>>>>>>> Stashed changes
 guid: 989b48cd5b6662746899730df742d42b
 DefaultImporter:
->>>>>>>> FinalProject_YDW:Assets/YDW/Scenes_YDW/CSB_CombineScenetoYDW.unity.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

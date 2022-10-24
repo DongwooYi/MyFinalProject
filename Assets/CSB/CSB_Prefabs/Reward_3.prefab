@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 8516084579158179974}
   - component: {fileID: 7401019304573594100}
   - component: {fileID: -3488506280303214556}
+  - component: {fileID: 1069366562211414718}
   m_Layer: 0
   m_Name: Reward_3
   m_TagString: Untagged
@@ -105,8 +106,23 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1360592445062101676}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: eb4be0f33e30db14bb06a23403902046, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1069366562211414718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1360592445062101676}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5d2a5cfb24203e46abe155fbe427d8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  area:
+    m_Position: {x: 0, y: 0, z: 0}
+    m_Size: {x: 0, y: 0, z: 0}

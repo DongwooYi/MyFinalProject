@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Tilemaps;
 
 
-public class BuildingSystem : MonoBehaviour
+public class YDW_BuildingSystem : MonoBehaviour
 {
     public static Dictionary<TileType, TileBase> tileBase = new Dictionary<TileType, TileBase>();
     public enum TileType
@@ -28,15 +28,15 @@ public class BuildingSystem : MonoBehaviour
     PlaceableObject objectToPlace;
     public GameObject parentsPrefabs;
     Vector3 prevPos;
-
+/*
     private void Awake()
     {
         instance = this;
         grid = gridLayout.gameObject.GetComponent<Grid>();
-    }
+    }*/
     private void Start()
     {
-
+        buttonManager = GetComponent<ButtonManager>();
     }
     void Update()
     {
@@ -68,19 +68,19 @@ public class BuildingSystem : MonoBehaviour
     #region 버튼 선택
 
 
-        
+
 
     public void OnclickPlaced()
-    {       
-        
+    {
+
         objectToPlace.Place();
-        Vector3Int start = gridLayout.WorldToCell(objectToPlace.getStartPosition());
-        TakeArea(start, objectToPlace.Size);
-        
+      //  Vector3Int start = gridLayout.WorldToCell(objectToPlace.getStartPosition());
+     //   TakeArea(start, objectToPlace.Size);
+
     }
     public void OnClickDestory()
     {
-      Destroy(objectToPlace.gameObject);
+        Destroy(objectToPlace.gameObject);
     }
     public void OnclickRotate()
     {
@@ -93,15 +93,33 @@ public class BuildingSystem : MonoBehaviour
     }
     public void OnclickCreate2ndPrefabs()
     {
-        InstantiatewithObject(prefab2);
+        //InstantiatewithObject(prefab2);
+        GetReward();
 
     }
+
+    // ==== 3D 리워드 생성 =====
+    // 인덱스 받아오기
+    //ButtonManager buttonManager;
+    public GameObject ButtonManager;
+    public GameObject[] factory;
+    public void GetReward()
+    {
+        //GameObject[] factory = buttonManager.GetComponent<ButtonManager>().reward3DFactory;
+        //int idx = buttonManager.GetComponent<ButtonManager>().rewardIndex;
+        //factory = ButtonManager.GetComponent<ButtonManager>().reward3DFactory;
+        int idx = ButtonManager.GetComponent<ButtonManager>().rewardIndex;
+        print(idx);
+        print(factory[idx].name);
+        InstantiatewithObject(factory[idx]);
+    }
+
     #endregion
     #region 마우스 월드 좌표용
     public static Vector3 GetMouseWorldPosition()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hitInfo))
+        if (Physics.Raycast(ray, out RaycastHit hitInfo, 1000, ~(1<<2)))
         {
             return hitInfo.point;
         }
@@ -139,7 +157,7 @@ public class BuildingSystem : MonoBehaviour
     }
     static void Filltiles(TileBase[] arr, TileType type)
     {
-        for (int i = 0; i <arr.Length; i++)
+        for (int i = 0; i < arr.Length; i++)
         {
             arr[i] = tileBase[type];
         }
@@ -150,16 +168,16 @@ public class BuildingSystem : MonoBehaviour
     {
         //int rewardIndex =buttonManager.itmeList.IndexOf(buttonManager.rewardList[buttonManager.btnIndex]);
         //prefab = buttonManager.reward3DFactory[rewardIndex];
-        Vector3 position = SnapCoordinatetoGrid(Vector3.zero);
+        //Vector3 position = Vector3.zero;//SnapCoordinatetoGrid(Vector3.zero);
         //objectToPlace = Instantiate(prefab, Vector3.zero, Quaternion.identity);
-        GameObject obj = Instantiate(prefab, position, Quaternion.identity);
+        GameObject obj = Instantiate(prefab); //, position, Quaternion.identity);
         obj.transform.parent = parentsPrefabs.transform;
         objectToPlace = obj.GetComponent<PlaceableObject>();
         obj.AddComponent<ObjectDrag>();
-        
+
     }
 
-  public  bool canBePlaced(PlaceableObject placeableObject)
+    public bool canBePlaced(PlaceableObject placeableObject)
     {
         BoundsInt area = new BoundsInt();
         area.position = gridLayout.WorldToCell(objectToPlace.getStartPosition());
@@ -167,14 +185,15 @@ public class BuildingSystem : MonoBehaviour
         TileBase[] baseArray = GetTileBlock(area, mainTileMap);
         int size = baseArray.Length;
         TileBase[] tileArray = new TileBase[size];
-        for (int i = 0; i <baseArray.Length; i++)
-        { if (baseArray[i] == tileBase[TileType.White])
+        for (int i = 0; i < baseArray.Length; i++)
+        {
+            if (baseArray[i] == tileBase[TileType.White])
             {
                 tileArray[i] = tileBase[TileType.Green];
             }
-        else
+            else
             {
-                
+
             }
         }
         foreach (var b in baseArray)

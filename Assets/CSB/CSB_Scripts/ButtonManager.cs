@@ -149,10 +149,12 @@ public class ButtonManager : MonoBehaviour
     // ���� ��ġ�� �Ǿ��ٸ� �κ��丮 â ����
     PlaceableObject objectToPlace;
     public GameObject[] reward3DFactory = new GameObject[4];   // 3D ������ ���丮
+    public int rewardIndex;
+    public GameObject YDW_BuildingSystem;
     public void HoldReward()
     {
         // �����ϴ� ������ �̸�
-        int rewardIndex = itmeList.IndexOf(rewardList[btnIndex]);   // 2D ������ �� �ε��� ã��
+        rewardIndex = itmeList.IndexOf(rewardList[btnIndex]);   // 2D ������ �� �ε��� ã��
         print(rewardName);
 
         // �κ��丮���� ������ ����(slot �� index �޾Ƽ�)
@@ -162,26 +164,32 @@ public class ButtonManager : MonoBehaviour
         // ������Ʈ(������) 3D ����
         inventoryPanel.SetActive(false);
         isInventory = false;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hitinfo;
-       /* if(!isClick)
-        {
-            if (Physics.Raycast(ray, out hitinfo))
-            {
-                GameObject reward = Instantiate(reward3DFactory[rewardIndex]);
-                Reward3DObject possibleToDarg = hitinfo.transform.gameObject.GetComponent<Reward3DObject>();
-                if (possibleToDarg != null)
+        //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        //RaycastHit hitinfo;
+
+        //GameObject reward = Instantiate(reward3DFactory[rewardIndex]);  // 3D 리워드 생성
+        YDW_BuildingSystem.GetComponent<YDW_BuildingSystem>().GetReward();
+
+
+
+        /*        if (!isClick)
                 {
-                reward.transform.position = hitinfo.transform.position;
-                }
+                    if (Physics.Raycast(ray, out hitinfo))
+                    {
+                        GameObject reward = Instantiate(reward3DFactory[rewardIndex]);
+                        Reward3DObject possibleToDarg = hitinfo.transform.gameObject.GetComponent<Reward3DObject>();
+                        if (possibleToDarg != null)
+                        {
+                            reward.transform.position = hitinfo.transform.position;
+                        }
 
 
-            }
-            
-        }*/
-        
+                    }
 
-       
+                }*/
+
+
+
     }
     string rewardName;
     // ���� ��ư �ε���

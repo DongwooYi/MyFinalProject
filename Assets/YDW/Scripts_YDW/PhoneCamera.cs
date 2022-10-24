@@ -100,19 +100,21 @@ public class PhoneCamera : MonoBehaviour
     {
         
         yield return new WaitForEndOfFrame();
+        GetComponent<Renderer>().material.mainTexture = backCam;
         int width = backCam.width;
         int height = backCam.height;
         Texture2D snap = new Texture2D(width, height, TextureFormat.RGB24,false);
 
         // 스크린 샷 정보를 텍스쳐 형식으로 
-        snap.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-        //snap.SetPixels(backCam.GetPixels());
+        //snap.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+        snap.SetPixels(backCam.GetPixels());
         snap.Apply();
-        
-        byte[] bytes = snap.EncodeToPNG();
-        Object.Destroy(snap);
+
+        //byte[] bytes = GetComponent<Renderer>().material.mainTexture.
+         byte[] bytes = snap.EncodeToPNG();
 
         // 테스트용
-        File.WriteAllBytes(Application.dataPath + "/../SavedScreen.png", bytes);
+        File.WriteAllBytes(Application.dataPath + "../SavedScreen.png", bytes);
+        //Object.Destroy(snap);
     }
 }

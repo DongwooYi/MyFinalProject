@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System.IO;
-
+using UnityEngine.SceneManagement;
+using UnityEngine.Networking;
 
 [System.Serializable]
 public class ObjectInfo
@@ -28,6 +29,7 @@ public class ArrayObjectInfo
 }
 public class UIManager : MonoBehaviour
 {
+    #region Json
     //불러오기에서 사용할 타입 오브젝트 배열
     public GameObject[] loadObjs;
 
@@ -112,4 +114,5 @@ public class UIManager : MonoBehaviour
             CreateObject(info);
         }
     }
+#endregion
 }

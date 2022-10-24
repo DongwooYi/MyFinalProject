@@ -162,9 +162,9 @@ public class ButtonManager : MonoBehaviour
         // ������Ʈ(������) 3D ����
         inventoryPanel.SetActive(false);
         isInventory = false;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+       /* Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         RaycastHit hitinfo;
-       /* if(!isClick)
+        if(!isClick)
         {
             if (Physics.Raycast(ray, out hitinfo))
             {

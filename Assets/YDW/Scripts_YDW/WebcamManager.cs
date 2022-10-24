@@ -44,10 +44,14 @@ public class WebcamManager : MonoBehaviour
             camTexture.Play(); // 카메라 시작
         }
     }
+    
     public void CameraOff()
     {
+
         if(camTexture != null)
         {
+
+
             camTexture.Stop(); //카메라 정지
             WebCamTexture.Destroy(camTexture); // 카메라 객체 반납
             camTexture = null; // 변수 초기화

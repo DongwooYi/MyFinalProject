@@ -14,7 +14,10 @@ public class MapPool_YDW : MonoBehaviour
 
     public GameObject objFactory;
     //오브젝트 풀의 크기
-    public int objPoolSize = 10;
+    public int objPoolSize=10;
+    //딕션너리
+    Dictionary<string, GameObject> itemsDictionary = new Dictionary<string, GameObject>();
+    public InventoryManager inventoryManager;
     //오브젝트 풀
     public static List<GameObject> objPool = new List<GameObject>();
     //프리뷰 아이템
@@ -24,8 +27,10 @@ public class MapPool_YDW : MonoBehaviour
     RaycastHit hitInfo;
     float currentTime=0;
     void Start()
-    {
+    {        
+        inventoryManager = GetComponent<InventoryManager>();
         state = State.Idle;
+
         // 오브젝트 풀에 비활성화된 게임오브젝트(아이템)을 담고 싶다.
         for (int i = 0; i < objPoolSize; i++)
         {
@@ -48,7 +53,7 @@ public class MapPool_YDW : MonoBehaviour
         }
         ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         //------------------------------------------------------------------------------------------------
-        if (Input.GetMouseButtonDown(0) || Input.GetButtonDown("Fire2"))
+        if (Input.GetMouseButtonDown(0))
         {
             state = State.Remove;
             if (Physics.Raycast(ray, out hitInfo))
@@ -62,29 +67,28 @@ public class MapPool_YDW : MonoBehaviour
             }
         }
         //------------------------------------------------------------------------------------------------
-        if(Input.GetMouseButton(0) || Input.GetButton("Fire1"))
+        if(Input.GetMouseButton(0))
         {
             state = State.Play;
             //모바일 경우 
             //if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false) //____1. 모바일 경우
             if (EventSystem.current.IsPointerOverGameObject() == false && state == State.Play)//____2. PC 경우
             {
-                prewviewItem.SetActive(true);
                 // 2. 마우스의 위치가 바닥 위에 위치해 있다면
                 if (Physics.Raycast(ray, out hitInfo))
                 {
-                    prewviewItem.transform.position = new Vector3((int)hitInfo.point.x, (int)hitInfo.point.y, (int)hitInfo.point.z);
+                     prewviewItem.SetActive(true);
+                     prewviewItem.transform.position = new Vector3((int)hitInfo.point.x, (int)hitInfo.point.y, (int)hitInfo.point.z);
                     // 충돌 체크용 함수
-                    if (hitInfo.transform.gameObject.layer != LayerMask.NameToLayer("Ground"))
+                    if (hitInfo.transform.gameObject.layer ==LayerMask.NameToLayer("Ground"))
                     {
-                        isunabletomake = true;
-                        prewviewItem.GetComponentInChildren<Renderer>().material.color = Color.red;
+                        prewviewItem.GetComponentInChildren<Renderer>().material.color = Color.green;
                     }
                     else
                     {
-                        isunabletomake = false;
-                        prewviewItem.GetComponentInChildren<Renderer>().material.color = Color.green;
+                        prewviewItem.GetComponentInChildren<Renderer>().material.color = Color.red;
                     }
+                   
                 }
             }
         }
@@ -92,34 +96,34 @@ public class MapPool_YDW : MonoBehaviour
        currentTime += Time.deltaTime;
         if (state == State.Play)
         {
-            if ((Input.GetMouseButtonUp(0) || Input.GetButtonDown("Fire2")))
+            if (Input.GetMouseButtonUp(0))
             {
                 // 오브젝트 풀 이용하기
                 // 1. 만약 오브젝트 풀에 게임오브젝트가 있다면
                 if (objPool.Count > 0)
                 {
-
                     // 2. 오브젝트 풀에서 게임오브젝트 하나 가져온다.
                     GameObject obj = objPool[0];
                     //모바일 경우 
                     //if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false) //____1. 모바일 경우
-                    if (EventSystem.current.IsPointerOverGameObject() == false)//____2. PC 경우
-                    {
-                        if (hitInfo.transform.gameObject.layer == LayerMask.NameToLayer("Ground") && isunabletomake == false)
+                        if (hitInfo.transform.gameObject.layer != LayerMask.NameToLayer("Ground") && isunabletomake == true)
                         {
-
-                            // 3. 게임오브젝트을 활성화한다.
-                            obj.SetActive(true);
-                            // 4.배치하고 싶다.
-                            obj.transform.position = prewviewItem.transform.position;
-
+                        prewviewItem.SetActive(false);
+                        obj.SetActive(false);
                         }
+                        else
+                        {
+                        // 3. 게임오브젝트을 활성화한다.
+                        obj.SetActive(true);
+                        // 4.배치하고 싶다.
+                        obj.transform.position = prewviewItem.transform.position;
+                    }
                         prewviewItem.SetActive(false);
                         // 5. 오브젝트 풀에서 게임오브젝트을 제거한다.
                         objPool.RemoveAt(0);
                         state = State.Idle;
                     }
-                }
+                
 
             }
         }

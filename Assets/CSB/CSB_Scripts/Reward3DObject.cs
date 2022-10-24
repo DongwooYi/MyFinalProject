@@ -17,9 +17,7 @@ public class Reward3DObject : MonoBehaviour
 
     void Update()
     {
-      
-        transform.position = ButtonManager.GetMouseWorldPosition();
-                
+        
     }
  
 }

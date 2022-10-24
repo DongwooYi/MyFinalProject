@@ -5,7 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/Scenes/CombineScene.unity
     guid: ca830bd9b61a8854dbdddfdb9c438261
+  - enabled: 1
+    path: Assets/YDW/Scenes_YDW/CameraScene_YDW.unity
+    guid: 1230b0ff34a030246acb5e4ca0a709f8
   m_configObjects: {}

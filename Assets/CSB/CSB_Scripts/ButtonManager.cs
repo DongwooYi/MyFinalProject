@@ -34,9 +34,11 @@ public class ButtonManager : MonoBehaviour
     public float clickTime;    // Ŭ�� �� �ð�
     public bool isClick;   // Ŭ�� �� �Ǵ�
 
+   
     private void Awake()
     {
         instance = this;
+      
     }
 
     void Start()
@@ -55,10 +57,10 @@ public class ButtonManager : MonoBehaviour
     private void Update()
     {
         // ������ 3D ����
-/*        for(int i = 0; i < reward3DFactory.Length; i++)
-        {
-            //reward3DFactory[i] = 
-        }*/
+        /*        for(int i = 0; i < reward3DFactory.Length; i++)
+                {
+                    //reward3DFactory[i] = 
+                }*/
 
         if (isClick)
         {
@@ -68,9 +70,9 @@ public class ButtonManager : MonoBehaviour
         {
             clickTime = 0;
         }
+        
     }
-
-
+  
     // �κ��丮 ��ư
     // ���� �κ��丮 ��ư�� Ŭ���ϸ� isInventory = true
     public void InventoryButtonManager()
@@ -156,11 +158,29 @@ public class ButtonManager : MonoBehaviour
         // �κ��丮���� ������ ����(slot �� index �޾Ƽ�)
         rewardList.RemoveAt(btnIndex);
         // �κ��丮 â ����
+     
+        // ������Ʈ(������) 3D ����
         inventoryPanel.SetActive(false);
         isInventory = false;
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        RaycastHit hitinfo;
+       /* if(!isClick)
+        {
+            if (Physics.Raycast(ray, out hitinfo))
+            {
+                GameObject reward = Instantiate(reward3DFactory[rewardIndex]);
+                Reward3DObject possibleToDarg = hitinfo.transform.gameObject.GetComponent<Reward3DObject>();
+                if (possibleToDarg != null)
+                {
+                reward.transform.position = hitinfo.transform.position;
+                }
 
-        // ������Ʈ(������) 3D ����
-        GameObject reward = Instantiate(reward3DFactory[rewardIndex]);
+
+            }
+            
+        }*/
+        
+
        
     }
     string rewardName;
@@ -188,18 +208,5 @@ public class ButtonManager : MonoBehaviour
         }
     }
 
-    public static Vector3 GetMouseWorldPosition()
-    {
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hitInfo))
-        {
-          //  new Vector3((int)hitInfo.point.x, (int)hitInfo.point.y, (int)hitInfo.point.z);
-                print(hitInfo.collider.name);
-                return hitInfo.point;
-        }
-        else
-        {
-            return Vector3.zero;
-        }
-    }
+  
 }

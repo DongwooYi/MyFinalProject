@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using System.IO;
+using UnityEngine.SceneManagement;
+
 public class PhoneCamera : MonoBehaviour
 {
     bool cameraAvailable;
@@ -90,16 +92,17 @@ public class PhoneCamera : MonoBehaviour
     }
     public void CameraOff()
     {
-        StopAllCoroutines();
         backCam.Stop();
         cameraAvailable = false;
-       
-        
+
+
     }
+    public GameObject Loading;
     IEnumerator TakeSnap()
     {
         
         yield return new WaitForEndOfFrame();
+        
         GetComponent<Renderer>().material.mainTexture = backCam;
         int width = backCam.width;
         int height = backCam.height;
@@ -115,6 +118,13 @@ public class PhoneCamera : MonoBehaviour
 
         // 테스트용
         File.WriteAllBytes(Application.dataPath + "../SavedScreen.png", bytes);
+        
+        
+        
         //Object.Destroy(snap);
+    }
+    public void LoadScene()
+    {
+        SceneManager.LoadScene("이름 넣어주세요");
     }
 }

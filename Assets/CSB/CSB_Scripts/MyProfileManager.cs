@@ -65,7 +65,7 @@ public class MyProfileManager : MonoBehaviour
 
     public void GoToTheWorld()
     {
-        SceneManager.LoadScene("CSB_YDW_Combine");
+        SceneManager.LoadScene("PlaygroundDemo");
     }
 
 

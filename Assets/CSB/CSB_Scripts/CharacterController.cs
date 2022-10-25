@@ -11,6 +11,7 @@ public class CharacterController : MonoBehaviour
     public float speed = 5f;
 
     Rigidbody rb;
+    public GameObject spawnPosition;
 
     private void Awake()
     {
@@ -24,14 +25,28 @@ public class CharacterController : MonoBehaviour
         {
             rb.useGravity = false;
         }
+
+
     }
+    public bool enterTheWorld = false;
+
 
     void Update()
     {
         if (SceneManager.GetActiveScene().name != "CSB_MyProfile")
         {
             rb.useGravity = true;
-
+        }
+        if (SceneManager.GetActiveScene().name == "PlaygroundDemo")
+        {
+            if (!enterTheWorld)
+            {
+                rb.useGravity = true;
+                spawnPosition = GameObject.Find("PlayerSpawnPosition");
+                transform.localScale = new Vector3(10, 10, 10);
+                transform.position = spawnPosition.transform.position;
+                enterTheWorld = true;
+            }
         }
     }
 
@@ -41,11 +56,16 @@ public class CharacterController : MonoBehaviour
         //float h = Input.GetAxis("Horizontal");
         //float v = Input.GetAxis("Vertical");
 
-        // 이동 방향
-        Vector3 moveDir = new Vector3(inputDir.x, 0, inputDir.y);
+        // 만약 월드 입장
+        if (enterTheWorld)
+        {
+            // 이동 방향
+            Vector3 moveDir = new Vector3(inputDir.x, 0, inputDir.y);
 
-        // 이동
-        transform.position += moveDir * Time.deltaTime * speed;
+            // 이동
+            transform.position += moveDir * Time.deltaTime * speed;
+
+        }
 
     }
 }

@@ -10,6 +10,7 @@ using UnityEngine.SceneManagement;
 public class CharacterController : MonoBehaviour
 {
     public GameObject spawnPosition;
+    public GameObject ingChallengeList;
     
     public float speed = 5f;
     public bool enterTheWorld = false;
@@ -49,7 +50,9 @@ public class CharacterController : MonoBehaviour
                 transform.position = spawnPosition.transform.position;
                 enterTheWorld = true;
             }
+            //IngChallenge();
         }
+
     }
 
    // 플레이어 이동
@@ -70,22 +73,31 @@ public class CharacterController : MonoBehaviour
         }
     }
 
-
+/*
     // 진행 중인 챌린지 목록
+    
     public void IngChallenge()
     {
         GameObject obj = GameObject.Find("IngChallenge");   // 물체 찾기
-        // 빈 게임오브젝트에 text 붙여서
+
+        // 빈 게임오브젝트에 text 붙여서/obj의 자식은 무언가 (- 무조건 카메라 방향으로 향하게)
 
         // 만약 물체와의 거리가 1보다 작으면
         if(Vector3.Distance(transform.position, obj.transform.position) < 1f)
         {
-            // <챌린지 참가> UI 가 뜸, setActive
+            // <내 챌린지> UI 가 뜸, setActive
+            obj.transform.GetChild(0).gameObject.SetActive(true);
 
-            // 만약 물체와의 거리가 0.5 보다 작으면 진행 중인 챌린지 목록(UI)이 뜸
-            //if()
-            // 하나를 선택하면 챌린지 월드로 입장
+            // 만약 물체와의 거리가 0.5 보다 작으면 
+            if(Vector3.Distance(transform.position, obj.transform.position) < 0.5f)
+            {
+                // 진행 중인 챌린지 목록(UI)이 뜸
+
+                // 하나를 선택하면 챌린지 월드로 입장
+
+            }
+
         }
 
-    }
+    }*/
 }

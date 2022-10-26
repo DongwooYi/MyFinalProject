@@ -5,19 +5,16 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/Scenes/CombineScene.unity
-    guid: ca830bd9b61a8854dbdddfdb9c438261
-  - enabled: 0
-    path: Assets/YDW/Scenes_YDW/CameraScene_YDW.unity
-    guid: 1230b0ff34a030246acb5e4ca0a709f8
-  - enabled: 0
-    path: Assets/CSB/CSB_Scenes/CSB_Login.unity
-    guid: 37a7c8ab15d402748aea69d6ea3cc7d2
   - enabled: 1
-    path: Assets/CSB/CSB_Scenes/CSB_MyProfile.unity
-    guid: 950a39d8b73024a418ca110902b1c1d6
+    path: Assets/YDW/Scenes_YDW/1.unity
+    guid: 25bbc8f0b4535f74296fca0fcb4a5979
   - enabled: 1
-    path: Assets/CSB/CSB_Scenes/PlaygroundDemo.unity
-    guid: 6e508e1d679ca1e4eaae5231e2fe6ffd
+    path: Assets/YDW/Scenes_YDW/2.unity
+    guid: 778886b6811be3749a7c92ca27958cd2
+  - enabled: 1
+    path: Assets/YDW/Scenes_YDW/3.unity
+    guid: 0d5af3f466175204a8f3846d92dbc5c8
+  - enabled: 1
+    path: Assets/YDW/Scenes_YDW/4.unity
+    guid: 5e3f242ea5c959440a02bc6ba282e47f
   m_configObjects: {}

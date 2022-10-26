@@ -25,6 +25,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     //map Thumbnail
     public GameObject[] mapThumbs;
 
+    [Header("운영진 방 만들기")]
+    public GameObject ForCreateMain;
+    [Header("방 만들기")]
+    public GameObject roomItemFactory;
+
     void Start()
     {        
         // 방이름(InputField)이 변경될때 호출되는 함수 등록
@@ -37,7 +42,19 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
 
     }
+    private void Update()
+    {
+        if(Input.GetKeyDown(KeyCode.Z))
+        {
+        ForCreateMain.SetActive(true);
 
+        }
+        else if(Input.GetKeyDown(KeyCode.X))
+        {
+            ForCreateMain.SetActive(true);
+
+        }
+    }
     public void OnRoomNameValueChanged(string s)
     {
         //참가
@@ -65,18 +82,18 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         roomOptions.IsVisible = true;
         // custom 정보를 셋팅
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
-        hash["desc"] = "여긴 초보방이다! " + Random.Range(1, 1000);
+        //hash["desc"] = "여긴 초보방이다! " + Random.Range(1, 1000);
         hash["map_id"] = Random.Range(0, mapThumbs.Length);
         hash["room_name"] = inputRoomName.text;
-        hash["password"] = inputPassword.text;
+       // hash["password"] = inputPassword.text;
         roomOptions.CustomRoomProperties = hash;
         // custom 정보를 공개하는 설정
         roomOptions.CustomRoomPropertiesForLobby = new string[] {
-            "desc", "map_id", "room_name", "password"
+            "map_id", "room_name"
         };
                 
         // 방 생성 요청 (해당 옵션을 이용해서)
-        PhotonNetwork.CreateRoom(inputRoomName.text + inputPassword.text, roomOptions);
+        PhotonNetwork.CreateRoom(inputRoomName.text , roomOptions);
     }
 
     //방이 생성되면 호출 되는 함수
@@ -90,13 +107,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnCreateRoomFailed(short returnCode, string message)
     {
         base.OnCreateRoomFailed(returnCode, message);
-        print("OnCreateRoomFailed , " + returnCode + ", " + message);
+        print("방만들기 실패 , " + returnCode + ", " + message);
     }
 
     //방 참가 요청
     public void JoinRoom()
     {
-        PhotonNetwork.JoinRoom(inputRoomName.text + inputPassword.text);
+        PhotonNetwork.JoinRoom(inputRoomName.text);
     }
 
     //방 참가가 완료 되었을 때 호출 되는 함수
@@ -104,7 +121,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         print("OnJoinedRoom");
-        PhotonNetwork.LoadLevel("Scene_YDW");
+        PhotonNetwork.LoadLevel ("3");
     }
 
     //방 참가가 실패 되었을 때 호출 되는 함수
@@ -163,24 +180,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             }
         }
 
-        //for (int i = 0; i < roomList.Count; i++)
-        //{
-        //    // 수정, 삭제
-        //    if (roomCache.ContainsKey(roomList[i].Name))
-        //    {
-        //        //만약에 해당 룸이 삭제된것이라면
-        //        if (roomList[i].RemovedFromList)
-        //        {
-        //            //roomCache 에서 해당 정보를 삭제
-        //            roomCache.Remove(roomList[i].Name);
-        //            continue;
-        //        }                
-        //    }
-        //    roomCache[roomList[i].Name] = roomList[i];            
-        //}
+       
     }
 
-    public GameObject roomItemFactory;
     void CreateRoomListUI()
     {
         foreach(RoomInfo info in roomCache.Values)
@@ -225,4 +227,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //이전 맵 id 저장
         prevMapId = map_id;
     }
+
+    
 }

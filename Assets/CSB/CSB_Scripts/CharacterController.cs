@@ -25,7 +25,8 @@ public class CharacterController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        if (SceneManager.GetActiveScene().name == "CSB_MyProfile")
+        //if (SceneManager.GetActiveScene().name == "CSB_MyProfiletoYDW")
+            if(SceneManager.GetActiveScene().buildIndex == 2)
         {
             rb.useGravity = false;
         }
@@ -36,11 +37,15 @@ public class CharacterController : MonoBehaviour
 
     void Update()
     {
-        if (SceneManager.GetActiveScene().name != "CSB_MyProfile")
+       // if (SceneManager.GetActiveScene().name != "CSB_MyProfiletoYDW")
+            if(SceneManager.GetActiveScene().buildIndex != 2)
+
         {
             rb.useGravity = true;
         }
-        if (SceneManager.GetActiveScene().name == "PlaygroundDemo")
+       // if (SceneManager.GetActiveScene().name == "PlaygroundDemo")
+            if(SceneManager.GetActiveScene().buildIndex == 3)
+
         {
             if (!enterTheWorld)
             {

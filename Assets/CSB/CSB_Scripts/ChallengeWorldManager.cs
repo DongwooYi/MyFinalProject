@@ -4,26 +4,28 @@ using UnityEngine;
 
 public class ChallengeWorldManager : MonoBehaviour
 {
+    GameObject player;
     public GameObject chunk;
+    public List<GameObject> myGround = new List<GameObject>(); // 내 땅 리스트(chunk들 넣어줄거임)
+
     public int myIndex; // 내가 입장한 차례, 0~3 의 int 중 하나 (or 1~4)
-
-    List<GameObject> chunks = new List<GameObject>();   // 전체 땅 리스트
-    GameObject[,] test; // 전체 땅 2차원 배열로
-    public int people;
-    public int day;
-
     public int m;   // 가로 개수
     public int n;   // 세로 개수
 
-    public List<GameObject> myGround = new List<GameObject>(); // 내 땅 리스트(chunk들 넣어줄거임)
+
+    List<GameObject> chunks = new List<GameObject>();   // 전체 땅 리스트
+    Vector3 spawnPos;   // 스폰 지점
+
 
     void Start()
     {
-        // 내가 들어온 인덱스 랜덤으로 
+        // 내가 들어온 인덱스 랜덤으로 ( 포톤 붙이면 아이디/1000 )
         myIndex = Random.Range(0, 4);
 
         m = 10;
         n = 10;
+
+        player = GameObject.FindGameObjectWithTag("Player");
 
         // 쿼드(1칸)들 Chunk(4칸) 단위로 다 뿌리기
         for (int i = 0; i < 10; i++)
@@ -35,7 +37,7 @@ public class ChallengeWorldManager : MonoBehaviour
             }
         }
 
-
+        /* 이게 내 최선.......... */
         // A, B, C, D 섹션 구분
         switch (myIndex)
         {
@@ -48,6 +50,8 @@ public class ChallengeWorldManager : MonoBehaviour
                         myGround.Add(chunks[i + j]);
                     }
                 }
+                spawnPos = myGround[24].transform.position;
+                player.transform.position = spawnPos;
                 break;
             case 1:
                 // 섹션 구분 B
@@ -58,6 +62,8 @@ public class ChallengeWorldManager : MonoBehaviour
                         myGround.Add(chunks[i + j]);
                     }
                 }
+                spawnPos = myGround[4].transform.position;
+                player.transform.position = spawnPos;
                 break;
             case 2:
                 // 섹션 구분 C
@@ -68,6 +74,8 @@ public class ChallengeWorldManager : MonoBehaviour
                         myGround.Add(chunks[i + j]);
                     }
                 }
+                spawnPos = myGround[20].transform.position;
+                player.transform.position = spawnPos;
                 break;
             case 3:
                 // 섹션 구분 D
@@ -78,6 +86,8 @@ public class ChallengeWorldManager : MonoBehaviour
                         myGround.Add(chunks[i + j]);
                     }
                 }
+                spawnPos = myGround[0].transform.position;
+                player.transform.position = spawnPos;
                 break;
         }
 

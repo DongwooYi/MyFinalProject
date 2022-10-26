@@ -81,7 +81,8 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         print(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         //LobbyScene으로 이동
-        PhotonNetwork.LoadLevel("3");
+       // PhotonNetwork.LoadLevel("Lobby_YDW");
+        PhotonNetwork.LoadLevel("LobbyScene_YDW");
     }
 
 

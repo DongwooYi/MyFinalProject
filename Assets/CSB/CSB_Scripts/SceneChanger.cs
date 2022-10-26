@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 using UnityEngine.UI;
 using Newtonsoft.Json.Linq;
 
+
 public class SceneChanger : MonoBehaviour
 {
     // ID InputField
@@ -41,6 +42,8 @@ public class SceneChanger : MonoBehaviour
         if (str.Length > 0)
         {
             OnClickConnect();
+
+            
         }
     }
 

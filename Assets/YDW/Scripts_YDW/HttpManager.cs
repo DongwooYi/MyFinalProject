@@ -9,29 +9,29 @@ public class HttpManager : MonoBehaviour
 
     private void Awake()
     {
-        //¸¸¾à¿¡ instance°¡ nullÀÌ¶ó¸é
+        //ï¿½ï¿½ï¿½à¿¡ instanceï¿½ï¿½ nullï¿½Ì¶ï¿½ï¿½
         if (instance == null)
         {
-            //instance ³ª¸¦ ³Ö°Ú´Ù
+            //instance ï¿½ï¿½ï¿½ï¿½ ï¿½Ö°Ú´ï¿½
             instance = this;
-            //¾ÀÀÌ ÀüÈ¯ÀÌ µÇ¾îµµ ³ª¸¦ ÆÄ±«µÇÁö ¾Ê°Ô ÇÏ°Ú´Ù
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½È¯ï¿½ï¿½ ï¿½Ç¾îµµ ï¿½ï¿½ï¿½ï¿½ ï¿½Ä±ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½Ï°Ú´ï¿½
             DontDestroyOnLoad(gameObject);
         }
         else
         {
-            //±×·¸Áö ¾ÊÀ¸¸é
-            //³ª¸¦ ÆÄ±«ÇÏ°Ú´Ù
+            //ï¿½×·ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+            //ï¿½ï¿½ï¿½ï¿½ ï¿½Ä±ï¿½ï¿½Ï°Ú´ï¿½
             print("destroy");
             Destroy(gameObject);
         }
 
     }
 
-    //¼­¹ö¿¡°Ô ¿äÃ»
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
     //url(/posts/1).Get
     public void SendRequest(HttpRequester requester)
     {
-        print("ÁÖ¼Ò·Î Á¢±Ù!!");
+        print("ï¿½Ö¼Ò·ï¿½ ï¿½ï¿½ï¿½ï¿½!!");
         StartCoroutine(Send(requester));
     }
 
@@ -42,9 +42,9 @@ public class HttpManager : MonoBehaviour
         switch (requester.requestType)
         {
             case RequestType.POST:
-                using (webRequest = UnityWebRequest.Post(requester.url, requester.data))
+                using (webRequest = UnityWebRequest.PostWwwForm(requester.url, requester.data))
                 {
-                    print("post Á¢±Ù");
+                    print("post ï¿½ï¿½ï¿½ï¿½");
                     byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(requester.data);
                     webRequest.uploadHandler = new UploadHandlerRaw(jsonToSend);
                     webRequest.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
@@ -52,7 +52,7 @@ public class HttpManager : MonoBehaviour
                     webRequest.SetRequestHeader("x-access-token", PlayerPrefs.GetString("jwt"));
                     yield return webRequest.SendWebRequest();
 
-                    //¸¸¾à¿¡ ÀÀ´äÀÌ ¼º°øÇß´Ù¸é
+                    //ï¿½ï¿½ï¿½à¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´Ù¸ï¿½
                     if (webRequest.result == UnityWebRequest.Result.Success)
                     {
                         // print(webRequest.downloadHandler.text);
@@ -60,7 +60,7 @@ public class HttpManager : MonoBehaviour
                     }
                     else
                     {
-                        print("Åë½Å ½ÇÆÐ");
+                        print("ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
                     }
                 }
                 break;
@@ -68,7 +68,7 @@ public class HttpManager : MonoBehaviour
                 webRequest = UnityWebRequest.Get(requester.url);
                 yield return webRequest.SendWebRequest();
 
-                //¸¸¾à¿¡ ÀÀ´äÀÌ ¼º°øÇß´Ù¸é
+                //ï¿½ï¿½ï¿½à¿¡ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ß´Ù¸ï¿½
                 if (webRequest.result == UnityWebRequest.Result.Success)
                 {
                     // print(webRequest.downloadHandler.text);
@@ -76,7 +76,7 @@ public class HttpManager : MonoBehaviour
                 }
                 else
                 {
-                    print("Åë½Å ½ÇÆÐ");
+                    print("ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½");
                 }
                 break;
         }

@@ -6,15 +6,18 @@ EditorBuildSettings:
   serializedVersion: 2
   m_Scenes:
   - enabled: 1
-    path: Assets/YDW/Scenes_YDW/1.unity
+    path: Assets/YDW/Scenes_YDW/Login_YDW.unity
     guid: 25bbc8f0b4535f74296fca0fcb4a5979
   - enabled: 1
-    path: Assets/YDW/Scenes_YDW/2.unity
+    path: Assets/YDW/Scenes_YDW/Register_YDW.unity
     guid: 778886b6811be3749a7c92ca27958cd2
   - enabled: 1
-    path: Assets/YDW/Scenes_YDW/3.unity
+    path: Assets/YDW/Scenes_YDW/LobbyScene_YDW.unity
+    guid: b4a6eb784e009c84fa22c439501f28cb
+  - enabled: 0
+    path: Assets/YDW/Scenes_YDW/Lobby_YDW.unity
     guid: 0d5af3f466175204a8f3846d92dbc5c8
   - enabled: 1
-    path: Assets/YDW/Scenes_YDW/4.unity
+    path: Assets/YDW/Scenes_YDW/Play_YDW.unity
     guid: 5e3f242ea5c959440a02bc6ba282e47f
   m_configObjects: {}

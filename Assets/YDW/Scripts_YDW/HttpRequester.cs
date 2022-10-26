@@ -14,6 +14,7 @@ public class LoginData
 
     public static explicit operator LoginData(JToken v)
     {
+        
         throw new NotImplementedException();
     }
 }

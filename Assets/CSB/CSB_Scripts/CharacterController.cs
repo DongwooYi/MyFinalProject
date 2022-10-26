@@ -14,6 +14,7 @@ public class CharacterController : MonoBehaviour
     
     public float speed = 5f;
     public bool enterTheWorld = false;
+    public bool isChallengeWorld = false;
 
     Rigidbody rb;
 
@@ -44,13 +45,22 @@ public class CharacterController : MonoBehaviour
         {
             if (!enterTheWorld)
             {
-                rb.useGravity = true;
+                //rb.useGravity = true;
                 spawnPosition = GameObject.Find("PlayerSpawnPosition");
                 transform.localScale = new Vector3(10, 10, 10);
                 transform.position = spawnPosition.transform.position;
                 enterTheWorld = true;
             }
-            //IngChallenge();
+        }
+        if(SceneManager.GetActiveScene().name == "CSB_YDW_Combine")
+        {
+            if (!isChallengeWorld)
+            {
+                Vector3 spawnPos = Vector3.zero;
+                transform.localScale = new Vector3(10, 10, 10);
+                transform.position = spawnPos;
+                isChallengeWorld = true;
+            }
         }
 
     }
@@ -62,8 +72,8 @@ public class CharacterController : MonoBehaviour
         //float h = Input.GetAxis("Horizontal");
         //float v = Input.GetAxis("Vertical");
 
-        // 만약 월드 입장
-        if (enterTheWorld)
+        // 만약 월드면
+        if (enterTheWorld || isChallengeWorld)
         {
             // 이동 방향
             Vector3 moveDir = new Vector3(inputDir.x, 0, inputDir.y);

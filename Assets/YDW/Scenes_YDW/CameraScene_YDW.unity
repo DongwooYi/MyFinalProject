@@ -1251,6 +1251,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   background: {fileID: 1970875715}
   fit: {fileID: 1970875717}
+  Loading: {fileID: 0}
 --- !u!1 &1970875713
 GameObject:
   m_ObjectHideFlags: 0

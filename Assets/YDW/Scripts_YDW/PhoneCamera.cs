@@ -14,7 +14,7 @@ using Unity.VisualScripting;
 
 public class PhoneCamera : MonoBehaviour
 {
-    public Image image;
+    
     bool cameraAvailable;
     WebCamTexture backCam;
 
@@ -23,15 +23,29 @@ public class PhoneCamera : MonoBehaviour
     public RawImage background;
     public AspectRatioFitter fit;
 
+    challenges challenges;
+
+    public GameObject Spinner;
 
     private void Start()
     {
+        challenges = GetComponent<challenges>();
         defaultBackground = background.texture;
         
     }
     private void Update()
     {
-        if(!cameraAvailable)
+        if(Input.GetKeyDown(KeyCode.Tab))
+        {
+            challenges.ChallengesList.SetActive(true);
+
+        }
+        else if(Input.GetKeyDown(KeyCode.Q))
+        {
+            challenges.ChallengesList.SetActive(false);
+
+        }
+        if (!cameraAvailable)
         {
             return;
         }
@@ -78,7 +92,7 @@ public class PhoneCamera : MonoBehaviour
         background.texture = backCam;
         cameraAvailable = true;
     }
-    
+
     public void TakeaShot()
     {
         StartCoroutine(TakeSnap());
@@ -94,7 +108,7 @@ public class PhoneCamera : MonoBehaviour
     {
         
         yield return new WaitForEndOfFrame();
-        
+        Spinner.SetActive(true);
         
         int width = backCam.width;
         int height = backCam.height;
@@ -114,19 +128,25 @@ public class PhoneCamera : MonoBehaviour
          UnityEngine.Object.Destroy(snap);
 
         WWWForm form = new WWWForm();
-      //  form.AddField("Myfield", "");
         form.AddBinaryData("image", bytes);
-
+        foreach (KeyValuePair<string,int> keyValuePair in challenges.dictionary)
+        {
+            form.AddField(keyValuePair.Key, keyValuePair.Value);
+            Debug.Log(keyValuePair.Key + ":" + keyValuePair.Value);
+        }
 
         UnityWebRequest www = UnityWebRequest.Post("http://192.168.0.15:5005/detection", form);
+
         yield return www.SendWebRequest();
 
         if (www.result != UnityWebRequest.Result.Success)
         {
+            Spinner.SetActive(false);
             Debug.Log(www.error);
         }
         else
         {
+            Spinner.SetActive(false);
             Debug.Log("Form upload complete!");
         }
         

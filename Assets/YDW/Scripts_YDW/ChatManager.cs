@@ -5,6 +5,20 @@ using UnityEngine.UI;
 using Photon.Pun;
 using UnityEngine.EventSystems;
 
+[System.Serializable]
+public struct ChatInfoList
+{
+    public List<ChatInfo> data;
+}
+
+//Json에 담길 내용 "키" : "값"
+[System.Serializable]
+public struct ChatInfo
+{
+    public string nickName;
+    public string chatText;
+}
+
 public class ChatManager : MonoBehaviourPun
 {
     //ChatItme 공장
@@ -16,6 +30,12 @@ public class ChatManager : MonoBehaviourPun
 
     //나의 닉네임 색깔
     Color nickColor;
+
+    //전체 보낼 데이터 생성
+    public List<ChatInfo> chatList = new List<ChatInfo>();
+
+    // Joson 정보 Test
+    public Text testChatList;
 
     void Start()
     {
@@ -43,15 +63,20 @@ public class ChatManager : MonoBehaviourPun
         if(Input.GetMouseButtonDown(0))
         {
             //만약에 커서가 UI에 없다면
+            //모바일땐
+            //if(EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false)
             if(EventSystem.current.IsPointerOverGameObject() == false)
             {
                 Cursor.visible = false;
             }
+            else
+            {
+                Cursor.visible = true;
 
-            //모바일땐
-            //if(EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false)
-            //{
-            //}
+            }
+
+
+
 
         }
     }
@@ -78,23 +103,52 @@ public class ChatManager : MonoBehaviourPun
     float prevContentH;
 
     [PunRPC]
-    void RpcAddChat(string chat)
+    void RpcAddChat(string nick, string chatText, float r, float g, float b)
     {
-        //이전 content의 H값을 저장하자
+        print("보낸 놈 : " + nick);
+        print("보낸 내용 : " + chatText);
+
+        //보낼 데이터 생성
+        ChatInfo info = new ChatInfo();
+        info.nickName = nick;
+        info.chatText = chatText;
+
+        //<color=#FFFFFF>닉네임</color>
+        string s = "<color=#" + ColorUtility.ToHtmlStringRGB(new Color(r, g, b)) + ">" + nick + "</color>" + " : " + chatText;
+
+        //0. 바뀌기 전의 Content H값을 넣자
         prevContentH = trContent.sizeDelta.y;
 
-        //2.ChatItem을 하나 만든다. 
-        //(부모를 ScrollView - Content)
+        //1. ChatItem을 만든다(부모를 Scorllview의 Content)
         GameObject item = Instantiate(chatItemFactory, trContent);
 
-        //3.text 컴포넌트 가져와서 inputField의
-        //내용을 셋팅
-        ChatItem chatItem = item.GetComponent<ChatItem>();
-        chatItem.SetText(chat);
+        //2.만든 ChatItem에서 ChatItem 컴포넌트 가져온다
+        ChatItem chat = item.GetComponent<ChatItem>();
+              
 
-        //4. 이전에 바닥에 닿아있었다면
-        StartCoroutine(AutoScrollBottom());
-        
+        //3.가져온 컴포넌트에 s를 셋팅
+        chat.SetText(s);
+
+        //Json 보내기 -> List에 담기
+        chatList.Add(info);
+        // 5개 이상이 된다면 Json보내기
+        if (chatList.Count >= 5)
+        {
+            ChatInfoList chatInfoList = new ChatInfoList();
+            chatInfoList.data = chatList;
+
+            //Json
+            string jsonData = JsonUtility.ToJson(chatInfoList, true);
+            print(jsonData);
+
+            //확인용!
+            testChatList.text = jsonData;
+
+            //[설정해야함] API 포스트 방식 -> 바디 Http통신으로 보내기
+
+            chatList.Clear();
+        }
+
     }
 
     IEnumerator AutoScrollBottom()
@@ -111,4 +165,15 @@ public class ChatManager : MonoBehaviourPun
             }
         }
     }
+   /* public void OnGetPost(string s)
+    {
+        string url = "https://8c49-119-194-163-123.jp.ngrok.io/chat_bot?chat_request=";
+        url += "&user_id=" + 1;
+        url += "&we_id=" + 1;
+
+        HttpRequester requester = new HttpRequester();
+        requester.SetUrl(RequestType.GET, url, false);
+
+        HttpManager.instance.SendRequest(requester);
+    }*/
 }

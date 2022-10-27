@@ -46,26 +46,13 @@ public class CameraManager : MonoBehaviour
         else
         {
             // 가만히 있음
+            Vector3 dir;
             dir = player.transform.position - Camera.main.transform.position;
             Camera.main.transform.position += dir * Time.deltaTime * 0 * 0.8f;  // 속력 0
         }
 
     }
 
-    Vector3 dir;
-    
-
-/*    Vector3 dir;
-
-    // 기본 - 플레이어 따라감
-    private void FollowPlayer()
-    {
-
-        dir = player.transform.position - Camera.main.transform.position;   // 방향
-        Vector3 moveVector = new Vector3(dir.x * camMoveSpeed * Time.deltaTime, dir.y * camMoveSpeed * Time.deltaTime, dir.z * camMoveSpeed * Time.deltaTime);
-        Camera.main.transform.Translate(moveVector);
-
-    }*/
 
     // 화면 드래그(카메라 이동) 함수
     // 한 손가락

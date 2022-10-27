@@ -48,6 +48,8 @@ public class ChallengeWorldManager : MonoBehaviour
                     for (int j = 0; j <= (int)(n - 1) / 2; j++)
                     {
                         myGround.Add(chunks[i + j]);
+                        chunks[i + j].layer = 9;
+
                     }
                 }
                 spawnPos = myGround[24].transform.position;
@@ -60,6 +62,8 @@ public class ChallengeWorldManager : MonoBehaviour
                     for (int j = 0; j <= (int)(n - 1) / 2; j++)
                     {
                         myGround.Add(chunks[i + j]);
+                        chunks[i + j].layer = 9;
+
                     }
                 }
                 spawnPos = myGround[4].transform.position;
@@ -72,6 +76,8 @@ public class ChallengeWorldManager : MonoBehaviour
                     for (int j = 0; j <= (int)(n - 1) / 2; j++)
                     {
                         myGround.Add(chunks[i + j]);
+                        chunks[i + j].layer = 9;
+
                     }
                 }
                 spawnPos = myGround[20].transform.position;
@@ -84,6 +90,8 @@ public class ChallengeWorldManager : MonoBehaviour
                     for (int j = 0; j <= (int)(n - 1) / 2; j++)
                     {
                         myGround.Add(chunks[i + j]);
+                        chunks[i + j].layer = 9;
+
                     }
                 }
                 spawnPos = myGround[0].transform.position;
@@ -91,10 +99,42 @@ public class ChallengeWorldManager : MonoBehaviour
                 break;
         }
 
+        for(int i = 0; i < myGround.Count; i++)
+        {
+            for (int j = 0; j < 4; j++)
+            {
+                myGround[i].transform.GetChild(j).gameObject.layer = 9;
+            }
+        }
+        
     }
-
+    Ray ray;
+    RaycastHit hit;
+    public GameObject pp;
     void Update()
     {
+        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out hit))
+        {
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Chunk"))
+            {
+                
+                DestroyImmediate(hit.transform.gameObject);
 
+            }
+            else
+
+            {
+                return;
+
+            }
+                    
+
+        
+        }
+
+    }
+    void DestroyImmediatethis()
+    {
     }
 }

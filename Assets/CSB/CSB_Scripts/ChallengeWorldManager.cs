@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class ChallengeWorldManager : MonoBehaviour
 {
@@ -110,31 +111,53 @@ public class ChallengeWorldManager : MonoBehaviour
     }
     Ray ray;
     RaycastHit hit;
-    public GameObject pp;
+
     void Update()
     {
-        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out hit))
+        if (isPass)
         {
-            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Chunk"))
-            {
-                
-                DestroyImmediate(hit.transform.gameObject);
-
-            }
-            else
-
-            {
-                return;
-
-            }
-                    
-
-        
+            SelectGround();
         }
 
     }
-    void DestroyImmediatethis()
+
+    public bool isPass = false;
+    public float delayTime = 1f;
+    float currTime = 0f;
+    public void SelectGround()
     {
+        panel.SetActive(false);
+        isPass = true;
+        currTime += Time.deltaTime;
+
+        if(currTime >= delayTime)
+        {
+            if (isPass)
+            {
+                ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                if (Physics.Raycast(ray, out hit))
+                {
+                    if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Chunk"))
+                    {
+                        DestroyImmediate(hit.transform.gameObject);
+                        isPass = false;
+                    }
+                    else
+                    {
+                        isPass = true;   
+                    }
+
+                }
+
+            }
+
+        }
+    }
+    public GameObject panel;
+
+    public void Pass()
+    {
+        //panel = GameObject.Find("GetRewardPanel");
+        panel.SetActive(true);
     }
 }

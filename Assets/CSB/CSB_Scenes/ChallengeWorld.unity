@@ -1457,9 +1457,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1186425067}
-        m_TargetAssemblyTypeName: ButtonManager, Assembly-CSharp
-        m_MethodName: CheckPass
+      - m_Target: {fileID: 816567012}
+        m_TargetAssemblyTypeName: ChallengeWorldManager, Assembly-CSharp
+        m_MethodName: Pass
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -2998,10 +2998,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 515143415}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
+      - m_Target: {fileID: 816567012}
+        m_TargetAssemblyTypeName: ChallengeWorldManager, Assembly-CSharp
+        m_MethodName: SelectGround
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -3061,7 +3061,6 @@ GameObject:
   - component: {fileID: 816567009}
   - component: {fileID: 816567008}
   - component: {fileID: 816567012}
-  - component: {fileID: 816567013}
   m_Layer: 6
   m_Name: Plane
   m_TagString: Untagged
@@ -3165,19 +3164,8 @@ MonoBehaviour:
   myIndex: 0
   m: 0
   n: 0
-  pp: {fileID: 0}
---- !u!156049354 &816567013
-Grid:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 816567007}
-  m_Enabled: 1
-  m_CellSize: {x: 1, y: 1, z: 1}
-  m_CellGap: {x: 0, y: 0, z: 0}
-  m_CellLayout: 0
-  m_CellSwizzle: 0
+  isPass: 0
+  panel: {fileID: 515143415}
 --- !u!1 &837550386
 GameObject:
   m_ObjectHideFlags: 0

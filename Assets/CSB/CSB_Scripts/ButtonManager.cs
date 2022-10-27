@@ -107,30 +107,52 @@ public class ButtonManager : MonoBehaviour
     }
 
     // ���� Ȯ�� Test (Pass ��ư ������ pass, NonPass ��ư ������ non pass)
+    Ray ray;
+    RaycastHit hit;
     public void CheckPass()
     {
         isPass = true;
+        print(isPass);
 
         if (isPass)
         {
-            // ������ ȹ�� �˾� true �� & �κ��丮�� �ֱ�
-            rewardPanel.SetActive(true);
 
-            // �������� ������ ����
-            int selection = Random.Range(0, itmeList.Count);  // ����
-            Item reward = itmeList[selection];    // ������ ����
+            /*            // Unlock 할 땅 선택
+                        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                        if (Physics.Raycast(ray, out hit))
+                        {
+                            print("들어오니");
+                            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Chunk"))
+                            {
+                                DestroyImmediate(hit.transform.gameObject);
+                                print("땅 Unlock");
+                                isPass = false;
+                            }
+                        }
+                        else
+                        {
+
+                        }*/
 
 
-            // �κ��丮�� ������ �߰�
-            // InventoryManager.cs �� items ����Ʈ�� �߰�
-            rewardList.Add(reward); // �̰� InventoryManager ���� ����
-            //inventoryManager.items.Add(reward);
+            /*            // ������ ȹ�� �˾� true �� & �κ��丮�� �ֱ�
+                        rewardPanel.SetActive(true);
 
-            // �κ��丮 slot �� ������ �̹����� �߰�
+                        // �������� ������ ����
+                        int selection = Random.Range(0, itmeList.Count);  // ����
+                        Item reward = itmeList[selection];    // ������ ����
 
 
-            print("������ ����");
-            isPass = false;
+                        // �κ��丮�� ������ �߰�
+                        // InventoryManager.cs �� items ����Ʈ�� �߰�
+                        rewardList.Add(reward); // �̰� InventoryManager ���� ����
+                        //inventoryManager.items.Add(reward);
+
+                        // �κ��丮 slot �� ������ �̹����� �߰�
+
+
+                        print("������ ����");
+                        isPass = false;*/
         }
 
         // isPass �� false ��

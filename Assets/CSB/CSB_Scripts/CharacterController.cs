@@ -14,6 +14,7 @@ public class CharacterController : MonoBehaviour
     
     public float speed = 5f;
     public bool enterTheWorld = false;
+    public bool isChallengeWorld = false;
 
     Rigidbody rb;
 
@@ -44,13 +45,22 @@ public class CharacterController : MonoBehaviour
         {
             if (!enterTheWorld)
             {
-                rb.useGravity = true;
+                //rb.useGravity = true;
                 spawnPosition = GameObject.Find("PlayerSpawnPosition");
                 transform.localScale = new Vector3(10, 10, 10);
                 transform.position = spawnPosition.transform.position;
                 enterTheWorld = true;
             }
-            //IngChallenge();
+        }
+        if(SceneManager.GetActiveScene().name == "CSB_YDW_Combine")
+        {
+            if (!isChallengeWorld)
+            {
+                Vector3 spawnPos = Vector3.zero;
+                transform.localScale = new Vector3(10, 10, 10);
+                transform.position = spawnPos;
+                isChallengeWorld = true;
+            }
         }
 
     }
@@ -62,8 +72,8 @@ public class CharacterController : MonoBehaviour
         //float h = Input.GetAxis("Horizontal");
         //float v = Input.GetAxis("Vertical");
 
-        // 만약 월드 입장
-        if (enterTheWorld)
+        // 만약 월드면
+        if (enterTheWorld || isChallengeWorld)
         {
             // 이동 방향
             Vector3 moveDir = new Vector3(inputDir.x, 0, inputDir.y);
@@ -72,32 +82,4 @@ public class CharacterController : MonoBehaviour
             transform.position += moveDir * Time.deltaTime * speed;
         }
     }
-
-/*
-    // 진행 중인 챌린지 목록
-    
-    public void IngChallenge()
-    {
-        GameObject obj = GameObject.Find("IngChallenge");   // 물체 찾기
-
-        // 빈 게임오브젝트에 text 붙여서/obj의 자식은 무언가 (- 무조건 카메라 방향으로 향하게)
-
-        // 만약 물체와의 거리가 1보다 작으면
-        if(Vector3.Distance(transform.position, obj.transform.position) < 1f)
-        {
-            // <내 챌린지> UI 가 뜸, setActive
-            obj.transform.GetChild(0).gameObject.SetActive(true);
-
-            // 만약 물체와의 거리가 0.5 보다 작으면 
-            if(Vector3.Distance(transform.position, obj.transform.position) < 0.5f)
-            {
-                // 진행 중인 챌린지 목록(UI)이 뜸
-
-                // 하나를 선택하면 챌린지 월드로 입장
-
-            }
-
-        }
-
-    }*/
 }

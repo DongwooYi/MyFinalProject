@@ -1,12 +1,20 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
-using System.IO;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using UnityEngine.SceneManagement;
+using System.IO;
+using Photon.Voice;
+using System.Drawing;
+using Unity.VisualScripting;
 
 public class PhoneCamera : MonoBehaviour
 {
+    public Image image;
     bool cameraAvailable;
     WebCamTexture backCam;
 
@@ -14,6 +22,7 @@ public class PhoneCamera : MonoBehaviour
 
     public RawImage background;
     public AspectRatioFitter fit;
+
 
     private void Start()
     {
@@ -35,7 +44,11 @@ public class PhoneCamera : MonoBehaviour
        
         int orient = -backCam.videoRotationAngle;
         background.rectTransform.localEulerAngles = new Vector3(0, 0, orient);
-    
+    }
+
+    public void OnClickCameraON()
+    {
+
     }
 
     public void CameraOn()
@@ -49,7 +62,8 @@ public class PhoneCamera : MonoBehaviour
         }
         for (int i = 0; i < devices.Length; i++)
         {
-            if (!devices[i].isFrontFacing)
+            //if (devices[i].isFrontFacing) // 정면 카메라
+            if (!devices[i].isFrontFacing) // 후면 카메라
             {
                 backCam = new WebCamTexture(devices[i].name, Screen.width, Screen.height);
             }
@@ -68,24 +82,28 @@ public class PhoneCamera : MonoBehaviour
     public void TakeaShot()
     {
         StartCoroutine(TakeSnap());
-
+        StopAllCoroutines();
+        OnCompleteGetPost("파일 다운로드 URL");
     }
     public void CameraOff()
     {
         backCam.Stop();
         cameraAvailable = false;
     }
-    public GameObject Loading;
     IEnumerator TakeSnap()
     {
         
         yield return new WaitForEndOfFrame();
         
-        GetComponent<Renderer>().material.mainTexture = backCam;
+        
         int width = backCam.width;
         int height = backCam.height;
         Texture2D snap = new Texture2D(width, height, TextureFormat.RGB24,false);
-
+        if (snap == null)
+        {
+            UnityEditor.EditorUtility.DisplayDialog("Select Texture", "You Must Select a Texture first!", "Ok");
+            yield break;
+        }
         // 스크린 샷 정보를 텍스쳐 형식으로 
         //snap.ReadPixels(new Rect(0, 0, width, height), 0, 0);
         snap.SetPixels(backCam.GetPixels());
@@ -93,16 +111,58 @@ public class PhoneCamera : MonoBehaviour
 
         //byte[] bytes = GetComponent<Renderer>().material.mainTexture.
          byte[] bytes = snap.EncodeToPNG();
+         UnityEngine.Object.Destroy(snap);
 
+        WWWForm form = new WWWForm();
+      //  form.AddField("Myfield", "");
+        form.AddBinaryData("image", bytes);
+
+
+        UnityWebRequest www = UnityWebRequest.Post("http://192.168.0.15:5005/detection", form);
+        yield return www.SendWebRequest();
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Debug.Log("Form upload complete!");
+        }
+        
         // 테스트용
         File.WriteAllBytes(Application.dataPath + "/Data/photo.png", bytes);
         
         
         
-        //Object.Destroy(snap);
     }
-    public void LoadScene()
+
+    public bool isOkay;
+   public void OnCompleteGetPost(string URL)
+    {
+        UnityWebRequest request = UnityWebRequest.Get(URL);
+        
+        request.SendWebRequest();
+
+        if(request.result == UnityWebRequest.Result.ConnectionError || request.result == UnityWebRequest.Result.ProtocolError)
+        {
+            isOkay = false;  
+            Debug.Log(request.error);
+        }
+        else
+        {
+            isOkay = true;
+            File.WriteAllBytes(Application.dataPath + "/Data/photo.png", request.downloadHandler.data);
+        }
+        
+    }
+    
+        
+        public void LoadScene()
     {
         SceneManager.LoadScene("이름 넣어주세요");
     }
+
+   
 }
+

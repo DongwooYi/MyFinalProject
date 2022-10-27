@@ -19,6 +19,7 @@ public class LoginData
     }
 }
 
+
 public enum RequestType
 {
     POST,
@@ -31,7 +32,7 @@ public class HttpRequester : MonoBehaviour
     public string url;
     //요청 타입: Get, post)
     public RequestType requestType;
-    public string data;
+    public byte[] data;
 
 
     //응답이 왔을 때 호출해줄 함수 (Action)

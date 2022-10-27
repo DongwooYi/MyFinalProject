@@ -63,7 +63,7 @@ public class SceneChanger : MonoBehaviour
     public InputField id;
     public InputField pw;
 
-    public void OnClickUserLogin()
+   /* public void OnClickUserLogin()
     {
         //서버에 게시물 조회 요청
         //HttpRequester를 생성
@@ -85,7 +85,7 @@ public class SceneChanger : MonoBehaviour
         //응답을 받아서 출력하자
         //HttpManager에게 요청
         HttpManager.instance.SendRequest(requester);
-    }
+    }*/
 
     public void OnComplteLogin(DownloadHandler handler)
     {

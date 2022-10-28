@@ -1,15 +1,13 @@
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
-
 
 
 public class HttpManager : MonoBehaviour
 {
     public static HttpManager instance; //하나만 존재하게 하기 위해서 싱글톤으로 만드는 것임.
 
-    public byte image;
     private void Awake()
     {
         //만약에 instance가 null이라면
@@ -44,29 +42,6 @@ public class HttpManager : MonoBehaviour
 
         switch (requester.requestType)
         {
-            case RequestType.POST:
-                using (webRequest = UnityWebRequest.Post(requester.url, requester.data))
-                {
-                    print("post 접근");
-                    byte[] jsonToSend = new System.Text.UTF8Encoding().GetBytes(requester.data);
-                    webRequest.uploadHandler = new UploadHandlerRaw(jsonToSend);
-                    webRequest.downloadHandler = (DownloadHandler)new DownloadHandlerBuffer();
-                    webRequest.SetRequestHeader("Content-Type", "application/json");
-                    webRequest.SetRequestHeader("x-access-token", PlayerPrefs.GetString("jwt"));
-                    yield return webRequest.SendWebRequest();
-
-                    //만약에 응답이 성공했다면
-                    if (webRequest.result == UnityWebRequest.Result.Success)
-                    {
-                        // print(webRequest.downloadHandler.text);
-                        requester.onComplete(webRequest.downloadHandler);
-                    }
-                    else
-                    {
-                        print("통신 실패");
-                    }
-                }
-                break;
             case RequestType.GET:
                 webRequest = UnityWebRequest.Get(requester.url);
                 yield return webRequest.SendWebRequest();
@@ -99,4 +74,3 @@ public class HttpManager : MonoBehaviour
 
     }
 }
-*/

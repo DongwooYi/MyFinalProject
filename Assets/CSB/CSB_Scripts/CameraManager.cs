@@ -28,6 +28,10 @@ public class CameraManager : MonoBehaviour
 
     void Start()
     {
+        if(SceneManager.GetActiveScene().name == "CSB_MyProfile")
+        {
+
+        }
         player = GameObject.FindGameObjectWithTag("Player");
     }
 

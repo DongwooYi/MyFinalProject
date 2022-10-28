@@ -2161,6 +2161,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ff75d55d106166f429652d2929414a57, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  instance: {fileID: 0}
   inventoryPanel: {fileID: 1357696306}
   certificatePanel: {fileID: 1758307370}
   isCertificate: 0
@@ -2172,6 +2173,17 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 2260e7135b5d5154f8d8b2119c108160, type: 2}
   - {fileID: 11400000, guid: 847f4591e807e3845b0e046180441b86, type: 2}
   rewardList: []
+  minClickTime: 2
+  clickTime: 0
+  isClick: 0
+  reward3DFactory:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  rewardIndex: 0
+  YDW_BuildingSystem: {fileID: 0}
+  btnIndex: 0
 --- !u!114 &924359354
 MonoBehaviour:
   m_ObjectHideFlags: 0

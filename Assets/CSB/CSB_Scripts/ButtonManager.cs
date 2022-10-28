@@ -34,7 +34,9 @@ public class ButtonManager : MonoBehaviour
     public float clickTime;    // Ŭ�� �� �ð�
     public bool isClick;   // Ŭ�� �� �Ǵ�
 
-   
+    [Header("카메라_UI")]
+    public GameObject Btncam;
+
     private void Awake()
     {
         instance = this;
@@ -238,5 +240,10 @@ public class ButtonManager : MonoBehaviour
         }
     }
 
-  
+    public void ButtonCamOn()
+    {
+        Btncam.SetActive(true);
+        Screen.orientation = ScreenOrientation.Portrait;
+        //Btncam.gameObject.GetComponent<Canvas>().renderingDisplaySize = new Vector2(1080, 1920);
+    }
 }

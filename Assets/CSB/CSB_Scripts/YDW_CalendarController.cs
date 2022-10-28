@@ -1,11 +1,11 @@
-﻿using System;
+﻿/*using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 
-public class CalendarController : MonoBehaviour
+public class YDW_CalendarController : MonoBehaviour
 {
     public GameObject _calendarPanel;
     public Text _yearNumText;
@@ -17,9 +17,9 @@ public class CalendarController : MonoBehaviour
     const int _totalDateNum = 42;
 
     private DateTime _dateTime;
-    public static CalendarController _calendarInstance;
-    
-    //public CalendarController _calendarInstance;
+    //public static CalendarController _calendarInstance;
+
+    public YDW_CalendarController _calendar;
 
     void Start()
     {
@@ -113,73 +113,22 @@ public class CalendarController : MonoBehaviour
         CreateCalendar();
     }
 
-    public Text _target;
-    public Text _target2;
-    public Text _target3;
-    public Text _target4;
-    
-    public void ShowCalendar_1(Text target)
+    public void ShowCalendar(Text target)
     {
         _calendarPanel.SetActive(true);
         _target = target;
-    
-
-        //_calendarPanel.transform.position = new Vector3(965, 475, 0);//Input.mousePosition-new Vector3(0,120,0);
-    }   
-    public void ShowCalendar_2(Text target)
-    {
-        _calendarPanel.SetActive(true);
-        _target2 = target;
-    
-
         //_calendarPanel.transform.position = new Vector3(965, 475, 0);//Input.mousePosition-new Vector3(0,120,0);
     }
 
-    public void ShowCalendar_3(Text target)
-    {
-        _calendarPanel.SetActive(true);
-        _target3 = target;
-
-
-        //_calendarPanel.transform.position = new Vector3(965, 475, 0);//Input.mousePosition-new Vector3(0,120,0);
-    }
-
-    public void ShowCalendar_4(Text target)
-    {
-        _calendarPanel.SetActive(true);
-        _target4 = target;
-
-
-        //_calendarPanel.transform.position = new Vector3(965, 475, 0);//Input.mousePosition-new Vector3(0,120,0);
-    }
-
+    Text _target;
 
     //Item 클릭했을 경우 Text에 표시.
     public void OnDateItemClick(string day)
     {
         _target.text = _yearNumText.text + "-" + _monthNumText.text + "-" + int.Parse(day).ToString("D2");
         _calendarPanel.SetActive(false);
+      
+        
     }
     
-    public void OnDateItemClick2(string day)
-    {
-        _target2.text = _yearNumText.text + "-" + _monthNumText.text + "-" + int.Parse(day).ToString("D2");
-        _calendarPanel.SetActive(false);
-    }    
-    
-    public void OnDateItemClick3(string day)
-    {
-        _target3.text = _yearNumText.text + "-" + _monthNumText.text + "-" + int.Parse(day).ToString("D2");
-        _calendarPanel.SetActive(false);
-    }
-
-    public void OnDateItemClick4(string day)
-    {
-        _target4.text = _yearNumText.text + "-" + _monthNumText.text + "-" + int.Parse(day).ToString("D2");
-        _calendarPanel.SetActive(false);
-    }
-
-
-
-
-}
+}*/

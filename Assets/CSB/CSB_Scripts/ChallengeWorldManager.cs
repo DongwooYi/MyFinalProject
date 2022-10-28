@@ -34,7 +34,7 @@ public class ChallengeWorldManager : MonoBehaviour
             for (int j = 0; j < 10; j++)
             {
                 //Instantiate(chunk, new Vector3(2 * i - 9, 0.3f, 9 - 2 * j), Quaternion.identity);
-                chunks.Add(Instantiate(chunk, new Vector3(2 * i - 9, 0.3f, 9 - 2 * j), Quaternion.identity));   // 전체 땅 리스트에 1씩
+                chunks.Add(Instantiate(chunk, new Vector3(2 * i - 9, 0.1f, 9 - 2 * j), Quaternion.identity));   // 전체 땅 리스트에 1씩
             }
         }
 
@@ -50,7 +50,6 @@ public class ChallengeWorldManager : MonoBehaviour
                     {
                         myGround.Add(chunks[i + j]);
                         chunks[i + j].layer = 9;
-
                     }
                 }
                 spawnPos = myGround[24].transform.position;
@@ -64,7 +63,6 @@ public class ChallengeWorldManager : MonoBehaviour
                     {
                         myGround.Add(chunks[i + j]);
                         chunks[i + j].layer = 9;
-
                     }
                 }
                 spawnPos = myGround[4].transform.position;
@@ -78,7 +76,6 @@ public class ChallengeWorldManager : MonoBehaviour
                     {
                         myGround.Add(chunks[i + j]);
                         chunks[i + j].layer = 9;
-
                     }
                 }
                 spawnPos = myGround[20].transform.position;
@@ -92,7 +89,6 @@ public class ChallengeWorldManager : MonoBehaviour
                     {
                         myGround.Add(chunks[i + j]);
                         chunks[i + j].layer = 9;
-
                     }
                 }
                 spawnPos = myGround[0].transform.position;
@@ -105,6 +101,7 @@ public class ChallengeWorldManager : MonoBehaviour
             for (int j = 0; j < 4; j++)
             {
                 myGround[i].transform.GetChild(j).gameObject.layer = 9;
+                myGround[i].transform.GetChild(j).gameObject.GetComponent<MeshRenderer>().material.color = Color.black; // 내 땅은 black 으로
             }
         }
         
@@ -124,7 +121,7 @@ public class ChallengeWorldManager : MonoBehaviour
     public bool isPass = false;
     public float delayTime = 1f;
     float currTime = 0f;
-    public void SelectGround()
+    public void SelectGround()  // Unlock 관련
     {
         panel.SetActive(false);
         isPass = true;

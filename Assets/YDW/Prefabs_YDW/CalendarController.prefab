@@ -871,6 +871,8 @@ MonoBehaviour:
   _monthNumText: {fileID: 114000013415977530}
   _item: {fileID: 1000011155391382}
   _dateItems: []
+  _calendarInstance: {fileID: 0}
+  _target: {fileID: 114777313297802696}
 --- !u!1 &1000012398401946
 GameObject:
   m_ObjectHideFlags: 0

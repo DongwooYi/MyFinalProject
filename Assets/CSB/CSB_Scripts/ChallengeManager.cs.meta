@@ -1,9 +1,5 @@
 fileFormatVersion: 2
-<<<<<<<< HEAD:Assets/YDW/Scripts_YDW/Test.cs.meta
-guid: 40647530d482f0847b9cb59b60069982
-========
-guid: e67220163f5b1344ea9cdf433bd0a966
->>>>>>>> main:Assets/CSB/CSB_Scripts/Challenge.cs.meta
+guid: 86d5ca55976b9114d9292e77ed0eb360
 MonoImporter:
   externalObjects: {}
   serializedVersion: 2

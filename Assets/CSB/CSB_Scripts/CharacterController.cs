@@ -83,8 +83,11 @@ public class CharacterController : MonoBehaviour
             // 이동 방향
             Vector3 moveDir = new Vector3(inputDir.x, 0, inputDir.y);
 
-            // 이동
+            // 플레이어 이동
             transform.position += moveDir * Time.deltaTime * speed;
+
+            // 카메라 이동
+            Camera.main.transform.position += moveDir * Time.deltaTime * speed * 0.8f;
         }
     }
 }

@@ -35,7 +35,6 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         if (isInput)
         {
-            Debug.Log("isInput");
             InputControl();
         }
     }
@@ -88,7 +87,6 @@ public class VirtualJoystick : MonoBehaviour, IBeginDragHandler, IDragHandler, I
     {
         if (characterController)
         {
-            print("µé¾î¿È");
             characterController.Move(inputVector);
 
         }

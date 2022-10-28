@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
@@ -165,7 +165,7 @@ public class ChatManager : MonoBehaviourPun
             }
         }
     }
-   /* public void OnGetPost(string s)
+   *//* public void OnGetPost(string s)
     {
         string url = "https://8c49-119-194-163-123.jp.ngrok.io/chat_bot?chat_request=";
         url += "&user_id=" + 1;
@@ -175,5 +175,6 @@ public class ChatManager : MonoBehaviourPun
         requester.SetUrl(RequestType.GET, url, false);
 
         HttpManager.instance.SendRequest(requester);
-    }*/
+    }*//*
 }
+*/

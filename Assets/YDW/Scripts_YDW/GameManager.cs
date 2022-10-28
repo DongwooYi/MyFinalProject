@@ -1,4 +1,4 @@
-using System.Collections;
+/*using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
@@ -89,3 +89,4 @@ public class GameManager : MonoBehaviourPunCallbacks
         print(newPlayer.NickName + "이 방에 들어왔습니다.");
     }
 }
+*/

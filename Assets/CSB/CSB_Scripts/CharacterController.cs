@@ -26,8 +26,8 @@ public class CharacterController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        //if (SceneManager.GetActiveScene().name == "CSB_MyProfiletoYDW")
-            if(SceneManager.GetActiveScene().buildIndex == 2)
+        if (SceneManager.GetActiveScene().name == "CSB_MyProfile")
+            //if(SceneManager.GetActiveScene().buildIndex == 0)
         {
             rb.useGravity = false;
         }
@@ -38,26 +38,26 @@ public class CharacterController : MonoBehaviour
 
     void Update()
     {
-       // if (SceneManager.GetActiveScene().name != "CSB_MyProfiletoYDW")
-            if(SceneManager.GetActiveScene().buildIndex != 2)
+        if (SceneManager.GetActiveScene().name != "CSB_MyProfile")
+            //if(SceneManager.GetActiveScene().buildIndex != 2)
 
         {
             rb.useGravity = true;
         }
-       // if (SceneManager.GetActiveScene().name == "PlaygroundDemo")
+        if (SceneManager.GetActiveScene().name == "PlaygroundDemo")
             if(SceneManager.GetActiveScene().buildIndex == 3)
-
+            //
         {
             if (!enterTheWorld)
             {
-                //rb.useGravity = true;
+                rb.useGravity = true;
                 spawnPosition = GameObject.Find("PlayerSpawnPosition");
                 transform.localScale = new Vector3(10, 10, 10);
                 transform.position = spawnPosition.transform.position;
                 enterTheWorld = true;
             }
         }
-        if(SceneManager.GetActiveScene().name == "CSB_YDW_Combine")
+        if(SceneManager.GetActiveScene().name == "PlaygroundDemo")
         {
             if (!isChallengeWorld)
             {

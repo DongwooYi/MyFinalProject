@@ -25,13 +25,10 @@ public class CameraManager : MonoBehaviour
     /* Ä«¸Ş¶ó ÁÜÀÎ ¾Æ¿ô °ü·Ã */
     public float zoomSpeed = 0.1f;  // ÁÜÀÎ ¾Æ¿ô ¼Ó·Â
 
+    
 
     void Start()
     {
-        if(SceneManager.GetActiveScene().name == "CSB_MyProfile")
-        {
-
-        }
         player = GameObject.FindGameObjectWithTag("Player");
     }
 

@@ -8,7 +8,6 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
 using UnityEngine.SceneManagement;
 using System.IO;
-using Photon.Voice;
 using System.Drawing;
 using Unity.VisualScripting;
 using System.Net;

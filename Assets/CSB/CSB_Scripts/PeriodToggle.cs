@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class PeriodToggle : MonoBehaviour
 {
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -16,17 +17,19 @@ public class PeriodToggle : MonoBehaviour
     {
         
     }
-
+   
+   public string a;
     public ToggleGroup periodToggleGroup;
     public void PeriodToggleFunc()
     {
         //Toggle theActiveToggle = periodToggleGroup.ActiveToggles().
-        IEnumerable<Toggle> toggles = periodToggleGroup.ActiveToggles();
-        foreach (Toggle toggle in toggles)
+        IEnumerable<UnityEngine.UI.Toggle> toggles = periodToggleGroup.ActiveToggles();
+        foreach (UnityEngine.UI.Toggle toggle in toggles)
         {
             Debug.Log(toggle.name); // 선택된 토글의 이름
-            // 선택된 토글의 이름을 challenge prefab 에 넘겨줌
-
+                                    // 선택된 토글의 이름을 challenge prefab 에 넘겨줌
+            a = toggle.name;
         }
+        
     }
 }

@@ -26,7 +26,9 @@ public class ChallengePanelManager : MonoBehaviour
     {
         NewChallengeList();
         IngChallengeList();
+
     }
+
 
     /* 챌린지 참가 관련 */
 

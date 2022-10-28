@@ -16,6 +16,7 @@ public class ChallengeManager : MonoBehaviour
     // 생성 Button
     public Button btnConnect;
 
+   public PeriodToggle periodToggle;
     void Start()
     {
         // inputTitleName 값이 변할 때마다 호출되는 함수 등록, 인스펙터 창 상에 등록하는 것을 코드로 구현
@@ -28,6 +29,7 @@ public class ChallengeManager : MonoBehaviour
         inputTitleName.onEndEdit.AddListener(OnEndEdit);
 
         //periodToggleGroup = GetComponent<ToggleGroup>();
+        periodToggle.GetComponent<PeriodToggle>();
     }
 
     // "개설" 버튼 활성화
@@ -46,7 +48,7 @@ public class ChallengeManager : MonoBehaviour
         print("OnEndEdit : " + s);
 
     }
-
+    public Toggle Toggle;
     // "개설" 버튼 누르면 개설
     public void OnClickCreateChallenge()
     {
@@ -56,42 +58,45 @@ public class ChallengeManager : MonoBehaviour
 
         // 주기 text 에 periodInfo 넣어줌
         Challenge challenge = go.GetComponent<Challenge>();
-        challenge.SetPeriod(periodInfo);
-        challenge.SetParticipants(participantInfo);
+        challenge.SetTitle(inputTitleName.text);
+        challenge.SetPeriod(periodToggle.a);
+        //challenge.SetPeriod(periodInfo);
+        challenge.SetParticipants(Toggle.participantInfo);
     }
 
 
     /* 주기 토글 관련 */
-    bool isSelected;
+   /* bool isSelected;
     public ToggleGroup periodToggleGroup;
     string periodInfo;
 
     public void PeriodToggle()
     {
         //Toggle theActiveToggle = periodToggleGroup.ActiveToggles().
-        IEnumerable<Toggle> toggles = periodToggleGroup.ActiveToggles();
-        foreach(Toggle toggle in toggles)
+        IEnumerable<UnityEngine.UI.Toggle> toggles = periodToggleGroup.ActiveToggles();
+            
+        foreach(UnityEngine.UI.Toggle toggle in toggles)
         {
             Debug.Log(toggle.name);
             periodInfo = toggle.name;
         }
     }
 
-    /* 인원 토글 관련 */
+    *//* 인원 토글 관련 *//*
 
     public ToggleGroup participantToggleGroup;
     string participantInfo;
     public void ParticipantToggle()
     {
         //Toggle theActiveToggle = periodToggleGroup.ActiveToggles().
-        IEnumerable<Toggle> toggles = participantToggleGroup.ActiveToggles();
-        foreach (Toggle toggle in toggles)
+        IEnumerable<UnityEngine.UI.Toggle> toggles = participantToggleGroup.ActiveToggles();
+        foreach (UnityEngine.UI.Toggle toggle in toggles)
         {
             Debug.Log(toggle.name);
             participantInfo = toggle.name;
         }
     }
-
+*/
 
     void Update()
     {

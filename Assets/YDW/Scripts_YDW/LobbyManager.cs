@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+/*using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
@@ -224,4 +224,4 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //이전 맵 id 저장
         prevMapId = map_id;
     }
-}
+}*/

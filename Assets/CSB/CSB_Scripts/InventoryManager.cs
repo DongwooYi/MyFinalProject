@@ -5,10 +5,10 @@ using UnityEngine;
 // 인벤토리
 public class InventoryManager : MonoBehaviour
 {
-    // ButtonManager의 rewardList 가져오기
-    public List<Item> rewardedItems = new List<Item>();
+    // ButtonManager의 itemList 가져오기
+    public List<Item> itemList = new List<Item>();
 
-    public List<Item> items = new List<Item>();    // ButtonManager 의 rewardList에 접근해야할듯..?
+    public List<Item> items = new List<Item>();    // ButtonManager 의 itemList 접근해야할듯..?
 
     [SerializeField]
     private Transform content;
@@ -29,12 +29,12 @@ public class InventoryManager : MonoBehaviour
 
     private void Start()
     {
-        rewardedItems = GameObject.Find("Canvas").GetComponent<ButtonManager>().rewardList;
+        itemList = GameObject.Find("Canvas").GetComponent<ButtonManager>().itemList;    // ButtonManager 의 itemList 가져옴
     }
 
     private void Update()
     {
-        items = rewardedItems;
+        items = itemList;
         SetSlot();
     }
 

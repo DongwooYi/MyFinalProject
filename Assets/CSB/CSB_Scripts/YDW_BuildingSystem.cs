@@ -98,9 +98,9 @@ public class YDW_BuildingSystem : MonoBehaviour
 
     }
 
-    // ==== 3D 리워드 생성 =====
+    // ==== 3D 아이템 생성 =====
     // 인덱스 받아오기
-    //ButtonManager buttonManager;
+    // 공장에서 꺼내기
     public GameObject ButtonManager;
     public GameObject[] factory;
     public void GetReward()
@@ -108,7 +108,7 @@ public class YDW_BuildingSystem : MonoBehaviour
         //GameObject[] factory = buttonManager.GetComponent<ButtonManager>().reward3DFactory;
         //int idx = buttonManager.GetComponent<ButtonManager>().rewardIndex;
         //factory = ButtonManager.GetComponent<ButtonManager>().reward3DFactory;
-        int idx = ButtonManager.GetComponent<ButtonManager>().rewardIndex;
+        int idx = ButtonManager.GetComponent<ButtonManager>().itemIndex;
         print(idx);
         print(factory[idx].name);
         InstantiatewithObject(factory[idx]);

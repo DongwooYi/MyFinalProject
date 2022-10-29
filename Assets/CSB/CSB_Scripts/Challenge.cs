@@ -35,6 +35,18 @@ public class Challenge : MonoBehaviour
         periodTxt.text = period;
     }
 
+    // 모집 기간
+    public void SetRePeriod(string date)
+    {
+        recruitmentPeriod.text = date;
+    }
+
+    // 챌린지 기간
+    public void SetChallPeriod(string date)
+    {
+        challengePeriod.text = date;
+    }
+
     // 인원
     public void SetParticipants(string people)
     {

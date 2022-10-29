@@ -23,8 +23,8 @@ public class ButtonManager : MonoBehaviour
     public GameObject rewardPanel;
     public bool isPass = false;
 
-    public List<Item> itmeList = new List<Item>();   // 2D ������ ����Ʈ
-    public List<Item> rewardList = new List<Item>();   // ���� ������ �κ��丮�� �ִ� ������ ����Ʈ
+    public List<Item> itemList = new List<Item>();   // 2D ������ ����Ʈ
+    //public List<Item> rewardList = new List<Item>();   // ���� ������ �κ��丮�� �ִ� ������ ����Ʈ
 
     InventoryManager inventoryManager;  // InventoryManager �������� 
 
@@ -58,12 +58,6 @@ public class ButtonManager : MonoBehaviour
 
     private void Update()
     {
-        // ������ 3D ����
-        /*        for(int i = 0; i < reward3DFactory.Length; i++)
-                {
-                    //reward3DFactory[i] = 
-                }*/
-
         if (isClick)
         {
             clickTime += Time.deltaTime;
@@ -92,7 +86,7 @@ public class ButtonManager : MonoBehaviour
     }
 
 
-    // ���� ��ư
+    // 인증버튼(카메라 씬으로) 관련
     public void CertificateButton()
     {
         if (isCertificate)    // ���� ���� â�� ���� �ִٸ�
@@ -108,81 +102,20 @@ public class ButtonManager : MonoBehaviour
         }
     }
 
-    // ���� Ȯ�� Test (Pass ��ư ������ pass, NonPass ��ư ������ non pass)
-    Ray ray;
-    RaycastHit hit;
-    public void CheckPass()
-    {
-        isPass = true;
-        print(isPass);
-
-        if (isPass)
-        {
-
-            /*            // Unlock 할 땅 선택
-                        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-                        if (Physics.Raycast(ray, out hit))
-                        {
-                            print("들어오니");
-                            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Chunk"))
-                            {
-                                DestroyImmediate(hit.transform.gameObject);
-                                print("땅 Unlock");
-                                isPass = false;
-                            }
-                        }
-                        else
-                        {
-
-                        }*/
-
-
-            /*            // ������ ȹ�� �˾� true �� & �κ��丮�� �ֱ�
-                        rewardPanel.SetActive(true);
-
-                        // �������� ������ ����
-                        int selection = Random.Range(0, itmeList.Count);  // ����
-                        Item reward = itmeList[selection];    // ������ ����
-
-
-                        // �κ��丮�� ������ �߰�
-                        // InventoryManager.cs �� items ����Ʈ�� �߰�
-                        rewardList.Add(reward); // �̰� InventoryManager ���� ����
-                        //inventoryManager.items.Add(reward);
-
-                        // �κ��丮 slot �� ������ �̹����� �߰�
-
-
-                        print("������ ����");
-                        isPass = false;*/
-        }
-
-        // isPass �� false ��
-
-    }
-
-    public void CheckNonPass()
-    {
-        isPass = false;
-    }
-
     // ==========================================================================================================
-    // <<<<�κ��丮���� ������Ʈ ������ ����>>>>
-    // (���� �ð� ���� ������ �κ��丮���� ������Ʈ ���� & �κ��丮 â ����)
-    // ���� ��ġ�� ���� ������ �κ��丮 â�� �ٽ� ���� & �κ��丮 â ����
-    // ���� ��ġ�� �Ǿ��ٸ� �κ��丮 â ����
+    // 아이템 배치 관련
+    // 빌딩시스템
     PlaceableObject objectToPlace;
-    public GameObject[] reward3DFactory = new GameObject[4];   // 3D ������ ���丮
-    public int rewardIndex;
+    public GameObject[] reward3DFactory = new GameObject[4];   // 3D 아이템 (배치할 물건) 공장
+    public int itemIndex;
     public GameObject YDW_BuildingSystem;
     public void HoldReward()
     {
         // �����ϴ� ������ �̸�
-        rewardIndex = itmeList.IndexOf(rewardList[btnIndex]);   // 2D ������ �� �ε��� ã��
-        print(rewardName);
+        itemIndex = itemList.IndexOf(itemList[btnIndex]);   // 2D ������ �� �ε��� ã��
 
         // �κ��丮���� ������ ����(slot �� index �޾Ƽ�)
-        rewardList.RemoveAt(btnIndex);
+        //rewardList.RemoveAt(btnIndex);
         // �κ��丮 â ����
      
         // ������Ʈ(������) 3D ����
@@ -191,28 +124,8 @@ public class ButtonManager : MonoBehaviour
         //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         //RaycastHit hitinfo;
 
-        //GameObject reward = Instantiate(reward3DFactory[rewardIndex]);  // 3D 리워드 생성
+        GameObject reward = Instantiate(reward3DFactory[itemIndex]);  // 3D 생성
         YDW_BuildingSystem.GetComponent<YDW_BuildingSystem>().GetReward();
-
-
-
-        /*        if (!isClick)
-                {
-                    if (Physics.Raycast(ray, out hitinfo))
-                    {
-                        GameObject reward = Instantiate(reward3DFactory[rewardIndex]);
-                        Reward3DObject possibleToDarg = hitinfo.transform.gameObject.GetComponent<Reward3DObject>();
-                        if (possibleToDarg != null)
-                        {
-                            reward.transform.position = hitinfo.transform.position;
-                        }
-
-
-                    }
-
-                }*/
-
-
 
     }
     string rewardName;
@@ -227,7 +140,7 @@ public class ButtonManager : MonoBehaviour
         // slot �� �ε��� �ޱ�
         btnIndex = GameObject.Find("Content").transform.Find(btnName).GetSiblingIndex();
         print(btnIndex);
-        rewardName = rewardList[btnIndex].name;
+        //rewardName = rewardList[btnIndex].name;
     }
 
     public void ButtonUp()
@@ -246,4 +159,65 @@ public class ButtonManager : MonoBehaviour
         Screen.orientation = ScreenOrientation.Portrait;
         //Btncam.gameObject.GetComponent<Canvas>().renderingDisplaySize = new Vector2(1080, 1920);
     }
+
+
+    /*    // ���� Ȯ�� Test (Pass ��ư ������ pass, NonPass ��ư ������ non pass)
+    Ray ray;
+    RaycastHit hit;
+    public void CheckPass()
+    {
+        isPass = true;
+        print(isPass);
+
+        if (isPass)
+        {
+
+            *//*            // Unlock 할 땅 선택
+                        ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+                        if (Physics.Raycast(ray, out hit))
+                        {
+                            print("들어오니");
+                            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Chunk"))
+                            {
+                                DestroyImmediate(hit.transform.gameObject);
+                                print("땅 Unlock");
+                                isPass = false;
+                            }
+                        }
+                        else
+                        {
+
+                        }*/
+
+
+    /*            // ������ ȹ�� �˾� true �� & �κ��丮�� �ֱ�
+                rewardPanel.SetActive(true);
+
+                // �������� ������ ����
+                int selection = Random.Range(0, itmeList.Count);  // ����
+                Item reward = itmeList[selection];    // ������ ����
+
+
+                // �κ��丮�� ������ �߰�
+                // InventoryManager.cs �� items ����Ʈ�� �߰�
+                rewardList.Add(reward); // �̰� InventoryManager ���� ����
+                //inventoryManager.items.Add(reward);
+
+                // �κ��丮 slot �� ������ �̹����� �߰�
+
+
+                print("������ ����");
+                isPass = false;*//*
+}
+
+// isPass �� false ��
+
+}*/
+
+
+/*
+    public void CheckNonPass()
+    {
+        isPass = false;
+    }*/
 }

@@ -70,7 +70,7 @@ public class ChallengeWorldManager : MonoBehaviour
                 break;
             case 2:
                 // 冀记 备盒 C
-                for (int i = n * (int)(m - 1) / 2; i <= (m - 1) * n; i += n)
+                for (int i = (int)(n - 1) / 2 + 1; i <= (m - 1) * n / 2; i += n)
                 {
                     for (int j = 0; j <= (int)(n - 1) / 2; j++)
                     {
@@ -121,7 +121,7 @@ public class ChallengeWorldManager : MonoBehaviour
     public bool isPass = false;
     public float delayTime = 1f;
     float currTime = 0f;
-    public void SelectGround()  // Unlock 包访
+    public void SelectGround()  // Unlock 包访 (Pass)
     {
         panel.SetActive(false);
         isPass = true;

@@ -17,6 +17,7 @@ public class ChallengeManager : MonoBehaviour
     public Button btnConnect;
 
    public PeriodToggle periodToggle;
+
     void Start()
     {
         // inputTitleName 값이 변할 때마다 호출되는 함수 등록, 인스펙터 창 상에 등록하는 것을 코드로 구현
@@ -28,7 +29,6 @@ public class ChallengeManager : MonoBehaviour
         // inputTitleName 에서 Focusing 이 사라졌을ㄹ 때 호출되는 함수 등록
         inputTitleName.onEndEdit.AddListener(OnEndEdit);
 
-        //periodToggleGroup = GetComponent<ToggleGroup>();
         periodToggle.GetComponent<PeriodToggle>();
     }
 
@@ -58,10 +58,9 @@ public class ChallengeManager : MonoBehaviour
 
         // 주기 text 에 periodInfo 넣어줌
         Challenge challenge = go.GetComponent<Challenge>();
-        challenge.SetTitle(inputTitleName.text);
-        challenge.SetPeriod(periodToggle.a);
-        //challenge.SetPeriod(periodInfo);
-        challenge.SetParticipants(Toggle.participantInfo);
+        challenge.SetTitle(inputTitleName.text);    // 제목
+        challenge.SetPeriod(periodToggle.a);    // 주기 및 일정
+        challenge.SetParticipants(Toggle.participantInfo);  // 참가 인원
     }
 
 

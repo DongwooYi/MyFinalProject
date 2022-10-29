@@ -61,24 +61,41 @@ public class CameraManager : MonoBehaviour
     {
         movePos = Vector3.zero;
 
-        if(Input.touchCount == 1)
+        if (Input.touchCount == 1)
         {
             // 만약 오브젝트를 잡았다면 오브젝트를 따라감
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
 
-            Touch touch = Input.GetTouch(0);
-
-            if(touch.phase == TouchPhase.Began)
+            if (Physics.Raycast(ray, out hit))
             {
-                prePos = touch.position - touch.deltaPosition;
+                if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Object"))
+                {
+                    /*                    Vector3 dir;
+                                        dir = hit.transform.position - Camera.main.transform.position;
+                                        Camera.main.transform.position += dir * Time.deltaTime * 0.5f;*/
+                    return;
+                }
             }
-            else if(touch.phase == TouchPhase.Moved)
+            else
             {
-                currentPos = touch.position - touch.deltaPosition;
-                movePos = (Vector3)(prePos - currentPos) * Time.deltaTime * camMoveSpeed;
-                Camera.main.transform.Translate(movePos);
-                prePos = touch.position - touch.deltaPosition;
+
+                Touch touch = Input.GetTouch(0);
+
+                if (touch.phase == TouchPhase.Began)
+                {
+                    prePos = touch.position - touch.deltaPosition;
+                }
+                else if (touch.phase == TouchPhase.Moved)
+                {
+                    currentPos = touch.position - touch.deltaPosition;
+                    movePos = (Vector3)(prePos - currentPos) * Time.deltaTime * camMoveSpeed;
+                    Camera.main.transform.Translate(movePos);
+                    prePos = touch.position - touch.deltaPosition;
+                }
             }
         }
+
     }
 
     // 카메라 줌인 줌아웃 관련

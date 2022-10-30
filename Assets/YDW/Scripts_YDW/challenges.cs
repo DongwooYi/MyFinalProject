@@ -26,21 +26,21 @@ public class challenges : MonoBehaviour
         }*/
         for (int i = 0; i < texts.Count; i++)
         {
-            texts[i].gameObject.name = i+"";
-            texts[i].text = i+"";
-           
-            if(i == 0)
+            texts[i].gameObject.name = i + "";
+            texts[i].text = i + 1 + ": 나의 할일";
+
+            if (i == 1)
             {
-                images[0].GetComponent<Image>().color = Color.blue;
-                
-            }
-             if (i == 1)
-            {
-                images[1].GetComponent<Image>().color = Color.red;
+                //images[0].GetComponent<Image>().color = Color.blue;
+
             }
             if (i == 2)
             {
-                images[2].GetComponent<Image>().color = Color.green;
+                //images[1].GetComponent<Image>().color = Color.red;
+            }
+            if (i == 3)
+            {
+                //images[2].GetComponent<Image>().color = Color.green;
 
             }
         }
@@ -49,19 +49,19 @@ public class challenges : MonoBehaviour
         dictionary.Add(texts[2].gameObject.name, 300);
 
 
-        foreach (KeyValuePair<string,int> i in dictionary)
+        foreach (KeyValuePair<string, int> i in dictionary)
         {
-            
+
             Debug.Log(i.Key + "Key" + i.Value + "Value");
         }
     }
 
-    
+
     void Update()
     {
-        
+
     }
-    public  void OnClickChallengesList()
+    public void OnClickChallengesList()
     {
         ChallengesList.SetActive(false);
     }

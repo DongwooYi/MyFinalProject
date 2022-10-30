@@ -160,6 +160,14 @@ public class ButtonManager : MonoBehaviour
         //Btncam.gameObject.GetComponent<Canvas>().renderingDisplaySize = new Vector2(1080, 1920);
     }
 
+    // MyGoal 관련
+    public void MyGoalUI()
+    {
+        // 버튼을 누르면 내 목표(MyGoal) 보여줌
+
+    }
+
+
 
     /*    // ���� Ȯ�� Test (Pass ��ư ������ pass, NonPass ��ư ������ non pass)
     Ray ray;

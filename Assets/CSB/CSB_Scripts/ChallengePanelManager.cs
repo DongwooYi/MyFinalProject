@@ -62,6 +62,12 @@ public class ChallengePanelManager : MonoBehaviour
         }
     }
 
+    // 모집 중인 챌린지의 세부 내용 확인
+    public void ShowGoalList()
+    {
+
+    }
+
     // 새 챌린지 생성
     public void OpenNewChallenge()
     {

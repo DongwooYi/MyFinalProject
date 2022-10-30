@@ -53,4 +53,7 @@ public class Challenge : MonoBehaviour
         participantsTxt.text = people;
     }
 
+    // 챌린지 세부 내용 확인
+    //ChallengeInfo 빈 게임오브젝트 찾아서 
+    // 나의 인덱스와 같은 ChallengeInfo 빈게임오브젝트의 자식을 찾아서 SetActive true 로
 }

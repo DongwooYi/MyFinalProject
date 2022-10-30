@@ -1899,7 +1899,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 106602965}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 893648578}
+        m_TargetAssemblyTypeName: ChallengeManager, Assembly-CSharp
+        m_MethodName: JoinNewChallenge
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &106602965
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -16013,6 +16025,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   panelManager: {fileID: 173213426}
   makeNewChallengePanel: {fileID: 1958924392}
+  ingChallengeFactory: {fileID: 7440142521360072742, guid: 83bdf52e2bd8e2d47b2cf06405e2457d, type: 3}
+  ingContent: {fileID: 1508543802}
   content: {fileID: 963744556}
   challengeFactory: {fileID: 8042124591590436482, guid: c34d4714788b5514ca4a8023e1818a9b, type: 3}
   inputTitleName: {fileID: 996233324}
@@ -17432,7 +17446,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 665}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &963744557
 MonoBehaviour:
@@ -19146,8 +19160,8 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ChallengePanelManager, Assembly-CSharp
+      - m_Target: {fileID: 893648578}
+        m_TargetAssemblyTypeName: ChallengeManager, Assembly-CSharp
         m_MethodName: GotoMyChallengeWorld
         m_Mode: 1
         m_Arguments:
@@ -21373,7 +21387,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCC4C\uB9B0\uC9C0 \uC608\uC2DC"
+  m_Text: "\uC544\uCE68 \uB3C5\uC11C \uCC4C\uB9B0\uC9C0"
 --- !u!222 &1172770739
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -28631,7 +28645,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1612589348
 RectTransform:
   m_ObjectHideFlags: 0
@@ -35525,10 +35539,10 @@ RectTransform:
   m_Father: {fileID: 963744556}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 751.7368, y: -495}
+  m_SizeDelta: {x: 1450, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2028566981
 MonoBehaviour:
@@ -38239,10 +38253,10 @@ RectTransform:
   m_Father: {fileID: 963744556}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_AnchorMin: {x: 0, y: 1}
+  m_AnchorMax: {x: 0, y: 1}
+  m_AnchoredPosition: {x: 751.7368, y: -175}
+  m_SizeDelta: {x: 1450, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1966901025646397660
 MonoBehaviour:

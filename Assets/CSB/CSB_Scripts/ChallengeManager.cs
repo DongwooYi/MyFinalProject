@@ -14,6 +14,8 @@ public class ChallengeManager : MonoBehaviour
     GameObject ingChallengeObj; // 진행 중 트리거 발생시키는 오브젝트
     GameObject newChallengeObj; // 새 챌린지 트리거 발생시키는 오브젝트
 
+    public GameObject ingChallengeFactory;  // 진행 중인 챌린지 생성
+    public Transform ingContent;
 
 
     // 챌린지 목록 content
@@ -162,7 +164,10 @@ public class ChallengeManager : MonoBehaviour
     // 챌린지 참가 버튼을 누르면 챌린지가 <나의 챌린지>에 생성
     public void JoinNewChallenge()
     {
+        GameObject go = Instantiate(ingChallengeFactory, ingContent);    // content 자식으로 챌린지들 생성
 
+        IngChallenge ingchallenge = go.GetComponent<IngChallenge>();
+        ingchallenge.ShowTitle("새벽 수영 챌린지");    // 일단은 만들 챌린지 제목을 저장해두었다가 만듦
     }
 
 

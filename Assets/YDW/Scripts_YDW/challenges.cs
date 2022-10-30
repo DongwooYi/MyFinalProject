@@ -8,9 +8,12 @@ public class challenges : MonoBehaviour
 {
     public GameObject ChallengesList;
     ChallengePanelManager challengePanelManager;
+    public Sprite sprite;
     public List<Text> texts = new List<Text>();
     public List<Image> images = new List<Image>();
     public Dictionary<string, int> dictionary = new Dictionary<string, int>();
+
+    public PhoneCamera phoneCamera;
     void Start()
     {
         /*foreach( Text text in texts)
@@ -28,10 +31,11 @@ public class challenges : MonoBehaviour
         {
             texts[i].gameObject.name = i + "";
             texts[i].text = i + 1 + ": 나의 할일";
-
+            
             if (i == 1)
             {
                 //images[0].GetComponent<Image>().color = Color.blue;
+
 
             }
             if (i == 2)
@@ -59,7 +63,10 @@ public class challenges : MonoBehaviour
 
     void Update()
     {
-
+        if (phoneCamera.isConfirm)
+        {
+            images[0].GetComponentInChildren<Image>().sprite = sprite;
+        }
     }
     public void OnClickChallengesList()
     {

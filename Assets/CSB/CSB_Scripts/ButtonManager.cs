@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
 
 // UI ���� ��ư�� ����
@@ -167,7 +168,10 @@ public class ButtonManager : MonoBehaviour
 
     }
 
-
+    public void GotoCameraScence()
+    {
+        SceneManager.LoadScene("CameraScene_YDW");
+    }
 
     /*    // ���� Ȯ�� Test (Pass ��ư ������ pass, NonPass ��ư ������ non pass)
     Ray ray;

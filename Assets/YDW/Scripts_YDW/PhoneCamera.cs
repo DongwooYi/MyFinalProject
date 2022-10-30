@@ -26,8 +26,12 @@ public class PhoneCamera : MonoBehaviour
     public GameObject confirm;
     public GameObject ChallengeList;
     public GameObject btnSanp;
+    public bool isConfirm;
+
     private void Start()
     {
+        Screen.orientation = ScreenOrientation.Portrait;
+        isConfirm = false;
         challenges = GetComponent<challenges>();
     }
     private void Update()
@@ -87,7 +91,7 @@ public class PhoneCamera : MonoBehaviour
     {
         StopAllCoroutines();
         confirm.SetActive(false);
-        SceneManager.LoadScene("ChallengeWorld");
+        SceneManager.LoadScene("ChallengeWorld_YDW");
         backCam.Stop();
         cameraAvailable = false;
     }
@@ -145,6 +149,7 @@ public class PhoneCamera : MonoBehaviour
         confirm.SetActive(true);
         confirm.GetComponentInChildren<Text>().text = "인증되었습니다.";
         btnSanp.GetComponent<Button>().interactable = true;
+        isConfirm = true;
         backCam.Stop();
         cameraAvailable = false;
 
@@ -175,6 +180,7 @@ public class PhoneCamera : MonoBehaviour
 
     public void goToChallengeList()
     {
+        isConfirm = true;
         ChallengeList.SetActive(true);
         confirm.SetActive(false);
         StopAllCoroutines();

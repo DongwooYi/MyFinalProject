@@ -40,7 +40,7 @@ public class ChallengePanelManager : MonoBehaviour
         {
             // <챌린지 참가> 오브젝트(쿼드) 가 뜸, setActive
             newChallengeObj.transform.GetChild(0).gameObject.SetActive(true);
-            newChallengeObj.transform.GetChild(0).LookAt(Camera.main.transform);    // 카메라 방향을 향하도록
+            //newChallengeObj.transform.GetChild(0).LookAt(Camera.main.transform);    // 카메라 방향을 향하도록
 
             // 만약 물체와의 거리가 1 보다 작으면 
             if (Vector3.Distance(player.transform.position, newChallengeObj.transform.position) < 1f)
@@ -87,7 +87,7 @@ public class ChallengePanelManager : MonoBehaviour
             if (Vector3.Distance(player.transform.position, ingChallengeObj.transform.position) < 1f)
             {
                 ingChallengeObj.transform.GetChild(0).gameObject.SetActive(false);
-                ingChallengeObj.transform.GetChild(0).LookAt(Camera.main.transform);    // 카메라 방향을 향하도록
+                //ingChallengeObj.transform.GetChild(0).LookAt(Camera.main.transform);    // 카메라 방향을 향하도록
 
 
                 // 진행 중인 챌린지 목록(UI)이 뜸  (나의 자식오브젝트 중 인덱스 몇 번)

@@ -49,6 +49,11 @@ public class ChallengeManager : MonoBehaviour
 
     }
     public Toggle Toggle;
+    public CalendarController calendarController_1;
+    public CalendarController calendarController_2;
+    public CalendarController calendarController_3;
+    public CalendarController calendarController_4;
+
     // "개설" 버튼 누르면 개설
     public void OnClickCreateChallenge()
     {
@@ -60,7 +65,9 @@ public class ChallengeManager : MonoBehaviour
         Challenge challenge = go.GetComponent<Challenge>();
         challenge.SetTitle(inputTitleName.text);    // 제목
         challenge.SetPeriod(periodToggle.a);    // 주기 및 일정
-        challenge.SetParticipants(Toggle.participantInfo);  // 참가 인원
+        challenge.SetParticipants("(1/" + Toggle.participantInfo[0] + ")");  // 참가 인원
+        challenge.SetRePeriod(calendarController_1._target.text + "~" + calendarController_2._target2.text);    // 모집 기간
+        challenge.SetChallPeriod(calendarController_3._target3.text + "~" + calendarController_4._target4.text); // 챌린지 기간
     }
 
 

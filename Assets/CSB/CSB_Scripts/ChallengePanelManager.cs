@@ -97,13 +97,13 @@ public class ChallengePanelManager : MonoBehaviour
 
 
                 // 진행 중인 챌린지 목록(UI)이 뜸  (나의 자식오브젝트 중 인덱스 몇 번)
-                transform.GetChild(1).gameObject.SetActive(true);
+                transform.GetChild(3).gameObject.SetActive(true);
                 // 하나를 선택하면 챌린지 월드로 입장
                 // 목록의 버튼
             }
             else
             {
-                transform.GetChild(1).gameObject.SetActive(false);
+                transform.GetChild(3).gameObject.SetActive(false);
             }
         }
         else

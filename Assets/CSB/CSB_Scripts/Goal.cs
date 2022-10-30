@@ -9,11 +9,10 @@ using UnityEngine.UI;
 public class Goal : MonoBehaviour
 {
     public Text goalList;
-    public bool isPass;
 
     void Start()
     {
-        isPass = false;   
+   
     }
 
     void Update()

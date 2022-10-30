@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
 // 플레이어 찾기
@@ -63,8 +64,20 @@ public class ChallengePanelManager : MonoBehaviour
     }
 
     // 모집 중인 챌린지의 세부 내용 확인
+    // 챌린지 목록의 챌린지를 누르면 
+
+    public Transform contentChallengeList;
+    public Transform challengeInfo;
     public void ShowGoalList()
     {
+        // 버튼의 이름
+        string btn = EventSystem.current.currentSelectedGameObject.name;
+
+        // 버튼의 인덱스 찾기
+        int idx = transform.FindChild(btn).GetSiblingIndex();
+
+        // 그 인덱스에 해당하는 ChallengeInfoManager 게임오브젝트의 자식 켜주기
+        challengeInfo.GetChild(idx).gameObject.SetActive(true);
 
     }
 
@@ -74,7 +87,11 @@ public class ChallengePanelManager : MonoBehaviour
         // 새 챌린지 생성 UI 띄우기
     }
 
-    // 챌린지 참가 
+    // 챌린지 참가 버튼을 누르면 챌린지가 <나의 챌린지>에 생성
+    public void JoinNewChallenge()
+    {
+
+    }
 
 
 

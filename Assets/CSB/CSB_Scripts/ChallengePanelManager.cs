@@ -133,7 +133,7 @@ public class ChallengePanelManager : MonoBehaviour
     {
         ingChallengeObj.transform.GetChild(0).gameObject.SetActive(false);
         // 챌린지 월드 입장
-        SceneManager.LoadScene("ChallengeWorld");
+        SceneManager.LoadScene("ChallengeWorld_YDW");
 
     }
 

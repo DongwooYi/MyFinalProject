@@ -11,7 +11,7 @@ public class CharacterController : MonoBehaviour
 {
     public GameObject spawnPosition;
     public GameObject ingChallengeList;
-    
+
     public float speed = 5f;
     public bool enterTheWorld = false;
     public bool isChallengeWorld = false;
@@ -26,8 +26,7 @@ public class CharacterController : MonoBehaviour
     {
         rb = GetComponent<Rigidbody>();
 
-        if (SceneManager.GetActiveScene().name == "CSB_MyProfile")
-            //if(SceneManager.GetActiveScene().buildIndex == 0)
+        if (SceneManager.GetActiveScene().name == "CSB_MyProfile"|| SceneManager.GetActiveScene().name == "CameraScene_YDW")
         {
             rb.useGravity = false;
         }
@@ -39,25 +38,23 @@ public class CharacterController : MonoBehaviour
     void Update()
     {
         if (SceneManager.GetActiveScene().name != "CSB_MyProfile")
-            //if(SceneManager.GetActiveScene().buildIndex != 2)
-
         {
             rb.useGravity = true;
         }
         if (SceneManager.GetActiveScene().name == "PlaygroundDemo")
-            if(SceneManager.GetActiveScene().buildIndex == 3)
+            if (SceneManager.GetActiveScene().buildIndex == 3)
             //
-        {
-            if (!enterTheWorld)
             {
-                rb.useGravity = true;
-                spawnPosition = GameObject.Find("PlayerSpawnPosition");
-                transform.localScale = new Vector3(10, 10, 10);
-                transform.position = spawnPosition.transform.position;
-                enterTheWorld = true;
+                if (!enterTheWorld)
+                {
+                    rb.useGravity = true;
+                    spawnPosition = GameObject.Find("PlayerSpawnPosition");
+                    transform.localScale = new Vector3(10, 10, 10);
+                    transform.position = spawnPosition.transform.position;
+                    enterTheWorld = true;
+                }
             }
-        }
-        if(SceneManager.GetActiveScene().name == "PlaygroundDemo")
+        if (SceneManager.GetActiveScene().name == "PlaygroundDemo")
         {
             if (!isChallengeWorld)
             {
@@ -70,7 +67,7 @@ public class CharacterController : MonoBehaviour
 
     }
 
-   // 플레이어 이동
+    // 플레이어 이동
     public void Move(Vector2 inputDir)
     {
         // 이동 방향키 입력 값 가져오기

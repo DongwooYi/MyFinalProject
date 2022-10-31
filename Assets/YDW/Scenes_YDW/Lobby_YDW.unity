@@ -5774,6 +5774,7 @@ MonoBehaviour:
   ingChallengeList: {fileID: 0}
   speed: 5
   enterTheWorld: 0
+  isChallengeWorld: 0
 --- !u!137 &464943536486930944
 SkinnedMeshRenderer:
   m_ObjectHideFlags: 0
@@ -9150,6 +9151,7 @@ MonoBehaviour:
   ingChallengeList: {fileID: 0}
   speed: 5
   enterTheWorld: 0
+  isChallengeWorld: 0
 --- !u!1 &6961890546032101987
 GameObject:
   m_ObjectHideFlags: 0
@@ -9373,6 +9375,7 @@ MonoBehaviour:
   ingChallengeList: {fileID: 0}
   speed: 5
   enterTheWorld: 0
+  isChallengeWorld: 0
 --- !u!1 &7262711348993451253
 GameObject:
   m_ObjectHideFlags: 0
@@ -10189,6 +10192,7 @@ MonoBehaviour:
   ingChallengeList: {fileID: 0}
   speed: 5
   enterTheWorld: 0
+  isChallengeWorld: 0
 --- !u!1 &9054804938732099755
 GameObject:
   m_ObjectHideFlags: 0

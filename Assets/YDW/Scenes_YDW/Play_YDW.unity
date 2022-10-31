@@ -3128,6 +3128,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a16d8c5014d40724380c4b43f7dd7716, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  player: {fileID: 0}
   camMoveSpeed: 0.5
   zoomSpeed: 0.1
 --- !u!1001 &296591827

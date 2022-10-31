@@ -7,6 +7,7 @@ public class ChallengeWorldManager : MonoBehaviour
 {
     GameObject player;
     public GameObject chunk;
+    public Transform trParents;
     public List<GameObject> myGround = new List<GameObject>(); // 내 땅 리스트(chunk들 넣어줄거임)
 
     public int myIndex; // 내가 입장한 차례, 0~3 의 int 중 하나 (or 1~4)
@@ -34,7 +35,7 @@ public class ChallengeWorldManager : MonoBehaviour
             for (int j = 0; j < 10; j++)
             {
                 //Instantiate(chunk, new Vector3(2 * i - 9, 0.3f, 9 - 2 * j), Quaternion.identity);
-                chunks.Add(Instantiate(chunk, new Vector3(2 * i - 9, 0.1f, 9 - 2 * j), Quaternion.identity));   // 전체 땅 리스트에 1씩
+                chunks.Add(Instantiate(chunk, new Vector3(2 * i - 9, 0.1f, 9 - 2 * j), Quaternion.identity, trParents));   // 전체 땅 리스트에 1씩
             }
         }
 
@@ -49,7 +50,7 @@ public class ChallengeWorldManager : MonoBehaviour
                     for (int j = 0; j <= (int)(n - 1) / 2; j++)
                     {
                         myGround.Add(chunks[i + j]);
-
+                        
                     }
                 }
                 spawnPos = myGround[24].transform.position;

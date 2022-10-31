@@ -57,9 +57,9 @@ public class MyProfileManager : MonoBehaviour
 
     void Update()
     {
-        if (Input.anyKeyDown)
+        if (Input.GetKeyDown(KeyCode.Q))
         {
-            //SceneManager.LoadScene("CSB_Player");
+            SceneManager.LoadScene("PlaygroundDemo");
         }
     }
 

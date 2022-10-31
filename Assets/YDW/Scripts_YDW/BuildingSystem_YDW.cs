@@ -13,28 +13,31 @@ public class BuildingSystem_YDW : MonoBehaviour
     PlaceableObject objectToPlace;
     public Transform parentsPrefabs;
     public GameObject buttonforPlaced;
+    public GameObject buttonforDestroy;
+    public GameObject buttonforRotate;
     public GameObject preViewObj;
     GameObject obj;
     int idx;
     private void Start()
     {
         idx = ButtonManager.GetComponent<ButtonManager>().itemIndex;
-        buttonforPlaced.SetActive(false);
-
+        
     }
     private void Update()
     {
-        if(!objectToPlace)
+        if (!objectToPlace)
         {
             return;
         }
         if (objectToPlace.isOkaytoBuild)
         {
-            buttonforPlaced.SetActive(true);
+            buttonforPlaced.GetComponent<Button>().interactable =true;
+
         }
         else
         {
-            buttonforPlaced.SetActive(false);
+            buttonforPlaced.GetComponent<Button>().interactable = false;
+
         }
     }
     #region 버튼 선택
@@ -47,6 +50,8 @@ public class BuildingSystem_YDW : MonoBehaviour
 
         objectToPlace.Place();
         StartCoroutine(BeginBuilding());
+
+
     }
     public void OnClickDestory()
     {
@@ -96,7 +101,8 @@ public class BuildingSystem_YDW : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hitInfo, Mathf.Infinity, layerMask))
         {
             Debug.Log($"이름: {hitInfo.transform.name}");
-            return new Vector3((int)hitInfo.point.x, (int)hitInfo.point.y, (int)hitInfo.point.z);
+            Debug.Log("hitInfo: "+hitInfo.point.y);
+            return new Vector3((int)hitInfo.point.x, hitInfo.point.y - 0.2f, (int)hitInfo.point.z);
         }
         else
         {
@@ -107,13 +113,16 @@ public class BuildingSystem_YDW : MonoBehaviour
 
     IEnumerator BeginBuilding()
     {
+        buttonforDestroy.GetComponent<Button>().interactable = false;
+        buttonforRotate.GetComponent<Button>().interactable = false;
         obj.SetActive(false);
         GameObject go = Instantiate(preViewObj);
         go.transform.position = obj.transform.position;
-
         yield return new WaitForSeconds(4.0f);
         Destroy(go);
         obj.SetActive(true);
+        buttonforDestroy.GetComponent<Button>().interactable = true;
+        buttonforRotate.GetComponent<Button>().interactable = true;
     }
     #endregion
     #region 건물 건축

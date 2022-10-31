@@ -126,7 +126,7 @@ public class ButtonManager : MonoBehaviour
         //Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         //RaycastHit hitinfo;
 
-        GameObject reward = Instantiate(reward3DFactory[itemIndex]);  // 3D 생성
+        //GameObject reward = Instantiate(reward3DFactory[itemIndex]);  // 3D 생성
         YDW_BuildingSystem.GetComponent<BuildingSystem_YDW>().GetReward();
 
     }

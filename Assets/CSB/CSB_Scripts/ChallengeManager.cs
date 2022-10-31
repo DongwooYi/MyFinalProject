@@ -59,6 +59,10 @@ public class ChallengeManager : MonoBehaviour
     {
         NewChallengeList();
         IngChallengeList();
+        if(Input.GetKeyDown(KeyCode.W))
+        {
+            SceneManager.LoadScene("ChallengeWorld");
+        }
     }
 
 

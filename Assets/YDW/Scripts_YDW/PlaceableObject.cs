@@ -16,11 +16,11 @@ public class PlaceableObject : MonoBehaviour
 
     private void Update()
     {
-        Vector3 pos = new Vector3(transform.position.x, transform.position.y + 1, transform.position.z);
+        Vector3 pos = new Vector3(transform.GetChild(0).transform.position.x, transform.GetChild(0).transform.position.y, transform.GetChild(0).transform.position.z);
         if (Physics.Raycast(pos, -Vector3.up, out RaycastHit hit))
         {
             Debug.DrawLine(pos, hit.point, Color.blue);
-            Debug.Log("HIt: " + hit.collider.name);
+            Debug.Log("Hit: " + hit.collider.name);
             if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
             {
                 isOkaytoBuild = true;
@@ -35,7 +35,7 @@ public class PlaceableObject : MonoBehaviour
     }
     public void Rotate()
     {
-        transform.Rotate(new Vector3(0, 90, 0));
+       this.transform.GetChild(0).transform.Rotate(new Vector3(0, 90, 0));
 
     }
     public virtual void Place()

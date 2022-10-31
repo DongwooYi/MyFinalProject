@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class challenges : MonoBehaviour
 {
     public GameObject ChallengesList;
-    ChallengePanelManager challengePanelManager;
     public Sprite sprite;
     public List<Text> texts = new List<Text>();
     public List<Image> images = new List<Image>();

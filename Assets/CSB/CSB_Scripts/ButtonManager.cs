@@ -22,7 +22,7 @@ public class ButtonManager : MonoBehaviour
 
     /* ���� Ȯ�� & ������ ���� */
     public GameObject rewardPanel;
-    public bool isPass = false;
+    //public bool isPass = false;
 
     public List<Item> itemList = new List<Item>();   // 2D ������ ����Ʈ
     //public List<Item> rewardList = new List<Item>();   // ���� ������ �κ��丮�� �ִ� ������ ����Ʈ
@@ -88,6 +88,7 @@ public class ButtonManager : MonoBehaviour
 
 
     // 인증버튼(카메라 씬으로) 관련
+
     public void CertificateButton()
     {
         if (isCertificate)    // ���� ���� â�� ���� �ִٸ�
@@ -126,7 +127,7 @@ public class ButtonManager : MonoBehaviour
         //RaycastHit hitinfo;
 
         GameObject reward = Instantiate(reward3DFactory[itemIndex]);  // 3D 생성
-        YDW_BuildingSystem.GetComponent<YDW_BuildingSystem>().GetReward();
+        YDW_BuildingSystem.GetComponent<BuildingSystem_YDW>().GetReward();
 
     }
     string rewardName;

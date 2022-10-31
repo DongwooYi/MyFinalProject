@@ -10,46 +10,46 @@ public class ChallengeManager : MonoBehaviour
     public Transform panelManager;
     public GameObject makeNewChallengePanel;
 
-    GameObject player;  // ÇÃ·¹ÀÌ¾î
-    GameObject ingChallengeObj; // ÁøÇà Áß Æ®¸®°Å ¹ß»ý½ÃÅ°´Â ¿ÀºêÁ§Æ®
-    GameObject newChallengeObj; // »õ Ã§¸°Áö Æ®¸®°Å ¹ß»ý½ÃÅ°´Â ¿ÀºêÁ§Æ®
+    GameObject player;  // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½
+    GameObject ingChallengeObj; // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
+    GameObject newChallengeObj; // ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ß»ï¿½ï¿½ï¿½Å°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®
 
-    public GameObject ingChallengeFactory;  // ÁøÇà ÁßÀÎ Ã§¸°Áö »ý¼º
+    public GameObject ingChallengeFactory;  // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public Transform ingContent;
 
 
-    // Ã§¸°Áö ¸ñ·Ï content
+    // Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ content
     public Transform content;
 
-    // Ã§¸°Áö »ý¼º °øÀå
+    // Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public GameObject challengeFactory;
 
-    // ¸¸µé Ã§¸°Áö Á¦¸ñ
+    // ï¿½ï¿½ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public InputField inputTitleName;
-    // »ý¼º Button
+    // ï¿½ï¿½ï¿½ï¿½ Button
     public Button btnConnect;
 
    public PeriodToggle periodToggle;
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
+        //DontDestroyOnLoad(gameObject);
     }
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");    // ÇÃ·¹ÀÌ¾î Ã£±â
-        newChallengeObj = GameObject.Find("NewChallenge");  // ¹°Ã¼ Ã£±â
-        ingChallengeObj = GameObject.Find("IngChallenge");  // ÁøÇàÁß Æ®¸®°Å ¹°Ã¼ Ã£±â
+        player = GameObject.FindGameObjectWithTag("Player");    // ï¿½Ã·ï¿½ï¿½Ì¾ï¿½ Ã£ï¿½ï¿½
+        newChallengeObj = GameObject.Find("NewChallenge");  // ï¿½ï¿½Ã¼ Ã£ï¿½ï¿½
+        ingChallengeObj = GameObject.Find("IngChallenge");  // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Æ®ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ Ã£ï¿½ï¿½
 
-        /* »õ Ã§¸°Áö »ý¼º °ü·Ã */
-        // inputTitleName °ªÀÌ º¯ÇÒ ¶§¸¶´Ù È£ÃâµÇ´Â ÇÔ¼ö µî·Ï, ÀÎ½ºÆåÅÍ Ã¢ »ó¿¡ µî·ÏÇÏ´Â °ÍÀ» ÄÚµå·Î ±¸Çö
+        /* ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
+        // inputTitleName ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½Ç´ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½, ï¿½Î½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã¢ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Ï´ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½Úµï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         inputTitleName.onValueChanged.AddListener(OnValueChanged);
 
-/*        // inputTitleName ¿¡¼­ Enter Å° ´©¸£¸é È£ÃâµÇ´Â ÇÔ¼ö µî·Ï
+/*        // inputTitleName ï¿½ï¿½ï¿½ï¿½ Enter Å° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ È£ï¿½ï¿½Ç´ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½
         inputTitleName.onSubmit.AddListener(OnSubmit);*/
 
-        // inputTitleName ¿¡¼­ Focusing ÀÌ »ç¶óÁ³À»¤© ¶§ È£ÃâµÇ´Â ÇÔ¼ö µî·Ï
+        // inputTitleName ï¿½ï¿½ï¿½ï¿½ Focusing ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ È£ï¿½ï¿½Ç´ï¿½ ï¿½Ô¼ï¿½ ï¿½ï¿½ï¿½
         inputTitleName.onEndEdit.AddListener(OnEndEdit);
 
         periodToggle.GetComponent<PeriodToggle>();
@@ -62,18 +62,18 @@ public class ChallengeManager : MonoBehaviour
     }
 
 
-    /* »õ Ã§¸°Áö »ý¼º °ü·Ã */
-    // "°³¼³" ¹öÆ° È°¼ºÈ­
+    /* ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
+    // "ï¿½ï¿½ï¿½ï¿½" ï¿½ï¿½Æ° È°ï¿½ï¿½È­
     void OnValueChanged(string s)
     {
-        // ¸¸¾à sÀÇ ±æÀÌ°¡ 0º¸´Ù Å©¸é
-        // ¹öÆ°À» µ¿ÀÛÇÏ°Ô ¼³Á¤
-        // ±×·¸Áö ¾Ê´Ù¸é
-        // ¹öÆ°À» µ¿ÀÛÇÏÁö ¾Ê°Ô ¼³Á¤
+        // ï¿½ï¿½ï¿½ï¿½ sï¿½ï¿½ ï¿½ï¿½ï¿½Ì°ï¿½ 0ï¿½ï¿½ï¿½ï¿½ Å©ï¿½ï¿½
+        // ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï°ï¿½ ï¿½ï¿½ï¿½ï¿½
+        // ï¿½×·ï¿½ï¿½ï¿½ ï¿½Ê´Ù¸ï¿½
+        // ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ê°ï¿½ ï¿½ï¿½ï¿½ï¿½
         btnConnect.interactable = s.Length > 0;
     }
 
-    // Æ÷Ä¿½ÌÀÌ »ç¶óÁ³À» ¶§
+    // ï¿½ï¿½Ä¿ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½
     void OnEndEdit(string s)
     {
         print("OnEndEdit : " + s);
@@ -85,47 +85,47 @@ public class ChallengeManager : MonoBehaviour
     public CalendarController calendarController_3;
     public CalendarController calendarController_4;
 
-    // "°³¼³" ¹öÆ° ´©¸£¸é °³¼³
+    // "ï¿½ï¿½ï¿½ï¿½" ï¿½ï¿½Æ° ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void OnClickCreateChallenge()
     {
-        // »õ·Î¿î Ã§¸°Áö°¡ »ý¼º
-        // NewChallengeList ¿¡ Btn_Challenge ÇÁ¸®Æé »ý¼º
-        GameObject go = Instantiate(challengeFactory, content);    // content ÀÚ½ÄÀ¸·Î Ã§¸°Áöµé »ý¼º
+        // ï¿½ï¿½ï¿½Î¿ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        // NewChallengeList ï¿½ï¿½ Btn_Challenge ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        GameObject go = Instantiate(challengeFactory, content);    // content ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
-        // ÁÖ±â text ¿¡ periodInfo ³Ö¾îÁÜ
+        // ï¿½Ö±ï¿½ text ï¿½ï¿½ periodInfo ï¿½Ö¾ï¿½ï¿½ï¿½
         Challenge challenge = go.GetComponent<Challenge>();
-        challenge.SetTitle(inputTitleName.text);    // Á¦¸ñ
-        challenge.SetPeriod(periodToggle.a);    // ÁÖ±â ¹× ÀÏÁ¤
-        challenge.SetParticipants("(1/" + toggle.participantInfo[0] + ")");  // Âü°¡ ÀÎ¿ø
-        challenge.SetRePeriod(calendarController_1._target.text + "~" + calendarController_2._target2.text);    // ¸ðÁý ±â°£
-        challenge.SetChallPeriod(calendarController_3._target3.text + "~" + calendarController_4._target4.text); // Ã§¸°Áö ±â°£
+        challenge.SetTitle(inputTitleName.text);    // ï¿½ï¿½ï¿½ï¿½
+        challenge.SetPeriod(periodToggle.a);    // ï¿½Ö±ï¿½ ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+        challenge.SetParticipants("(1/" + toggle.participantInfo[0] + ")");  // ï¿½ï¿½ï¿½ï¿½ ï¿½Î¿ï¿½
+        challenge.SetRePeriod(calendarController_1._target.text + "~" + calendarController_2._target2.text);    // ï¿½ï¿½ï¿½ï¿½ ï¿½â°£
+        challenge.SetChallPeriod(calendarController_3._target3.text + "~" + calendarController_4._target4.text); // Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½â°£
 
         makeNewChallengePanel.SetActive(false);
 
-        // ³»¿ëµµ Áö¿öÁà¾ßÇÔ
+        // ï¿½ï¿½ï¿½ëµµ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     }
 
 
-    /* Ã§¸°Áö Âü°¡ °ü·Ã */
+    /* Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ */
 
-    // ¸ðÁý ÁßÀÎ Ã§¸°Áö ¸ñ·Ï º¸¿©ÁÜ
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void NewChallengeList()
     {
-        // ¸¸¾à ¹°Ã¼¿ÍÀÇ °Å¸®°¡ 1.5º¸´Ù ÀÛÀ¸¸é
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ 1.5ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (Vector3.Distance(player.transform.position, newChallengeObj.transform.position) < 1.5f)
         {
-            // <Ã§¸°Áö Âü°¡> ¿ÀºêÁ§Æ®(Äõµå) °¡ ¶ä, setActive
+            // <Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®(ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ ï¿½ï¿½, setActive
             newChallengeObj.transform.GetChild(0).gameObject.SetActive(true);
-            //newChallengeObj.transform.GetChild(0).LookAt(Camera.main.transform);    // Ä«¸Þ¶ó ¹æÇâÀ» ÇâÇÏµµ·Ï
+            //newChallengeObj.transform.GetChild(0).LookAt(Camera.main.transform);    // Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½
 
-            // ¸¸¾à ¹°Ã¼¿ÍÀÇ °Å¸®°¡ 1 º¸´Ù ÀÛÀ¸¸é 
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
             if (Vector3.Distance(player.transform.position, newChallengeObj.transform.position) < 1f)
             {
                 newChallengeObj.transform.GetChild(0).gameObject.SetActive(false);
-                // Âü°¡ÇÒ ¼ö ÀÖ´Â Ã§¸°Áö ¸ñ·Ï(UI)ÀÌ ¶ä  (³ªÀÇ ÀÚ½Ä¿ÀºêÁ§Æ® Áß ÀÎµ¦½º ¸î ¹ø)
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½Ö´ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(UI)ï¿½ï¿½ ï¿½ï¿½  (ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½)
                 panelManager.GetChild(0).gameObject.SetActive(true);
-                // ÇÏ³ª¸¦ ¼±ÅÃÇÏ¸é Ã§¸°Áö ¿ùµå·Î ÀÔÀå(?)
-                // Ã§¸°Áö Âü°¡ ½ÅÃ»
+                // ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½(?)
+                // Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã»
             }
             else
             {
@@ -138,62 +138,62 @@ public class ChallengeManager : MonoBehaviour
         }
     }
 
-    // ¸ðÁý ÁßÀÎ Ã§¸°ÁöÀÇ ¼¼ºÎ ³»¿ë È®ÀÎ
-    // Ã§¸°Áö ¸ñ·ÏÀÇ Ã§¸°Áö¸¦ ´©¸£¸é 
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ È®ï¿½ï¿½
+    // Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
 
     public Transform challengeInfo;
     public void ShowGoalList()
     {
-        // ¹öÆ°ÀÇ ÀÌ¸§
+        // ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½Ì¸ï¿½
         string btn = EventSystem.current.currentSelectedGameObject.name;
 
-        // ¹öÆ°ÀÇ ÀÎµ¦½º Ã£±â
-        int idx = content.FindChild(btn).GetSiblingIndex();
+        // ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ Ã£ï¿½ï¿½
+        int idx = content.Find(btn).GetSiblingIndex();
 
-        // ±× ÀÎµ¦½º¿¡ ÇØ´çÇÏ´Â ChallengeInfoManager °ÔÀÓ¿ÀºêÁ§Æ®ÀÇ ÀÚ½Ä ÄÑÁÖ±â
+        // ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½Ø´ï¿½ï¿½Ï´ï¿½ ChallengeInfoManager ï¿½ï¿½ï¿½Ó¿ï¿½ï¿½ï¿½ï¿½ï¿½Æ®ï¿½ï¿½ ï¿½Ú½ï¿½ ï¿½ï¿½ï¿½Ö±ï¿½
         challengeInfo.GetChild(idx).gameObject.SetActive(true);
 
     }
 
-    // »õ Ã§¸°Áö »ý¼º
+    // ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void OpenNewChallenge()
     {
-        // »õ Ã§¸°Áö »ý¼º UI ¶ç¿ì±â
+        // ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ UI ï¿½ï¿½ï¿½ï¿½
     }
 
-    // Ã§¸°Áö Âü°¡ ¹öÆ°À» ´©¸£¸é Ã§¸°Áö°¡ <³ªÀÇ Ã§¸°Áö>¿¡ »ý¼º
+    // Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ <ï¿½ï¿½ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½>ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
     public void JoinNewChallenge()
     {
-        GameObject go = Instantiate(ingChallengeFactory, ingContent);    // content ÀÚ½ÄÀ¸·Î Ã§¸°Áöµé »ý¼º
+        GameObject go = Instantiate(ingChallengeFactory, ingContent);    // content ï¿½Ú½ï¿½ï¿½ï¿½ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
 
         IngChallenge ingchallenge = go.GetComponent<IngChallenge>();
-        ingchallenge.ShowTitle("»õº® ¼ö¿µ Ã§¸°Áö");    // ÀÏ´ÜÀº ¸¸µé Ã§¸°Áö Á¦¸ñÀ» ÀúÀåÇØµÎ¾ú´Ù°¡ ¸¸µê
+        ingchallenge.ShowTitle("ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½");    // ï¿½Ï´ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ØµÎ¾ï¿½ï¿½Ù°ï¿½ ï¿½ï¿½ï¿½ï¿½
     }
 
 
 
-    /* ÁøÇà ÁßÀÎ Ã§¸°Áö(¸¶ÀÌÃ§¸°Áö) °ü·Ã */
-    // ÁøÇà ÁßÀÎ Ã§¸°Áö ¸ñ·Ï º¸¿©ÁÜ
+    /* ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½(ï¿½ï¿½ï¿½ï¿½Ã§ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ï¿½ï¿½ */
+    // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     public void IngChallengeList()
     {
-        // ¸¸¾à ¹°Ã¼¿ÍÀÇ °Å¸®°¡ 1.5º¸´Ù ÀÛÀ¸¸é
+        // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ 1.5ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
         if (Vector3.Distance(player.transform.position, ingChallengeObj.transform.position) < 1.5f)
         {
-            // <³» Ã§¸°Áö> ¿ÀºêÁ§Æ®(Äõµå) °¡ ¶ä, setActive
+            // <ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½> ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Æ®(ï¿½ï¿½ï¿½ï¿½) ï¿½ï¿½ ï¿½ï¿½, setActive
             ingChallengeObj.transform.GetChild(0).gameObject.SetActive(true);
-            // ÁÖº¯¿¡ ÀÌÆåÆ®
+            // ï¿½Öºï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½Æ®
 
-            // ¸¸¾à ¹°Ã¼¿ÍÀÇ °Å¸®°¡ 1 º¸´Ù ÀÛÀ¸¸é 
+            // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Ã¼ï¿½ï¿½ï¿½ï¿½ ï¿½Å¸ï¿½ï¿½ï¿½ 1 ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ 
             if (Vector3.Distance(player.transform.position, ingChallengeObj.transform.position) < 1f)
             {
                 ingChallengeObj.transform.GetChild(0).gameObject.SetActive(false);
-                //ingChallengeObj.transform.GetChild(0).LookAt(Camera.main.transform);    // Ä«¸Þ¶ó ¹æÇâÀ» ÇâÇÏµµ·Ï
+                //ingChallengeObj.transform.GetChild(0).LookAt(Camera.main.transform);    // Ä«ï¿½Þ¶ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ïµï¿½ï¿½ï¿½
 
 
-                // ÁøÇà ÁßÀÎ Ã§¸°Áö ¸ñ·Ï(UI)ÀÌ ¶ä  (³ªÀÇ ÀÚ½Ä¿ÀºêÁ§Æ® Áß ÀÎµ¦½º ¸î ¹ø)
+                // ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½(UI)ï¿½ï¿½ ï¿½ï¿½  (ï¿½ï¿½ï¿½ï¿½ ï¿½Ú½Ä¿ï¿½ï¿½ï¿½ï¿½ï¿½Æ® ï¿½ï¿½ ï¿½Îµï¿½ï¿½ï¿½ ï¿½ï¿½ ï¿½ï¿½)
                 panelManager.GetChild(3).gameObject.SetActive(true);
-                // ÇÏ³ª¸¦ ¼±ÅÃÇÏ¸é Ã§¸°Áö ¿ùµå·Î ÀÔÀå
-                // ¸ñ·ÏÀÇ ¹öÆ°
+                // ï¿½Ï³ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½Ï¸ï¿½ Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
+                // ï¿½ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½Æ°
             }
             else
             {
@@ -209,7 +209,7 @@ public class ChallengeManager : MonoBehaviour
     public void GotoMyChallengeWorld()
     {
         ingChallengeObj.transform.GetChild(0).gameObject.SetActive(false);
-        // Ã§¸°Áö ¿ùµå ÀÔÀå
+        // Ã§ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½ï¿½
         SceneManager.LoadScene("ChallengeWorld");
 
     }

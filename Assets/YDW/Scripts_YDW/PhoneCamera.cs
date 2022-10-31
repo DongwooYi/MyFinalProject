@@ -53,7 +53,7 @@ public class PhoneCamera : MonoBehaviour
     {
         ChallengeList.SetActive(false);
         WebCamDevice[] devices = WebCamTexture.devices;
-        /*if (devices.Length == 0)
+        if (devices.Length == 0)
         {
             Debug.Log("카메라 없음");
             cameraAvailable = false;
@@ -74,8 +74,8 @@ public class PhoneCamera : MonoBehaviour
         {
             Debug.Log("후면 카메라 찾을 수없음");
             return;
-        }*/
-        backCam = new WebCamTexture(devices[0].name, Screen.width, Screen.height);
+        }
+       // backCam = new WebCamTexture(devices[0].name, Screen.width, Screen.height);
         backCam.Play();
         background.texture = backCam;
         cameraAvailable = true;
@@ -91,7 +91,7 @@ public class PhoneCamera : MonoBehaviour
     {
         StopAllCoroutines();
         confirm.SetActive(false);
-        SceneManager.LoadScene("ChallengeWorld_YDW");
+        SceneManager.LoadScene("ChallengeWorld");
         backCam.Stop();
         cameraAvailable = false;
     }
@@ -143,7 +143,7 @@ public class PhoneCamera : MonoBehaviour
                     //StartCoroutine(Getrequest("http://192.168.0.15:5005/detection"));
                 }*/
         saveTex.Release();
-        yield return new WaitForSeconds(5.0f);
+        yield return new WaitForSeconds(3.0f);
 
         Spinner.SetActive(false);
         confirm.SetActive(true);
@@ -152,7 +152,7 @@ public class PhoneCamera : MonoBehaviour
         isConfirm = true;
         backCam.Stop();
         cameraAvailable = false;
-
+        StopAllCoroutines();
     }
 
     IEnumerator Getrequest(string URL)

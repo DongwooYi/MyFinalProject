@@ -49,7 +49,7 @@ public class ChallengeWorldManager : MonoBehaviour
                     for (int j = 0; j <= (int)(n - 1) / 2; j++)
                     {
                         myGround.Add(chunks[i + j]);
-                        chunks[i + j].layer = 9;
+
                     }
                 }
                 spawnPos = myGround[24].transform.position;
@@ -62,7 +62,7 @@ public class ChallengeWorldManager : MonoBehaviour
                     for (int j = 0; j <= (int)(n - 1) / 2; j++)
                     {
                         myGround.Add(chunks[i + j]);
-                        chunks[i + j].layer = 9;
+
                     }
                 }
                 spawnPos = myGround[4].transform.position;
@@ -75,7 +75,7 @@ public class ChallengeWorldManager : MonoBehaviour
                     for (int j = 0; j <= (int)(n - 1) / 2; j++)
                     {
                         myGround.Add(chunks[i + j]);
-                        chunks[i + j].layer = 9;
+
                     }
                 }
                 spawnPos = myGround[20].transform.position;
@@ -88,7 +88,7 @@ public class ChallengeWorldManager : MonoBehaviour
                     for (int j = 0; j <= (int)(n - 1) / 2; j++)
                     {
                         myGround.Add(chunks[i + j]);
-                        chunks[i + j].layer = 9;
+
                     }
                 }
                 spawnPos = myGround[0].transform.position;
@@ -96,26 +96,41 @@ public class ChallengeWorldManager : MonoBehaviour
                 break;
         }
 
-        for(int i = 0; i < myGround.Count; i++)
+        for (int i = 0; i < myGround.Count; i++)
         {
             for (int j = 0; j < 4; j++)
             {
-                myGround[i].transform.GetChild(j).gameObject.layer = 9;
+                myGround[i].transform.gameObject.layer = 10;
+                myGround[i].transform.GetChild(j).gameObject.layer = 10;
                 myGround[i].transform.GetChild(j).gameObject.GetComponent<MeshRenderer>().material.color = Color.black; // ³» ¶¥Àº black À¸·Î
+
             }
         }
-        
+
     }
+
     Ray ray;
     RaycastHit hit;
 
+    //ButtonManager buttonManager;
+
+
     void Update()
     {
+        if(Input.GetKey(KeyCode.E))
+        {
+            isPass = true;
+        }
+            Debug.Log("isPass" + isPass);
         if (isPass)
         {
             SelectGround();
         }
 
+        else
+        {
+            isPass = false;
+        }
     }
 
     public bool isPass = false;
@@ -127,21 +142,21 @@ public class ChallengeWorldManager : MonoBehaviour
         isPass = true;
         currTime += Time.deltaTime;
 
-        if(currTime >= delayTime)
+        if (currTime >= delayTime)
         {
             if (isPass)
             {
                 ray = Camera.main.ScreenPointToRay(Input.mousePosition);
                 if (Physics.Raycast(ray, out hit))
                 {
-                    if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Chunk"))
+                    if (hit.transform.gameObject.layer == LayerMask.NameToLayer("IsMine"))
                     {
                         DestroyImmediate(hit.transform.gameObject);
                         isPass = false;
                     }
                     else
                     {
-                        isPass = true;   
+                        isPass = true;
                     }
 
                 }

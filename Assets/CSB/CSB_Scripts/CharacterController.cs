@@ -29,6 +29,7 @@ public class CharacterController : MonoBehaviour
         if (SceneManager.GetActiveScene().name == "CSB_MyProfile"|| SceneManager.GetActiveScene().name == "CameraScene_YDW")
         {
             rb.useGravity = false;
+            transform.localScale = new Vector3(8, 8, -8);
         }
 
 

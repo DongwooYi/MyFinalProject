@@ -42,7 +42,7 @@ public class CharacterController : MonoBehaviour
             rb.useGravity = true;
         }
         if (SceneManager.GetActiveScene().name == "PlaygroundDemo")
-            if (SceneManager.GetActiveScene().buildIndex == 3)
+            //if (SceneManager.GetActiveScene().buildIndex == 3)
             //
             {
                 if (!enterTheWorld)
@@ -54,7 +54,7 @@ public class CharacterController : MonoBehaviour
                     enterTheWorld = true;
                 }
             }
-        if (SceneManager.GetActiveScene().name == "PlaygroundDemo")
+        if (SceneManager.GetActiveScene().name == "ChallengeWorld")
         {
             if (!isChallengeWorld)
             {

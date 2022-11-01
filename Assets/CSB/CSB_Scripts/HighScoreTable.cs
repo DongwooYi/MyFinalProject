@@ -19,10 +19,10 @@ public class HighScoreTable : MonoBehaviour
         entryTemplate.gameObject.SetActive(false);
         highScoreEntriesList = new List<HighScoreEntry>()
         {
-new HighScoreEntry{score = 10, name ="Lee"},
-new HighScoreEntry{score = 10000, name ="Park"},
-new HighScoreEntry{score = 1000, name ="Kwon"},
-new HighScoreEntry{score = 100, name ="Kim"},
+new HighScoreEntry{score = 10, name ="´Ð³×ÀÓ"},
+//new HighScoreEntry{score = 10000, name ="Park"},
+//new HighScoreEntry{score = 1000, name ="Kwon"},
+//new HighScoreEntry{score = 100, name ="Kim"},
 
 
         };

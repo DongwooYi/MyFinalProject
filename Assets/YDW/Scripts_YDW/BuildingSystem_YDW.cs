@@ -105,7 +105,7 @@ public class BuildingSystem_YDW : MonoBehaviour
         {
             Debug.Log($"¿Ã∏ß: {hitInfo.transform.name}");
             Debug.Log("hitInfo: "+hitInfo.point.y);
-            return new Vector3((int)hitInfo.point.x, hitInfo.point.y - 0.2f, (int)hitInfo.point.z);
+            return new Vector3((int)hitInfo.point.x, hitInfo.point.y, (int)hitInfo.point.z);
         }
         else
         {
@@ -116,6 +116,7 @@ public class BuildingSystem_YDW : MonoBehaviour
 
     IEnumerator BeginBuilding()
     {
+        
         buttonforDestroy.GetComponent<Button>().interactable = false;
         buttonforRotate.GetComponent<Button>().interactable = false;
         obj.SetActive(false);

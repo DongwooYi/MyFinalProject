@@ -93,7 +93,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8090852407978607515}
   - component: {fileID: 8090852407978607514}
-  - component: {fileID: 1074452767618810337}
   - component: {fileID: -7275722491062858680}
   m_Layer: 7
   m_Name: Reward_2
@@ -132,19 +131,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   YDW_BuildingSystem: {fileID: 0}
   isOkaytoBuild: 0
---- !u!65 &1074452767618810337
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8090852407978607512}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5, z: 0.5}
-  m_Center: {x: 0.5, y: 0.5, z: 0.5}
 --- !u!54 &-7275722491062858680
 Rigidbody:
   m_ObjectHideFlags: 0

@@ -103,7 +103,7 @@ public class ChallengeWorldManager : MonoBehaviour
             {
                 myGround[i].transform.gameObject.layer = 10;
                 myGround[i].transform.GetChild(j).gameObject.layer = 10;
-                myGround[i].transform.GetChild(j).gameObject.GetComponent<MeshRenderer>().material.color = Color.black; // ³» ¶¥Àº black À¸·Î
+                myGround[i].transform.GetChild(j).gameObject.GetComponent<MeshRenderer>().material.color = Color.green; // ³» ¶¥Àº black À¸·Î
 
             }
         }

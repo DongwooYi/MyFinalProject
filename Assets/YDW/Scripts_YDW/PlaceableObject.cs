@@ -21,7 +21,7 @@ public class PlaceableObject : MonoBehaviour
         {
             Debug.DrawLine(pos, hit.point, Color.blue);
             Debug.Log("Hit: " + hit.collider.name);
-            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground"))
+            if (hit.transform.gameObject.layer == LayerMask.NameToLayer("Ground")|| hit.transform.gameObject.layer == LayerMask.NameToLayer("Object"))
             {
                 isOkaytoBuild = true;
             }

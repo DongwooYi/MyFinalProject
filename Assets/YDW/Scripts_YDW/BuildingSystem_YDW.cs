@@ -12,6 +12,7 @@ public class BuildingSystem_YDW : MonoBehaviour
     public ChallengeWorldManager challengeWorldManager;
     PlaceableObject objectToPlace;
     public Transform parentsPrefabs;
+    public GameObject ObjPlacedList;
     public GameObject buttonforPlaced;
     public GameObject buttonforDestroy;
     public GameObject buttonforRotate;
@@ -21,7 +22,7 @@ public class BuildingSystem_YDW : MonoBehaviour
     private void Start()
     {
         idx = ButtonManager.GetComponent<ButtonManager>().itemIndex;
-        
+        ObjPlacedList.SetActive(false);
     }
     private void Update()
     {
@@ -31,11 +32,13 @@ public class BuildingSystem_YDW : MonoBehaviour
         }
         if (objectToPlace.isOkaytoBuild)
         {
+            ObjPlacedList.SetActive(true);
             buttonforPlaced.GetComponent<Button>().interactable =true;
 
         }
         else
         {
+            ObjPlacedList.SetActive(false);
             buttonforPlaced.GetComponent<Button>().interactable = false;
 
         }

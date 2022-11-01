@@ -16,7 +16,7 @@ using UnityEngine.EventSystems;
 public class CameraManager : MonoBehaviour
 {
     /* 카메라 이동 관련 */
-    public GameObject player;   // 플레이어
+    public Transform player;   // 플레이어
     public float camMoveSpeed = 0.5f;   // 카메라 이동 속력
 
     private Vector2 currentPos, prePos; // 손가락 포지션
@@ -29,7 +29,7 @@ public class CameraManager : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = GameObject.FindObjectOfType<CharacterController>().GetComponent<Transform>();
     }
 
     void Update()

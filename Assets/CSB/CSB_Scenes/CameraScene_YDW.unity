@@ -602,6 +602,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1105964835}
   m_CullTransparentMesh: 1
+--- !u!1 &1261657361
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1261657363}
+  - component: {fileID: 1261657362}
+  m_Layer: 0
+  m_Name: HttpManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 0
+--- !u!114 &1261657362
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261657361}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f29d1909c93ec4b81892f6ea33e94d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!4 &1261657363
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1261657361}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1384840548
 GameObject:
   m_ObjectHideFlags: 0
@@ -1071,7 +1115,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCC4C\uB9B0\uC800 2\n"
+  m_Text: 
 --- !u!222 &329123818573452905
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2670,7 +2714,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCC4C\uB9B0\uC800 1"
+  m_Text: 
 --- !u!224 &329123819670718017
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4486,7 +4530,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCC4C\uB9B0\uC800 3\n"
+  m_Text: 
 --- !u!224 &329123820448492032
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4646,7 +4690,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 1
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCC4C\uB9B0\uC800 \uC778\uC99D"
+  m_Text: "\uCC4C\uB9B0\uC9C0 \uC778\uC99D"
 --- !u!222 &329123820507326180
 CanvasRenderer:
   m_ObjectHideFlags: 0

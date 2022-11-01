@@ -75,7 +75,7 @@ public class PhoneCamera : MonoBehaviour
             Debug.Log("후면 카메라 찾을 수없음");
             return;
         }
-       // backCam = new WebCamTexture(devices[0].name, Screen.width, Screen.height);
+        // backCam = new WebCamTexture(devices[0].name, Screen.width, Screen.height);
         backCam.Play();
         background.texture = backCam;
         cameraAvailable = true;
@@ -115,33 +115,36 @@ public class PhoneCamera : MonoBehaviour
         snap.Apply();
 
         byte[] bytes = snap.EncodeToPNG();
+        //List<IMultipartFormSection> formDate = new List<IMultipartFormSection>();
+        //formDate.Add(new MultipartFormFileSection(bytes));
         //print(bytes.Length);
 
+
         File.WriteAllBytes(Application.dataPath + "/Data/photo.png", bytes);
-        /*
-                WWWForm form = new WWWForm();
-                //form.AddBinaryData("image", bytes);
-                form.AddBinaryData("image", bytes, "/Data/photo.png");
 
 
+        WWWForm form = new WWWForm();
+        form.AddBinaryData("file", bytes);
+        //form.AddBinaryData("image", bytes, "/Data/photo.png");
+        
+        UnityWebRequest www = UnityWebRequest.Post("http://172.17.80.236:8080/v1/target", form);
+        //byte[] data = System.Text.Encoding.UTF8.GetBytes(formData);
+       // www.uploadHandler = new UploadHandlerRaw(data);
+        //www.SetRequestHeader("Content-Type", "application/json");
 
-                UnityWebRequest www = UnityWebRequest.Post("http://192.168.0.15:5005/detection", form);
+        yield return www.SendWebRequest();
 
-                yield return www.SendWebRequest();
-                //www.SendWebRequest();
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Spinner.SetActive(false);
+            Debug.Log(www.error);
+        }
+        else
+        {
+            Spinner.SetActive(false);
+            Debug.Log("Form upload complete!");
 
-                if (www.result != UnityWebRequest.Result.Success)
-                {
-                    Spinner.SetActive(false);
-                    Debug.Log(www.error);
-                }
-                else
-                {
-                    Spinner.SetActive(false);
-                    Debug.Log("Form upload complete!");
-                    //yield return new WaitForEndOfFrame();
-                    //StartCoroutine(Getrequest("http://192.168.0.15:5005/detection"));
-                }*/
+        }
         saveTex.Release();
         yield return new WaitForSeconds(3.0f);
 

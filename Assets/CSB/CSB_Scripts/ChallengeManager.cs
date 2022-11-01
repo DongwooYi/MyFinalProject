@@ -171,7 +171,7 @@ public class ChallengeManager : MonoBehaviour
         GameObject go = Instantiate(ingChallengeFactory, ingContent);    // content �ڽ����� ç������ ����
 
         IngChallenge ingchallenge = go.GetComponent<IngChallenge>();
-        ingchallenge.ShowTitle("���� ���� ç����");    // �ϴ��� ���� ç���� ������ �����صξ��ٰ� ����
+        ingchallenge.ShowTitle("새벽 수영 챌린지");    // �ϴ��� ���� ç���� ������ �����صξ��ٰ� ����
     }
 
 

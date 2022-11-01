@@ -44,6 +44,7 @@ public class MyProfileManager : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Player");
+        myCharacter = player.transform.GetChild(currMyIndex).gameObject;
 
         for (int i = 0; i < characterList.Count; i++)
         {
@@ -103,7 +104,8 @@ public class MyProfileManager : MonoBehaviour
         // ���� �ε��� �� �ش��ϴ� ���� ������Ʈ(ĳ����) ã��
         myCharacter = player.transform.GetChild(currMyIndex).gameObject;
 
-        for(int i = 0; i < player.transform.childCount; i++)
+
+        for (int i = 0; i < player.transform.childCount; i++)
         {
             player.transform.GetChild(i).gameObject.SetActive(false);
         }
@@ -139,8 +141,22 @@ public class MyProfileManager : MonoBehaviour
         }
         //myCharacter.transform.position = backGround.transform.position;
 
+        myCharacter.SetActive(true);
 
         // panel ����
         panel.SetActive(false);
+    }
+
+    // 캐릭터 바꾸기
+    public void ChangeCharacter()
+    {
+        panel.SetActive(true);  // panel 열기
+        myCharacter.SetActive(false);
+    }
+
+    // 챌린지 월드 입장
+    public void GoToChallengeWorld()
+    {
+        SceneManager.LoadScene("ChallengeWorld");
     }
 }

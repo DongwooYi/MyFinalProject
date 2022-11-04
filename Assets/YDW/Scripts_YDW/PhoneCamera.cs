@@ -11,6 +11,8 @@ using System.IO;
 using System.Drawing;
 using Unity.VisualScripting;
 using System.Net;
+
+
 public class PhoneCamera : MonoBehaviour
 {
 
@@ -36,19 +38,11 @@ public class PhoneCamera : MonoBehaviour
     }
     private void Update()
     {
-
         if (!cameraAvailable)
         {
             return;
         }
-
-
     }
-    public void Get()
-    {
-        StartCoroutine(Getrequest("http://192.168.0.15:5005/detection"));
-    }
-
     public void CameraOn()
     {
         ChallengeList.SetActive(false);
@@ -113,17 +107,22 @@ public class PhoneCamera : MonoBehaviour
         snap.ReadPixels(new Rect(0, 0, width, height), 0, 0);
         //snap.SetPixels(backCam.GetPixels());
         snap.Apply();
+        
+        HttpRequester httpRequester = new HttpRequester();
+        httpRequester.url = "http://172.17.80.236:8080/v1/target";
+        
+        ImageData data = new ImageData();       
+        data.imageDatas = snap.EncodeToPNG();
+        
+        File.WriteAllBytes(Application.dataPath + "/Data/photo.png", data.imageDatas);
 
-        byte[] bytes = snap.EncodeToPNG();
-        //List<IMultipartFormSection> formDate = new List<IMultipartFormSection>();
-        //formDate.Add(new MultipartFormFileSection(bytes));
-        //print(bytes.Length);
+        httpRequester.data = JsonUtility.ToJson(data, true);
+        print(httpRequester.data);
+        httpRequester.requestType = RequestType.POST;
+        httpRequester.onComplete = OnCompletedPostImageDate;
 
-
-        File.WriteAllBytes(Application.dataPath + "/Data/photo.png", bytes);
-
-
-        WWWForm form = new WWWForm();
+        HttpManager.instance.SendRequest(httpRequester);
+       /* WWWForm form = new WWWForm();
         form.AddBinaryData("file", bytes);
         //form.AddBinaryData("image", bytes, "/Data/photo.png");
         
@@ -144,13 +143,13 @@ public class PhoneCamera : MonoBehaviour
             Spinner.SetActive(false);
             Debug.Log("Form upload complete!");
 
-        }
+        }*/
         saveTex.Release();
         yield return new WaitForSeconds(3.0f);
-
         Spinner.SetActive(false);
-        confirm.SetActive(true);
-        confirm.GetComponentInChildren<Text>().text = "인증되었습니다.";
+
+        //confirm.SetActive(true);
+        //confirm.GetComponentInChildren<Text>().text = "다시 인증해주세요";
         btnSanp.GetComponent<Button>().interactable = true;
         isConfirm = true;
         backCam.Stop();
@@ -158,7 +157,24 @@ public class PhoneCamera : MonoBehaviour
         StopAllCoroutines();
     }
 
-    IEnumerator Getrequest(string URL)
+    public void OnCompletedPostImageDate(DownloadHandler downloadHandler)
+    {
+        Debug.Log("Recieved");
+       JObject jObject = JObject.Parse(downloadHandler.text);
+       bool type = (bool)jObject["results"]["type"];
+        if(type)
+        {
+            confirm.GetComponentInChildren<Text>().text = "인증완료되었습니다.";
+            confirm.SetActive(false);
+        }
+       else
+        {
+            Debug.Log(downloadHandler.error);
+            confirm.SetActive(true);
+            confirm.GetComponentInChildren<Text>().text = "다시인증해주세요.";
+        }
+    }
+    /*IEnumerator Getrequest(string URL)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(URL))
         {
@@ -179,7 +195,7 @@ public class PhoneCamera : MonoBehaviour
 
 
         }
-    }
+    }*/
 
     public void goToChallengeList()
     {

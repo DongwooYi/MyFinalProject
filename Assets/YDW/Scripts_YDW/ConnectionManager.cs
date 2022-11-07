@@ -1,4 +1,4 @@
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
@@ -27,7 +27,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         //접속 버튼을 활성화 하자         
         //그렇지 않다면
         //접속 버튼을 비활성화 하자
-        btnConnect.interactable = s.Length > 0;       
+        btnConnect.interactable = s.Length > 0;
 
         print("OnValueChanged : " + s);
     }
@@ -35,7 +35,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     public void OnSubmit(string s)
     {
         //만약에 s의 길이가 0보다 크다면
-        if(s.Length > 0)
+        if (s.Length > 0)
         {
             //접속 하자!
             OnClickConnect();
@@ -81,14 +81,13 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         print(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         //LobbyScene으로 이동
-       // PhotonNetwork.LoadLevel("Lobby_YDW");
-        PhotonNetwork.LoadLevel("LobbyScene_YDW");
+        // PhotonNetwork.LoadLevel("Lobby_YDW");
+        PhotonNetwork.LoadLevel("SB_Player_Photon");
     }
 
 
     void Update()
     {
-        
+
     }
 }
-*/

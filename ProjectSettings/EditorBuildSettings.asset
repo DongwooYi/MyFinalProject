@@ -8,16 +8,22 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/Scenes/CombineScene.unity
     guid: ca830bd9b61a8854dbdddfdb9c438261
-  - enabled: 1
+  - enabled: 0
     path: Assets/CSB/CSB_Scenes/CSB_MyProfile.unity
     guid: 950a39d8b73024a418ca110902b1c1d6
-  - enabled: 1
+  - enabled: 0
     path: Assets/CSB/CSB_Scenes/PlaygroundDemo.unity
     guid: 6e508e1d679ca1e4eaae5231e2fe6ffd
-  - enabled: 1
+  - enabled: 0
     path: Assets/CSB/CSB_Scenes/ChallengeWorld.unity
     guid: 5e8e0602bb5a81b4f8f4a3933bcad87e
-  - enabled: 1
+  - enabled: 0
     path: Assets/CSB/CSB_Scenes/CameraScene_YDW.unity
     guid: 1230b0ff34a030246acb5e4ca0a709f8
+  - enabled: 1
+    path: Assets/YDW/Scenes_YDW/PhotonConnectionTest.unity
+    guid: 82b5dc77a188ec74eaab77175b977b3d
+  - enabled: 1
+    path: Assets/YDW/Scenes_YDW/SB_Player_Photon.unity
+    guid: 83866adfbbcd17f4493dffaadb63e6b2
   m_configObjects: {}

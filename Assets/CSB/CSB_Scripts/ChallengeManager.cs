@@ -83,7 +83,7 @@ public class ChallengeManager : MonoBehaviour
         print("OnEndEdit : " + s);
 
     }
-    public Toggle toggle;
+    public Toggle_CSB toggle;
     public CalendarController calendarController_1;
     public CalendarController calendarController_2;
     public CalendarController calendarController_3;

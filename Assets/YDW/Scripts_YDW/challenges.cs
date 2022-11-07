@@ -29,7 +29,9 @@ public class challenges : MonoBehaviour
         for (int i = 0; i < texts.Count; i++)
         {
             texts[i].gameObject.name = i + "";
-            texts[i].text = i + 1 + ": 나의 할일";
+            texts[0].text = "1: 7시 기상하기";
+            texts[1].text = "2: 물 한잔마시기";
+            texts[2].text = "3: 책 읽기";
             
             if (i == 1)
             {
@@ -64,7 +66,8 @@ public class challenges : MonoBehaviour
     {
         if (phoneCamera.isConfirm)
         {
-            images[0].GetComponentInChildren<Image>().sprite = sprite;
+            //images[0].GetComponentInChildren<Image>().sprite = sprite;
+            images[1].GetComponentInChildren<Image>().sprite = sprite;
         }
     }
     public void OnClickChallengesList()

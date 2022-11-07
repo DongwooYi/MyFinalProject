@@ -18,7 +18,11 @@ public class LoginData
         throw new NotImplementedException();
     }
 }
-
+[System.Serializable]
+public class ImageData
+{
+    public byte[] imageDatas;
+}
 public enum RequestType
 {
     POST,

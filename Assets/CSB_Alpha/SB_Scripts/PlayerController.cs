@@ -28,7 +28,7 @@ public class PlayerController : MonoBehaviour
 
 
         // 이동 방향
-        Vector3 moveDir = new Vector3(inputDir.x, inputDir.y, 0);
+        Vector3 moveDir = new Vector3(inputDir.x, 0, inputDir.y);
 
         // 플레이어 이동
         transform.position += moveDir * Time.deltaTime * speed;

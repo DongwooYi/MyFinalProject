@@ -34,7 +34,7 @@ public class APIManager : MonoBehaviour
         // ¼º°ø
         if(webRequest.result == UnityWebRequest.Result.Success)
         {
-            print(webRequest.downloadHandler.text);
+            //print(webRequest.downloadHandler.text);
             requester.onComplete(webRequest.downloadHandler);
         }
         else

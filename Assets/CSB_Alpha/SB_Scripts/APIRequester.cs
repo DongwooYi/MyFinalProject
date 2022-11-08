@@ -8,13 +8,14 @@ using UnityEngine.Networking;
 [Serializable]
 public class BookInfo   // 받아오는 책정보
 {
-    public string title;    // 제목
-    public string contents; // 설명
+    //public 
+/*    public string title;    // 제목
+    //public string contents; // 설명
     public string image;  // 썸네일 이미지 url
     public string isbn;
-    public string[] authors;
+    public string author;
     public string publisher;
-    public string[] translators;
+    public string[] translators;*/
 }
 
 public class APIRequester : MonoBehaviour

@@ -915,7 +915,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 296, y: -358}
+  m_AnchoredPosition: {x: 296, y: -248}
   m_SizeDelta: {x: 500, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &260436661
@@ -1554,6 +1554,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55e2569b79f7f4849a2c755189a674cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  searchBookPanel: {fileID: 1574768883}
   inputBookTitleName: {fileID: 260436661}
   btnSearch: {fileID: 446970153}
   manager: {fileID: 359941975}
@@ -1895,7 +1896,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -87, y: -359}
+  m_AnchoredPosition: {x: -87, y: -249}
   m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &446970153
@@ -2027,7 +2028,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 40, y: -358}
+  m_AnchoredPosition: {x: 40, y: -248}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &448469849
@@ -2109,8 +2110,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 0, y: -543.0541}
-  m_SizeDelta: {x: 917.0715, y: 1253.6033}
+  m_AnchoredPosition: {x: 0, y: -417}
+  m_SizeDelta: {x: 917.0715, y: 1397.8474}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!114 &475963810
 MonoBehaviour:
@@ -5229,7 +5230,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1525737587}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 359941974}
+        m_TargetAssemblyTypeName: WorldManager2D, Assembly-CSharp
+        m_MethodName: OnClickSearchBookButton
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1525737587
 MonoBehaviour:
   m_ObjectHideFlags: 0

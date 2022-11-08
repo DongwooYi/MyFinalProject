@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -7,10 +8,22 @@ using Newtonsoft.Json.Linq;
 
 // 책 검색, 책 등록 관리
 
+[Serializable]
+public class _MyBookInfo
+{
+    public string title;
+    public string author;
+    public string publishInfo;
+    public RawImage thumbnail;
+}
+
+
 public class WorldManager2D : MonoBehaviour
 {
-    public InputField inputBookTitleName;
-    public Button btnSearch;
+    public GameObject searchBookPanel;
+
+    public InputField inputBookTitleName;   // 책 제목 입력 칸
+    public Button btnSearch;    // 검색(돋보기) 버튼
 
     public APIManager manager;
 
@@ -20,8 +33,11 @@ public class WorldManager2D : MonoBehaviour
     public List<string> pubdateList = new List<string>();
     public List<string> imageList = new List<string>();
 
-    public Transform content;
+    public Transform content;   // 책 목록 content
     public GameObject resultFactory;
+
+    // 나의 책 목록
+    public List<_MyBookInfo> myBookList = new List<_MyBookInfo>();
 
     void Start()
     {
@@ -47,7 +63,13 @@ public class WorldManager2D : MonoBehaviour
         print("OnEndEdit : " + s);
     }
 
-    // 검색 버튼 관련
+    // 책 찾기 버튼 관련
+    public void OnClickSearchBookButton()
+    {
+        searchBookPanel.SetActive(true);
+    }
+
+    // 검색 버튼 관련 (돋보기 버튼)
     public void OnClickSearchBook()
     {
         // 검색 버튼을 클릭하면 
@@ -73,9 +95,6 @@ public class WorldManager2D : MonoBehaviour
     // 도서 검색 결과 출력
     public void OnCompleteSearchBook(DownloadHandler handler)
     {
-
-
-
         // items 의 내용을 받아옴
         string result_items = ParseJson("[" +handler.text + "]", "items");
 
@@ -88,7 +107,7 @@ public class WorldManager2D : MonoBehaviour
         imageList = ParseJsonList(result_items, "image");
 
         // 도서 검색 결과 생성
-        for(int i=0; i < titleList.Count; i++)
+        for (int i = 0; i < titleList.Count; i++)
         {
             GameObject go = Instantiate(resultFactory, content);    // 도서 검색 결과 생성
 
@@ -96,9 +115,28 @@ public class WorldManager2D : MonoBehaviour
             searchResult.SetBookTitle(titleList[i]);
             searchResult.SetBookAuthor(authorList[i]);
             searchResult.SetBookPublishInfo(publisherList[i] + " / " + pubdateList[i]);
-
-
+            //searchResult.SetImage(texture[i]);
+            StartCoroutine(GetThumbnail(imageList[i],searchResult.thumbnail));
         }
+    }
+
+
+    IEnumerator GetThumbnail(string url, RawImage rawImage)
+    {
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
+        yield return www.SendWebRequest();
+
+        if(www.result != UnityWebRequest.Result.Success)
+        {
+            print("실패");
+        }
+        else
+        {
+            //Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            //texture.Add(((DownloadHandlerTexture)www.downloadHandler).texture);
+            rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+        }
+        yield return null;
 
     }
 

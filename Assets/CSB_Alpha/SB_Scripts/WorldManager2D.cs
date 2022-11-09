@@ -17,10 +17,18 @@ public class _MyBookInfo
     public RawImage thumbnail;
 }
 
+// 등록한 리뷰와 책 정보
+[Serializable]
+public class _MyBookInfowithReview: _MyBookInfo
+{
+    public int stars;   // 별점
+    public string review;   // 리뷰
+}
 
 public class WorldManager2D : MonoBehaviour
 {
     public GameObject searchBookPanel;
+    public GameObject reviewPanel;
 
     public InputField inputBookTitleName;   // 책 제목 입력 칸
     public Button btnSearch;    // 검색(돋보기) 버튼
@@ -36,7 +44,7 @@ public class WorldManager2D : MonoBehaviour
     public Transform content;   // 책 목록 content
     public GameObject resultFactory;
 
-    // 나의 책 목록
+    // 나의 책 목록 -> 
     public List<_MyBookInfo> myBookList = new List<_MyBookInfo>();
 
     void Start()
@@ -46,12 +54,6 @@ public class WorldManager2D : MonoBehaviour
         inputBookTitleName.onEndEdit.AddListener(OnEndEdit);
 
     }
-
-    void Update()
-    {
-        
-    }
-
 
     void OnValueChanged(string s)
     {
@@ -67,6 +69,12 @@ public class WorldManager2D : MonoBehaviour
     public void OnClickSearchBookButton()
     {
         searchBookPanel.SetActive(true);
+    }
+
+    // 리뷰 작성 버튼 관련
+    public void OnClickReviewButton()
+    {
+        reviewPanel.SetActive(true);
     }
 
     // 검색 버튼 관련 (돋보기 버튼)
@@ -115,7 +123,6 @@ public class WorldManager2D : MonoBehaviour
             searchResult.SetBookTitle(titleList[i]);
             searchResult.SetBookAuthor(authorList[i]);
             searchResult.SetBookPublishInfo(publisherList[i] + " / " + pubdateList[i]);
-            //searchResult.SetImage(texture[i]);
             StartCoroutine(GetThumbnail(imageList[i],searchResult.thumbnail));
         }
     }
@@ -133,7 +140,6 @@ public class WorldManager2D : MonoBehaviour
         else
         {
             //Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            //texture.Add(((DownloadHandlerTexture)www.downloadHandler).texture);
             rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
         }
         yield return null;
@@ -191,6 +197,5 @@ public class WorldManager2D : MonoBehaviour
         }
 
         return result;
-
     }
 }

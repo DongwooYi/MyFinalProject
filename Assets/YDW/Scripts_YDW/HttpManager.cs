@@ -37,54 +37,45 @@ public class HttpManager : MonoBehaviour
     {
         UnityWebRequest webRequest = null;
         //requestType 에 따라서 호출해줘야한다.
-        string accessToken = PlayerPrefs.GetString("token");
         switch (requester.requestType)
         {
 
             case RequestType.POST:
-                webRequest = UnityWebRequest.Post(requester.url, requester.data);
-                byte[] data = Encoding.UTF8.GetBytes(requester.data);
+                webRequest = UnityWebRequest.Post(requester.url, requester.body);
+                byte[] data = Encoding.UTF8.GetBytes(requester.body);
                 webRequest.uploadHandler = new UploadHandlerRaw(data);
                 webRequest.SetRequestHeader("Content-Type", "application/json");
+                webRequest.SetRequestHeader("x-access-token", PlayerPrefs.GetString("jwt"));
+                yield return webRequest.SendWebRequest();
+                //만약에 응답이 성공했다면
+                if (webRequest.result == UnityWebRequest.Result.Success)
+                {                    
+                    requester.onComplete(webRequest.downloadHandler);
+                }
+                else
+                {
+                    requester.onFailed();
+                    print("통신 실패");
+                }
                 break;
             case RequestType.GET:
                 webRequest = UnityWebRequest.Get(requester.url);
-                if (accessToken != null)
+                //서버에 요청을 보내고 응답이 올때까지 기다린다.
+                yield return webRequest.SendWebRequest();
+
+                //만약에 응답이 성공했다면
+                if (webRequest.result == UnityWebRequest.Result.Success)
                 {
-                    webRequest.SetRequestHeader("accesstoken", accessToken);
+                    requester.onComplete(webRequest.downloadHandler);
+                }
+                else
+                {
+                    requester.onFailed();
+                    print("통신 실패");
                 }
                 break;
-           /* case RequestType.PUT:
-                webRequest = UnityWebRequest.Put(requester.url, requester.data);
-                webRequest.SetRequestHeader("Content-Type", "application/json");
-                break;
-            case RequestType.DELETE:
-                webRequest = UnityWebRequest.Delete(requester.url);
-                break;*/
+          
         }
-
-        //서버에 요청을 보내고 응답이 올때까지 기다린다.
-        yield return webRequest.SendWebRequest();
-
-        //만약에 응답이 성공했다면
-        if (webRequest.result == UnityWebRequest.Result.Success)
-        {
-            print(webRequest.downloadHandler.text);
-
-            //완료되었다고 requester.onComplete를 실행
-            if (requester.onComplete != null)
-            {
-                requester.onComplete(webRequest.downloadHandler);
-            }
-
-
-        }
-        //그렇지않다면
-        else
-        {
-            //서버통신 실패....ㅠ
-            print("통신 실패" + webRequest.result + "\n" + webRequest.error);
-        }
-        yield return null;
+        yield return null;      
     }
 }

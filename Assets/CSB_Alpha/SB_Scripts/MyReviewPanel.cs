@@ -12,18 +12,26 @@ public class MyReviewPanel : MonoBehaviour
     public Text publishInfo;
     public Text isbn;
 
+    public InputField inputFieldReview; // 리뷰 입력 칸
+    public Button btnEnter; // 등록하기 버튼
+
     void Start()
     {
-        
+        inputFieldReview.onValueChanged.AddListener(OnValueChanged);
     }
 
-    void Update()
+    void OnValueChanged(string s)
     {
-        
+        btnEnter.interactable = s.Length > 0;  // 등록 버튼 활성화
     }
 
-    // 확인 버튼 (누르면 <다읽은 책목록>에 추가
+    // 등록 버튼 (누르면 <다읽은 책목록>에 추가)
+    public void OnClickAddPastBook()
+    {
+        // <다읽은책목록> 에 추가
 
+
+    }
 
 
 

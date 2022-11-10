@@ -184,6 +184,7 @@ MonoBehaviour:
   isbn: {fileID: 117586242441034359}
   thumbnail: {fileID: 5227978238119400292}
   bookFactory: {fileID: 7209061108560380192, guid: e5a2b1a6b06c8274fa5d1307151cd9f0, type: 3}
+  reviewPanelFactory: {fileID: 619597165726824052, guid: 1213c436b6a8feb468ab7f54d5666ce6, type: 3}
   myDesk: {fileID: 0}
 --- !u!1 &318626365412915695
 GameObject:

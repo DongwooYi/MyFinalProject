@@ -83,8 +83,11 @@ public class SearchResult : MonoBehaviour
     // 버튼을 클릭하면 Canvas 에서 책리뷰 작성하는 panel 찾아서 setactive true 로
     public void OnClickAddPastBook()
     {
+        // 부모가 될 친구
+        Transform canvas = GameObject.Find("Canvas").transform;
+
         // 리뷰 적을 수 있는 panel
-        GameObject panel = Instantiate(reviewPanelFactory);
+        GameObject panel = Instantiate(reviewPanelFactory, canvas);
 
         MyReviewPanel myReviewPanel = panel.GetComponent<MyReviewPanel>();
 

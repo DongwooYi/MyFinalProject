@@ -1,4 +1,4 @@
-/*using Photon.Realtime;
+using Photon.Realtime;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,9 +20,9 @@ public class RoomItem : MonoBehaviour
 
     void Start()
     {
-        
+
     }
-    
+
     public void SetInfo(string roomName)//, int currPlayer, byte maxPlayer)
     {
         //게임오브젝트의 이름을 roomName으로!
@@ -47,7 +47,7 @@ public class RoomItem : MonoBehaviour
     public void OnClick()
     {
         //만약에 onClickAction 가 null이 아니라면
-        if(onClickAction != null)
+        if (onClickAction != null)
         {
             //onClickAction 실행
             onClickAction(name, map_id);
@@ -61,4 +61,3 @@ public class RoomItem : MonoBehaviour
         //inputField.text = name;
     }
 }
-*/

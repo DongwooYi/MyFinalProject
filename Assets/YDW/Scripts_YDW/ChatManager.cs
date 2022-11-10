@@ -1,13 +1,17 @@
-/*using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 using UnityEngine.EventSystems;
+using UnityEngine.Networking;
 
+//채팅 로그 저장
+//Json - 전체 보낼 데이터 
 [System.Serializable]
 public struct ChatInfoList
 {
+    public string opponentName;
     public List<ChatInfo> data;
 }
 
@@ -19,92 +23,130 @@ public struct ChatInfo
     public string chatText;
 }
 
+//챗봇 대화
+//Json에 담길 내용 "키" : "값"
+[System.Serializable]
+public struct AiChatInfo
+{
+    public string chatRequest;
+    public string memberId;
+    public string weId;
+}
+
 public class ChatManager : MonoBehaviourPun
 {
-    //ChatItme 공장
-    public GameObject chatItemFactory;
-    //InputChat 
+    [Header("일반 채팅")]
+    //InputChat -> 사용자가 채팅한 내용
     public InputField inputChat;
-    //ScrollView의 Content transform
+    //ScorllView의 Content
     public RectTransform trContent;
+    //ChatItem 공장
+    public GameObject chatItemFactory;
 
-    //나의 닉네임 색깔
-    Color nickColor;
-
+    [Header("Json")]
     //전체 보낼 데이터 생성
     public List<ChatInfo> chatList = new List<ChatInfo>();
 
-    // Joson 정보 Test
-    public Text testChatList;
+    //내 아이디 색
+    Color idColor;
+    Color aiColor;
+    Color otherColor;
 
+
+    public string speechBubble;
     void Start()
     {
-        //inputChat에서 엔터를 눌렀을 때 호출되는 함수 등록
+        //InputField에서 엔터를 쳤을 때 호출되는 함수 등록
         inputChat.onSubmit.AddListener(OnSubmit);
-        //커서를 안보이게!
+        //마우스 커서 비활성화
         Cursor.visible = false;
 
-        nickColor = new Color(
-            Random.Range(0.0f, 1.0f),
-            Random.Range(0.0f, 1.0f),
-            Random.Range(0.0f, 1.0f)
-       );
+        //idColor를 랜덤하게
+        //idColor = new Color32((byte)Random.Range(0, 256),(byte)Random.Range(0, 256),(byte)Random.Range(0, 256),255);
+        idColor = Color.yellow;
+        otherColor = Color.green;
     }
 
     void Update()
     {
-        //esc키를 누르면 커서를 활성화
-        if(Input.GetKeyDown(KeyCode.Escape))
+        //만약에 esc키를 누르면 커서 활성화
+        if (Input.GetKeyDown(KeyCode.Escape))
         {
             Cursor.visible = true;
         }
 
-        //어딘가를 클릭하면 커서를 활성화
-        if(Input.GetMouseButtonDown(0))
+        //만약에 마우스 클릭을 하면 커서 비활성화
+        if (Input.GetMouseButtonDown(0))
         {
-            //만약에 커서가 UI에 없다면
-            //모바일땐
-            //if(EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false)
-            if(EventSystem.current.IsPointerOverGameObject() == false)
+            //만약에 커서가 해당 위치에 UI가 없을때
+            //IsPointerOverGameObject는 pointer가 UI에 있는 경우 True를 아닌 경우에는 false를 반환
+            if (EventSystem.current.IsPointerOverGameObject() == false)
             {
                 Cursor.visible = false;
             }
-            else
-            {
-                Cursor.visible = true;
-
-            }
-
-
-
-
         }
     }
 
-    //inputChat에서 엔터를 눌렀을 때 호출되는 함수
+    string findPlayer()
+    {
+        string s = "";
+
+        for(int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+        {
+            if(PhotonNetwork.PlayerList[i].NickName != PhotonNetwork.NickName)
+            {
+                s = PhotonNetwork.PlayerList[i].NickName;
+            }
+        }
+        return s;
+    }
+
+    public bool enterchat;
+
+    //InputField에서 엔터를 쳤을때 호출되는 함수
     void OnSubmit(string s)
     {
-        //<color=#FF0000>닉네임</color>
-        string chatText = "<color=#" + ColorUtility.ToHtmlStringRGB(nickColor) + ">" +
-            PhotonNetwork.NickName + "</color>" + " : " + s;
 
-        //1.글을 쓰다가 엔터를 치면
-        photonView.RPC("RpcAddChat", RpcTarget.All, chatText);
+        //나라면
+        if(photonView.IsMine == false)
+        {
+         photonView.RPC("RpcAddChat", RpcTarget.All,
+         PhotonNetwork.NickName,
+         s,
+         idColor.r,
+         idColor.g,
+         idColor.b);
+        }
 
-        //4. inputChat의 내용을 초기화
+        else
+        {
+            photonView.RPC("RpcAddChat", RpcTarget.All,
+         PhotonNetwork.NickName,
+         s,
+         otherColor.r,
+         otherColor.g,
+         otherColor.b);
+        }
+        //4. InputChat의 내용을 초기화
         inputChat.text = "";
-
-        //5. inputChat이 선택되도록 한다.
+        enterchat = true;
+        //5. InputChat에 Focusing 을 해주자.
+        //Enter 를 눌러도 InputField 가 계속 활성화 되게 해주는 코드
         inputChat.ActivateInputField();
     }
 
 
-    public RectTransform rtScrollView;
+    //이전 Content의 H
     float prevContentH;
+    //ScorllView의 RectTransform
+    public RectTransform AIScrollView;
+
+    string jsonData;
 
     [PunRPC]
     void RpcAddChat(string nick, string chatText, float r, float g, float b)
     {
+        enterchat = false;
         print("보낸 놈 : " + nick);
         print("보낸 내용 : " + chatText);
 
@@ -124,57 +166,110 @@ public class ChatManager : MonoBehaviourPun
 
         //2.만든 ChatItem에서 ChatItem 컴포넌트 가져온다
         ChatItem chat = item.GetComponent<ChatItem>();
-              
 
+
+        
         //3.가져온 컴포넌트에 s를 셋팅
         chat.SetText(s);
 
         //Json 보내기 -> List에 담기
         chatList.Add(info);
+
         // 5개 이상이 된다면 Json보내기
-        if (chatList.Count >= 5)
+        if (chatList.Count >= 6)
         {
+
             ChatInfoList chatInfoList = new ChatInfoList();
+            //상대방 닉네임 넣어야함
+            chatInfoList.opponentName = findPlayer();
             chatInfoList.data = chatList;
 
-            //Json
-            string jsonData = JsonUtility.ToJson(chatInfoList, true);
+            //Json 형식으로 값이 들어가지게 됨 -> 이쁘게 나오기 위해 true
+            jsonData = JsonUtility.ToJson(chatInfoList, true);
             print(jsonData);
 
-            //확인용!
-            testChatList.text = jsonData;
 
             //[설정해야함] API 포스트 방식 -> 바디 Http통신으로 보내기
 
             chatList.Clear();
-        }
 
+            OnPost(jsonData);
+        }
+        //위에서 설정해야함 ->Rpc이기 때문에
+        //inputChat.text = "";
+
+        //스크롤 바 계속 내리기 코드로 구현
+        StartCoroutine(AIAutoScrollBottom());
     }
 
-    IEnumerator AutoScrollBottom()
+    IEnumerator AIAutoScrollBottom()
     {
         yield return null;
-        //스크롤뷰 H보다 Content H값이 클 때만(스크롤이 가능한 상태라면)
-        if(trContent.sizeDelta.y > rtScrollView.sizeDelta.y)
-        {            
-            //(content y  >= 변경되기전 content H - 스크롤뷰 H)
-            if (trContent.anchoredPosition.y >= prevContentH - rtScrollView.sizeDelta.y)
+
+        //trScrollView H 보다 Content H 값이 커지면(스크롤 가능상태)
+        if (trContent.sizeDelta.y > AIScrollView.sizeDelta.y)
+        {
+            //4. Content가 바닥에 닿아있었다면
+            if (trContent.anchoredPosition.y >= prevContentH - AIScrollView.sizeDelta.y)
             {
-                //5. 추가된 높이만큼 content y값을 변경하겠다.
-                trContent.anchoredPosition = new Vector2(0, trContent.sizeDelta.y - rtScrollView.sizeDelta.y);
+                //5. Content의 y값을 다시 설정해주자
+                trContent.anchoredPosition = new Vector2(0, trContent.sizeDelta.y - AIScrollView.sizeDelta.y);
             }
         }
     }
-   *//* public void OnGetPost(string s)
+
+
+    //네트워크 수정
+    public void OnPost(string s)
     {
-        string url = "https://8c49-119-194-163-123.jp.ngrok.io/chat_bot?chat_request=";
-        url += "&user_id=" + 1;
-        url += "&we_id=" + 1;
 
         HttpRequester requester = new HttpRequester();
-        requester.SetUrl(RequestType.GET, url, false);
 
+        ///post/1, GET, 완료되었을 때 호출되는 함수
+        requester.url = "";
+
+        chatData data = new chatData();
+        data.chattingData = s;
+
+        requester.body = JsonUtility.ToJson(data, true);
+        requester.requestType = RequestType.POST;
+        //requester.onComplete = OnCompleteGetPost;
+
+        //HttpManager에게 요청
         HttpManager.instance.SendRequest(requester);
-    }*//*
+
+        /*  string url = "/chat/";
+          url += HttpManager.instance.username;
+
+          //생성 -> 데이터 조회 -> 값을 넣어줌 
+          HttpRequester requester = new HttpRequester();
+
+          requester.SetUrl(RequestType.POST, url, true);
+          requester.body = s;
+          requester.isChat = true;
+
+          requester.onComplete = OnPostComplete;
+          requester.onFailed = OnGetFailed;
+
+          HttpManager.instance.SendRequest(requester);*/
+    }
+
+    //방에 플레이어가 참여 했을 때 호출해주는 함수 -> GameManager에서 실행
+    public void AddPlayer(string add)
+    {
+        //0. 바뀌기 전의 Content H값을 넣자
+        prevContentH = trContent.sizeDelta.y;
+
+        //1. ChatItem을 만든다(부모를 Scorllview의 Content)
+        GameObject item = Instantiate(chatItemFactory, trContent);
+
+        //2.만든 ChatItem에서 ChatItem 컴포넌트 가져온다
+        ChatItem chat = item.GetComponent<ChatItem>();
+
+        //3.가져온 컴포넌트에 s를 셋팅
+        chat.SetText(add);
+                     
+    }
+
+   
 }
-*/

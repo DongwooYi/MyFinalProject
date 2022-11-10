@@ -17,7 +17,7 @@ public class PreviewObject : MonoBehaviour
     }
     private void OnMouseDrag()
     {
-      transform.position = BuildingSystem_YDW.GetMouseWorldPosition();
+      //transform.position = BuildingSystem_YDW.GetMouseWorldPosition();
     }
     void Update()
     {

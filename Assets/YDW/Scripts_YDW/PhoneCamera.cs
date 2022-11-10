@@ -116,8 +116,8 @@ public class PhoneCamera : MonoBehaviour
         
         File.WriteAllBytes(Application.dataPath + "/Data/photo.png", data.imageDatas);
 
-        httpRequester.data = JsonUtility.ToJson(data, true);
-        print(httpRequester.data);
+        httpRequester.body = JsonUtility.ToJson(data, true);
+        print(httpRequester.body);
         httpRequester.requestType = RequestType.POST;
         httpRequester.onComplete = OnCompletedPostImageDate;
 
@@ -155,6 +155,7 @@ public class PhoneCamera : MonoBehaviour
         backCam.Stop();
         cameraAvailable = false;
         StopAllCoroutines();
+        
     }
 
     public void OnCompletedPostImageDate(DownloadHandler downloadHandler)

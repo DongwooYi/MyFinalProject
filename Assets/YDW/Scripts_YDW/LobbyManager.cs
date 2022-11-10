@@ -1,4 +1,4 @@
-/*using System.Collections.Generic;
+using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
@@ -51,7 +51,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //생성
         btnCreate.interactable = s.Length > 0 && inputRoomName.text.Length > 0;
     }
+  
 
+    public void CreateChatroom()
+    {
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 10;
+        roomOptions.IsVisible = false;
+        PhotonNetwork.JoinOrCreateRoom("ChatRoom", roomOptions, null);
+    }
 
     //방 생성
     public void CreateRoom()
@@ -103,7 +111,17 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
         print("OnJoinedRoom");
-        PhotonNetwork.LoadLevel("Play_YDW");
+        var currentRoomname = PhotonNetwork.CurrentRoom.Name;
+        print(currentRoomname);
+        if (currentRoomname == "ChatRoom")
+        {
+            PhotonNetwork.LoadLevel("GameScene_ChatRoom");
+        }
+        else
+        {
+            PhotonNetwork.LoadLevel("GameScene");
+
+        }
     }
 
     //방 참가가 실패 되었을 때 호출 되는 함수
@@ -184,6 +202,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         foreach (RoomInfo info in roomCache.Values)
         {
+
             //룸아이템 만든다.
             GameObject go = Instantiate(roomItemFactory, trListContent);
             //룸아이템 정보를 셋팅(방제목(0/0))
@@ -224,4 +243,4 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //이전 맵 id 저장
         prevMapId = map_id;
     }
-}*/
+}

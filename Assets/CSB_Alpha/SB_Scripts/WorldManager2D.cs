@@ -11,17 +11,21 @@ using Newtonsoft.Json.Linq;
 [Serializable]
 public class _MyBookInfo
 {
+    // 도서 정보
     public string title;
     public string author;
     public string publishInfo;
+    public string isbn;
     public RawImage thumbnail;
+
+    // 완료 여부 -> 읽고 있는 책 버튼: false / 다 읽은 책 버튼: true
+    public bool isDone;
 }
 
-// 등록한 리뷰와 책 정보
 [Serializable]
-public class _MyBookInfowithReview: _MyBookInfo
+public class _MyPastBookInfo : _MyBookInfo
 {
-    public int stars;   // 별점
+    public string rating;  // 평점
     public string review;   // 리뷰
 }
 
@@ -39,32 +43,30 @@ public class WorldManager2D : MonoBehaviour
     public List<string> authorList = new List<string>();
     public List<string> publisherList = new List<string>();
     public List<string> pubdateList = new List<string>();
+    public List<string> isbnList = new List<string>();
     public List<string> imageList = new List<string>();
 
     public Transform content;   // 책 목록 content
     public GameObject resultFactory;
 
-    // 나의 책 목록 -> 
+    // -------------------------------------------------------------------------------
+    // 나의 현재 책 목록
     public List<_MyBookInfo> myBookList = new List<_MyBookInfo>();
 
-    public GameObject Chatting;
+    // 나의 지난 책 목록
+    public List<_MyPastBookInfo> myPastBookList = new List<_MyPastBookInfo>();
+    //  ------------------------------------------------------------------------------
+
+    public Material matBook;    // 책의 Material
 
     void Start()
     {
         // 책 제목 입력
         inputBookTitleName.onValueChanged.AddListener(OnValueChanged);
         inputBookTitleName.onEndEdit.AddListener(OnEndEdit);
-        Chatting.SetActive(false);
+
     }
 
-    public void OnClickChatting()
-    {
-        Chatting.SetActive(true);
-    }
-    public void OnclickChattingEnd()
-    {
-        Chatting.SetActive(false);
-    }
     void OnValueChanged(string s)
     {
         btnSearch.interactable = s.Length > 0;  // 검색 버튼 활성화
@@ -122,6 +124,7 @@ public class WorldManager2D : MonoBehaviour
         authorList = ParseJsonList(result_items, "author");
         publisherList = ParseJsonList(result_items, "publisher");
         pubdateList = ParseJsonList(result_items, "pubdate");
+        isbnList = ParseJsonList(result_items, "isbn");
         imageList = ParseJsonList(result_items, "image");
 
         // 도서 검색 결과 생성
@@ -133,6 +136,8 @@ public class WorldManager2D : MonoBehaviour
             searchResult.SetBookTitle(titleList[i]);
             searchResult.SetBookAuthor(authorList[i]);
             searchResult.SetBookPublishInfo(publisherList[i] + " / " + pubdateList[i]);
+            searchResult.SetIsbn(isbnList[i]);
+
             StartCoroutine(GetThumbnail(imageList[i],searchResult.thumbnail));
         }
     }

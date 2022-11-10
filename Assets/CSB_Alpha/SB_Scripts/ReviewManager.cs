@@ -3,30 +3,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
-// 나의 책 관련
-// 도서 제목(string), 저자(string), 평점(int), 리뷰(string)
+// 리뷰 배너 관련
 public class ReviewManager : MonoBehaviour
 {
-    [Serializable]
-    public class MyBookData // 도서 관련 정보 class
-    {
-        public string bookTitle;
-        public string bookWriter;
-        public int bookRating;
-        public string bookReview;
+    // 이 친구 생성은 어디서 하지
+    // 일단은 myPastBookInfo 리스트의 인덱스 젤 마지막 친구를 데려옴
+    // 싱글톤으로 올리면 안되낭..
+    GameObject worldManager;
+    List<_MyPastBookInfo> myPastBookInfoList = new List<_MyPastBookInfo>();
 
-    }
-
-    [Serializable]
-    public class MyBookDataArray
-    {
-        public List<MyBookData> myBookData; // 도서 정보 리스트
-    }
+    public GameObject title;
+    public GameObject nickname;
+    public GameObject oneLineReview;
+    public GameObject thumbnail;
 
     void Start()
     {
-        
+        worldManager = GameObject.Find("WorldManager");
+        myPastBookInfoList = worldManager.GetComponent<WorldManager2D>().myPastBookList;
+
     }
 
     void Update()

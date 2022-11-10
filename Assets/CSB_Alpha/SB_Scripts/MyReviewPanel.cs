@@ -56,18 +56,10 @@ public class MyReviewPanel : MonoBehaviour
 
         // 책장에 넣기
 
-
-        // 삭제
         // <등록 되었습니다>
         GameObject go = Instantiate(alarmFactory, gameObject.transform);    // 나의 자식으로 생성
 
     }
-
-    public void OnClickOk()
-    {
-        Destroy(gameObject);
-    }
-
 
     // 나가기 버튼 (누르면 저장되지 않음)
     public void OnClickExit()

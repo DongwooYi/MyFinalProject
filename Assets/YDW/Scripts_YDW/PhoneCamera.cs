@@ -155,6 +155,7 @@ public class PhoneCamera : MonoBehaviour
         backCam.Stop();
         cameraAvailable = false;
         StopAllCoroutines();
+        
     }
 
     public void OnCompletedPostImageDate(DownloadHandler downloadHandler)

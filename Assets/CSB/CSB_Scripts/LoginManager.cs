@@ -5,9 +5,10 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using Newtonsoft.Json.Linq;
+using Photon.Pun;
+using Photon.Realtime;
 
-
-public class LoginManager : MonoBehaviour
+public class LoginManager : MonoBehaviourPunCallbacks
 {
     #region HTTP 로그인 
     public InputField id;
@@ -20,12 +21,12 @@ public class LoginManager : MonoBehaviour
         HttpRequester requester = gameObject.AddComponent<HttpRequester>();
 
         ///post/1, GET, 완료되었을 때 호출되는 함수
-        requester.url = "";
+        requester.url = "http://172.16.20.50:8080/v1/auths/login";
 
         LoginData ldata = new()
         {
-            id = id.text,
-            pw = pw.text
+            memberId = id.text,
+            memberPwd = pw.text
         };
 
         requester.body = JsonUtility.ToJson(ldata, true);
@@ -36,25 +37,88 @@ public class LoginManager : MonoBehaviour
         //HttpManager에게 요청
         HttpManager.instance.SendRequest(requester);
     }
-
+    string Nickname;
     public void OnComplteLogin(DownloadHandler handler)
     {
         JObject jObject = JObject.Parse(handler.text);
-        bool type = (bool)jObject["results"]["type"];
-        string token = (string)jObject["results"]["data"]["token"];
-
+        int type = (int)jObject["status"];
+        string token = (string)jObject["data"]["accessToken"];
+        Nickname = (string)jObject["memebersName"];
         // 통신 성공
-        if (type)
+        if (type==200)
         {
-            // 1. PlayerPref에 key는 jwt, value는 token 바로 씬으로 이동
+            print("통신성공");
+            // 1. PlayerPref에 key는 jwt, value는 token
             PlayerPrefs.SetString("jwt", token);
-            SceneManager.LoadScene("ChallengeWorld");
+            print("token값" + token);
+            PhotonNetwork.ConnectUsingSettings();
         }
     }
 
+    
     public void Toregister()
     {
         SceneManager.LoadScene("Register_YDW");
+    }
+    #endregion
+
+    #region Photon
+    //마스터 서버 접속성공시 호출(Lobby에 진입할 수 없는 상태)
+    public override void OnConnected()
+    {
+        base.OnConnected();
+        print(System.Reflection.MethodBase.GetCurrentMethod().Name);
+    }
+    public override void OnConnectedToMaster()
+    {
+        base.OnConnectedToMaster();
+        print(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+        //내 닉네임 설정        
+        PhotonNetwork.NickName = Nickname;
+        //로비 진입 요청
+        PhotonNetwork.JoinLobby();
+    }
+    //로비 진입 성공시 호출
+    public override void OnJoinedLobby()
+    {
+        base.OnJoinedLobby();
+        print(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        CreateChatroom();
+    }
+    public void CreateChatroom()
+    {
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 10;
+        roomOptions.IsVisible = false;
+        PhotonNetwork.JoinOrCreateRoom("ChatRoom", roomOptions, null);
+    }
+
+    public override void OnCreatedRoom()
+    {
+        base.OnCreatedRoom();
+    }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        base.OnCreateRoomFailed(returnCode, message);
+
+        JoinRoom();
+    }
+
+    /* 방 참가 */
+    public void JoinRoom()
+    {
+        // 1 방 참가 '요청'
+        // PhotonNetwork.JoinRoom("XR_B반");
+        PhotonNetwork.JoinRoom("ChatRoom");
+    }
+
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
+
+        PhotonNetwork.LoadLevel("SB_Player_Photon");
     }
     #endregion
 }

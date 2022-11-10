@@ -107,7 +107,7 @@ public class ButtonManager : MonoBehaviour
     // ==========================================================================================================
     // 아이템 배치 관련
     // 빌딩시스템
-    PlaceableObject objectToPlace;
+    //PlaceableObject objectToPlace;
     public GameObject[] reward3DFactory = new GameObject[4];   // 3D 아이템 (배치할 물건) 공장
     public int itemIndex;
     public GameObject YDW_BuildingSystem;
@@ -127,7 +127,7 @@ public class ButtonManager : MonoBehaviour
         //RaycastHit hitinfo;
 
         //GameObject reward = Instantiate(reward3DFactory[itemIndex]);  // 3D 생성
-        YDW_BuildingSystem.GetComponent<BuildingSystem_YDW>().GetReward();
+        //YDW_BuildingSystem.GetComponent<BuildingSystem_YDW>().GetReward();
 
     }
     string rewardName;

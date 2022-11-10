@@ -5,14 +5,27 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json.Linq;
 
+#region 채팅
+[System.Serializable]
+public class chatData
+{
+    public string chattingData;
+    public static explicit operator chatData(JToken v)
+    {
+        throw new NotImplementedException();
+    }
+}
+#endregion
+
 #region 회원가입
 [System.Serializable]
 public class UserData
 {
-    public string id;
-    public string pw;
+    public string memberId;
+    public string memberPwd;
     public string cpw;
-    public string nickname;
+    public string name;
+    public string number;
     public static explicit operator UserData(JToken v)
     {
         throw new NotImplementedException();
@@ -23,8 +36,8 @@ public class UserData
 [System.Serializable]
 public class LoginData
 {
-    public string id;
-    public string pw;
+    public string memberId;
+    public string memberPwd;
 
     public static explicit operator LoginData(JToken v)
     {

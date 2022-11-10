@@ -47,14 +47,24 @@ public class WorldManager2D : MonoBehaviour
     // 나의 책 목록 -> 
     public List<_MyBookInfo> myBookList = new List<_MyBookInfo>();
 
+    public GameObject Chatting;
+
     void Start()
     {
         // 책 제목 입력
         inputBookTitleName.onValueChanged.AddListener(OnValueChanged);
         inputBookTitleName.onEndEdit.AddListener(OnEndEdit);
-
+        Chatting.SetActive(false);
     }
 
+    public void OnClickChatting()
+    {
+        Chatting.SetActive(true);
+    }
+    public void OnclickChattingEnd()
+    {
+        Chatting.SetActive(false);
+    }
     void OnValueChanged(string s)
     {
         btnSearch.interactable = s.Length > 0;  // 검색 버튼 활성화

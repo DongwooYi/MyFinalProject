@@ -790,9 +790,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55e2569b79f7f4849a2c755189a674cf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  searchBookPanel: {fileID: 0}
+  reviewPanel: {fileID: 0}
   inputBookTitleName: {fileID: 0}
-  inputMaxPeople: {fileID: 0}
-  btnMakeClub: {fileID: 0}
+  btnSearch: {fileID: 0}
+  manager: {fileID: 0}
+  titleList: []
+  authorList: []
+  publisherList: []
+  pubdateList: []
+  imageList: []
+  content: {fileID: 0}
+  resultFactory: {fileID: 0}
+  myBookList: []
 --- !u!1 &360767970
 GameObject:
   m_ObjectHideFlags: 0
@@ -2434,7 +2444,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 1
     m_LineSpacing: 1
-  m_Text: 
+  m_Text: "\u3134\u3147\u3139\u3134\u3147\u3139\u3134\u3147\u3139\u3147\u3134"
 --- !u!222 &1221108623
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2727,6 +2737,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 2
+  camPos: {fileID: 0}
 --- !u!114 &1524380950
 MonoBehaviour:
   m_ObjectHideFlags: 0

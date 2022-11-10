@@ -56,6 +56,7 @@ public class HttpManager : MonoBehaviour
                 {
                     requester.onFailed();
                     print("통신 실패");
+                    
                 }
                 break;
             case RequestType.GET:

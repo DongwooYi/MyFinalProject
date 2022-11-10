@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using UnityEngine.UI;
-
+using Photon.Realtime;
 public class ConnectionManager : MonoBehaviourPunCallbacks
 {
     //닉네임 InputField
@@ -13,6 +13,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        PhotonNetwork.AutomaticallySyncScene = true;
         // 닉네임(InputField)이 변경될때 호출되는 함수 등록
         inputNickName.onValueChanged.AddListener(OnValueChanged);
         // 닉네임(InputField)에서 Enter를 쳤을때 호출되는 함수 등록
@@ -79,15 +80,43 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
         print(System.Reflection.MethodBase.GetCurrentMethod().Name);
+        //  CreateChatroom();
 
         //LobbyScene으로 이동
-        // PhotonNetwork.LoadLevel("Lobby_YDW");
-        PhotonNetwork.LoadLevel("SB_Player_Photon");
+        PhotonNetwork.LoadLevel("LobbyScene");
     }
 
 
-    void Update()
+    public void CreateChatroom()
     {
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 20;
+        roomOptions.IsVisible = false;
+        PhotonNetwork.JoinOrCreateRoom("ChatRoom", roomOptions ,null);
+        print(System.Reflection.MethodBase.GetCurrentMethod().Name);
+    }
 
+    public override void OnCreatedRoom()
+    {
+        base.OnCreatedRoom();
+    }
+
+    public override void OnCreateRoomFailed(short returnCode, string message)
+    {
+        base.OnCreateRoomFailed(returnCode, message);
+        JoinRoom();
+    }
+
+    /* 방 참가 */
+    public void JoinRoom()
+    {
+        // 1 방 참가 '요청'
+        PhotonNetwork.JoinRoom("ChatRoom");
+    }
+
+    public override void OnJoinedRoom()
+    {
+        base.OnJoinedRoom();
+        PhotonNetwork.LoadLevel("SB_Player_Photon");
     }
 }

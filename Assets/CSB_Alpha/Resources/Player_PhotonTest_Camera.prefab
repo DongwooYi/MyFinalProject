@@ -116,8 +116,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 5
-  texttextSpeechbubbleParents: {fileID: 2280546808273917241}
-  textSpeechbubble: {fileID: 2280546808824988997}
   camPos: {fileID: 4268646523907453524}
 --- !u!114 &1718580666658309648
 MonoBehaviour:

@@ -16,6 +16,6 @@ public class OkayButton : MonoBehaviour
 
     public void OnClickOk()
     {
-        Destroy(transform.root.gameObject);
+        Destroy(GameObject.Find("MyReviewPanel(Clone)"));
     }
 }

@@ -2,30 +2,45 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 // 리뷰 배너 관련
 public class ReviewManager : MonoBehaviour
 {
-    // 이 친구 생성은 어디서 하지
-    // 일단은 myPastBookInfo 리스트의 인덱스 젤 마지막 친구를 데려옴
-    // 싱글톤으로 올리면 안되낭..
-    GameObject worldManager;
-    List<_MyPastBookInfo> myPastBookInfoList = new List<_MyPastBookInfo>();
 
-    public GameObject title;
-    public GameObject nickname;
-    public GameObject oneLineReview;
-    public GameObject thumbnail;
+
+    public TextMeshPro title;
+    public TextMeshPro nickname;
+    public TextMeshPro oneLineReview;
+    public GameObject thumbnail;    // 이 친구 쿼드임 -> 얘의 MeshRenderer 의 material의 texture 를 바꾸면 됨
 
     void Start()
     {
-        worldManager = GameObject.Find("WorldManager");
-        myPastBookInfoList = worldManager.GetComponent<WorldManager2D>().myPastBookList;
-
     }
 
     void Update()
     {
         
+    }
+
+    public void SetTitle(string s)
+    {
+        title.text = s;
+    }
+
+    public void SetNickname(string s)
+    {
+        nickname.text = s;
+    }
+
+    public void SetReview(string s)
+    {
+        oneLineReview.text = s;
+    }
+
+    public void SetThumbnail(Texture texture)
+    {
+        Material mat = thumbnail.GetComponent<MeshRenderer>().material;
+        mat.SetTexture("_MainTex", texture);
     }
 }

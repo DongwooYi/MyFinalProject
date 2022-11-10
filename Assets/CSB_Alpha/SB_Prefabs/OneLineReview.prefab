@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6881928878620207870}
   m_Layer: 0
   m_Name: OneLineReview
-  m_TagString: Untagged
+  m_TagString: BannerItem
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -48,9 +48,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 796d3c2abecf6ba4d9e4daedb5972f37, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  title: {fileID: 4889056022923335135}
-  nickname: {fileID: 4889056023466306979}
-  oneLineReview: {fileID: 4889056023218370756}
+  title: {fileID: 4889056022923335134}
+  nickname: {fileID: 4889056023466306981}
+  oneLineReview: {fileID: 4889056023218370758}
   thumbnail: {fileID: 7743768019833518798}
 --- !u!1 &4889056022923335135
 GameObject:
@@ -110,7 +110,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -651916572629956489, guid: 68184fff1add395439914a83ca969770, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -152,10 +152,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Title
+  m_text: "\uC81C\uBAA9"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 68184fff1add395439914a83ca969770, type: 2}
+  m_sharedMaterial: {fileID: -651916572629956489, guid: 68184fff1add395439914a83ca969770, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -282,7 +282,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  - {fileID: -651916572629956489, guid: 68184fff1add395439914a83ca969770, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -324,10 +324,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Review
+  m_text: "\uD55C\uC904\uD3C9"
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 68184fff1add395439914a83ca969770, type: 2}
+  m_sharedMaterial: {fileID: -651916572629956489, guid: 68184fff1add395439914a83ca969770, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

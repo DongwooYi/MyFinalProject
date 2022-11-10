@@ -19,17 +19,15 @@ public class _MyBookInfo
     public RawImage thumbnail;
 
     // 완료 여부 -> 읽고 있는 책 버튼: false / 다 읽은 책 버튼: true
-    public bool finish;
+    public bool isDone;
 }
 
-// 등록한 리뷰와 책 정보
-/*[Serializable]
-public class _MyBookInfowithReview: _MyCurrBookInfo
+[Serializable]
+public class _MyPastBookInfo : _MyBookInfo
 {
-    public int stars;   // 별점
+    public string rating;  // 평점
     public string review;   // 리뷰
 }
-*/
 
 public class WorldManager2D : MonoBehaviour
 {
@@ -51,8 +49,13 @@ public class WorldManager2D : MonoBehaviour
     public Transform content;   // 책 목록 content
     public GameObject resultFactory;
 
-    // 나의 책 목록 -> 
+    // -------------------------------------------------------------------------------
+    // 나의 현재 책 목록
     public List<_MyBookInfo> myBookList = new List<_MyBookInfo>();
+
+    // 나의 지난 책 목록
+    public List<_MyPastBookInfo> myPastBookList = new List<_MyPastBookInfo>();
+    //  ------------------------------------------------------------------------------
 
     public Material matBook;    // 책의 Material
 

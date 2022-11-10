@@ -8,7 +8,7 @@ using UnityEngine.UI;
 
 public class SearchResult : MonoBehaviour
 {
-    public GameObject worldManager;
+    GameObject worldManager;
     List<_MyBookInfo> myBookInfoList = new List<_MyBookInfo>();
 
     public Text bookTitle;
@@ -67,6 +67,7 @@ public class SearchResult : MonoBehaviour
         myBookInfo.publishInfo = publishInfo.text;
         myBookInfo.isbn = isbn.text;
         myBookInfo.thumbnail = thumbnail;
+        myBookInfo.isDone = false;
 
         // MyBookList 에 추가
         myBookInfoList.Add(myBookInfo);
@@ -96,6 +97,7 @@ public class SearchResult : MonoBehaviour
         myReviewPanel.SetAuthor(author.text);
         myReviewPanel.SetPublishInfo(publishInfo.text);
         myReviewPanel.SetIsbn(isbn.text);
+        myReviewPanel.SetImage(thumbnail.texture);
 
         // 다읽은 책 목록에 추가
     }

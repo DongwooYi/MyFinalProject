@@ -941,6 +941,7 @@ MonoBehaviour:
   content: {fileID: 185599261}
   resultFactory: {fileID: 318626364981816602, guid: d6147a7b136793b45a66ee1aa5f3dddd, type: 3}
   myBookList: []
+  myPastBookList: []
   matBook: {fileID: 2100000, guid: b075668e458718049a46cbbe7780bfc6, type: 2}
 --- !u!114 &359941975
 MonoBehaviour:

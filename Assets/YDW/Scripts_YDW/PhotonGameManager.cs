@@ -3,9 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
-public class GameManager : MonoBehaviourPunCallbacks
+public class PhotonGameManager : MonoBehaviourPunCallbacks
 {
-    public static GameManager instance;
+    public static PhotonGameManager instance;
 
     private void Awake()
     {

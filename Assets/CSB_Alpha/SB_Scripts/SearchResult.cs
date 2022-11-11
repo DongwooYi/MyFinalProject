@@ -72,12 +72,12 @@ public class SearchResult : MonoBehaviour
         // MyBookList 에 추가
         myBookInfoList.Add(myBookInfo);
 
-        // 책상에 쿼드 생성하고 그 쿼드의 material의 texture를 thumbnail 로
+/*        // 책상에 쿼드 생성하고 그 쿼드의 material의 texture를 thumbnail 로
         GameObject go = Instantiate(bookFactory, myDesk);
 
         CurrBook currBook = go.GetComponent<CurrBook>();
 
-        currBook.ChangeTexture(myBookInfo.thumbnail.texture);
+        currBook.ChangeTexture(myBookInfo.thumbnail.texture);*/
     }
 
     // 다 읽은 책 등록 버튼 

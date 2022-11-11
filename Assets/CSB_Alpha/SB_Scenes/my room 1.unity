@@ -3545,7 +3545,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1071583289
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4005,8 +4005,8 @@ MonoBehaviour:
   myDesk: {fileID: 1804941078}
   myCurrBookPanel: {fileID: 1071583288}
   currBookInfoPanel: {fileID: 0}
-  currBookInfoPanelFactory: {fileID: 0}
-  canvas: {fileID: 0}
+  currBookInfoPanelFactory: {fileID: 8267027179380222971, guid: ac93ff256d890ee4989ddf0e8e78fc14, type: 3}
+  canvas: {fileID: 1754603825}
   worldManager: {fileID: 359941974}
   distance: 1
 --- !u!4 &1249980025

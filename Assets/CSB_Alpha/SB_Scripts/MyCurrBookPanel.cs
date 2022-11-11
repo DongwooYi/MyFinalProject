@@ -39,11 +39,15 @@ public class MyCurrBookPanel : MonoBehaviour
             // 현재 읽고 있는 책 리스트 받아와야함 (계속 받아와야함..? / 현재 읽고 있는 책 열때만..?)
             myCurrBookList = worldManager.myBookList;
 
-            // 버튼에 각 정보들 뿌려줌
-            // MyCurrBookPanel 의 자식의 인덱스와 myCurrBookList 의 인덱스 맞춰서 넣어줌
-
             // 현재 읽고 있는 책 Panel
             myCurrBookPanel.SetActive(true);
+
+            // 버튼에 각 정보들 뿌려줌
+            // MyCurrBookPanel 의 자식의 인덱스와 myCurrBookList 의 인덱스 맞춰서 넣어줌
+            for(int i=0; i < myCurrBookList.Count; i++)
+            {
+                myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = myCurrBookList[i].thumbnail.texture;
+            }
         }
 
 

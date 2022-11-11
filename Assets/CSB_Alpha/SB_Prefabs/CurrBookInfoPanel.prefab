@@ -804,6 +804,7 @@ GameObject:
   - component: {fileID: 8267027179380222968}
   - component: {fileID: 8267027179380222966}
   - component: {fileID: 8267027179380222969}
+  - component: {fileID: 6794827996967532750}
   m_Layer: 5
   m_Name: CurrBookInfoPanel
   m_TagString: Untagged
@@ -877,6 +878,26 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &6794827996967532750
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8267027179380222971}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 165dd850835b5ba42aa5e0b6e2f99d1f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: {fileID: 8267027179277764713}
+  author: {fileID: 8267027178540918671}
+  publishInfo: {fileID: 8267027179237463507}
+  isbn: {fileID: 0}
+  thumbnail: {fileID: 0}
+  dropdown: {fileID: 0}
+  inputFieldReview: {fileID: 8267027179699988871}
+  btnEnter: {fileID: 8267027179038700454}
 --- !u!1 &8267027179699988873
 GameObject:
   m_ObjectHideFlags: 0

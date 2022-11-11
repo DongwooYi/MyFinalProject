@@ -27,7 +27,7 @@ public class SearchResult : MonoBehaviour
         worldManager = GameObject.Find("WorldManager");
         myBookInfoList = worldManager.GetComponent<WorldManager2D>().myBookList;
 
-        myDesk = GameObject.Find("MyDesk").transform;
+        //myDesk = GameObject.Find("MyDesk").transform;
     }
 
     public void SetBookTitle(string s)

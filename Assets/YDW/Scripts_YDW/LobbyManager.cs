@@ -27,8 +27,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     //룸 리스트 Content
     public Transform trListContent;
 
+   public LoadGallery loadGallery;
+
     //map Thumbnail
-    public GameObject mapThumbs;
+    public GameObject[] mapThumbs;
 
     [Header("방만들기 및 방 리스트")]
     public GameObject setRoom;
@@ -36,6 +38,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
   public  DataManager DataManager;
     void Start()
     {
+        mapThumbs = new GameObject[1];
+        mapThumbs[0].GetComponent<RawImage>().texture = loadGallery.image.texture;
 /*        if (DataManager == null || DataManager.isActiveAndEnabled == false)
         {
             print(System.Reflection.MethodBase.GetCurrentMethod().Name);
@@ -70,6 +74,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             print(System.Reflection.MethodBase.GetCurrentMethod().Name);
             CreateChatroom();
         }
+        if(Input.GetKeyDown(KeyCode.F10))
+        {
+            PlayerPrefs.DeleteAll();
+        }
+        if(Input.GetKeyDown(KeyCode.F9))
+        {
+            setRoom.SetActive(true);
+        }
     }
     public void OnRoomNameValueChanged(string s)
     {
@@ -98,16 +110,19 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     //방 생성
     public void CreateRoom()
     {
+        //mapThumbs.texture = loadGallery.gameObject.GetComponent<RawImage>().texture;
         // 방 옵션을 설정
         RoomOptions roomOptions = new RoomOptions();
         // 최대 인원 (0이면 최대인원)
         roomOptions.MaxPlayers = byte.Parse(inputMaxPlayer.text);
         // 룸 리스트에 보이지 않게? 보이게?
         roomOptions.IsVisible = true;
+
         // custom 정보를 셋팅
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
-        hash["desc"] = inputFieldRoomDescription;
-        hash["map_id"] = mapThumbs;
+        
+        hash["desc"] = inputFieldRoomDescription.text;
+        hash["map_id"] = Random.Range(0,mapThumbs.Length);
         hash["room_name"] = inputRoomName.text;
         hash["password"] = inputPassword.text;
         roomOptions.CustomRoomProperties = hash;

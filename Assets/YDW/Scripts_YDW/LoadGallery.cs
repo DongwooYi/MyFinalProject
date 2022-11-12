@@ -51,7 +51,7 @@ IEnumerator LoadImage(string path)
         tex.LoadImage(temp);
 
         image.texture = tex;
-        lobbyManager.gameObject.GetComponent<LobbyManager>().mapThumbs.GetComponent<Renderer>().material.mainTexture = image.texture;
+       
     }
     // Start is called before the first frame update
     void Start()

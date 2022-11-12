@@ -70,7 +70,7 @@ public class BannerManager : MonoBehaviour
     {
         ReviewManager reviewManager = bannerItem.GetComponent<ReviewManager>();
 
-        reviewManager.SetTitle(myPastBookInfoList[idx].title);
+        reviewManager.SetTitle(myPastBookInfoList[idx].bookName);
         reviewManager.SetReview(myPastBookInfoList[idx].review);
         reviewManager.SetNickname("User Nickname");
         reviewManager.SetThumbnail(myPastBookInfoList[idx].thumbnail.texture);

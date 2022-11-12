@@ -1,8 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using Newtonsoft.Json.Linq;
+
 
 
 // 플레이어가 책상 가까이 가면 현재 읽고 있는 책 UI 가 뜬다
@@ -41,10 +44,11 @@ public class MyCurrBookPanel : MonoBehaviour
 
             // 현재 읽고 있는 책 Panel
             myCurrBookPanel.SetActive(true);
+            HttpGet();
 
             // 버튼에 각 정보들 뿌려줌
             // MyCurrBookPanel 의 자식의 인덱스와 myCurrBookList 의 인덱스 맞춰서 넣어줌
-            for(int i=0; i < myCurrBookList.Count; i++)
+            for (int i=0; i < myCurrBookList.Count; i++)
             {
                 myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = myCurrBookList[i].thumbnail.texture;
             }
@@ -68,5 +72,36 @@ public class MyCurrBookPanel : MonoBehaviour
 
         // 생성
         GameObject go = Instantiate(currBookInfoPanelFactory, canvas);
+    }
+
+    void HttpGet()
+    {
+        // 서버에 게시물 조회 요청(/post/1, GET)
+        // HttpRequester를 생성
+        HttpRequester requester = new HttpRequester();
+
+        // /posts/1. GET, 완료되었을 때 호출되는 함수
+        requester.url = "http://192.168.0.20:8080/v1/records/reading";
+        requester.requestType = RequestType.GET;
+        requester.onComplete = OnComplte;
+
+        // HttpManager 에게 요청
+        HttpManager.instance.SendRequest(requester, "");
+    }
+
+    public void OnComplte(DownloadHandler handler)
+    {
+        JObject jObject = JObject.Parse(handler.text);
+        int type = (int)jObject["status"];
+        //int type = (int)jObject["data"]["recordCode"];
+       
+        // 통신 성공
+        if (type == 200)
+        {
+            print("통신성공현재책");
+            // 1. PlayerPref에 key는 jwt, value는 token
+            print(jObject);
+            //PhotonNetwork.ConnectUsingSettings();
+        }
     }
 }

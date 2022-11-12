@@ -28,12 +28,12 @@ public class HttpManager : MonoBehaviour
 
     //서버에게 요청
     //url(posts/1), GET
-    public void SendRequest(HttpRequester requester)
+    public void SendRequest(HttpRequester requester, string contentType)
     {
-        StartCoroutine(Send(requester));
+        StartCoroutine(Send(requester, contentType));
     }
 
-    IEnumerator Send(HttpRequester requester)
+    IEnumerator Send(HttpRequester requester, string contentType)
     {
         UnityWebRequest webRequest = null;
         //requestType 에 따라서 호출해줘야한다.
@@ -44,8 +44,8 @@ public class HttpManager : MonoBehaviour
                 webRequest = UnityWebRequest.Post(requester.url, requester.body);
                 byte[] data = Encoding.UTF8.GetBytes(requester.body);
                 webRequest.uploadHandler = new UploadHandlerRaw(data);
-                webRequest.SetRequestHeader("Content-Type", "application/json");
-                webRequest.SetRequestHeader("x-access-token", PlayerPrefs.GetString("jwt"));
+                webRequest.SetRequestHeader("Content-Type", contentType);
+                webRequest.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("jwt"));
                 yield return webRequest.SendWebRequest();
                 //만약에 응답이 성공했다면
                 if (webRequest.result == UnityWebRequest.Result.Success)
@@ -61,6 +61,8 @@ public class HttpManager : MonoBehaviour
                 break;
             case RequestType.GET:
                 webRequest = UnityWebRequest.Get(requester.url);
+                webRequest.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("jwt"));
+
                 //서버에 요청을 보내고 응답이 올때까지 기다린다.
                 yield return webRequest.SendWebRequest();
 

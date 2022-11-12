@@ -95,6 +95,7 @@ public class ImageData
 #endregion
 public enum RequestType
 {
+    LOGIN,
     POST,
     GET
 }

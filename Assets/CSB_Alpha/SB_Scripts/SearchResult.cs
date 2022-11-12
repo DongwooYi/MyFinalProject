@@ -73,7 +73,7 @@ public class SearchResult : MonoBehaviour
         myBookInfoList.Add(myBookInfo);
 
         // Http 통신 함수 추가 (POST)
-        HttpPostCurrBookInfo();
+        //HttpPostCurrBookInfo();
     }
 
     /* 다 읽은 책 등록 버튼 */
@@ -126,7 +126,5 @@ public class SearchResult : MonoBehaviour
     {
         JObject jObject = JObject.Parse(handler.text);
         int type = (int)jObject["status"];
-
-        
     }
 }

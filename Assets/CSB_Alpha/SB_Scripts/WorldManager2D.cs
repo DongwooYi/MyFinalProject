@@ -89,6 +89,12 @@ public class WorldManager2D : MonoBehaviour
         reviewPanel.SetActive(true);
     }
 
+    // 뒤로 버튼 관련
+    public void OnClickGoBack()
+    {
+        searchBookPanel.SetActive(false);
+    }
+
     // 검색 버튼 관련 (돋보기 버튼)
     public void OnClickSearchBook()
     {

@@ -27,12 +27,13 @@ public class MyCurrBookPanel : MonoBehaviour
 
     // 아바타 머리에 띄우고 싶은 책 선택 관련
 
+
     void Start()
     {
         player = GameObject.FindWithTag("Player");
 
         // 여기서 씬 시작할 때 다 읽었던 책 한번 뿌려주고 시작
-        HttpGetPastBookList();
+        //HttpGetPastBookList();
     }
 
     void Update()
@@ -49,12 +50,17 @@ public class MyCurrBookPanel : MonoBehaviour
 
     }
 
-    public bool isPlayerDesk = false;
-
     public void ShowClickHereObj()
     {
-        // 쿼드를 띄워준다
+        // 손가락 쿼드를 띄워준다
         myDesk.transform.GetChild(0).gameObject.SetActive(true);
+        myCurrBookList = worldManager.myBookList;
+
+        // MyCurrBookPanel 의 자식의 인덱스와 myCurrBookList 의 인덱스 맞춰서 넣어줌
+        for (int i = 0; i < myCurrBookList.Count; i++)
+        {
+            myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = myCurrBookList[i].thumbnail.texture;
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
@@ -67,6 +73,7 @@ public class MyCurrBookPanel : MonoBehaviour
                 {
                     //HttpGetCurrBook();  // 네트워크 통신
                     print("이번엔 한번만 들어오겠지");
+                    myCurrBookPanel.SetActive(true);
                     myDesk.transform.GetChild(0).gameObject.SetActive(false);
                     return;
                 }
@@ -87,6 +94,13 @@ public class MyCurrBookPanel : MonoBehaviour
 
         // 생성
         GameObject go = Instantiate(currBookInfoPanelFactory, canvas);
+
+        CurrBookInfoPanel currBookInfoPanel = go.GetComponent<CurrBookInfoPanel>();
+
+        currBookInfoPanel.SetTitle(myCurrBookList[idx].bookName);
+        currBookInfoPanel.SetAuthor(myCurrBookList[idx].bookAuthor);
+        currBookInfoPanel.SetPublishInfo(myCurrBookList[idx].bookPublishInfo);
+        currBookInfoPanel.SetImage(myCurrBookList[idx].thumbnail.texture);
     }
 
     // 뒤로 가기 버튼

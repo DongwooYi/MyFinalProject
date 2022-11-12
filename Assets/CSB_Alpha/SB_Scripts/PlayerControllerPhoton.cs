@@ -8,26 +8,23 @@ public class PlayerControllerPhoton : MonoBehaviourPun
 {
 
     public float speed = 5f;
-    public InputField inputFieldChatting;
-    public GameObject canvas;
-    public GameObject speechBubble;
+
+    //public GameObject canvas;
     public Transform camPos;
-    public Text textSpeechBubble;
-    public ChatManager chatManager;
+
     public void Start()
     {
-        chatManager = GameObject.FindObjectOfType<ChatManager>();
-        speechBubble.SetActive(false);
         #region 이동우 포톤 카메라 수정 부분
-        #endregion
         if (photonView.IsMine)
         {
-            canvas = GameObject.Find("Canvas");
-            inputFieldChatting = canvas.transform.GetChild(0).transform.GetChild(0).GetComponent<InputField>();
+           // canvas = GameObject.Find("Canvas");
+            //inputFieldChatting = canvas.transform.GetChild(0).transform.GetChild(0).GetComponent<InputField>();
             //inputFieldChatting = gameObject.transform.Find("Chatting").GetComponent<InputField>();
             camPos.gameObject.SetActive(true);
-            
+            this.gameObject.name = PhotonNetwork.NickName;
+            this.gameObject.tag = "Player";
         }
+        #endregion
     }
 
     void Update()

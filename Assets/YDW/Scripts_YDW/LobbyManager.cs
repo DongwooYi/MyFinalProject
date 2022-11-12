@@ -3,10 +3,13 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
+using System.Collections;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
-
+    // 메인월드
+    public MakingChattingRoom chattingRoom;
+    //방설명 InputField
     public InputField inputFieldRoomDescription;
     //방이름 InputField
     public InputField inputRoomName;
@@ -27,19 +30,47 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     //map Thumbnail
     public GameObject mapThumbs;
 
+    [Header("방만들기 및 방 리스트")]
+    public GameObject setRoom;
+    public GameObject setRoomlist;
+  public  DataManager DataManager;
     void Start()
     {
+/*        if (DataManager == null || DataManager.isActiveAndEnabled == false)
+        {
+            print(System.Reflection.MethodBase.GetCurrentMethod().Name);
+            return;
+        }*/
+        
+        
+            DataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+        if (DataManager.SetActiveMakingRoom)
+        {
+            setRoom.SetActive(true);
+            print(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+        }
+        else if (DataManager.ShowRoomlist)
+        {
+            setRoomlist.SetActive(false);
+            print(System.Reflection.MethodBase.GetCurrentMethod().Name);
+
+        }
+        
         // 방이름(InputField)이 변경될때 호출되는 함수 등록
         inputRoomName.onValueChanged.AddListener(OnRoomNameValueChanged);
         // 총인원(InputField)이 변경될때 호출되는 함수 등록
         inputMaxPlayer.onValueChanged.AddListener(OnMaxPlayerValueChanged);
-
-
         string[] s = Microphone.devices;
-
-
     }
-
+    private void Update()
+    {
+        if (chattingRoom.GotoMainWorld)
+        {
+            print(System.Reflection.MethodBase.GetCurrentMethod().Name);
+            CreateChatroom();
+        }
+    }
     public void OnRoomNameValueChanged(string s)
     {
         //참가
@@ -61,6 +92,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         roomOptions.MaxPlayers = 10;
         roomOptions.IsVisible = false;
         PhotonNetwork.JoinOrCreateRoom("ChatRoom", roomOptions, null);
+        chattingRoom.GotoMainWorld = false;
     }
 
     //방 생성

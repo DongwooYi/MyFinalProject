@@ -2,110 +2,96 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using Photon.Pun;
 using UnityEngine.SceneManagement;
 
 public class NPC : MonoBehaviour
 {
-    public GameObject textSpeechBubble;
-    public Button btnCreatRoom;
-    public Button btnJoinRoom;
-    string sceneName;
-    /*    public enum PickType
-        {
-            CreateRoom,
-            JoinedRoom
-        }
-        public PickType pickType;*/
-    // Start is called before the first frame update
-    void Start()
-    {
-       
-        textSpeechBubble.SetActive(false);
-        DontDestroyOnLoad(this.gameObject);
-    }
+    [Header("NPC 채팅")]
+    public Text textNPC;
+    public GameObject NPCSpeaking;
 
-    // Update is called once per frame
-    void Update()
-    {
-      /* if(Input.GetKeyDown(KeyCode.A))
-        {
-            ChattingStart();
-        }
-        if (Input.GetKeyDown(KeyCode.B))
-        {
-            
-            OnCreateRoom();
-        }
-        if (Input.GetKeyDown(KeyCode.C))
-        {
+    [Header("조이스틱")]
+    public GameObject joyStickMove;
+    public GameObject joyStickRotate;
 
-            OnCreateRoom();
+    [Header("버튼")]
+    public GameObject btnCraeteRoom;
+    public GameObject btnOnlist;
+    public GameObject btnNo;
+    public GameObject btnGoBack;
+    [Header("로비씬 룸리스트및 방생성")]
+    public bool isTriggershowRoomList;
+    public bool isTiggerEnter;
+
+    public Joystick2DPhoton Joystick2DPhoton;
+    //public GameObject playerPrefabs;
+   // public PlayerControllerPhoton PlayerControllerPhoton;
+    
+    private void Start()
+    {
+        //PlayerControllerPhoton = playerPrefabs.GetComponent<PlayerControllerPhoton>();
+
+        /*if (PlayerControllerPhoton == null || PlayerControllerPhoton.isActiveAndEnabled ==false)
+        {
+            return;
         }*/
-
+        isTiggerEnter = false;
+        isTriggershowRoomList = false;
     }
     private void OnTriggerEnter(Collider other)
-    {
-        if(other.tag == "Player")
-        {
-            textSpeechBubble.SetActive(true);
+    {       
+         if (other.tag == "Player")
+            {
+            Debug.Log("Hit");
+            textNPC.text = "챌린지 만들어 보지 않을래?";
+            NPCSpeaking.SetActive(true);
+            btnCraeteRoom.SetActive(true);
+            btnNo.SetActive(true);
+            btnOnlist.SetActive(false);
+            btnGoBack.SetActive(false);
+            joyStickMove.SetActive(false);
+            joyStickRotate.SetActive(false);
         }
+        
     }
     private void OnTriggerExit(Collider other)
     {
-        if (other.gameObject)
-        {
-            textSpeechBubble.SetActive(false);
-        }
+        NPCSpeaking.SetActive(false);
+        joyStickMove.SetActive(true);
+        joyStickRotate.SetActive(true);
     }
-    public void  ChattingStart()
-    {        
-        textSpeechBubble.SetActive(true);
-        textSpeechBubble.gameObject.GetComponentInChildren<Text>().text = "챌린지 개설해볼래?";
-    /*    switch (pickType)
-        {
-            case PickType.CreateRoom:
-                OnCreateRoom();
-                break;
-            case PickType.JoinedRoom:
-                OnJoinedRoom();
-                break;
-        }*/
-    }
-    public void GotoLobby()
+    public void OnClickMakingRoom()
     {
-        textSpeechBubble.SetActive(false);
-        PhotonNetwork.LeaveRoom();
-        PhotonNetwork.LoadLevel("LobbyScene");
+        NPCSpeaking.SetActive(false);
+        isTiggerEnter = true;
+    }
+    public void onClickShowRoomList()
+    {
+        NPCSpeaking.SetActive(false);
+        isTriggershowRoomList = true;
+
+
     }
 
-    public bool SetactiveCreatRoomPopUP;
-    public bool SetactiveJoinedRoomPopUP;
-    
-    public void OnCreateRoom()
+    public void OnClickNottoMakeaRoom()
     {
-        SetactiveCreatRoomPopUP = true;
-        SetactiveJoinedRoomPopUP = false;
-        btnCreatRoom.gameObject.SetActive(false);
-        btnJoinRoom.gameObject.SetActive(false);
-        textSpeechBubble.gameObject.GetComponentInChildren<Text>().text = "알겠어!!";
-        if(textSpeechBubble.gameObject.GetComponentInChildren<Text>().text == "알겠어!!")
-        {
-            Debug.Log("OnCreateRoom == " + textSpeechBubble.gameObject.GetComponentInChildren<Text>().text);
-            Invoke("GotoLobby",1.0f);
-        }
+        textNPC.text = "그러면 너가 원하는 챌린지 볼래?";
+        btnCraeteRoom.SetActive(false);
+        btnNo.SetActive(false);
+        btnOnlist.SetActive(true);
+        btnGoBack.SetActive(true);
     }
-    public void OnJoinedRoom()
+    public void OnClickBack()
     {
-        SetactiveCreatRoomPopUP = false;
-        SetactiveJoinedRoomPopUP = true;
-        btnCreatRoom.gameObject.SetActive(false);
-        btnJoinRoom.gameObject.SetActive(false);
-        textSpeechBubble.gameObject.GetComponentInChildren<Text>().text = "원하는 챌린지 보여줄게";
-        if (textSpeechBubble.gameObject.GetComponentInChildren<Text>().text == "원하는 챌린지 보여줄게")
-        {
-            Debug.Log("OnJoinedRoom == " + textSpeechBubble.gameObject.GetComponentInChildren<Text>().text);
-            Invoke("GotoLobby", 1.0f);
-        }
+        textNPC.text = "...알겠어... 다음에 또와";
+        Invoke("EndNPCSpeaking", 1.0f);
     }
+    public void EndNPCSpeaking()
+    {
+        NPCSpeaking.SetActive(false);
+        joyStickMove.SetActive(true);
+        joyStickRotate.SetActive(true);
+
+    }
+
 }

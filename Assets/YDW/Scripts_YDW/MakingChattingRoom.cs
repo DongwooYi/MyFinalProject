@@ -4,21 +4,17 @@ using UnityEngine;
 
 public class MakingChattingRoom : MonoBehaviour
 {
-   public GameObject lobbyManager;
+    public bool GotoMainWorld;
     private void Start()
     {
-
+        GotoMainWorld = false;
     }
     private void OnTriggerEnter(Collider collider)
     {
         if (collider.tag == "Player")
         {
             print(collider.gameObject.name);
-            lobbyManager.gameObject.GetComponent<LobbyManager>().CreateChatroom();
-        }
-        else
-        {
-            return;
+            GotoMainWorld = true;
         }
     }
 }

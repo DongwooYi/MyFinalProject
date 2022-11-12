@@ -28,11 +28,7 @@ public class RegisterManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.F1))
-        {
-            rgiOk.SetActive(true);
-        }
-
+        
         if (pw.text == cpw.text && nickname.text.Length>0)
         {
             buttongforregister.interactable = true;

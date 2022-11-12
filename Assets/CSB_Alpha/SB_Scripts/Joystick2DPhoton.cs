@@ -19,6 +19,7 @@ public class Joystick2DPhoton : MonoBehaviourPun, IBeginDragHandler, IDragHandle
     public bool isInput;
 
     private Vector2 inputVector;
+    public NPC NPC;
     #region 이동우 조이스틱 수정 부분
     public enum JoystickType { Move, Rotate }
     public JoystickType joystickType;
@@ -41,6 +42,9 @@ public class Joystick2DPhoton : MonoBehaviourPun, IBeginDragHandler, IDragHandle
         {
             InputControl();
         }
+           
+        
+     
         //if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false)
         // if (EventSystem.current.IsPointerOverGameObject() == false)
         
@@ -60,7 +64,6 @@ public class Joystick2DPhoton : MonoBehaviourPun, IBeginDragHandler, IDragHandle
     // Drag 중 (마우스 멈추면 이벤트가 들어오지 않음)
     public void OnDrag(PointerEventData eventData)
     {
-
         Debug.Log("Drag");
         ControlJoystickInnerCircle(eventData);
     }
@@ -102,7 +105,10 @@ public class Joystick2DPhoton : MonoBehaviourPun, IBeginDragHandler, IDragHandle
                 if (playerController)
                 {
                     playerController.Move(inputVector);
+                    
                 }
+                
+                    
                 break;
             case JoystickType.Rotate:
                 playerController.LookAround(inputVector);

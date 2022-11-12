@@ -7,6 +7,7 @@ TagManager:
   - PrefabsSample
   - Bullet
   - BannerItem
+  - ClickHere
   layers:
   - Default
   - TransparentFX

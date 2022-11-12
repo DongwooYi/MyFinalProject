@@ -47,6 +47,11 @@ public class CurrBookInfoPanel : MonoBehaviour
         isbn.text = s;
     }
 
+    public void OnClickExit()
+    {
+        Destroy(gameObject);
+    }
+
 /*    public void SetImage(Texture texture)
     {
         thumbnail.texture = texture;

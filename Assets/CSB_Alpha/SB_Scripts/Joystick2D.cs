@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 using Photon.Pun;
 public class Joystick2D : MonoBehaviourPun, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
@@ -21,7 +22,7 @@ public class Joystick2D : MonoBehaviourPun, IBeginDragHandler, IDragHandler, IEn
     #region 이동우 조이스틱 수정 부분
     public enum JoystickType { Move, Rotate }
     public JoystickType joystickType;
-
+    string sceneName;
     #endregion
     private void Awake()
     {

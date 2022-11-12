@@ -12,9 +12,9 @@ GameObject:
   - component: {fileID: 1718580666658309650}
   - component: {fileID: 1718580666658310125}
   - component: {fileID: 1718580666658310124}
-  - component: {fileID: 1718580666658310127}
   - component: {fileID: 1718580666658309648}
   - component: {fileID: 2362948593642258185}
+  - component: {fileID: 3267975092860830802}
   m_Layer: 0
   m_Name: Player_PhotonTest_Camera
   m_TagString: Player
@@ -103,20 +103,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &1718580666658310127
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1718580666658310126}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5cbc4b5cfd5920c4b90a9efe02b1e10e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  camPos: {fileID: 4268646523907453524}
 --- !u!114 &1718580666658309648
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -156,6 +142,25 @@ MonoBehaviour:
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
   m_UseLocal: 1
+--- !u!114 &3267975092860830802
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1718580666658310126}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c1c10a3b49745bc4b9f414fd1ff4353c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  inputFieldChatting: {fileID: 0}
+  canvas: {fileID: 0}
+  speechBubble: {fileID: 0}
+  camPos: {fileID: 4268646523907453524}
+  textSpeechBubble: {fileID: 2280546808824988997}
+  chatManager: {fileID: 0}
 --- !u!1 &2280546808273917241
 GameObject:
   m_ObjectHideFlags: 0
@@ -344,7 +349,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_FontSize: 10
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -499,7 +504,7 @@ GameObject:
   - component: {fileID: 4288124487361076968}
   - component: {fileID: 5589936370908900837}
   m_Layer: 0
-  m_Name: Canvas
+  m_Name: CanvasPlayer
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

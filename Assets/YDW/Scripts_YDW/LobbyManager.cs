@@ -6,6 +6,8 @@ using UnityEngine.UI;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
+
+    public InputField inputFieldRoomDescription;
     //방이름 InputField
     public InputField inputRoomName;
     //비밀번호 InputField
@@ -23,7 +25,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public Transform trListContent;
 
     //map Thumbnail
-    public GameObject[] mapThumbs;
+    public GameObject mapThumbs;
 
     void Start()
     {
@@ -72,8 +74,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         roomOptions.IsVisible = true;
         // custom 정보를 셋팅
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
-        hash["desc"] = "여긴 초보방이다! " + Random.Range(1, 1000);
-        hash["map_id"] = Random.Range(0, mapThumbs.Length);
+        hash["desc"] = inputFieldRoomDescription;
+        hash["map_id"] = mapThumbs;
         hash["room_name"] = inputRoomName.text;
         hash["password"] = inputPassword.text;
         roomOptions.CustomRoomProperties = hash;
@@ -115,11 +117,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         print(currentRoomname);
         if (currentRoomname == "ChatRoom")
         {
-            PhotonNetwork.LoadLevel("GameScene_ChatRoom");
+            PhotonNetwork.LoadLevel("SB_Player_Photon");
         }
         else
         {
-            PhotonNetwork.LoadLevel("GameScene");
+            PhotonNetwork.LoadLevel("SB_Player_Photon");
 
         }
     }
@@ -179,22 +181,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
                 roomCache[roomList[i].Name] = roomList[i];
             }
         }
-
-        //for (int i = 0; i < roomList.Count; i++)
-        //{
-        //    // 수정, 삭제
-        //    if (roomCache.ContainsKey(roomList[i].Name))
-        //    {
-        //        //만약에 해당 룸이 삭제된것이라면
-        //        if (roomList[i].RemovedFromList)
-        //        {
-        //            //roomCache 에서 해당 정보를 삭제
-        //            roomCache.Remove(roomList[i].Name);
-        //            continue;
-        //        }                
-        //    }
-        //    roomCache[roomList[i].Name] = roomList[i];            
-        //}
     }
 
     public GameObject roomItemFactory;
@@ -230,7 +216,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //룸이름 설정
         inputRoomName.text = room;
 
-        //만약에 이전 맵 Thumbnail이 활성화가 되어있다면
+       /* //만약에 이전 맵 Thumbnail이 활성화가 되어있다면
         if (prevMapId > -1)
         {
             //이전 맵 Thumbnail을 비활성화
@@ -238,7 +224,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
 
         //맵 Thumbnail 설정
-        mapThumbs[map_id].SetActive(true);
+        mapThumbs[map_id].SetActive(true);*/
 
         //이전 맵 id 저장
         prevMapId = map_id;

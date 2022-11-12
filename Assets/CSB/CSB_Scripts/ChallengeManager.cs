@@ -101,8 +101,8 @@ public class ChallengeManager : MonoBehaviour
         challenge.SetTitle(inputTitleName.text);    // ����
         challenge.SetPeriod(periodToggle.a);    // �ֱ� �� ����
         challenge.SetParticipants("(1/" + toggle.participantInfo[0] + ")");  // ���� �ο�
-        challenge.SetRePeriod(calendarController_1._target.text + "~" + calendarController_2._target2.text);    // ���� �Ⱓ
-        challenge.SetChallPeriod(calendarController_3._target3.text + "~" + calendarController_4._target4.text); // ç���� �Ⱓ
+       //challenge.SetRePeriod(calendarController_1._target.text + "~" + calendarController_2._target2.text);    // ���� �Ⱓ
+      //  challenge.SetChallPeriod(calendarController_3._target3.text + "~" + calendarController_4._target4.text); // ç���� �Ⱓ
 
         makeNewChallengePanel.SetActive(false);
 

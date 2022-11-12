@@ -49,7 +49,6 @@ public class ChatManager : MonoBehaviourPun
 
     //내 아이디 색
     Color idColor;
-    Color aiColor;
     Color otherColor;
 
 
@@ -106,9 +105,9 @@ public class ChatManager : MonoBehaviourPun
     //InputField에서 엔터를 쳤을때 호출되는 함수
     void OnSubmit(string s)
     {
-
+        enterchat = true;
         //나라면
-        if(photonView.IsMine == false)
+        if(photonView.IsMine)
         {
          photonView.RPC("RpcAddChat", RpcTarget.All,
          PhotonNetwork.NickName,
@@ -117,7 +116,6 @@ public class ChatManager : MonoBehaviourPun
          idColor.g,
          idColor.b);
         }
-
         else
         {
             photonView.RPC("RpcAddChat", RpcTarget.All,
@@ -129,7 +127,6 @@ public class ChatManager : MonoBehaviourPun
         }
         //4. InputChat의 내용을 초기화
         inputChat.text = "";
-        enterchat = true;
         //5. InputChat에 Focusing 을 해주자.
         //Enter 를 눌러도 InputField 가 계속 활성화 되게 해주는 코드
         inputChat.ActivateInputField();
@@ -142,22 +139,23 @@ public class ChatManager : MonoBehaviourPun
     public RectTransform AIScrollView;
 
     string jsonData;
-
+        
     [PunRPC]
     void RpcAddChat(string nick, string chatText, float r, float g, float b)
     {
         enterchat = false;
         print("보낸 놈 : " + nick);
         print("보낸 내용 : " + chatText);
-
         //보낼 데이터 생성
         ChatInfo info = new ChatInfo();
         info.nickName = nick;
         info.chatText = chatText;
+        print(info.chatText);
 
         //<color=#FFFFFF>닉네임</color>
         string s = "<color=#" + ColorUtility.ToHtmlStringRGB(new Color(r, g, b)) + ">" + nick + "</color>" + " : " + chatText;
-
+        
+        
         //0. 바뀌기 전의 Content H값을 넣자
         prevContentH = trContent.sizeDelta.y;
 
@@ -200,6 +198,7 @@ public class ChatManager : MonoBehaviourPun
 
         //스크롤 바 계속 내리기 코드로 구현
         StartCoroutine(AIAutoScrollBottom());
+        
     }
 
     IEnumerator AIAutoScrollBottom()

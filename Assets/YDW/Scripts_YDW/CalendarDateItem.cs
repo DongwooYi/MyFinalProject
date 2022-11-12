@@ -9,7 +9,7 @@ public class CalendarDateItem : MonoBehaviour {
         CalendarController._calendarInstance.OnDateItemClick(gameObject.GetComponentInChildren<Text>().text);
     }
     
-    public void OnDateItemClick2()
+  /*  public void OnDateItemClick2()
     {
         CalendarController._calendarInstance.OnDateItemClick2(gameObject.GetComponentInChildren<Text>().text);
     }
@@ -22,5 +22,5 @@ public class CalendarDateItem : MonoBehaviour {
     public void OnDateItemClick4()
     {
         CalendarController._calendarInstance.OnDateItemClick4(gameObject.GetComponentInChildren<Text>().text);
-    }
+    }*/
 }

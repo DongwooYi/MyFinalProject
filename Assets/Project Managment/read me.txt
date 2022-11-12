@@ -1,0 +1,2 @@
+To open the Tasks menu, go to the menu on top of the Unity Editor, and click Split 'em Up. From the drop down, select "Tasks".
+For bug reports, contact support@universalassets.net

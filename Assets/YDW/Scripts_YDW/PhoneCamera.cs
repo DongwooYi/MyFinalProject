@@ -121,7 +121,7 @@ public class PhoneCamera : MonoBehaviour
         httpRequester.requestType = RequestType.POST;
         httpRequester.onComplete = OnCompletedPostImageDate;
 
-        HttpManager.instance.SendRequest(httpRequester);
+        HttpManager.instance.SendRequest(httpRequester, "application/json");
        /* WWWForm form = new WWWForm();
         form.AddBinaryData("file", bytes);
         //form.AddBinaryData("image", bytes, "/Data/photo.png");

@@ -235,7 +235,7 @@ public class ChatManager : MonoBehaviourPun
         //requester.onComplete = OnCompleteGetPost;
 
         //HttpManager에게 요청
-        HttpManager.instance.SendRequest(requester);
+        HttpManager.instance.SendRequest(requester, "application/json");
 
         /*  string url = "/chat/";
           url += HttpManager.instance.username;

@@ -62,7 +62,7 @@ public class RegisterManager : MonoBehaviour
         requester.onComplete = OnCompleteGetPost;
 
         //HttpManager에게 요청
-        HttpManager.instance.SendRequest(requester);
+        HttpManager.instance.SendRequest(requester, "application/json");
     }
     public void OnCompleteGetPost(DownloadHandler handler)
     {

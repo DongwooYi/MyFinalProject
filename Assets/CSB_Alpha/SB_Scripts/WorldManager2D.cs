@@ -12,10 +12,10 @@ using Newtonsoft.Json.Linq;
 public class _MyBookInfo
 {
     // 도서 정보
-    public string title;
-    public string author;
-    public string publishInfo;
-    public string isbn;
+    public string bookName;
+    public string bookAuthor;
+    public string bookPublishInfo;
+    public string bookISBN;
     public RawImage thumbnail;
 
     // 완료 여부 -> 읽고 있는 책 버튼: false / 다 읽은 책 버튼: true
@@ -213,4 +213,5 @@ public class WorldManager2D : MonoBehaviour
 
         return result;
     }
+   
 }

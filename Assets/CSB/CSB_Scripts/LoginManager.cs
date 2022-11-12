@@ -21,7 +21,7 @@ public class LoginManager : MonoBehaviourPunCallbacks
         HttpRequester requester = gameObject.AddComponent<HttpRequester>();
 
         ///post/1, GET, 완료되었을 때 호출되는 함수
-        requester.url = "http://172.16.20.50:8080/v1/auths/login";
+        requester.url = "http://15.165.28.206:8080/v1/auths/login";
 
         LoginData ldata = new()
         {
@@ -35,7 +35,7 @@ public class LoginManager : MonoBehaviourPunCallbacks
 
         //응답을 받아서 출력하자
         //HttpManager에게 요청
-        HttpManager.instance.SendRequest(requester);
+        HttpManager.instance.SendRequest(requester, "application/json");
     }
     string Nickname;
     public void OnComplteLogin(DownloadHandler handler)
@@ -118,7 +118,7 @@ public class LoginManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedRoom();
 
-        PhotonNetwork.LoadLevel("SB_Player_Photon");
+        PhotonNetwork.LoadLevel("my room 1");
     }
     #endregion
 }

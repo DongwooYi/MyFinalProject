@@ -6,8 +6,8 @@ TagManager:
   tags:
   - PrefabsSample
   - Bullet
-  - Door
-  - ChattingText
+  - BannerItem
+  - ClickHere
   layers:
   - Default
   - TransparentFX

@@ -2,7 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-
+using UnityEngine.Networking;
+using Newtonsoft.Json.Linq;
 
 
 public class MyReviewPanel : MonoBehaviour
@@ -42,10 +43,10 @@ public class MyReviewPanel : MonoBehaviour
     {
         _MyPastBookInfo myPastBookInfo = new _MyPastBookInfo();
 
-        myPastBookInfo.title = title.text;
-        myPastBookInfo.author = author.text;
-        myPastBookInfo.publishInfo = publishInfo.text;
-        myPastBookInfo.isbn = isbn.text;
+        myPastBookInfo.bookName = title.text;
+        myPastBookInfo.bookAuthor = author.text;
+        myPastBookInfo.bookPublishInfo = publishInfo.text;
+        myPastBookInfo.bookISBN = isbn.text;
         myPastBookInfo.thumbnail = thumbnail;
         myPastBookInfo.isDone = true;
         myPastBookInfo.rating = dropdown.captionText.text;
@@ -93,4 +94,43 @@ public class MyReviewPanel : MonoBehaviour
     {
         thumbnail.texture = texture;
     }
+   /* public void OnClickUserRegister()
+    {
+        //서버에 게시물 조회 요청
+        //HttpRequester를 생성
+        HttpRequester requester = new HttpRequester();
+
+        ///post/1, GET, 완료되었을 때 호출되는 함수
+        requester.url = "http://172.16.20.50:8080/v1/members";
+
+        Bookdata data = new Bookdata();
+        data.bookData = myPastBookInfoList;
+        
+        requester.body = JsonUtility.ToJson(data, true);
+        requester.requestType = RequestType.POST;
+        requester.onComplete = OnCompleteGetPost;
+
+        //HttpManager에게 요청
+        HttpManager.instance.SendRequest(requester);
+    }
+    public void OnCompleteGetPost(DownloadHandler handler)
+    {
+        JObject jObject = JObject.Parse(handler.text);
+
+        //print(jObject + "jobj");
+        *//*int type = (int)jObject["status"];
+        // UserData user = (UserData)jObject["results"]["data"]["user"];
+        // string token = (string)jObject["results"]["data"]["token"];
+        print(type);
+        // 통신 성공
+        if (type)
+        {
+            // 1. 회원 가입 성공했습니다. ui
+          
+            print("통신 성공");
+            // 2. PlayerPref에 key는 jwt, value는 token
+            //PlayerPrefs.SetString("jwt", );
+        }*//*
+     
+    }*/
 }

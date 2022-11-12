@@ -55,6 +55,8 @@ public class MyReviewPanel : MonoBehaviour
         // <다읽은책목록> 에 추가
         myPastBookInfoList.Add(myPastBookInfo);
 
+        HttpPostPastBookInfo();
+
         // 책장에 넣기
 
         // <등록 되었습니다>
@@ -69,6 +71,8 @@ public class MyReviewPanel : MonoBehaviour
         // 나 자신 초기화
         Destroy(gameObject);
     }
+
+    #region 텍스트들 세팅 관련
 
     public void SetTitle(string s)
     {
@@ -94,43 +98,42 @@ public class MyReviewPanel : MonoBehaviour
     {
         thumbnail.texture = texture;
     }
-   /* public void OnClickUserRegister()
+
+    #endregion
+    
+    public void HttpPostPastBookInfo()
     {
         //서버에 게시물 조회 요청
         //HttpRequester를 생성
         HttpRequester requester = new HttpRequester();
 
-        ///post/1, GET, 완료되었을 때 호출되는 함수
-        requester.url = "http://172.16.20.50:8080/v1/members";
-
-        Bookdata data = new Bookdata();
-        data.bookData = myPastBookInfoList;
-        
-        requester.body = JsonUtility.ToJson(data, true);
+        requester.url = "http://15.165.28.206:8080/v1/records/write";
         requester.requestType = RequestType.POST;
-        requester.onComplete = OnCompleteGetPost;
+
+        PastBookdata pastBookdata = new PastBookdata();
+
+        pastBookdata.bookName = title.text;
+        pastBookdata.bookAuthor = author.text;
+        pastBookdata.bookPublishInfo = publishInfo.text;
+        pastBookdata.bookISBN = isbn.text;
+        pastBookdata.thumbnail = thumbnail;
+        pastBookdata.rating = dropdown.captionText.text;
+        pastBookdata.bookReview = inputFieldReview.text;
+
+        requester.body = JsonUtility.ToJson(pastBookdata, true);
+        requester.onComplete = OnCompletePostMyPastBook;
 
         //HttpManager에게 요청
-        HttpManager.instance.SendRequest(requester);
+        HttpManager.instance.SendRequest(requester, "application/json");
     }
-    public void OnCompleteGetPost(DownloadHandler handler)
+
+    public void OnCompletePostMyPastBook(DownloadHandler handler)
     {
         JObject jObject = JObject.Parse(handler.text);
 
         //print(jObject + "jobj");
-        *//*int type = (int)jObject["status"];
+        int type = (int)jObject["status"];
         // UserData user = (UserData)jObject["results"]["data"]["user"];
         // string token = (string)jObject["results"]["data"]["token"];
-        print(type);
-        // 통신 성공
-        if (type)
-        {
-            // 1. 회원 가입 성공했습니다. ui
-          
-            print("통신 성공");
-            // 2. PlayerPref에 key는 jwt, value는 token
-            //PlayerPrefs.SetString("jwt", );
-        }*//*
-     
-    }*/
+    }
 }

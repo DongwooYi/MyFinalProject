@@ -31,7 +31,8 @@ public class MyCurrBookPanel : MonoBehaviour
     {
         player = GameObject.FindWithTag("Player");
 
-
+        // 여기서 씬 시작할 때 다 읽었던 책 한번 뿌려주고 시작
+        HttpGetPastBookList();
     }
 
     void Update()
@@ -96,6 +97,7 @@ public class MyCurrBookPanel : MonoBehaviour
 
 
     // 통신 관련 -------------------------
+    #region 현재도서
     void HttpGetCurrBook()
     {
         // 서버에 게시물 조회 요청(/post/1, GET)
@@ -126,4 +128,35 @@ public class MyCurrBookPanel : MonoBehaviour
             //PhotonNetwork.ConnectUsingSettings();
         }
     }
+    #endregion
+
+    void HttpGetPastBookList()
+    {
+        HttpRequester requester = new HttpRequester();
+
+        // /posts/1. GET, 완료되었을 때 호출되는 함수
+        requester.url = "http://15.165.28.206:8080/v1/records/count";
+        requester.requestType = RequestType.GET;
+        requester.onComplete = OnComplteGetMyPastBookList;
+
+        // HttpManager 에게 요청
+        HttpManager.instance.SendRequest(requester, "");
+    }
+
+    public void OnComplteGetMyPastBookList(DownloadHandler handler)
+    {
+        JObject jObject = JObject.Parse(handler.text);
+        int type = (int)jObject["status"];
+        //string type = (int)jObject["data"]["recordCode"];
+
+        // 통신 성공
+        if (type == 200)
+        {
+            print("통신성공.읽은도서 모두");
+            // 1. PlayerPref에 key는 jwt, value는 token
+            print(jObject);
+            //PhotonNetwork.ConnectUsingSettings();
+        }
+    }
+
 }

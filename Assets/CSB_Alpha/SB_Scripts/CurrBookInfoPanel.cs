@@ -27,6 +27,7 @@ public class CurrBookInfoPanel : MonoBehaviour
         
     }
 
+    #region 텍스트 세팅 관련
     public void SetTitle(string s)
     {
         title.text = s;
@@ -52,8 +53,9 @@ public class CurrBookInfoPanel : MonoBehaviour
         Destroy(gameObject);
     }
 
-/*    public void SetImage(Texture texture)
-    {
-        thumbnail.texture = texture;
-    }*/
+    /*    public void SetImage(Texture texture)
+        {
+            thumbnail.texture = texture;
+        }*/
+    #endregion
 }

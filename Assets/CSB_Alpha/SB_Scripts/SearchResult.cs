@@ -74,7 +74,7 @@ public class SearchResult : MonoBehaviour
         myBookInfoList.Add(myBookInfo);
 
         // Http 통신 함수 추가 (POST)
-        HttpPost();
+        HttpPostCurrBookInfo();
     }
 
     /* 다 읽은 책 등록 버튼 */
@@ -98,7 +98,7 @@ public class SearchResult : MonoBehaviour
     }
 
     // Http 통신 함수 (POST)
-    void HttpPost()
+    void HttpPostCurrBookInfo()
     {
         print("넌 몇번 들어오니");
         //HttpRequester requester = gameObject.AddComponent<HttpRequester>();
@@ -108,22 +108,22 @@ public class SearchResult : MonoBehaviour
         requester.requestType = RequestType.POST;
 
         CurrBookdata currBookdata = new CurrBookdata();
+
         currBookdata.bookName = bookTitle.text;
         currBookdata.bookAuthor = author.text;
         currBookdata.bookISBN = isbn.text;
         currBookdata.bookPublishInfo = publishInfo.text;
         currBookdata.thumbnail = thumbnail;
-        //currBookdata.isDone = false;
 
         requester.body = JsonUtility.ToJson(currBookdata, true);
 
-        requester.onComplete = OnCompletePost;
+        requester.onComplete = OnCompletePostMyCurrBook;
 
         HttpManager.instance.SendRequest(requester, "application/json");
 
     }
 
-    public void OnCompletePost(DownloadHandler handler)
+    public void OnCompletePostMyCurrBook(DownloadHandler handler)
     {
         JObject jObject = JObject.Parse(handler.text);
         int type = (int)jObject["status"];

@@ -20,7 +20,6 @@ public class SearchResult : MonoBehaviour
     public Text isbn;
     public RawImage thumbnail;
 
-    public GameObject bookFactory;
     public GameObject reviewPanelFactory;
 
     public Transform myDesk;

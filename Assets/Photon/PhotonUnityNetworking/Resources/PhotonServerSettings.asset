@@ -16,7 +16,7 @@ MonoBehaviour:
     AppIdRealtime: cf1c0922-769c-449d-8678-04896b270c3c
     AppIdFusion: 
     AppIdChat: 
-    AppIdVoice: 
+    AppIdVoice: df0de173-7242-4256-b558-64be2c00ad82
     AppVersion: 1
     UseNameServer: 1
     FixedRegion: kr
@@ -40,6 +40,10 @@ MonoBehaviour:
   - Fire
   - RespawnSpaceship
   - RpcAddChat
+  - SendSpeechBubble
+  - CantHearYou
+  - ChangeColour
+  - HeresWhy
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

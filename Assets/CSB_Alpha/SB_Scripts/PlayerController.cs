@@ -3,52 +3,39 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
+using UnityEngine.SceneManagement;
 
 public class PlayerController : MonoBehaviourPun
 {
+    public GameObject Player;
     public float speed = 5f;
-
-    ChatManager chatManager;
-
+   
     public Transform camPos;
+    string sceneName;
     public void Start()
     {
-
-        #region 이동우 포톤 카메라 수정 부분
-        #endregion
-        if (photonView.IsMine)
-        {
-            camPos.gameObject.SetActive(true);
-
-        }
+        
+        sceneName  = SceneManager.GetActiveScene().name;        
     }
-
-    void Update()
+    private void Update()
     {
-      
-      
-    }
-   
-    // 플레이어 이동
-    public void Move(Vector2 inputDir)
-    {
-        // 이동 방향키 입력 값 가져오기
-        //float h = Input.GetAxis("Horizontal");
-        //float v = Input.GetAxis("Vertical");
-        if (!photonView.IsMine)
+        if(sceneName != "LobbyScene")
         {
-            return;
+            Player.SetActive(false);
         }
         else
         {
+            Player.SetActive(true);
+        }
+    }
+    // 플레이어 이동
+    public void Move(Vector2 inputDir)
+    {
+        
             // 이동 방향
-            Vector3 moveDir = new Vector3(inputDir.x, 0, inputDir.y);
-
+           Vector3 moveDir = new Vector3(inputDir.x, 0, inputDir.y);
             // 플레이어 이동
             transform.position += moveDir * Time.deltaTime * speed;
-        }
-
-
     }
 
     public void LookAround(Vector3 inputDir)

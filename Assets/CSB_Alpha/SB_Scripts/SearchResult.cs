@@ -100,10 +100,11 @@ public class SearchResult : MonoBehaviour
     // Http 통신 함수 (POST)
     void HttpPost()
     {
+        print("넌 몇번 들어오니");
         //HttpRequester requester = gameObject.AddComponent<HttpRequester>();
         HttpRequester requester = new HttpRequester();
 
-        requester.url = "http://192.168.0.20:8080/v1/records/add";
+        requester.url = "http://15.165.28.206:8080/v1/records/add";
         requester.requestType = RequestType.POST;
 
         CurrBookdata currBookdata = new CurrBookdata();

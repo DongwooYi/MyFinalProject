@@ -37,69 +37,41 @@ public class MyCurrBookPanel : MonoBehaviour
     void Update()
     {
         // 만약 플레이어가 책상 가까이 가면(거리 1정도)
-        if(Vector3.Distance(player.transform.position, myDesk.transform.position) < distance)
+        if (Vector3.Distance(player.transform.position, myDesk.transform.position) < distance)
         {
-            // 쿼드를 띄워준다
-            myDesk.transform.GetChild(0).gameObject.SetActive(true);
+            ShowClickHereObj();
+        }
+        else
+        {
+            myDesk.transform.GetChild(0).gameObject.SetActive(false);
+        }
 
+    }
+
+    public bool isPlayerDesk = false;
+
+    public void ShowClickHereObj()
+    {
+        // 쿼드를 띄워준다
+        myDesk.transform.GetChild(0).gameObject.SetActive(true);
+
+        if (Input.GetMouseButtonDown(0))
+        {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
 
-            if(Physics.Raycast(ray, out hitInfo))
+            if (Physics.Raycast(ray, out hitInfo))
             {
-                if(hitInfo.transform.gameObject.tag == "ClickHere")
+                if (hitInfo.transform.gameObject.tag == "ClickHere")
                 {
-                    
-
+                    //HttpGetCurrBook();  // 네트워크 통신
+                    print("이번엔 한번만 들어오겠지");
+                    myDesk.transform.GetChild(0).gameObject.SetActive(false);
+                    return;
                 }
-
-
             }
         }
-
-
     }
-
-    /*    private void OnTriggerEnter(Collider other)
-        {
-            if (other.gameObject.tag.Equals("Player"))
-            {
-                print("한번만 들어와야하는데");
-
-            }
-        }*/
-    // 
-
-    public bool isDoneMyCurrList = false;
-
-    public void OpenMyCurrBookList()
-    {
-        // 읽고있는책 받아오기
-        HttpGetCurrBook();
-        print("한번만 들어와라");
-        if (isDoneMyCurrList)
-        {
-            return;
-        }
-    }
-
-
-    /* 
-     *             // 현재 읽고 있는 책 리스트 받아와야함 (계속 받아와야함..? / 현재 읽고 있는 책 열때만..?)
-            myCurrBookList = worldManager.myBookList;
-
-            // 현재 읽고 있는 책 Panel
-            myCurrBookPanel.SetActive(true);
-            //HttpGetCurrBook();
-            print("언제끝나");
-
-            // 버튼에 각 정보들 뿌려줌
-            // MyCurrBookPanel 의 자식의 인덱스와 myCurrBookList 의 인덱스 맞춰서 넣어줌
-            for (int i=0; i < myCurrBookList.Count; i++)
-            {
-                myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = myCurrBookList[i].thumbnail.texture;
-            }
-     */
 
 
     // 현재 읽고 있는 도서 정보 내용 상세보기 함수

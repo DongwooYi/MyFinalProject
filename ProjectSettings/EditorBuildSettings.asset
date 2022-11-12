@@ -12,6 +12,9 @@ EditorBuildSettings:
     path: Assets/CSB_Alpha/SB_Scenes/Photon/Register_YDW.unity
     guid: 778886b6811be3749a7c92ca27958cd2
   - enabled: 1
+    path: Assets/CSB_Alpha/SB_Scenes/Photon/LobbyScene.unity
+    guid: b6699c0a4f2a9a840a7a60b6e2d415ca
+  - enabled: 1
     path: Assets/CSB_Alpha/SB_Scenes/Photon/SB_Player_Photon.unity
     guid: 27cee20446ba7944388f35664575d29d
   - enabled: 1

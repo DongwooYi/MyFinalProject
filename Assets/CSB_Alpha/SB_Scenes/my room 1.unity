@@ -2181,7 +2181,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1001 &512039801
 PrefabInstance:
@@ -2934,7 +2934,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &712698973
 Transform:
   m_ObjectHideFlags: 0
@@ -4106,8 +4106,8 @@ MonoBehaviour:
   currBookInfoPanelFactory: {fileID: 8267027179380222971, guid: ac93ff256d890ee4989ddf0e8e78fc14, type: 3}
   canvas: {fileID: 1754603825}
   worldManager: {fileID: 359941974}
-  distance: 1
-  isDoneMyCurrList: 0
+  distance: 1.5
+  isPlayerDesk: 0
 --- !u!4 &1249980025
 Transform:
   m_ObjectHideFlags: 0
@@ -4761,13 +4761,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1447570233}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 1, z: -10}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: 0, y: 1.93, z: -6.2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1485412335 stripped
 Transform:
@@ -6550,7 +6550,6 @@ GameObject:
   m_Component:
   - component: {fileID: 2492324909671873513}
   - component: {fileID: 5484407487095232147}
-  - component: {fileID: 5484407487095232148}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -7522,19 +7521,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!65 &5484407487095232148
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1499097878815017466}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 1, y: 1.557643, z: 1}
-  m_Center: {x: 0, y: 0.8172652, z: 0}
 --- !u!4 &5492979423524853760
 Transform:
   m_ObjectHideFlags: 0
@@ -8003,8 +7989,6 @@ GameObject:
   - component: {fileID: 4367350159938756716}
   - component: {fileID: 7452280778262501051}
   - component: {fileID: 3683698130812600046}
-  - component: {fileID: 7652074177467450000}
-  - component: {fileID: 7652074177467450001}
   m_Layer: 0
   m_Name: MyDesk
   m_TagString: Untagged
@@ -8012,32 +7996,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!65 &7652074177467450000
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7652074177467449999}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 1
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 0.8151737, y: 0.55884546, z: 1.2683486}
-  m_Center: {x: 0.0000007599594, y: 0.27942273, z: -0.0000011324885}
---- !u!114 &7652074177467450001
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7652074177467449999}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2501873f0cd47e343920810d82e3efdf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player: {fileID: 0}
 --- !u!4 &7674352913083235525
 Transform:
   m_ObjectHideFlags: 0

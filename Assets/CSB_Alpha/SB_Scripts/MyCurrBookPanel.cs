@@ -22,6 +22,8 @@ public class MyCurrBookPanel : MonoBehaviour
 
     public WorldManager2D worldManager;
     List<_MyBookInfo> myCurrBookList = new List<_MyBookInfo>();
+    public List<_MyBookInfo> myBookListNet = new List<_MyBookInfo>();
+
 
     public float distance = 1.5f;
 
@@ -33,7 +35,9 @@ public class MyCurrBookPanel : MonoBehaviour
         player = GameObject.FindWithTag("Player");
 
         // 여기서 씬 시작할 때 다 읽었던 책 한번 뿌려주고 시작
-        //HttpGetPastBookList();
+        HttpGetPastBookList();
+
+        
     }
 
     void Update()
@@ -55,11 +59,14 @@ public class MyCurrBookPanel : MonoBehaviour
         // 손가락 쿼드를 띄워준다
         myDesk.transform.GetChild(0).gameObject.SetActive(true);
         myCurrBookList = worldManager.myBookList;
+        myBookListNet = worldManager.myBookListNet;
 
         // MyCurrBookPanel 의 자식의 인덱스와 myCurrBookList 의 인덱스 맞춰서 넣어줌
-        for (int i = 0; i < myCurrBookList.Count; i++)
+        for (int i = 0; i < myBookListNet.Count; i++)
         {
-            myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = myCurrBookList[i].thumbnail.texture;
+            //myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = myCurrBookList[i].thumbnail.texture;
+            myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = myBookListNet[i].thumbnail.texture;
+
         }
 
         if (Input.GetMouseButtonDown(0))
@@ -71,7 +78,7 @@ public class MyCurrBookPanel : MonoBehaviour
             {
                 if (hitInfo.transform.gameObject.tag == "ClickHere")
                 {
-                    //HttpGetCurrBook();  // 네트워크 통신
+                    HttpGetCurrBook();  // 네트워크 통신
                     print("이번엔 한번만 들어오겠지");
                     myCurrBookPanel.SetActive(true);
                     myDesk.transform.GetChild(0).gameObject.SetActive(false);
@@ -99,10 +106,15 @@ public class MyCurrBookPanel : MonoBehaviour
 
         CurrBookInfoPanel currBookInfoPanel = go.GetComponent<CurrBookInfoPanel>();
 
-        currBookInfoPanel.SetTitle(myCurrBookList[idx].bookName);
+/*        currBookInfoPanel.SetTitle(myCurrBookList[idx].bookName);
         currBookInfoPanel.SetAuthor(myCurrBookList[idx].bookAuthor);
         currBookInfoPanel.SetPublishInfo(myCurrBookList[idx].bookPublishInfo);
-        currBookInfoPanel.SetImage(myCurrBookList[idx].thumbnail.texture);
+        currBookInfoPanel.SetImage(myCurrBookList[idx].thumbnail.texture);*/
+        
+        currBookInfoPanel.SetTitle(myBookListNet[idx].bookName);
+        currBookInfoPanel.SetAuthor(myBookListNet[idx].bookAuthor);
+        currBookInfoPanel.SetPublishInfo(myBookListNet[idx].bookPublishInfo);
+        currBookInfoPanel.SetImage(myBookListNet[idx].thumbnail.texture);
     }
 
     // 뒤로 가기 버튼
@@ -110,6 +122,13 @@ public class MyCurrBookPanel : MonoBehaviour
     {
         myCurrBookPanel.SetActive(false);
     }
+
+    public List<string> titleListNet = new List<string>();
+    public List<string> authorListNet = new List<string>();
+    public List<string> publishInfoListNet = new List<string>();
+    //public List<string> pubdateList = new List<string>();
+    public List<string> isbnListNet = new List<string>();
+    public List<string> imageListNet = new List<string>();
 
 
     // 통신 관련 -------------------------
@@ -129,20 +148,75 @@ public class MyCurrBookPanel : MonoBehaviour
         HttpManager.instance.SendRequest(requester, "");
     }
 
+
     public void OnComplteGetMyCurrBook(DownloadHandler handler)
     {
+
         JObject jObject = JObject.Parse(handler.text);
         int type = (int)jObject["status"];
         //string type = (int)jObject["data"]["recordCode"];
        
+        //string result_data = ParseJson("[" + handler.text + "]", "data");
+
         // 통신 성공
         if (type == 200)
         {
             print("통신성공.현재도서");
             // 1. PlayerPref에 key는 jwt, value는 token
+
+            string result_data = ParseJson("[" + handler.text + "]", "data");
+
+            titleListNet = ParseCurrBookList(result_data, "bookName");
+            authorListNet = ParseCurrBookList(result_data, "bookAuthor");
+            publishInfoListNet = ParseCurrBookList(result_data, "bookPublishInfo");
+            //pubdateList = ParseCurrBookList(result_data, "pubdate");
+            isbnListNet = ParseCurrBookList(result_data, "bookISBN");
+            imageListNet = ParseCurrBookList(result_data, "thumbnailLink");
+
+
+            for(int i = 0; i < titleListNet.Count; i++)
+            {
+                _MyBookInfo myCurrBookInfo = new _MyBookInfo();
+                
+                myCurrBookInfo.bookName = titleListNet[i];
+                myCurrBookInfo.bookAuthor = authorListNet[i];
+                myCurrBookInfo.bookPublishInfo = publishInfoListNet[i];
+                myCurrBookInfo.bookISBN = isbnListNet[i];
+                //myCurrBookInfo.thumbnail = imageListNet[i];
+
+                myBookListNet.Add(myCurrBookInfo);
+            }
+
             print(jObject);
             //PhotonNetwork.ConnectUsingSettings();
         }
+    }
+
+    // data parsing
+    string ParseJson(string jsonText, string key)
+    {
+        JArray parseData = JArray.Parse(jsonText);
+        string result = "";
+
+        foreach (JObject obj in parseData.Children())
+        {
+            result = obj.GetValue(key).ToString();
+        }
+
+        return result;
+    }
+
+    List<string> ParseCurrBookList(string jsonText, string key)
+    {
+        JArray parseData = JArray.Parse(jsonText);
+        List<string> result = new List<string>();
+
+        foreach (JObject obj in parseData.Children())
+        {
+            result.Add(obj.GetValue(key).ToString());
+        }
+
+        return result;
     }
     #endregion
 

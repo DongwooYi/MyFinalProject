@@ -30,6 +30,7 @@ public class SearchResult : MonoBehaviour
         myBookInfoList = worldManager.GetComponent<WorldManager2D>().myBookList;
     }
 
+    #region Text Setting
     public void SetBookTitle(string s)
     {
         bookTitle.text = s;
@@ -54,7 +55,7 @@ public class SearchResult : MonoBehaviour
     {
         thumbnail.texture = texture;
     }
-
+    #endregion
     /* 현재 읽고 있는 책 등록(추가)하기 버튼 */
     // 버튼을 클릭하면 클래스에 제목, 작가, 출판정보, 썸네일 넣어줌
     // 그 클래스를 MyBookList 에 추가
@@ -73,7 +74,7 @@ public class SearchResult : MonoBehaviour
         myBookInfoList.Add(myBookInfo);
 
         // Http 통신 함수 추가 (POST)
-        //HttpPostCurrBookInfo();
+        HttpPostCurrBookInfo();
     }
 
     /* 다 읽은 책 등록 버튼 */

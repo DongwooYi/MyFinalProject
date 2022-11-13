@@ -101,7 +101,7 @@ public class CurrBookInfoPanel : MonoBehaviour
         }
 
 
-        //HttpPostPastBookInfo();
+        HttpPostPastBookInfo();
 
         // 책장에 넣기
         // <다읽은책목록>의 마지막 인덱스 

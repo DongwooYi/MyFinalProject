@@ -33,7 +33,7 @@ public class LoginManager : MonoBehaviourPunCallbacks
         };
 
         requester.body = JsonUtility.ToJson(ldata, true);
-        requester.requestType = RequestType.POST;
+        requester.requestType = RequestType.LOGIN;
         requester.onComplete = OnComplteLogin;
 
         //응답을 받아서 출력하자

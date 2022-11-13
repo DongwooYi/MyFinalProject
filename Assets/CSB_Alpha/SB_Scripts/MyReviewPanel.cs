@@ -10,6 +10,7 @@ public class MyReviewPanel : MonoBehaviour
 {
     GameObject worldManager;
     List<_MyPastBookInfo> myPastBookInfoList = new List<_MyPastBookInfo>();
+    public List<_MyPastBookInfo> myPastBookListNet = new List<_MyPastBookInfo>();
 
     public Text title;
     public Text author;
@@ -33,6 +34,7 @@ public class MyReviewPanel : MonoBehaviour
     {
         worldManager = GameObject.Find("WorldManager");
         myPastBookInfoList = worldManager.GetComponent<WorldManager2D>().myPastBookList;
+        myPastBookListNet = worldManager.GetComponent<WorldManager2D>().myPastBookListNet;
 
         book = GameObject.Find("Book");
 
@@ -59,12 +61,12 @@ public class MyReviewPanel : MonoBehaviour
         myPastBookInfo.review = inputFieldReview.text;
 
         // <다읽은책목록> 에 추가
-        myPastBookInfoList.Add(myPastBookInfo);
+        myPastBookListNet.Add(myPastBookInfo);
 
-        //HttpPostPastBookInfo();
+        HttpPostPastBookInfo();
 
         // <다읽은책목록>의 마지막 인덱스 
-        int idx = myPastBookInfoList.Count - 1;
+        int idx = myPastBookListNet.Count - 1;
 
         GameObject setBook = book.transform.GetChild(idx).gameObject;
         setBook.SetActive(true);

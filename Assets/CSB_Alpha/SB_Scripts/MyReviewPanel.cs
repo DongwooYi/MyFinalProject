@@ -25,10 +25,16 @@ public class MyReviewPanel : MonoBehaviour
     // 등록됨 안내 메시지 띄우기
     public GameObject alarmFactory;
 
+    public GameObject[] bookRewardFactory = new GameObject[3];    // 책장에 넣을 책 관련
+
+    GameObject book;
+
     void Start()
     {
         worldManager = GameObject.Find("WorldManager");
         myPastBookInfoList = worldManager.GetComponent<WorldManager2D>().myPastBookList;
+
+        book = GameObject.Find("Book");
 
         inputFieldReview.onValueChanged.AddListener(OnValueChanged);
     }
@@ -55,9 +61,20 @@ public class MyReviewPanel : MonoBehaviour
         // <다읽은책목록> 에 추가
         myPastBookInfoList.Add(myPastBookInfo);
 
-        HttpPostPastBookInfo();
+        //HttpPostPastBookInfo();
 
-        // 책장에 넣기
+        // <다읽은책목록>의 마지막 인덱스 
+        int idx = myPastBookInfoList.Count - 1;
+
+        GameObject setBook = book.transform.GetChild(idx).gameObject;
+        setBook.SetActive(true);
+        setBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
+
+/*        // 책장에 넣기
+        int idx = Random.Range(0, 3);
+        GameObject book = Instantiate(bookRewardFactory[idx]);  // 세 가지 모양 중 하나 생성
+
+        book.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);*/
 
         // <등록 되었습니다>
         GameObject go = Instantiate(alarmFactory, gameObject.transform);    // 나의 자식으로 생성

@@ -949,6 +949,10 @@ MonoBehaviour:
   inputFieldReview: {fileID: 619597165469921502}
   btnEnter: {fileID: 5542364512399062554}
   alarmFactory: {fileID: 8270181874862600635, guid: 4ee3d44cd7a38a64684b034223261f45, type: 3}
+  bookRewardFactory:
+  - {fileID: 1155799857267373104, guid: eca89e98b8a8a0f4eb5b7ec89b0289f0, type: 3}
+  - {fileID: 1155799857267373104, guid: 25606912974dbd24aa2bb347863a0fd3, type: 3}
+  - {fileID: 1155799857267373104, guid: a1c01cd6bdfee414eb10c9c58cb791d6, type: 3}
 --- !u!1 &1774560480238711709
 GameObject:
   m_ObjectHideFlags: 0

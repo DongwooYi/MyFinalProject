@@ -106,7 +106,7 @@ public class MyCurrBookPanel : MonoBehaviour
     // 뒤로 가기 버튼
     public void OnClickExit()
     {
-        gameObject.SetActive(false);
+        myCurrBookPanel.SetActive(false);
     }
 
 

@@ -4,8 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-using Photon.Pun;
-public class Joystick2D : MonoBehaviourPun, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class Joystick2D : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField]
     private RectTransform innerCircle;  // Inspector 창에서 Drag 해서 넣어줌
@@ -27,6 +26,7 @@ public class Joystick2D : MonoBehaviourPun, IBeginDragHandler, IDragHandler, IEn
     private void Awake()
     {
         outerCircle = GetComponent<RectTransform>();
+
     }
 
     private void Start()
@@ -70,7 +70,9 @@ public class Joystick2D : MonoBehaviourPun, IBeginDragHandler, IDragHandler, IEn
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("End");
-        innerCircle.anchoredPosition = Vector2.zero;    // 원점으로 돌아옴
+        innerCircle.anchoredPosition = Vector2.zero;
+        playerController.Move(Vector2.zero);
+        // 원점으로 돌아옴
         isInput = false;    // 입력 끝
         switch (joystickType)
         {
@@ -95,7 +97,7 @@ public class Joystick2D : MonoBehaviourPun, IBeginDragHandler, IDragHandler, IEn
     // Player 에 조이스틱 입력 전달
     private void InputControl()
     {
-        print(joystickType);
+        Debug.Log(inputVector.x + "/" + inputVector.y);
         switch (joystickType)
         {
             case JoystickType.Move:

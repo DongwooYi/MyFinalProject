@@ -5,48 +5,72 @@ using UnityEngine;
 using UnityEngine.UI;
 public class Timer : MonoBehaviour
 {
-   
-    public Text textTimer;
-    public InputField hourTime;
-    
+    [Header("타이머 텍스트")]
+    public Text hourTime;
+    // 타이머 테스트용
+    public Text textTimerTest;
+    public Text startdate;
+
+    [Header("타이머")]
     public float totalHourTime;
 
+    [Header("시간 Bool 값")]
+    public bool isTimercheckTrue;
+    public bool isCheckStartTimer;
+
+    [Header("시작 시간")]
+    DateTime dateTime;
+     DateTime dateTime1;
     private void Start()
     {
         totalHourTime = 0;
-        hourTime.onEndEdit.AddListener(delegate { LockInput(hourTime); });
-       
     }
-    public bool isStopRenew = false;
+    
     private void Update()
     {
-        if(isStopRenew)
-        {
+        dateTime = DateTime.Now;               
+        if (isTimercheckTrue)
+        { 
         var time = (float.Parse(hourTime.text));
         totalHourTime = time * 60 *60;
+        isCheckStartTimer = true;
         }
 
-        if(okay)
+        if(isCheckStartTimer)
         {
-        textTimer.text = CountDownTimer();
-            isStopRenew = false;
+        isTimercheckTrue = false;
+        textTimerTest.text = CountDownTimer();
         }
-        
     }
-    public bool okay;
-    void LockInput(InputField input)
+   public void HandleInputData(int val)
     {
-        if (input.text.Length > 0)
+        if(val == 0)
         {
-            Debug.Log("Text has been entered");
-            okay = true;
-            isStopRenew = true;
+            hourTime.text = "24";
+            dateTime1 = dateTime.AddHours(24);
+            startdate.text = $"{dateTime1.Year}:{dateTime1.Month}:{dateTime1.Day}";
+            print("24");
+            isTimercheckTrue = true;
         }
-        else if (input.text.Length == 0)
+        if(val == 1)
         {
-            Debug.Log("Main Input Empty");
+            hourTime.text = "72";
+            dateTime1 = dateTime.AddHours(72);
+            startdate.text = $"{dateTime1.Year}:{dateTime1.Month}:{dateTime1.Day}";
+            print("72");
+            isTimercheckTrue = true;
+        }
+        if (val == 2)
+        {
+            hourTime.text = "168";
+            dateTime1 = dateTime.AddHours(168);
+            startdate.text = $"{dateTime1.Year}:{dateTime1.Month}:{dateTime1.Day}";
+            print("168");
+            isTimercheckTrue = true;
         }
     }
+      
+        
     string CountDownTimer()
     {
         totalHourTime -= Time.deltaTime;

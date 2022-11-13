@@ -4,11 +4,18 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 using System.Collections;
+using System;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
+    [Header("룸리스트")]
+    public Text welcomeText;
+    public Text lobbyInfoText;
+    public Text welcomeTextInPersonalNote;
+    [Header("메인 광장")]
     // 메인월드
     public MakingChattingRoom chattingRoom;
+    [Header("포톤 방 생성 필요 목록")]
     //방설명 InputField
     public InputField inputFieldRoomDescription;
     //방이름 InputField
@@ -30,23 +37,26 @@ public class LobbyManager : MonoBehaviourPunCallbacks
    public LoadGallery loadGallery;
 
     //map Thumbnail
-    public GameObject[] mapThumbs;
+    public GameObject[] Picture;
+    
 
     [Header("방만들기 및 방 리스트")]
     public GameObject setRoom;
     public GameObject setRoomlist;
   public  DataManager DataManager;
+
+    [Header("챌린지 기간")]
+    public UnityCalendar unityCalendar;
+    public Text textCalendar;
     void Start()
     {
-        mapThumbs = new GameObject[1];
-        mapThumbs[0].GetComponent<RawImage>().texture = loadGallery.image.texture;
-/*        if (DataManager == null || DataManager.isActiveAndEnabled == false)
-        {
-            print(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return;
-        }*/
-        
-        
+        welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
+        welcomeTextInPersonalNote.text = PhotonNetwork.LocalPlayer.NickName + " 의 노트";
+            /*        if (DataManager == null || DataManager.isActiveAndEnabled == false)
+                    {
+                        print(System.Reflection.MethodBase.GetCurrentMethod().Name);
+                        return;
+                    }*/
             DataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
         if (DataManager.SetActiveMakingRoom)
         {
@@ -61,6 +71,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         }
         
+        
         // 방이름(InputField)이 변경될때 호출되는 함수 등록
         inputRoomName.onValueChanged.AddListener(OnRoomNameValueChanged);
         // 총인원(InputField)이 변경될때 호출되는 함수 등록
@@ -69,6 +80,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     private void Update()
     {
+        lobbyInfoText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "로비 /" + PhotonNetwork.CountOfPlayers + "접속";
         if (chattingRoom.GotoMainWorld)
         {
             print(System.Reflection.MethodBase.GetCurrentMethod().Name);
@@ -81,6 +93,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if(Input.GetKeyDown(KeyCode.F9))
         {
             setRoom.SetActive(true);
+        }
+        if(Input.GetKeyDown(KeyCode.F8))
+        {
+            setRoomlist.SetActive(true);
         }
     }
     public void OnRoomNameValueChanged(string s)
@@ -109,7 +125,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     //방 생성
     public void CreateRoom()
-    {
+    {       
         //mapThumbs.texture = loadGallery.gameObject.GetComponent<RawImage>().texture;
         // 방 옵션을 설정
         RoomOptions roomOptions = new RoomOptions();
@@ -122,7 +138,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
         
         hash["desc"] = inputFieldRoomDescription.text;
-        hash["map_id"] = Random.Range(0,mapThumbs.Length);
+        hash["map_id"] = UnityEngine.Random.Range(0, Picture.Length);
         hash["room_name"] = inputRoomName.text;
         hash["password"] = inputPassword.text;
         roomOptions.CustomRoomProperties = hash;
@@ -275,5 +291,17 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         //이전 맵 id 저장
         prevMapId = map_id;
+    }
+
+    public void OnClick_GetDate()
+    {
+        DateTime dt = unityCalendar.GetDate();
+        textCalendar.text ="~"+ dt.ToString("yyyy-MM-dd");
+    }
+
+    public void OnClick_Clear()
+    {
+        textCalendar.text = string.Empty;
+        unityCalendar.Init();
     }
 }

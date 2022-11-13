@@ -40,12 +40,12 @@ public class HttpManager : MonoBehaviour
         switch (requester.requestType)
         {
 
-            case RequestType.POST:
+            case RequestType.LOGIN:
                 webRequest = UnityWebRequest.Post(requester.url, requester.body);
                 byte[] data = Encoding.UTF8.GetBytes(requester.body);
                 webRequest.uploadHandler = new UploadHandlerRaw(data);
                 webRequest.SetRequestHeader("Content-Type", contentType);
-                webRequest.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("jwt"));
+                //webRequest.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("jwt"));
                 yield return webRequest.SendWebRequest();
                 //만약에 응답이 성공했다면
                 if (webRequest.result == UnityWebRequest.Result.Success)
@@ -57,6 +57,26 @@ public class HttpManager : MonoBehaviour
                     requester.onFailed();
                     print("통신 실패");
                     
+                }
+                break;
+
+            case RequestType.POST:
+                webRequest = UnityWebRequest.Post(requester.url, requester.body);
+                data = Encoding.UTF8.GetBytes(requester.body);
+                webRequest.uploadHandler = new UploadHandlerRaw(data);
+                webRequest.SetRequestHeader("Content-Type", contentType);
+                webRequest.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("jwt"));
+                yield return webRequest.SendWebRequest();
+                //만약에 응답이 성공했다면
+                if (webRequest.result == UnityWebRequest.Result.Success)
+                {
+                    requester.onComplete(webRequest.downloadHandler);
+                }
+                else
+                {
+                    requester.onFailed();
+                    print("통신 실패");
+
                 }
                 break;
             case RequestType.GET:

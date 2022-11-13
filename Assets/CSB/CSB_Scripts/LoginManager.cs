@@ -18,6 +18,9 @@ public class LoginManager : MonoBehaviourPunCallbacks
     {
         //서버에 게시물 조회 요청
         //HttpRequester를 생성
+
+        //HttpRequester requester = new HttpRequester();
+
         HttpRequester requester = gameObject.AddComponent<HttpRequester>();
 
         ///post/1, GET, 완료되었을 때 호출되는 함수
@@ -30,7 +33,7 @@ public class LoginManager : MonoBehaviourPunCallbacks
         };
 
         requester.body = JsonUtility.ToJson(ldata, true);
-        requester.requestType = RequestType.POST;
+        requester.requestType = RequestType.LOGIN;
         requester.onComplete = OnComplteLogin;
 
         //응답을 받아서 출력하자

@@ -1,6 +1,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Networking;
+using Newtonsoft.Json.Linq;
+
 
 // 여기서 실시간 배너에 올린 친구 정보 받아오고
 // 배너 생성
@@ -27,6 +30,7 @@ public class BannerManager : MonoBehaviour
 
     void Start()
     {
+        HttpGetAllBookReview();
         // AI 에서 받아오기 전 임시로
         // 내가 다 읽은 책 list 받아옴 -> 여기서 (랜덤으로) 일정 시간마다 생성
         // 만약 리스트가 비어있으면 안됨
@@ -72,7 +76,36 @@ public class BannerManager : MonoBehaviour
 
         reviewManager.SetTitle(myPastBookInfoList[idx].bookName);
         reviewManager.SetReview(myPastBookInfoList[idx].review);
-        reviewManager.SetNickname("User Nickname");
+        reviewManager.SetNickname("Nickname");
         reviewManager.SetThumbnail(myPastBookInfoList[idx].thumbnail.texture);
     }
+
+    // Http 통신 관련 -----------------------------------------------
+    public void HttpGetAllBookReview()
+    {
+        HttpRequester requester = new HttpRequester();
+
+        requester.url = "http://15.165.28.206:8080//v1/records/all";
+        requester.requestType = RequestType.GET;
+        requester.onComplete = OnCompleteGetAllBookReview;
+
+        // HttpManager 에게 요청
+        HttpManager.instance.SendRequest(requester, "");
+    }
+
+    public void OnCompleteGetAllBookReview(DownloadHandler handler)
+    {
+        JObject jObject = JObject.Parse(handler.text);
+        int type = (int)jObject["status"];
+
+        // 통신 성공
+        if (type == 200)
+        {
+            print("통신성공.한줄리뷰");
+            // 1. PlayerPref에 key는 jwt, value는 token
+            print(jObject);
+            //PhotonNetwork.ConnectUsingSettings();
+        }
+    }
+
 }

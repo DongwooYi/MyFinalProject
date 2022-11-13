@@ -20,7 +20,6 @@ public class SearchResult : MonoBehaviour
     public Text isbn;
     public RawImage thumbnail;
 
-    public GameObject bookFactory;
     public GameObject reviewPanelFactory;
 
     public Transform myDesk;
@@ -31,6 +30,7 @@ public class SearchResult : MonoBehaviour
         myBookInfoList = worldManager.GetComponent<WorldManager2D>().myBookList;
     }
 
+    #region Text Setting
     public void SetBookTitle(string s)
     {
         bookTitle.text = s;
@@ -55,7 +55,7 @@ public class SearchResult : MonoBehaviour
     {
         thumbnail.texture = texture;
     }
-
+    #endregion
     /* 현재 읽고 있는 책 등록(추가)하기 버튼 */
     // 버튼을 클릭하면 클래스에 제목, 작가, 출판정보, 썸네일 넣어줌
     // 그 클래스를 MyBookList 에 추가
@@ -74,7 +74,7 @@ public class SearchResult : MonoBehaviour
         myBookInfoList.Add(myBookInfo);
 
         // Http 통신 함수 추가 (POST)
-        HttpPost();
+        HttpPostCurrBookInfo();
     }
 
     /* 다 읽은 책 등록 버튼 */
@@ -98,35 +98,34 @@ public class SearchResult : MonoBehaviour
     }
 
     // Http 통신 함수 (POST)
-    void HttpPost()
+    void HttpPostCurrBookInfo()
     {
+        print("넌 몇번 들어오니");
         //HttpRequester requester = gameObject.AddComponent<HttpRequester>();
         HttpRequester requester = new HttpRequester();
 
-        requester.url = "http://192.168.0.20:8080/v1/records/add";
+        requester.url = "http://15.165.28.206:8080/v1/records/add";
         requester.requestType = RequestType.POST;
 
         CurrBookdata currBookdata = new CurrBookdata();
+
         currBookdata.bookName = bookTitle.text;
         currBookdata.bookAuthor = author.text;
         currBookdata.bookISBN = isbn.text;
         currBookdata.bookPublishInfo = publishInfo.text;
         currBookdata.thumbnail = thumbnail;
-        //currBookdata.isDone = false;
 
         requester.body = JsonUtility.ToJson(currBookdata, true);
 
-        requester.onComplete = OnCompletePost;
+        requester.onComplete = OnCompletePostMyCurrBook;
 
         HttpManager.instance.SendRequest(requester, "application/json");
 
     }
 
-    public void OnCompletePost(DownloadHandler handler)
+    public void OnCompletePostMyCurrBook(DownloadHandler handler)
     {
         JObject jObject = JObject.Parse(handler.text);
         int type = (int)jObject["status"];
-
-        
     }
 }

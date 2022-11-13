@@ -52,9 +52,12 @@ public class WorldManager2D : MonoBehaviour
     // -------------------------------------------------------------------------------
     // 나의 현재 책 목록
     public List<_MyBookInfo> myBookList = new List<_MyBookInfo>();
+    public List<_MyBookInfo> myBookListNet = new List<_MyBookInfo>();
 
     // 나의 지난 책 목록
     public List<_MyPastBookInfo> myPastBookList = new List<_MyPastBookInfo>();
+    public List<_MyPastBookInfo> myPastBookListNet = new List<_MyPastBookInfo>();
+
     //  ------------------------------------------------------------------------------
 
     public Material matBook;    // 책의 Material
@@ -87,6 +90,12 @@ public class WorldManager2D : MonoBehaviour
     public void OnClickReviewButton()
     {
         reviewPanel.SetActive(true);
+    }
+
+    // 뒤로 버튼 관련
+    public void OnClickGoBack()
+    {
+        searchBookPanel.SetActive(false);
     }
 
     // 검색 버튼 관련 (돋보기 버튼)

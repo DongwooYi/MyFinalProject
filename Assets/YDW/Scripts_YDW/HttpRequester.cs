@@ -17,12 +17,8 @@ public class chatData
     }
 }
 #endregion
-[System.Serializable]
-public class PastBookdata
-{
-    public List<_MyPastBookInfo> pastBookData;
-}
 
+#region 현재 책/과거 책
 [System.Serializable]
 public class CurrBookdata
 {
@@ -32,12 +28,34 @@ public class CurrBookdata
     public string bookPublishInfo;
     public string bookISBN;
     public RawImage thumbnail;
-
-    // 완료 여부 -> 읽고 있는 책 버튼: false / 다 읽은 책 버튼: true
-    public bool isDone;
 }
 
+[System.Serializable]
+public class PastBookdata
+{
+    // 도서 정보
+    public string bookName;
+    public string bookAuthor;
+    public string bookPublishInfo;
+    public string bookISBN;
+    public RawImage thumbnail;
 
+    public string rating;
+    public string bookReview;
+
+}
+#endregion
+
+#region 배너 관련 책
+[System.Serializable]
+public class AllBookReview
+{
+    public string bookName;
+    public string bookReview;
+    public string memebersName;
+    public RawImage thumbnail;
+}
+#endregion
 
 #region 회원가입
 [System.Serializable]
@@ -77,6 +95,7 @@ public class ImageData
 #endregion
 public enum RequestType
 {
+    LOGIN,
     POST,
     GET
 }

@@ -9,6 +9,7 @@ public class CurrBookInfoPanel : MonoBehaviour
 {
     GameObject worldManager;
     List<_MyPastBookInfo> myPastBookInfoList = new List<_MyPastBookInfo>();
+    List<_MyBookInfo> myBookInfoList = new List<_MyBookInfo>();
 
     public Text title;
     public Text author;
@@ -23,11 +24,16 @@ public class CurrBookInfoPanel : MonoBehaviour
 
     public GameObject player;   // 플레이어
 
+    GameObject book;
 
     // 등록됨 안내 메시지 띄우기
     public GameObject alarmFactory;
 
     public Toggle headBook;
+
+    MyCurrBookPanel currBookPanel;
+
+    GameObject myCurrBookPanel;
 
     public void ToggleHead(Toggle headBook)
     {
@@ -46,6 +52,12 @@ public class CurrBookInfoPanel : MonoBehaviour
 
         worldManager = GameObject.Find("WorldManager");
         myPastBookInfoList = worldManager.GetComponent<WorldManager2D>().myPastBookList;
+        myBookInfoList = worldManager.GetComponent<WorldManager2D>().myBookList;
+
+        book = GameObject.Find("Book");
+
+        myCurrBookPanel = GameObject.Find("MyCurrBookPanel");
+        currBookPanel = GameObject.Find("MyBookManager").GetComponent<MyCurrBookPanel>();
 
         inputFieldReview.onValueChanged.AddListener(OnValueChanged);
     }
@@ -63,7 +75,7 @@ public class CurrBookInfoPanel : MonoBehaviour
         myPastBookInfo.bookName = title.text;
         myPastBookInfo.bookAuthor = author.text;
         myPastBookInfo.bookPublishInfo = publishInfo.text;
-        myPastBookInfo.bookISBN = isbn.text;
+        //myPastBookInfo.bookISBN = isbn.text;
         myPastBookInfo.thumbnail = thumbnail;
         myPastBookInfo.isDone = true;
         myPastBookInfo.rating = dropdown.captionText.text;
@@ -72,9 +84,32 @@ public class CurrBookInfoPanel : MonoBehaviour
         // <다읽은책목록> 에 추가
         myPastBookInfoList.Add(myPastBookInfo);
 
-        HttpPostPastBookInfo();
+        // texture 다 뺴기
+        for(int i = 0; i < 6; i++)
+        {
+            myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = null;
+        }
+
+        // 업데이트 된 <현재 도서 목록> 에서 받아와서 뿌리기
+        int destroyBookIdx = currBookPanel.idx;
+        myBookInfoList.RemoveAt(destroyBookIdx);
+
+        // MyCurrBookPanel 의 자식의 인덱스와 myCurrBookList 의 인덱스 맞춰서 넣어줌
+        for (int i = 0; i < myBookInfoList.Count; i++)
+        {
+            myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = myBookInfoList[i].thumbnail.texture;
+        }
+
+
+        //HttpPostPastBookInfo();
 
         // 책장에 넣기
+        // <다읽은책목록>의 마지막 인덱스 
+        int idx = myPastBookInfoList.Count - 1;
+
+        GameObject setBook = book.transform.GetChild(idx).gameObject;
+        setBook.SetActive(true);
+        setBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
 
         // <등록 되었습니다>
         GameObject go = Instantiate(alarmFactory, gameObject.transform);    // 나의 자식으로 생성

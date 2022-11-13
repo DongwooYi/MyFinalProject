@@ -81,15 +81,17 @@ public class MyCurrBookPanel : MonoBehaviour
         }
     }
 
+    public GameObject me;
+    public int idx;
 
     // 현재 읽고 있는 도서 정보 내용 상세보기 함수
     public void OnClickCurrBook()
     {
         // 내가 누구지(나의 정보)
-        GameObject me = EventSystem.current.currentSelectedGameObject;
+        me = EventSystem.current.currentSelectedGameObject;
 
         // 내가 부모(myCurrBookPanel)의 몇번째 자식인지
-        int idx = me.transform.GetSiblingIndex();
+        idx = me.transform.GetSiblingIndex();
         print("CurrButtonIdx: " + idx);
 
         // 생성

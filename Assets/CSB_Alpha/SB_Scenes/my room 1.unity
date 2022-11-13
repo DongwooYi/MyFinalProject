@@ -4544,6 +4544,8 @@ MonoBehaviour:
   canvas: {fileID: 1754603825}
   worldManager: {fileID: 359941974}
   distance: 1.5
+  me: {fileID: 0}
+  idx: 0
 --- !u!4 &1249980025
 Transform:
   m_ObjectHideFlags: 0

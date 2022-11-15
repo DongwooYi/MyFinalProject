@@ -107,7 +107,7 @@ public class Joystick2D : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
                 }
                 break;
             case JoystickType.Rotate:
-                playerController.LookAround(inputVector);
+                //playerController.LookAround(inputVector);
                 break;
         }
 

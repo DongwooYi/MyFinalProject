@@ -4192,7 +4192,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1857761107}
         m_TargetAssemblyTypeName: MyCurrBookPanel, Assembly-CSharp
         m_MethodName: OnClickExit
         m_Mode: 1
@@ -4241,6 +4241,86 @@ CanvasRenderer:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 394650639}
+  m_CullTransparentMesh: 1
+--- !u!1 &432312569
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 432312570}
+  - component: {fileID: 432312572}
+  - component: {fileID: 432312571}
+  m_Layer: 5
+  m_Name: LogText
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!224 &432312570
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432312569}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1754603825}
+  m_RootOrder: 19
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 287}
+  m_SizeDelta: {x: 1000, y: 250}
+  m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &432312571
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432312569}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 1, g: 0.9808905, b: 0, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 50
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 5
+    m_MaxSize: 50
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 0
+    m_LineSpacing: 1
+  m_Text: New Text
+--- !u!222 &432312572
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 432312569}
   m_CullTransparentMesh: 1
 --- !u!1 &438755004
 GameObject:
@@ -12378,7 +12458,7 @@ RectTransform:
   m_GameObject: {fileID: 1146684141}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.81437, y: 0.81437, z: 0.81437}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 91110657}
@@ -12444,6 +12524,7 @@ MonoBehaviour:
   joystickRange: 40
   playerController: {fileID: 4650388130931660544}
   isInput: 0
+  log: {fileID: 432312571}
   joystickType: 0
 --- !u!1 &1147422270
 GameObject:
@@ -12877,6 +12958,10 @@ PrefabInstance:
     - target: {fileID: 4166546489801070, guid: 10b4bce8c88e3f4499031ee16cbb1f37, type: 3}
       propertyPath: m_LocalRotation.z
       value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 199712260931964140, guid: 10b4bce8c88e3f4499031ee16cbb1f37, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 10b4bce8c88e3f4499031ee16cbb1f37, type: 3}
@@ -15849,9 +15934,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: WorldManager2D, Assembly-CSharp
-        m_MethodName: OnClickGoBack
+      - m_Target: {fileID: 1857761107}
+        m_TargetAssemblyTypeName: MyCurrBookPanel, Assembly-CSharp
+        m_MethodName: OnClickExit
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -16400,6 +16485,10 @@ PrefabInstance:
     - target: {fileID: 4701665169273488, guid: f48faa1725631d64987ae8060137c620, type: 3}
       propertyPath: m_LocalRotation.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 199346259335231104, guid: f48faa1725631d64987ae8060137c620, type: 3}
+      propertyPath: m_Materials.Array.size
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f48faa1725631d64987ae8060137c620, type: 3}
@@ -17541,17 +17630,15 @@ MonoBehaviour:
   m_GameObject: {fileID: 1664396167}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f390b7c8b9779e043bce64688dfbd6a4, type: 3}
+  m_Script: {fileID: 11500000, guid: c288cea2ecf08044ea3a1fb271e6a328, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   innerCircle: {fileID: 154324733}
-  outerCircle: {fileID: 0}
   joystickRange: 40
-  playerController: {fileID: 2112900716}
+  playerController: {fileID: 4650388130931660544}
   isInput: 0
-  inputVector: {x: 0, y: 0}
-  joystickType: 1
-  sceneName: 
+  log: {fileID: 0}
+  joystickType: 0
 --- !u!114 &1664396170
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -19035,7 +19122,7 @@ Canvas:
   m_OverrideSorting: 0
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_SortingLayerID: 0
   m_SortingOrder: 0
   m_TargetDisplay: 0
@@ -19070,6 +19157,7 @@ RectTransform:
   - {fileID: 949745193}
   - {fileID: 878172741}
   - {fileID: 1147422271}
+  - {fileID: 432312570}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -20125,7 +20213,7 @@ RectTransform:
   m_GameObject: {fileID: 1842758845}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 2.2878795, y: 2.2878795, z: 2.2878795}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 1146684142}
@@ -20134,7 +20222,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 50, y: 50}
+  m_AnchoredPosition: {x: -54, y: -43}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1842758847
@@ -29411,7 +29499,7 @@ MonoBehaviour:
   characterBody: {fileID: 165376302356796333}
   cameraArm: {fileID: 5129947491288090059}
   rayDistance: 3
-  rotSpeed: 7
+  rotSpeed: 5
   zoomIn: 0.5
 --- !u!4 &4682679741617486172
 Transform:

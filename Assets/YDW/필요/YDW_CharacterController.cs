@@ -38,6 +38,7 @@ public class YDW_CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!EventSystem.current.IsPointerOverGameObject() == false) return;
         if (Input.touchCount > 0)
         {
             if (Input.touchCount ==1)
@@ -59,7 +60,6 @@ public class YDW_CharacterController : MonoBehaviour
 
 
             
-            //if (EventSystem.current.IsPointerOverGameObject() == false)
 
         }
 

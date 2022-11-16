@@ -18,17 +18,33 @@ public class RegisterManager : MonoBehaviour
     public GameObject rgiOk;
     public Button buttongforregister;
     public GameObject Fail;
+    public GameObject registerImage;
+    
     //Regex regex = new Regex(@"^010[0-9]{4}[0-9]{4}$");
 
     private void Start()
     {
-        buttongforregister.interactable = false;
+       buttongforregister.interactable = false;
        // digitNumber.characterLimit = 11;
+       print(registerImage.transform.GetChild(0).gameObject.name);
     }
 
     private void Update()
     {
-        
+        if (cpw.text.Length > 0)
+        {
+            if (pw.text != cpw.text)
+            {
+                registerImage.transform.GetChild(0).GetChild(1).GetComponent<Text>().color = Color.red;
+               
+            }
+            else
+            {
+                registerImage.transform.GetChild(0).GetChild(1).GetComponent<Text>().color = Color.black;
+
+            }
+        }
+
         if (pw.text == cpw.text && nickname.text.Length>0)
         {
             buttongforregister.interactable = true;

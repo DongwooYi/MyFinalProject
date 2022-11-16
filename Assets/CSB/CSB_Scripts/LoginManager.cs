@@ -11,9 +11,16 @@ using Photon.Realtime;
 public class LoginManager : MonoBehaviourPunCallbacks
 {
     #region HTTP 로그인 
+    [Header("로그인 및 회원가입")]
+    public GameObject loginImage;
+    public GameObject registerImage;
+    [Header("로그인")]
     public InputField id;
     public InputField pw;
-
+    private void Start()
+    {
+        registerImage.SetActive(false);
+    }
     public void OnClickUserLogin()
     {
         //서버에 게시물 조회 요청
@@ -40,16 +47,16 @@ public class LoginManager : MonoBehaviourPunCallbacks
         //HttpManager에게 요청
         HttpManager.instance.SendRequest(requester, "application/json");
     }
-    string Nickname;
     public void OnComplteLogin(DownloadHandler handler)
     {
         JObject jObject = JObject.Parse(handler.text);
         int type = (int)jObject["status"];
         string token = (string)jObject["data"]["accessToken"];
-        Nickname = (string)jObject["memebersName"];
+        
         // 통신 성공
         if (type==200)
         {
+            HttpManager.instance.nickName = (string)jObject["data"]["membersName"];
             print("통신성공");
             // 1. PlayerPref에 key는 jwt, value는 token
             PlayerPrefs.SetString("jwt", token);
@@ -57,11 +64,9 @@ public class LoginManager : MonoBehaviourPunCallbacks
             PhotonNetwork.ConnectUsingSettings();
         }
     }
-
-    
     public void Toregister()
     {
-        SceneManager.LoadScene("Register_YDW");
+        registerImage.SetActive(true);
     }
     #endregion
 
@@ -78,7 +83,7 @@ public class LoginManager : MonoBehaviourPunCallbacks
         print(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         //내 닉네임 설정        
-        PhotonNetwork.NickName = Nickname;
+        //PhotonNetwork.NickName = 
         //로비 진입 요청
         PhotonNetwork.JoinLobby();
     }

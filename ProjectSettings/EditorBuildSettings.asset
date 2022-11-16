@@ -5,19 +5,22 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 1
+  - enabled: 0
     path: Assets/CSB_Alpha/SB_Scenes/Photon/Login_YDW.unity
     guid: 25bbc8f0b4535f74296fca0fcb4a5979
-  - enabled: 1
-    path: Assets/CSB_Alpha/SB_Scenes/Photon/Register_YDW.unity
+  - enabled: 0
+    path: Assets/CSB_Alpha/SB_Scenes/Photon/LoginandRegister_YDW.unity
     guid: 778886b6811be3749a7c92ca27958cd2
-  - enabled: 1
+  - enabled: 0
     path: Assets/CSB_Alpha/SB_Scenes/Photon/LobbyScene.unity
     guid: b6699c0a4f2a9a840a7a60b6e2d415ca
-  - enabled: 1
+  - enabled: 0
     path: Assets/CSB_Alpha/SB_Scenes/Photon/SB_Player_Photon.unity
     guid: 27cee20446ba7944388f35664575d29d
-  - enabled: 1
+  - enabled: 0
     path: Assets/CSB_Alpha/SB_Scenes/my room 1.unity
     guid: 81c0dcc5fd4120d439368e93e71a2028
+  - enabled: 1
+    path: Assets/CSB_Alpha/SB_Scenes/Photon/CamInteraction.unity
+    guid: d801c795a7f2b7944aea4a53198dae5d
   m_configObjects: {}

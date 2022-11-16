@@ -22,7 +22,7 @@ public class MyCurrBookPanel : MonoBehaviour
 
     public WorldManager2D worldManager;
     List<_MyBookInfo> myCurrBookList = new List<_MyBookInfo>();
-    public List<_MyBookInfo> myBookListNet = new List<_MyBookInfo>();
+    //public List<_MyBookInfo> myBookListNet = new List<_MyBookInfo>();
 
 
     public float distance = 1.5f;
@@ -32,10 +32,10 @@ public class MyCurrBookPanel : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        player = GameObject.Find("Character");
 
         // 여기서 씬 시작할 때 다 읽었던 책 한번 뿌려주고 시작
-        HttpGetPastBookList();
+        //HttpGetPastBookList();
 
         
     }
@@ -59,13 +59,13 @@ public class MyCurrBookPanel : MonoBehaviour
         // 손가락 쿼드를 띄워준다
         myDesk.transform.GetChild(0).gameObject.SetActive(true);
         myCurrBookList = worldManager.myBookList;
-        myBookListNet = worldManager.myBookListNet;
+        //myBookListNet = worldManager.myBookListNet;
 
         // MyCurrBookPanel 의 자식의 인덱스와 myCurrBookList 의 인덱스 맞춰서 넣어줌
-        for (int i = 0; i < myBookListNet.Count; i++)
+        for (int i = 0; i < myCurrBookList.Count; i++)
         {
-            //myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = myCurrBookList[i].thumbnail.texture;
-            myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = myBookListNet[i].thumbnail.texture;
+            myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = myCurrBookList[i].thumbnail.texture;
+            //myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = myBookListNet[i].thumbnail.texture;
 
         }
 
@@ -78,7 +78,7 @@ public class MyCurrBookPanel : MonoBehaviour
             {
                 if (hitInfo.transform.gameObject.tag == "ClickHere")
                 {
-                    HttpGetCurrBook();  // 네트워크 통신
+                    //HttpGetCurrBook();  // 네트워크 통신
                     print("이번엔 한번만 들어오겠지");
                     myCurrBookPanel.SetActive(true);
                     myDesk.transform.GetChild(0).gameObject.SetActive(false);
@@ -106,15 +106,15 @@ public class MyCurrBookPanel : MonoBehaviour
 
         CurrBookInfoPanel currBookInfoPanel = go.GetComponent<CurrBookInfoPanel>();
 
-/*        currBookInfoPanel.SetTitle(myCurrBookList[idx].bookName);
+        currBookInfoPanel.SetTitle(myCurrBookList[idx].bookName);
         currBookInfoPanel.SetAuthor(myCurrBookList[idx].bookAuthor);
         currBookInfoPanel.SetPublishInfo(myCurrBookList[idx].bookPublishInfo);
-        currBookInfoPanel.SetImage(myCurrBookList[idx].thumbnail.texture);*/
-        
-        currBookInfoPanel.SetTitle(myBookListNet[idx].bookName);
-        currBookInfoPanel.SetAuthor(myBookListNet[idx].bookAuthor);
-        currBookInfoPanel.SetPublishInfo(myBookListNet[idx].bookPublishInfo);
-        currBookInfoPanel.SetImage(myBookListNet[idx].thumbnail.texture);
+        currBookInfoPanel.SetImage(myCurrBookList[idx].thumbnail.texture);
+
+        /*        currBookInfoPanel.SetTitle(myBookListNet[idx].bookName);
+                currBookInfoPanel.SetAuthor(myBookListNet[idx].bookAuthor);
+                currBookInfoPanel.SetPublishInfo(myBookListNet[idx].bookPublishInfo);
+                currBookInfoPanel.SetImage(myBookListNet[idx].thumbnail.texture);*/
     }
 
     // 뒤로 가기 버튼
@@ -184,7 +184,7 @@ public class MyCurrBookPanel : MonoBehaviour
                 myCurrBookInfo.bookISBN = isbnListNet[i];
                 //myCurrBookInfo.thumbnail = imageListNet[i];
 
-                myBookListNet.Add(myCurrBookInfo);
+                //myBookListNet.Add(myCurrBookInfo);
             }
 
             print(jObject);

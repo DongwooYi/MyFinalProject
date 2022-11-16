@@ -9,7 +9,7 @@ using UnityEngine.SceneManagement;
 
 public class RegisterManager : MonoBehaviour
 {
-
+    [Header("회원가입")]
     public InputField id;
     public InputField pw;
     public InputField cpw;
@@ -92,5 +92,15 @@ public class RegisterManager : MonoBehaviour
     public void backtoLogin()
     {
         SceneManager.LoadScene("Login_YDW");
+    }
+    IEnumerator BinkText()
+    {
+        while (true)
+        {
+            id.text = "";
+            yield return new WaitForSeconds(.5f);
+            id.text = "Spacebar to Start";
+            yield return new WaitForSeconds(.5f);
+        }
     }
 }

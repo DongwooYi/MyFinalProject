@@ -21,8 +21,8 @@ TagManager:
   - Chunk
   - IsMine
   - OverUI
-  - 
-  - 
+  - CollisionCheck
+  - Door
   - 
   - 
   - 

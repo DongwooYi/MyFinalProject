@@ -83,7 +83,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         //  CreateChatroom();
 
         //LobbyScene으로 이동
-        PhotonNetwork.LoadLevel("LobbyScene");
+        PhotonNetwork.LoadLevel("MyRoomScene");
     }
 
 

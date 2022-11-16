@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class YDW_CharacterController : MonoBehaviour
 {
@@ -12,7 +13,7 @@ public class YDW_CharacterController : MonoBehaviour
 
     Animator animator;
 
-
+    public bool ischeckDoor;
     bool isCollisionCheck;
     [Range(1, 10)]
     public float rayDistance;
@@ -28,11 +29,23 @@ public class YDW_CharacterController : MonoBehaviour
 
     Touch touchZero;
     Touch touchOne;
+
+    Scene sceneName;
     // Start is called before the first frame update
     void Start()
     {
+        sceneName = SceneManager.GetActiveScene();
         animator = characterBody.GetComponent<Animator>();
         camAngle = cameraArm.rotation.eulerAngles;
+
+        if(sceneName.name != "MyRoomScene")
+        {
+            this.gameObject.SetActive(false);
+        }
+        else
+        {
+            this.gameObject.SetActive(true);
+        }
     }
 
     // Update is called once per frame
@@ -127,6 +140,7 @@ public class YDW_CharacterController : MonoBehaviour
     {
         Debug.DrawRay(transform.position, characterBody.forward * rayDistance, Color.black);
         isCollisionCheck = Physics.Raycast(transform.position, characterBody.forward, rayDistance, LayerMask.GetMask("CollisionCheck"));
+        ischeckDoor = Physics.Raycast(transform.position, characterBody.forward, rayDistance, LayerMask.GetMask("Door"));
     }
 
     // 카메라 줌인 줌아웃 관련

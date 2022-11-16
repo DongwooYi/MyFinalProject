@@ -9,7 +9,10 @@ public class CurrBookInfoPanel : MonoBehaviour
 {
     GameObject worldManager;
     List<_MyPastBookInfo> myPastBookInfoList = new List<_MyPastBookInfo>();
+    //List<_MyPastBookInfo> myPastBookListNet = new List<_MyPastBookInfo>();
+
     List<_MyBookInfo> myBookInfoList = new List<_MyBookInfo>();
+    //List<_MyBookInfo> myBookListNet = new List<_MyBookInfo>();
 
     public Text title;
     public Text author;
@@ -23,6 +26,8 @@ public class CurrBookInfoPanel : MonoBehaviour
     public Button btnEnter; // 등록하기 버튼
 
     public GameObject player;   // 플레이어
+    public GameObject bookQuad0;   // 머리 위 책 관련
+    public GameObject bookQuad1;   // 머리 위 책 관련
 
     GameObject book;
 
@@ -41,18 +46,26 @@ public class CurrBookInfoPanel : MonoBehaviour
         if (headBook.isOn)
         {
             print("토글" + headBook.isOn);
-            player.transform.GetChild(0).gameObject.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
+            bookQuad0.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
+            bookQuad1.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
             player.transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
         }
     }
 
     void Start()
     {
-        player = GameObject.FindWithTag("Player");
+        player = GameObject.Find("Character");
+
+        bookQuad0 = GameObject.Find("BookQuad");
+        bookQuad1 = GameObject.Find("BookQuad(1)");
+
 
         worldManager = GameObject.Find("WorldManager");
         myPastBookInfoList = worldManager.GetComponent<WorldManager2D>().myPastBookList;
+        //myPastBookListNet = worldManager.GetComponent<WorldManager2D>().myPastBookList;
+
         myBookInfoList = worldManager.GetComponent<WorldManager2D>().myBookList;
+        //myBookListNet = worldManager.GetComponent<WorldManager2D>().myBookList;
 
         book = GameObject.Find("Book");
 
@@ -83,6 +96,7 @@ public class CurrBookInfoPanel : MonoBehaviour
 
         // <다읽은책목록> 에 추가
         myPastBookInfoList.Add(myPastBookInfo);
+        //myPastBookListNet.Add(myPastBookInfo);
 
         // texture 다 뺴기
         for(int i = 0; i < 6; i++)
@@ -93,6 +107,7 @@ public class CurrBookInfoPanel : MonoBehaviour
         // 업데이트 된 <현재 도서 목록> 에서 받아와서 뿌리기
         int destroyBookIdx = currBookPanel.idx;
         myBookInfoList.RemoveAt(destroyBookIdx);
+        //myBookListNet.RemoveAt(destroyBookIdx);
 
         // MyCurrBookPanel 의 자식의 인덱스와 myCurrBookList 의 인덱스 맞춰서 넣어줌
         for (int i = 0; i < myBookInfoList.Count; i++)
@@ -101,11 +116,12 @@ public class CurrBookInfoPanel : MonoBehaviour
         }
 
 
-        HttpPostPastBookInfo();
+        //HttpPostPastBookInfo();
 
         // 책장에 넣기
         // <다읽은책목록>의 마지막 인덱스 
         int idx = myPastBookInfoList.Count - 1;
+        //int idx = myPastBookListNet.Count - 1;
 
         GameObject setBook = book.transform.GetChild(idx).gameObject;
         setBook.SetActive(true);

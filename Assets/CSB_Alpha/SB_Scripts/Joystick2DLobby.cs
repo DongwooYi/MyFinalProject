@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
-public class Joystick2D : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
+using Photon.Pun;
+public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField]
     private RectTransform innerCircle;  // Inspector 창에서 Drag 해서 넣어줌
@@ -14,8 +15,12 @@ public class Joystick2D : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     [SerializeField, Range(5f, 50f)]
     private float joystickRange;
 
-    public PlayerController playerController;
+    public YDW_CharacterController playerController;
     public bool isInput;
+
+    public Text log;
+    public float moveSpeed = 10;
+    Vector2 touchOrigin;
 
     private Vector2 inputVector;
     #region 이동우 조이스틱 수정 부분
@@ -26,13 +31,11 @@ public class Joystick2D : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     private void Awake()
     {
         outerCircle = GetComponent<RectTransform>();
-
     }
 
     private void Start()
     {
-        //Screen.orientation = ScreenOrientation.LandscapeRight;  // 씬 화면 고정
-        playerController = GameObject.FindObjectOfType<PlayerController>();
+        playerController = GameObject.FindObjectOfType<YDW_CharacterController>();
 
     }
     private void Update()
@@ -41,18 +44,40 @@ public class Joystick2D : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         {
             InputControl();
         }
+
+
+
         //if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false)
         // if (EventSystem.current.IsPointerOverGameObject() == false)
-        
+//#if UNITY_ANDROID
+        Touch touch = Input.GetTouch(0);
+
+        bool isIn = Vector3.Distance(outerCircle.position, touch.position) <= 400;
+
+        if (isIn)
+        {
+            if (touch.phase == TouchPhase.Began)
+            {
+                touchOrigin = touch.position;
+
+            }
+            else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
+            {
+                ControlJoystickInnerCircle((touch.position - touchOrigin).normalized);
+            }
+        }
+//#endif
+
     }
 
 
-
+//#if UNITY_EDITOR
     // Drag 를 시작
     public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("Begin");
-        ControlJoystickInnerCircle(eventData);
+        //ControlJoystickInnerCircle(eventData);
+        
         isInput = true;
 
     }
@@ -60,9 +85,8 @@ public class Joystick2D : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     // Drag 중 (마우스 멈추면 이벤트가 들어오지 않음)
     public void OnDrag(PointerEventData eventData)
     {
-
         Debug.Log("Drag");
-        ControlJoystickInnerCircle(eventData);
+        //ControlJoystickInnerCircle(eventData);
     }
 
     // Drag 를 끝
@@ -70,9 +94,7 @@ public class Joystick2D : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     public void OnEndDrag(PointerEventData eventData)
     {
         Debug.Log("End");
-        innerCircle.anchoredPosition = Vector2.zero;
-        playerController.Move(Vector2.zero);
-        // 원점으로 돌아옴
+        innerCircle.anchoredPosition = Vector2.zero;    // 원점으로 돌아옴
         isInput = false;    // 입력 끝
         switch (joystickType)
         {
@@ -84,12 +106,25 @@ public class Joystick2D : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
         }
         //characterController.Move(Vector2.zero);
     }
+//#endif
 
-    public void ControlJoystickInnerCircle(PointerEventData eventData)
+/*    public void ControlJoystickInnerCircle(PointerEventData eventData)
     {
         var inputDir = eventData.position - outerCircle.anchoredPosition;
+
+
         var clampedDir = inputDir.magnitude < joystickRange ? inputDir : inputDir.normalized * joystickRange;
         //innerCircle.anchoredPosition = inputDir;
+        innerCircle.anchoredPosition = clampedDir;
+        inputVector = clampedDir / joystickRange;
+    }
+*/
+    public void ControlJoystickInnerCircle(Vector2 eventData)
+    {
+        Vector3 moveRange = eventData * moveSpeed;
+
+        var clampedDir = moveRange.magnitude < joystickRange ? moveRange : moveRange.normalized * joystickRange;
+        
         innerCircle.anchoredPosition = clampedDir;
         inputVector = clampedDir / joystickRange;
     }
@@ -97,7 +132,7 @@ public class Joystick2D : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
     // Player 에 조이스틱 입력 전달
     private void InputControl()
     {
-        Debug.Log(inputVector.x + "/" + inputVector.y);
+        print(joystickType);
         switch (joystickType)
         {
             case JoystickType.Move:
@@ -105,9 +140,11 @@ public class Joystick2D : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDr
                 {
                     playerController.Move(inputVector);
                 }
+                
+                    
                 break;
             case JoystickType.Rotate:
-                playerController.LookAround(inputVector);
+               // playerController.LookAround(inputVector);
                 break;
         }
 

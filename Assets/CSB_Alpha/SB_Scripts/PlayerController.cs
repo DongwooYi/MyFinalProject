@@ -27,13 +27,17 @@ public class PlayerController : MonoBehaviourPun
     {
         //LookAround();
         //Move();
-        if (sceneName != "LobbyScene")
+        if (sceneName != "LobbyScene 1")
         {
             Player.SetActive(false);
         }
         else
         {
             Player.SetActive(true);
+        }
+        if(touch.phase== TouchPhase.Moved)
+        {
+            LookAround();
         }
     }
     // 플레이어 이동
@@ -45,7 +49,7 @@ public class PlayerController : MonoBehaviourPun
 
         // 이동 방향 구하기 2
         //Debug.DrawRay(cameraArm.position, new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized, Color.red);
-        Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
+        Vector2 moveInput = InputDirection;
 
         // 이동 방향키 입력 값 가져오기
         //Vector2 moveInput = InputDirection;
@@ -72,11 +76,13 @@ public class PlayerController : MonoBehaviourPun
         }
         
     }
-
-    public void LookAround(Vector3 inputDirection)
+    Touch touch;
+    public void LookAround()
     {
+         touch = Input.GetTouch(0);
+
         // 마우스 이동 값 검출
-        Vector2 mouseDelta = inputDirection;
+        Vector2 mouseDelta = touch.position - touch.deltaPosition; ;
         // 카메라의 원래 각도를 오일러 각으로 저장
         Vector3 camAngle = camPos.rotation.eulerAngles;
         // 카메라의 피치 값 계산
@@ -96,6 +102,12 @@ public class PlayerController : MonoBehaviourPun
         camPos.rotation = Quaternion.Euler(x, camAngle.y + mouseDelta.x, camAngle.z);
     }
 
+    public bool isWallcheck;
+    public void CheckingObject()
+    {
+        Debug.DrawRay(transform.position, transform.forward * 5, Color.black);
+        //isWallcheck = Physics.Raycast(transform.position, Player.hideFlags, 0.5f, LayerMask("");
+    }    
 
 }
 

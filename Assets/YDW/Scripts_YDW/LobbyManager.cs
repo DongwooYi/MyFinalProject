@@ -57,6 +57,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
                         print(System.Reflection.MethodBase.GetCurrentMethod().Name);
                         return;
                     }*/
+            if(DataManager== null || DataManager.isActiveAndEnabled == false)
+        {
+            return;
+        }
             DataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
         if (DataManager.SetActiveMakingRoom)
         {

@@ -68,6 +68,10 @@ public class LoginManager : MonoBehaviourPunCallbacks
     {
         registerImage.SetActive(true);
     }
+    public void OkaytoLogin()
+    {
+        registerImage.SetActive(false);
+    }
     #endregion
 
     #region Photon

@@ -105,10 +105,7 @@ public class RegisterManager : MonoBehaviour
         print("OnPostFailed, 통신 실패");
     }
     
-    public void backtoLogin()
-    {
-        SceneManager.LoadScene("Login_YDW");
-    }
+    
     IEnumerator BinkText()
     {
         while (true)

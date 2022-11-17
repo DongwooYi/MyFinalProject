@@ -23,7 +23,7 @@ public class SearchResult : MonoBehaviour
     public GameObject reviewPanelFactory;
 
     public Transform myDesk;
-
+    public Transform canvas;
 
     private void Start()
     {
@@ -79,7 +79,7 @@ public class SearchResult : MonoBehaviour
         //HttpPostCurrBookInfo();
 
         // <등록 되었습니다>
-        GameObject go = Instantiate(alarmFactory, canvas);
+        //GameObject go = Instantiate(alarmFactory, canvas);
     }
 
     /* 다 읽은 책 등록 버튼 */

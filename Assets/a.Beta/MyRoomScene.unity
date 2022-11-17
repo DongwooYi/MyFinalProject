@@ -9744,7 +9744,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 359941974}
         m_TargetAssemblyTypeName: WorldManager2D, Assembly-CSharp
         m_MethodName: OnClickSearchBook
         m_Mode: 1
@@ -15566,9 +15566,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1857761107}
-        m_TargetAssemblyTypeName: MyCurrBookPanel, Assembly-CSharp
-        m_MethodName: OnClickExit
+      - m_Target: {fileID: 359941974}
+        m_TargetAssemblyTypeName: WorldManager2D, Assembly-CSharp
+        m_MethodName: OnClickGoBack
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -19747,7 +19747,7 @@ MonoBehaviour:
   inputMaxPlayer: {fileID: 362426739}
   btnJoin: {fileID: 1210956427}
   btnCreate: {fileID: 1116495120}
-  YDW_CharacterController: {fileID: 4650388130931660544}
+  YDW_CharacterController: {fileID: 0}
   trListContent: {fileID: 6123823671930013122}
   loadGallery: {fileID: 1851127538}
   Picture:

@@ -38,7 +38,7 @@ public class YDW_CharacterController : MonoBehaviour
         animator = characterBody.GetComponent<Animator>();
         camAngle = cameraArm.rotation.eulerAngles;
 
-        if(sceneName.name != "MyRoomScene")
+        if(sceneName.name != "MyRoomScene_C")
         {
             this.gameObject.SetActive(false);
         }

@@ -32,7 +32,9 @@ public class _MyPastBookInfo : _MyBookInfo
 public class WorldManager2D : MonoBehaviour
 {
     public GameObject searchBookPanel;
-    public GameObject reviewPanel;
+
+    public GameObject myReviewPanel;
+    public int bookCount;
 
     public InputField inputBookTitleName;   // 책 제목 입력 칸
     public Button btnSearch;    // 검색(돋보기) 버튼
@@ -86,15 +88,30 @@ public class WorldManager2D : MonoBehaviour
         searchBookPanel.SetActive(true);
     }
 
-    // 리뷰 작성 버튼 관련
+    // 나의 리뷰 버튼 관련
     public void OnClickReviewButton()
     {
-        reviewPanel.SetActive(true);
+        myReviewPanel.SetActive(true);
     }
 
     // 뒤로 버튼 관련
     public void OnClickGoBack()
     {
+        // 초기화
+        // content 의 자식들 모두 삭제
+        // 생성되어 있는 검색 결과 삭제
+        Transform[] childList = content.GetComponentsInChildren<Transform>();
+        if (childList != null)
+        {
+            for (int i = 1; i < childList.Length; i++)
+            {
+                Destroy(childList[i].gameObject);
+            }
+        }
+
+        // inputfield text 없애기
+        inputBookTitleName.text = "";
+
         searchBookPanel.SetActive(false);
     }
 

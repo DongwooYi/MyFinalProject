@@ -86,8 +86,6 @@ public class LoginManager : MonoBehaviourPunCallbacks
         base.OnConnectedToMaster();
         print(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-        //내 닉네임 설정        
-        //PhotonNetwork.NickName = 
         //로비 진입 요청
         PhotonNetwork.JoinLobby();
     }
@@ -96,40 +94,6 @@ public class LoginManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
         print(System.Reflection.MethodBase.GetCurrentMethod().Name);
-        CreateChatroom();
-    }
-    public void CreateChatroom()
-    {
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 10;
-        roomOptions.IsVisible = false;
-        PhotonNetwork.JoinOrCreateRoom("ChatRoom", roomOptions, null);
-    }
-
-    public override void OnCreatedRoom()
-    {
-        base.OnCreatedRoom();
-    }
-
-    public override void OnCreateRoomFailed(short returnCode, string message)
-    {
-        base.OnCreateRoomFailed(returnCode, message);
-
-        JoinRoom();
-    }
-
-    /* 방 참가 */
-    public void JoinRoom()
-    {
-        // 1 방 참가 '요청'
-        // PhotonNetwork.JoinRoom("XR_B반");
-        PhotonNetwork.JoinRoom("ChatRoom");
-    }
-
-    public override void OnJoinedRoom()
-    {
-        base.OnJoinedRoom();
-
         PhotonNetwork.LoadLevel("LobbyScene");
     }
     #endregion

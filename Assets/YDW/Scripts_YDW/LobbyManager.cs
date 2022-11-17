@@ -14,7 +14,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public Text welcomeTextInPersonalNote;
     [Header("메인 광장")]
     // 메인월드
-    public MakingChattingRoom chattingRoom;
+    
     [Header("포톤 방 생성 필요 목록")]
     //방설명 InputField
     public InputField inputFieldRoomDescription;
@@ -28,7 +28,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public Button btnJoin;
     //방생성 Button
     public Button btnCreate;
-
+    [Header("캐릭터 정보")]
+  public  YDW_CharacterController YDW_CharacterController;
     //방의 정보들   
     Dictionary<string, RoomInfo> roomCache = new Dictionary<string, RoomInfo>();
     //룸 리스트 Content
@@ -38,7 +39,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     //map Thumbnail
     public GameObject[] Picture;
-    
 
     [Header("방만들기 및 방 리스트")]
     public GameObject setRoom;
@@ -50,6 +50,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public Text textCalendar;
     void Start()
     {
+     
         welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
         welcomeTextInPersonalNote.text = PhotonNetwork.LocalPlayer.NickName + " 의 노트";
             /*        if (DataManager == null || DataManager.isActiveAndEnabled == false)
@@ -85,7 +86,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     private void Update()
     {
         lobbyInfoText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "로비 /" + PhotonNetwork.CountOfPlayers + "접속";
-        if (chattingRoom.GotoMainWorld)
+        if (YDW_CharacterController.ischeckDoor)
         {
             print(System.Reflection.MethodBase.GetCurrentMethod().Name);
             CreateChatroom();
@@ -124,7 +125,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         roomOptions.MaxPlayers = 10;
         roomOptions.IsVisible = false;
         PhotonNetwork.JoinOrCreateRoom("ChatRoom", roomOptions, null);
-        chattingRoom.GotoMainWorld = false;
+        YDW_CharacterController.ischeckDoor = false;
     }
 
     //방 생성

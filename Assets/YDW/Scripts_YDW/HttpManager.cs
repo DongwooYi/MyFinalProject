@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 public class HttpManager : MonoBehaviour
 {
     public static HttpManager instance;
-
+    public string nickName = "";
     private void Awake()
     {
         //만약에 instance가 null이라면

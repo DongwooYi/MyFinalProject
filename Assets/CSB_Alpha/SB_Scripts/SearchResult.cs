@@ -24,6 +24,7 @@ public class SearchResult : MonoBehaviour
 
     public Transform myDesk;
 
+
     private void Start()
     {
         worldManager = GameObject.Find("WorldManager");
@@ -56,6 +57,7 @@ public class SearchResult : MonoBehaviour
         thumbnail.texture = texture;
     }
     #endregion
+
     /* 현재 읽고 있는 책 등록(추가)하기 버튼 */
     // 버튼을 클릭하면 클래스에 제목, 작가, 출판정보, 썸네일 넣어줌
     // 그 클래스를 MyBookList 에 추가
@@ -75,6 +77,9 @@ public class SearchResult : MonoBehaviour
 
         // Http 통신 함수 추가 (POST)
         //HttpPostCurrBookInfo();
+
+        // <등록 되었습니다>
+        GameObject go = Instantiate(alarmFactory, canvas);
     }
 
     /* 다 읽은 책 등록 버튼 */

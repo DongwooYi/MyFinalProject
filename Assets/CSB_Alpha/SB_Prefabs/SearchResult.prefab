@@ -177,14 +177,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0e46fbad192efcb47b37711582941abb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  worldManager: {fileID: 0}
   bookTitle: {fileID: 318626364585609011}
   author: {fileID: 318626365412915689}
   publishInfo: {fileID: 318626366261211663}
   isbn: {fileID: 117586242441034359}
   thumbnail: {fileID: 5227978238119400292}
-  bookFactory: {fileID: 7209061108560380192, guid: e5a2b1a6b06c8274fa5d1307151cd9f0, type: 3}
   reviewPanelFactory: {fileID: 619597165726824052, guid: 1213c436b6a8feb468ab7f54d5666ce6, type: 3}
+  alarmFactory: {fileID: 8270181874862600635, guid: 4ee3d44cd7a38a64684b034223261f45, type: 3}
   myDesk: {fileID: 0}
 --- !u!1 &318626365412915695
 GameObject:

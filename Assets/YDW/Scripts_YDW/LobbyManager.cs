@@ -102,6 +102,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         
 
     }
+    public void Gotest()
+    {
+        testRoom();
+
+    }
     public void OnRoomNameValueChanged(string s)
     {
         //Âü°¡
@@ -192,9 +197,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LoadLevel("SB_Player_Photon");
         }
-        else
+        else if(currentRoomname == "TestRoom")
         {
-            PhotonNetwork.LoadLevel("SB_Player_Photon");
+            PhotonNetwork.LoadLevel("CamInteraction");
 
         }
     }

@@ -27819,7 +27819,7 @@ GameObject:
   - component: {fileID: 3751728313360998847}
   m_Layer: 0
   m_Name: Girl
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27832,7 +27832,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3751728313360998846}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -28170,7 +28170,7 @@ GameObject:
   - component: {fileID: 5129947491288090059}
   m_Layer: 0
   m_Name: Camera Arm
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29526,6 +29526,7 @@ GameObject:
   - component: {fileID: 2110131284273527668}
   - component: {fileID: 9096773608882701692}
   - component: {fileID: 9096773608882701693}
+  - component: {fileID: 9096773608882701694}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -30139,11 +30140,27 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7123117990798933912}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
   m_Size: {x: 1.2691973, y: 2.5601823, z: 2.1198602}
   m_Center: {x: 0.5237599, y: -0.5054991, z: 0.05702859}
+--- !u!54 &9096773608882701694
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7123117990798933912}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!4 &9214600234549863768
 Transform:
   m_ObjectHideFlags: 0

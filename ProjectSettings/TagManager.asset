@@ -8,6 +8,7 @@ TagManager:
   - Bullet
   - BannerItem
   - ClickHere
+  - Character
   layers:
   - Default
   - TransparentFX
@@ -22,7 +23,7 @@ TagManager:
   - IsMine
   - OverUI
   - CollisionCheck
-  - Door
+  - 
   - 
   - 
   - 

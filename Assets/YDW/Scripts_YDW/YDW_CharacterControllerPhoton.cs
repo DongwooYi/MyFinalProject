@@ -4,16 +4,17 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon.Pun;
 
-public class YDW_CharacterController : MonoBehaviour
+public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
 {
 
     public Transform characterBody;
+    [Header("카메라")]
     public Transform cameraArm;
 
     Animator animator;
 
-    public bool ischeckDoor;
     bool isCollisionCheck;
     [Range(1, 10)]
     public float rayDistance;
@@ -31,13 +32,19 @@ public class YDW_CharacterController : MonoBehaviour
     Touch touchOne;
 
     Scene sceneName;
+
+    
     // Start is called before the first frame update
     void Start()
     {
+        if(photonView.IsMine)
+        {
+            cameraArm.gameObject.SetActive(true);
+        }
         sceneName = SceneManager.GetActiveScene();
         animator = characterBody.GetComponent<Animator>();
         camAngle = cameraArm.rotation.eulerAngles;
-
+        
         if(sceneName.name != "MyRoomScene")
         {
             this.gameObject.SetActive(false);
@@ -140,8 +147,9 @@ public class YDW_CharacterController : MonoBehaviour
     {
         Debug.DrawRay(transform.position, characterBody.forward * rayDistance, Color.black);
         isCollisionCheck = Physics.Raycast(transform.position, characterBody.forward, rayDistance, LayerMask.GetMask("CollisionCheck"));
-        ischeckDoor = Physics.Raycast(transform.position, characterBody.forward, rayDistance, LayerMask.GetMask("Door"));
+       
     }
+
 
     // 카메라 줌인 줌아웃 관련
     // 두 손가락
@@ -165,4 +173,5 @@ public class YDW_CharacterController : MonoBehaviour
         Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView, 0.1f, 100f);
 
     }
+    
 }

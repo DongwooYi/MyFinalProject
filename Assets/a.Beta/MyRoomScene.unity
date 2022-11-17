@@ -15627,6 +15627,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: room.102
       objectReference: {fileID: 0}
+    - target: {fileID: 4338817180698981758, guid: 62e6c4736ad4128458ca866ca7803b38, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5081970603067782893, guid: 62e6c4736ad4128458ca866ca7803b38, type: 3}
       propertyPath: m_RootOrder
       value: 26
@@ -19747,7 +19751,7 @@ MonoBehaviour:
   inputMaxPlayer: {fileID: 362426739}
   btnJoin: {fileID: 1210956427}
   btnCreate: {fileID: 1116495120}
-  YDW_CharacterController: {fileID: 0}
+  doorCheck: {fileID: 9096773608882701693}
   trListContent: {fileID: 6123823671930013122}
   loadGallery: {fileID: 1851127538}
   Picture:
@@ -27678,7 +27682,7 @@ GameObject:
   - component: {fileID: 3751728313360998847}
   m_Layer: 0
   m_Name: Girl
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -27948,8 +27952,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterBody: {fileID: 165376302356796333}
   cameraArm: {fileID: 5129947491288090059}
-  ischeckDoor: 0
-  rayDistance: 1
+  rayDistance: 0.1
   rotSpeed: 5
   zoomIn: 0.5
 --- !u!1 &4906325014339841015
@@ -27996,7 +27999,7 @@ GameObject:
   - component: {fileID: 4650388130931660544}
   m_Layer: 0
   m_Name: Character
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -28029,7 +28032,7 @@ GameObject:
   - component: {fileID: 5129947491288090059}
   m_Layer: 0
   m_Name: Camera Arm
-  m_TagString: Untagged
+  m_TagString: Character
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -29383,7 +29386,10 @@ GameObject:
   - component: {fileID: 2670043495949158314}
   - component: {fileID: 9096773608882701691}
   - component: {fileID: 2110131284273527668}
-  m_Layer: 13
+  - component: {fileID: 9096773608882701692}
+  - component: {fileID: 9096773608882701693}
+  - component: {fileID: 9096773608882701694}
+  m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -29975,6 +29981,48 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &9096773608882701692
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7123117990798933912}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.64179146, y: 2.5601823, z: 1.4227463}
+  m_Center: {x: 0.21005696, y: -0.5054991, z: 0.4055856}
+--- !u!114 &9096773608882701693
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7123117990798933912}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ec33d7e25ad80a4c87ec9d20423fffc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  GotoMainWorld: 0
+--- !u!54 &9096773608882701694
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7123117990798933912}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!4 &9214600234549863768
 Transform:
   m_ObjectHideFlags: 0

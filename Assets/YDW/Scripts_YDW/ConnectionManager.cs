@@ -70,7 +70,7 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
         print(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
         //내 닉네임 설정
-        PhotonNetwork.NickName = inputNickName.text;//"김현진_" + Random.Range(1, 1000);
+        PhotonNetwork.NickName = inputNickName.text;
         //로비 진입 요청
         PhotonNetwork.JoinLobby();
     }
@@ -80,43 +80,13 @@ public class ConnectionManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
         print(System.Reflection.MethodBase.GetCurrentMethod().Name);
-        //  CreateChatroom();
-
         //LobbyScene으로 이동
         PhotonNetwork.LoadLevel("MyRoomScene");
     }
 
 
-    public void CreateChatroom()
-    {
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 20;
-        roomOptions.IsVisible = false;
-        PhotonNetwork.JoinOrCreateRoom("ChatRoom", roomOptions ,null);
-        print(System.Reflection.MethodBase.GetCurrentMethod().Name);
-    }
 
-    public override void OnCreatedRoom()
-    {
-        base.OnCreatedRoom();
-    }
 
-    public override void OnCreateRoomFailed(short returnCode, string message)
-    {
-        base.OnCreateRoomFailed(returnCode, message);
-        JoinRoom();
-    }
 
-    /* 방 참가 */
-    public void JoinRoom()
-    {
-        // 1 방 참가 '요청'
-        PhotonNetwork.JoinRoom("ChatRoom");
-    }
-
-    public override void OnJoinedRoom()
-    {
-        base.OnJoinedRoom();
-        PhotonNetwork.LoadLevel("SB_Player_Photon");
-    }
+  
 }

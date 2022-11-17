@@ -14,7 +14,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public Text welcomeTextInPersonalNote;
     [Header("메인 광장")]
     // 메인월드
-    
+
     [Header("포톤 방 생성 필요 목록")]
     //방설명 InputField
     public InputField inputFieldRoomDescription;
@@ -28,14 +28,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public Button btnJoin;
     //방생성 Button
     public Button btnCreate;
-    [Header("캐릭터 정보")]
-  public  YDW_CharacterController YDW_CharacterController;
+
+    public MakingChattingRoom doorCheck;
     //방의 정보들   
     Dictionary<string, RoomInfo> roomCache = new Dictionary<string, RoomInfo>();
     //룸 리스트 Content
     public Transform trListContent;
 
-   public LoadGallery loadGallery;
+    public LoadGallery loadGallery;
 
     //map Thumbnail
     public GameObject[] Picture;
@@ -43,26 +43,22 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [Header("방만들기 및 방 리스트")]
     public GameObject setRoom;
     public GameObject setRoomlist;
-  public  DataManager DataManager;
+    public DataManager DataManager;
 
     [Header("챌린지 기간")]
     public UnityCalendar unityCalendar;
     public Text textCalendar;
     void Start()
     {
-     
+
         welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
         welcomeTextInPersonalNote.text = PhotonNetwork.LocalPlayer.NickName + " 의 노트";
-            /*        if (DataManager == null || DataManager.isActiveAndEnabled == false)
-                    {
-                        print(System.Reflection.MethodBase.GetCurrentMethod().Name);
-                        return;
-                    }*/
-            if(DataManager== null || DataManager.isActiveAndEnabled == false)
+/*        if (DataManager == null || DataManager.isActiveAndEnabled == false)
         {
+            print(System.Reflection.MethodBase.GetCurrentMethod().Name);
             return;
         }
-            DataManager = GameObject.Find("DataManager").GetComponent<DataManager>();
+
         if (DataManager.SetActiveMakingRoom)
         {
             setRoom.SetActive(true);
@@ -74,9 +70,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             setRoomlist.SetActive(false);
             print(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
-        }
-        
-        
+        }*/
+
+
         // 방이름(InputField)이 변경될때 호출되는 함수 등록
         inputRoomName.onValueChanged.AddListener(OnRoomNameValueChanged);
         // 총인원(InputField)이 변경될때 호출되는 함수 등록
@@ -86,20 +82,20 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     private void Update()
     {
         lobbyInfoText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "로비 /" + PhotonNetwork.CountOfPlayers + "접속";
-        if (YDW_CharacterController.ischeckDoor)
+        if (doorCheck.GotoMainWorld)
         {
-            print(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            CreateChatroom();
+          CreateChatroom();
         }
-        if(Input.GetKeyDown(KeyCode.F10))
+
+        if (Input.GetKeyDown(KeyCode.F10))
         {
             PlayerPrefs.DeleteAll();
         }
-        if(Input.GetKeyDown(KeyCode.F9))
+        if (Input.GetKeyDown(KeyCode.F9))
         {
             setRoom.SetActive(true);
         }
-        if(Input.GetKeyDown(KeyCode.F8))
+        if (Input.GetKeyDown(KeyCode.F8))
         {
             setRoomlist.SetActive(true);
         }
@@ -117,20 +113,20 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //생성
         btnCreate.interactable = s.Length > 0 && inputRoomName.text.Length > 0;
     }
-  
+
 
     public void CreateChatroom()
     {
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.MaxPlayers = 10;
         roomOptions.IsVisible = false;
+        doorCheck.GotoMainWorld = false;
         PhotonNetwork.JoinOrCreateRoom("ChatRoom", roomOptions, null);
-        YDW_CharacterController.ischeckDoor = false;
     }
 
     //방 생성
     public void CreateRoom()
-    {       
+    {
         //mapThumbs.texture = loadGallery.gameObject.GetComponent<RawImage>().texture;
         // 방 옵션을 설정
         RoomOptions roomOptions = new RoomOptions();
@@ -141,7 +137,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         // custom 정보를 셋팅
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
-        
+
         hash["desc"] = inputFieldRoomDescription.text;
         hash["map_id"] = UnityEngine.Random.Range(0, Picture.Length);
         hash["room_name"] = inputRoomName.text;
@@ -284,15 +280,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //룸이름 설정
         inputRoomName.text = room;
 
-       /* //만약에 이전 맵 Thumbnail이 활성화가 되어있다면
-        if (prevMapId > -1)
-        {
-            //이전 맵 Thumbnail을 비활성화
-            mapThumbs[prevMapId].SetActive(false);
-        }
+        /* //만약에 이전 맵 Thumbnail이 활성화가 되어있다면
+         if (prevMapId > -1)
+         {
+             //이전 맵 Thumbnail을 비활성화
+             mapThumbs[prevMapId].SetActive(false);
+         }
 
-        //맵 Thumbnail 설정
-        mapThumbs[map_id].SetActive(true);*/
+         //맵 Thumbnail 설정
+         mapThumbs[map_id].SetActive(true);*/
 
         //이전 맵 id 저장
         prevMapId = map_id;
@@ -301,7 +297,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void OnClick_GetDate()
     {
         DateTime dt = unityCalendar.GetDate();
-        textCalendar.text ="~"+ dt.ToString("yyyy-MM-dd");
+        textCalendar.text = "~" + dt.ToString("yyyy-MM-dd");
     }
 
     public void OnClick_Clear()

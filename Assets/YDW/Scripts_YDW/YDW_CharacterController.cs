@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 
 public class YDW_CharacterController : MonoBehaviour
 {
-
+    public GameObject myself;
     public Transform characterBody;
     public Transform cameraArm;
 
@@ -43,13 +43,13 @@ public class YDW_CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (sceneName.name != "MyRoomScene")
+        if (sceneName.name != "MyRoomScene_Beta")
         {
-            this.gameObject.SetActive(false);
+            myself.SetActive(false);
         }
         else
         {
-            this.gameObject.SetActive(true);
+            myself.SetActive(true);
         }
         if (!EventSystem.current.IsPointerOverGameObject() == false) return;
         if (Input.touchCount > 0)

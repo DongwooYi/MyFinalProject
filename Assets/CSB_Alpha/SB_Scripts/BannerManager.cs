@@ -30,7 +30,7 @@ public class BannerManager : MonoBehaviour
 
     void Start()
     {
-        HttpGetAllBookReview();
+       // HttpGetAllBookReview();
         // AI 에서 받아오기 전 임시로
         // 내가 다 읽은 책 list 받아옴 -> 여기서 (랜덤으로) 일정 시간마다 생성
         // 만약 리스트가 비어있으면 안됨

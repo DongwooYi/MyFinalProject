@@ -82,23 +82,30 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     private void Update()
     {
         lobbyInfoText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "肺厚 /" + PhotonNetwork.CountOfPlayers + "立加";
-        if (doorCheck.GotoMainWorld)
+        if (doorCheck.GotoMainWorld == true)
         {
-          CreateChatroom();
+          CreateChatroom(); 
         }
-
         if (Input.GetKeyDown(KeyCode.F10))
         {
             PlayerPrefs.DeleteAll();
         }
         if (Input.GetKeyDown(KeyCode.F9))
         {
-            setRoom.SetActive(true);
+            testRoom();
+            //setRoom.SetActive(true);
         }
         if (Input.GetKeyDown(KeyCode.F8))
         {
             setRoomlist.SetActive(true);
         }
+        
+
+    }
+    public void Gotest()
+    {
+        testRoom();
+
     }
     public void OnRoomNameValueChanged(string s)
     {
@@ -123,7 +130,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         doorCheck.GotoMainWorld = false;
         PhotonNetwork.JoinOrCreateRoom("ChatRoom", roomOptions, null);
     }
-
+    public void testRoom()
+    {
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.MaxPlayers = 10;
+        roomOptions.IsVisible = false;
+        doorCheck.GotoMainWorld = false;
+        PhotonNetwork.JoinOrCreateRoom("TestRoom", roomOptions, null);
+    }
     //规 积己
     public void CreateRoom()
     {
@@ -183,9 +197,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LoadLevel("SB_Player_Photon");
         }
-        else
+        else if(currentRoomname == "TestRoom")
         {
-            PhotonNetwork.LoadLevel("SB_Player_Photon");
+            PhotonNetwork.LoadLevel("CamInteraction");
 
         }
     }

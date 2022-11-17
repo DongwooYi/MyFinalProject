@@ -56,7 +56,7 @@ IEnumerator LoadImage(string path)
     // Start is called before the first frame update
     void Start()
     { 
-        Debug.Log(Application.persistentDataPath);
+        //Debug.Log(Application.persistentDataPath);
     }
 
     // Update is called once per frame

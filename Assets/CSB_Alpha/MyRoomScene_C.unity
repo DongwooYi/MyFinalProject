@@ -19773,7 +19773,7 @@ MonoBehaviour:
   inputMaxPlayer: {fileID: 362426739}
   btnJoin: {fileID: 1210956427}
   btnCreate: {fileID: 1116495120}
-  YDW_CharacterController: {fileID: 0}
+  doorCheck: {fileID: 0}
   trListContent: {fileID: 6123823671930013122}
   loadGallery: {fileID: 1851127538}
   Picture:
@@ -27974,7 +27974,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   characterBody: {fileID: 165376302356796333}
   cameraArm: {fileID: 5129947491288090059}
-  ischeckDoor: 0
   rayDistance: 1
   rotSpeed: 5
   zoomIn: 0.5

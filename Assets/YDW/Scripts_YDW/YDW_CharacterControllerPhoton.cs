@@ -8,7 +8,7 @@ using Photon.Pun;
 
 public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
 {
-
+    
     public Transform characterBody;
     [Header("카메라")]
     public Transform cameraArm;
@@ -45,14 +45,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
         animator = characterBody.GetComponent<Animator>();
         camAngle = cameraArm.rotation.eulerAngles;
         
-        if(sceneName.name != "MyRoomScene")
-        {
-            this.gameObject.SetActive(false);
-        }
-        else
-        {
-            this.gameObject.SetActive(true);
-        }
+       
     }
 
     // Update is called once per frame

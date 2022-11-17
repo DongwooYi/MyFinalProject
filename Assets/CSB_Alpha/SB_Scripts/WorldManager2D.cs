@@ -31,10 +31,12 @@ public class _MyPastBookInfo : _MyBookInfo
 
 public class WorldManager2D : MonoBehaviour
 {
-    public GameObject searchBookPanel;
+    public GameObject searchBookPanel;  // 책검색
 
-    public GameObject myReviewPanel;
-    public int bookCount;
+    public GameObject myPastBookPanel;    // 다읽은도서 목록
+
+    public int bookCurrCount;
+    public int bookPastCount;   // 다읽은도서
 
     public InputField inputBookTitleName;   // 책 제목 입력 칸
     public Button btnSearch;    // 검색(돋보기) 버튼
@@ -49,7 +51,7 @@ public class WorldManager2D : MonoBehaviour
     public List<string> imageList = new List<string>();
 
     public Transform content;   // 책 목록 content
-    public GameObject resultFactory;
+    public GameObject resultFactory;    // 도서 검색 결과
 
     // -------------------------------------------------------------------------------
     // 나의 현재 책 목록
@@ -88,10 +90,10 @@ public class WorldManager2D : MonoBehaviour
         searchBookPanel.SetActive(true);
     }
 
-    // 나의 리뷰 버튼 관련
-    public void OnClickReviewButton()
+    // <다읽은 도서 목록> 버튼 관련
+    public void OnClickMyPastBookPanelButton()
     {
-        myReviewPanel.SetActive(true);
+        myPastBookPanel.SetActive(true);
     }
 
     // 뒤로 버튼 관련

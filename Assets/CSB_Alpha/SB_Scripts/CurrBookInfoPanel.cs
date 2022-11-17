@@ -87,7 +87,7 @@ public class CurrBookInfoPanel : MonoBehaviour
     // 등록 버튼 (누르면 <다읽은 책목록>에 추가)
     public void OnClickAddPastBook()
     {
-        wm.bookCount++;
+        wm.bookPastCount++;
 
         _MyPastBookInfo myPastBookInfo = new _MyPastBookInfo();
 

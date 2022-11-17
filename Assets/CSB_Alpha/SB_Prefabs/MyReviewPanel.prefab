@@ -532,7 +532,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC11C\uD3C9\uC744 \uC785\uB825\uD558\uC138\uC694..."
+  m_Text: "\uC11C\uD3C9\uC744 \uC785\uB825\uD558\uC138\uC694 (300\uC790 \uC774\uD558)"
 --- !u!1 &619597165469921500
 GameObject:
   m_ObjectHideFlags: 0
@@ -662,7 +662,7 @@ MonoBehaviour:
   m_LineType: 2
   m_HideMobileInput: 0
   m_CharacterValidation: 0
-  m_CharacterLimit: 0
+  m_CharacterLimit: 300
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []

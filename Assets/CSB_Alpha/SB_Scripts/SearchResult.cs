@@ -21,14 +21,18 @@ public class SearchResult : MonoBehaviour
     public RawImage thumbnail;
 
     public GameObject reviewPanelFactory;
+    public GameObject alarmFactory;
 
     public Transform myDesk;
-    public Transform canvas;
+
+    public WorldManager2D wm;
 
     private void Start()
     {
         worldManager = GameObject.Find("WorldManager");
-        myBookInfoList = worldManager.GetComponent<WorldManager2D>().myBookList;
+        wm = worldManager.GetComponent<WorldManager2D>();
+        
+        myBookInfoList = wm.myBookList;
     }
 
     #region Text Setting
@@ -79,13 +83,18 @@ public class SearchResult : MonoBehaviour
         //HttpPostCurrBookInfo();
 
         // <등록 되었습니다>
-        //GameObject go = Instantiate(alarmFactory, canvas);
+        Transform canvas = GameObject.Find("Canvas").transform;
+        GameObject go = Instantiate(alarmFactory, canvas);
     }
 
+
+
     /* 다 읽은 책 등록 버튼 */
-    // 버튼을 클릭하면 Canvas 에서 책리뷰 작성하는 panel 찾아서 setactive true 로
+    // 버튼을 클릭하면 Canvas 에서 책리뷰 작성하는 panel 찾아서 SetActive true 로
     public void OnClickAddPastBook()
     {
+        wm.bookCount++;
+
         // 부모가 될 친구
         Transform canvas = GameObject.Find("Canvas").transform;
 

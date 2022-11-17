@@ -37,6 +37,7 @@ public class CurrBookInfoPanel : MonoBehaviour
     public Toggle headBook;
 
     MyCurrBookPanel currBookPanel;
+    WorldManager2D wm;
 
     GameObject myCurrBookPanel;
 
@@ -61,8 +62,11 @@ public class CurrBookInfoPanel : MonoBehaviour
 
 
         worldManager = GameObject.Find("WorldManager");
-        myPastBookInfoList = worldManager.GetComponent<WorldManager2D>().myPastBookList;
+        wm = worldManager.GetComponent<WorldManager2D>();
+        myPastBookInfoList = wm.myPastBookList;
         //myPastBookListNet = worldManager.GetComponent<WorldManager2D>().myPastBookList;
+
+
 
         myBookInfoList = worldManager.GetComponent<WorldManager2D>().myBookList;
         //myBookListNet = worldManager.GetComponent<WorldManager2D>().myBookList;
@@ -83,6 +87,8 @@ public class CurrBookInfoPanel : MonoBehaviour
     // 등록 버튼 (누르면 <다읽은 책목록>에 추가)
     public void OnClickAddPastBook()
     {
+        wm.bookCount++;
+
         _MyPastBookInfo myPastBookInfo = new _MyPastBookInfo();
 
         myPastBookInfo.bookName = title.text;

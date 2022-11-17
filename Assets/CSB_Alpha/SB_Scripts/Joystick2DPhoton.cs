@@ -47,7 +47,7 @@ public class Joystick2DPhoton : MonoBehaviourPun, IBeginDragHandler, IDragHandle
 
         //if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false)
         // if (EventSystem.current.IsPointerOverGameObject() == false)
-//#if UNITY_ANDROID
+#if !UNITY_EDITOR
         Touch touch = Input.GetTouch(0);
 
         bool isIn = Vector3.Distance(outerCircle.position, touch.position) <= 400;
@@ -64,17 +64,17 @@ public class Joystick2DPhoton : MonoBehaviourPun, IBeginDragHandler, IDragHandle
                 ControlJoystickInnerCircle((touch.position - touchOrigin).normalized);
             }
         }
-//#endif
+#endif
 
     }
 
 
-//#if UNITY_EDITOR
+
     // Drag 를 시작
     public void OnBeginDrag(PointerEventData eventData)
     {
         Debug.Log("Begin");
-        //ControlJoystickInnerCircle(eventData);
+        ControlJoystickInnerCircle(eventData);
 
         isInput = true;
 
@@ -84,7 +84,7 @@ public class Joystick2DPhoton : MonoBehaviourPun, IBeginDragHandler, IDragHandle
     public void OnDrag(PointerEventData eventData)
     {
         Debug.Log("Drag");
-        //ControlJoystickInnerCircle(eventData);
+        ControlJoystickInnerCircle(eventData);
     }
 
     // Drag 를 끝
@@ -104,10 +104,11 @@ public class Joystick2DPhoton : MonoBehaviourPun, IBeginDragHandler, IDragHandle
         }
         playerController.Move(Vector2.zero);
     }
-//#endif
+
 
     public void ControlJoystickInnerCircle(PointerEventData eventData)
     {
+#if UNITY_EDITOR
         var inputDir = eventData.position - outerCircle.anchoredPosition;
 
 
@@ -115,6 +116,7 @@ public class Joystick2DPhoton : MonoBehaviourPun, IBeginDragHandler, IDragHandle
         //innerCircle.anchoredPosition = inputDir;
         innerCircle.anchoredPosition = clampedDir;
         inputVector = clampedDir / joystickRange;
+#endif
     }
 
     public void ControlJoystickInnerCircle(Vector2 eventData)

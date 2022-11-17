@@ -40,6 +40,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
         if(photonView.IsMine)
         {
             cameraArm.gameObject.SetActive(true);
+            characterBody.gameObject.tag = "Player";
         }
         sceneName = SceneManager.GetActiveScene();
         animator = characterBody.GetComponent<Animator>();

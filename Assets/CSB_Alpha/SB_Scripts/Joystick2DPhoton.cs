@@ -69,7 +69,7 @@ public class Joystick2DPhoton : MonoBehaviourPun, IBeginDragHandler, IDragHandle
     }
 
 
-
+#if UNITY_EDITOR
     // Drag ∏¶ Ω√¿€
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -104,11 +104,10 @@ public class Joystick2DPhoton : MonoBehaviourPun, IBeginDragHandler, IDragHandle
         }
         playerController.Move(Vector2.zero);
     }
-
+#endif
 
     public void ControlJoystickInnerCircle(PointerEventData eventData)
     {
-#if UNITY_EDITOR
         var inputDir = eventData.position - outerCircle.anchoredPosition;
 
 
@@ -116,7 +115,6 @@ public class Joystick2DPhoton : MonoBehaviourPun, IBeginDragHandler, IDragHandle
         //innerCircle.anchoredPosition = inputDir;
         innerCircle.anchoredPosition = clampedDir;
         inputVector = clampedDir / joystickRange;
-#endif
     }
 
     public void ControlJoystickInnerCircle(Vector2 eventData)

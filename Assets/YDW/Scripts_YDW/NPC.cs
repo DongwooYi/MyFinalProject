@@ -12,7 +12,6 @@ public class NPC : MonoBehaviour
 
     [Header("조이스틱")]
     public GameObject joyStickMove;
-    public GameObject joyStickRotate;
 
     [Header("버튼")]
     public GameObject btnCraeteRoom;
@@ -50,7 +49,6 @@ public class NPC : MonoBehaviour
             btnOnlist.SetActive(false);
             btnGoBack.SetActive(false);
             joyStickMove.SetActive(false);
-            joyStickRotate.SetActive(false);
         }
         
     }
@@ -58,7 +56,6 @@ public class NPC : MonoBehaviour
     {
         NPCSpeaking.SetActive(false);
         joyStickMove.SetActive(true);
-        joyStickRotate.SetActive(true);
     }
     public void OnClickMakingRoom()
     {
@@ -90,8 +87,6 @@ public class NPC : MonoBehaviour
     {
         NPCSpeaking.SetActive(false);
         joyStickMove.SetActive(true);
-        joyStickRotate.SetActive(true);
-
     }
 
 }

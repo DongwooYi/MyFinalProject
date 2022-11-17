@@ -4,8 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Android;
 using Agora.Rtc;
+using Photon.Pun;
 
-public class NewBehaviourScript : MonoBehaviour
+public class NewBehaviourScript : MonoBehaviourPun
 {
     private ArrayList permissionList = new ArrayList() { Permission.Camera, Permission.Microphone };
 
@@ -19,7 +20,13 @@ public class NewBehaviourScript : MonoBehaviour
     private uint remoteUid;
     internal VideoSurface LocalView;
     internal VideoSurface RemoteView;
+    internal VideoSurface RemoteViewOne;
+    internal VideoSurface RemoteViewTwo;
     internal IRtcEngine RtcEngine;
+    [Header(" È­»óÄ· À§Ä¡ È¦¼ö&Â¦¼ö °æ¿ì")]
+    public Transform[] transformCamPostioneven;
+    public Transform[] transformCamPostionoddNum;
+
     // Start is called before the first frame update
     void Start()
     {
@@ -97,6 +104,27 @@ public class NewBehaviourScript : MonoBehaviour
         go = GameObject.Find("RemoteView");
         RemoteView = go.AddComponent<VideoSurface>();
         go.transform.Rotate(0.0f, 0.0f, 90.0f);
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 3)
+        {
+            go = GameObject.Find("RemoteView2");
+            go.SetActive(true);
+            RemoteViewOne = go.AddComponent<VideoSurface>();
+            go.transform.position = transformCamPostionoddNum[0].position;
+            go.transform.Rotate(0.0f, 0.0f, 90.0f);
+        }
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
+        {
+            go = GameObject.Find("RemoteView2");
+            go.SetActive(true);
+            RemoteViewOne = go.AddComponent<VideoSurface>();
+            go.transform.position = transformCamPostioneven[0].position;
+            go.transform.Rotate(0.0f, 0.0f, 90.0f);
+            go = GameObject.Find("RemoteView3");
+            go.SetActive(true);
+            RemoteViewTwo = go.AddComponent<VideoSurface>();
+            go.transform.position = transformCamPostioneven[1].position;
+            go.transform.Rotate(0.0f, 0.0f, 90.0f);
+        }
         go = GameObject.Find("ButtonLeave");
         go.GetComponent<Button>().onClick.AddListener(Leave);
         go = GameObject.Find("ButtonJoin");

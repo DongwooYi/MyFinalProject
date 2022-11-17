@@ -5,9 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 public class PhotonGameManager : MonoBehaviourPunCallbacks
 {
-    public static PhotonGameManager instance;
-    public NPC nPC;
-    
+    public static PhotonGameManager instance;    
     private void Awake()
     {
         instance = this;
@@ -23,7 +21,7 @@ public class PhotonGameManager : MonoBehaviourPunCallbacks
     }
     private void Update()
     {
-        if(nPC.isTiggerEnter || nPC.isTriggershowRoomList)
+        if(NPC.isTiggerEnter || NPC.isTriggershowRoomList)
         {
             LeaveRoom();
         }
@@ -36,6 +34,7 @@ public class PhotonGameManager : MonoBehaviourPunCallbacks
     {
         base.OnLeftRoom();
         print(System.Reflection.MethodBase.GetCurrentMethod().Name);
-        PhotonNetwork.LoadLevel("LobbyScene");
+        PhotonNetwork.LoadLevel("MyRoomScene_Beta");
     }
+    
 }

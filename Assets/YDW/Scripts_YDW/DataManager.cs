@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DataManager : MonoBehaviour
 {
-   public NPC nPC;
-    public bool SetActiveMakingRoom;
-    public bool ShowRoomlist;
+  /* public NPC nPC;
+    public  bool SetActiveMakingRoom;
+    public  bool ShowRoomlist;
     // Start is called before the first frame update
     void Start()
     {
@@ -29,6 +29,6 @@ public class DataManager : MonoBehaviour
         else if(nPC.isTriggershowRoomList)
         {
             ShowRoomlist = true;
-        }
     }
+        }*/
 }

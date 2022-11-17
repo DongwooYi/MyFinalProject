@@ -19,8 +19,8 @@ public class NPC : MonoBehaviour
     public GameObject btnNo;
     public GameObject btnGoBack;
     [Header("로비씬 룸리스트및 방생성")]
-    public bool isTriggershowRoomList;
-    public bool isTiggerEnter;
+    public static bool isTriggershowRoomList;
+    public static bool isTiggerEnter;
 
     public Joystick2DPhoton Joystick2DPhoton;
     //public GameObject playerPrefabs;

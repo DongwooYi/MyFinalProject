@@ -167,5 +167,5 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
         Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView, 0.1f, 100f);
 
     }
-    
+
 }

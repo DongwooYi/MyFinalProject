@@ -82,6 +82,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     private void Update()
     {
         lobbyInfoText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "로비 /" + PhotonNetwork.CountOfPlayers + "접속";
+
+
+        if(NPC.isTiggerEnter)
+        {
+            setRoom.SetActive(true);
+        }
         if (doorCheck.GotoMainWorld == true)
         {
           CreateChatroom(); 

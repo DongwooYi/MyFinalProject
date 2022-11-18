@@ -5,7 +5,9 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
-public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler, IEndDragHandler
+
+//, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class Joystick2DLobby : MonoBehaviourPun
 {
     [SerializeField]
     private RectTransform innerCircle;  // Inspector 창에서 Drag 해서 넣어줌
@@ -47,7 +49,7 @@ public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler
 
         //if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false)
         // if (EventSystem.current.IsPointerOverGameObject() == false)
-#if !UNITY_EDITOR
+#if !PC
         Touch touch = Input.GetTouch(0);
 
         bool isIn = Vector3.Distance(outerCircle.position, touch.position) <= 400;
@@ -57,11 +59,16 @@ public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler
             if (touch.phase == TouchPhase.Began)
             {
                 touchOrigin = touch.position;
-
+                isInput = true;
             }
             else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
             {
                 ControlJoystickInnerCircle((touch.position - touchOrigin).normalized);
+            }
+            else if(touch.phase == TouchPhase.Ended)
+            {
+                innerCircle.anchoredPosition = Vector2.zero;    // 원점으로 돌아옴
+                isInput = false;    // 입력 끝
             }
         }
 #endif
@@ -69,7 +76,7 @@ public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler
     }
 
 
-#if UNITY_EDITOR
+#if PC
     // Drag 를 시작
     public void OnBeginDrag(PointerEventData eventData)
     {

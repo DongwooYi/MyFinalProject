@@ -20,7 +20,7 @@ public class Timer : MonoBehaviour
 
     [Header("시작 시간")]
     DateTime dateTime;
-     DateTime dateTime1;
+    DateTime dateTime1;
     private void Start()
     {
         totalHourTime = 0;

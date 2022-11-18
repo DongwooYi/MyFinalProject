@@ -35,6 +35,8 @@ public struct AiChatInfo
 
 public class ChatManager : MonoBehaviourPun
 {
+    [Header("채팅 로그")]
+    public Text welcomText;
     [Header("일반 채팅")]
     //InputChat -> 사용자가 채팅한 내용
     public InputField inputChat;
@@ -55,10 +57,9 @@ public class ChatManager : MonoBehaviourPun
 
     void Start()
     {
+        welcomText.text = $"{PhotonNetwork.LocalPlayer.NickName}님 환영합니다. \r\n {(PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms)} 로비/ {PhotonNetwork.CountOfPlayers} 접속";
         //InputField에서 엔터를 쳤을 때 호출되는 함수 등록
         inputChat.onSubmit.AddListener(OnSubmit);
-        //마우스 커서 비활성화
-        Cursor.visible = false;
 
         //idColor를 랜덤하게
         //idColor = new Color32((byte)Random.Range(0, 256),(byte)Random.Range(0, 256),(byte)Random.Range(0, 256),255);
@@ -70,10 +71,10 @@ public class ChatManager : MonoBehaviourPun
     {
             //만약에 커서가 해당 위치에 UI가 없을때
             //IsPointerOverGameObject는 pointer가 UI에 있는 경우 True를 아닌 경우에는 false를 반환
-            if (EventSystem.current.IsPointerOverGameObject() == false)
+            /*if (EventSystem.current.IsPointerOverGameObject() == false)
             {
                 Cursor.visible = false;
-            }
+            }*/
     }
 
     string findPlayer()

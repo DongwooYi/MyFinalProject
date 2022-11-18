@@ -43,36 +43,39 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [Header("방만들기 및 방 리스트")]
     public GameObject setRoom;
     public GameObject setRoomlist;
-    public DataManager DataManager;
 
     [Header("챌린지 기간")]
-    public UnityCalendar unityCalendar;
     public Text textCalendar;
+    public UnityCalendar unityCalendar;
+    public Dropdown dropdown;
+
+    [Header("시작 시간")]
+    public string dateSelected;
+    public string startDate;
+    DateTime dateTime;
+    DateTime dateTime1;
+    [Header("요일 선택")]
+    public Toggle toggleMon;
+    public Toggle toggleTue;
+    public Toggle toggleWed;
+    public Toggle toggleThu;
+    public Toggle toggleFri;
+    public Toggle toggleSat;
+    public Toggle toggleSun;
+    public bool isCheckMon;
+    public bool isCheckTue;
+    public bool isCheckWed;
+    public bool isCheckThu;
+    public bool isCheckFri;
+    public bool isCheckSat;
+    public bool isCheckSun;
+
     void Start()
     {
 
         welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
         welcomeTextInPersonalNote.text = PhotonNetwork.LocalPlayer.NickName + " 의 노트";
-/*        if (DataManager == null || DataManager.isActiveAndEnabled == false)
-        {
-            print(System.Reflection.MethodBase.GetCurrentMethod().Name);
-            return;
-        }
-
-        if (DataManager.SetActiveMakingRoom)
-        {
-            setRoom.SetActive(true);
-            print(System.Reflection.MethodBase.GetCurrentMethod().Name);
-
-        }
-        else if (DataManager.ShowRoomlist)
-        {
-            setRoomlist.SetActive(false);
-            print(System.Reflection.MethodBase.GetCurrentMethod().Name);
-
-        }*/
-
-
+        dropdown.onValueChanged.AddListener(delegate { HandleInputData(dropdown.value); });
         // 방이름(InputField)이 변경될때 호출되는 함수 등록
         inputRoomName.onValueChanged.AddListener(OnRoomNameValueChanged);
         // 총인원(InputField)이 변경될때 호출되는 함수 등록
@@ -82,15 +85,17 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     private void Update()
     {
         lobbyInfoText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "로비 /" + PhotonNetwork.CountOfPlayers + "접속";
+        dateTime = DateTime.Now;
+       // var time = (float.Parse(dateSelected.ToString()));
 
 
-        if(NPC.isTiggerEnter)
+        if (NPC.isTiggerEnter)
         {
             setRoom.SetActive(true);
         }
         if (doorCheck.GotoMainWorld == true)
         {
-          CreateChatroom(); 
+            CreateChatroom();
         }
         if (Input.GetKeyDown(KeyCode.F10))
         {
@@ -98,15 +103,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
         if (Input.GetKeyDown(KeyCode.F9))
         {
-            testRoom();
-            //setRoom.SetActive(true);
+            //testRoom();
+            setRoom.SetActive(true);
         }
-        if (Input.GetKeyDown(KeyCode.F8))
-        {
-            setRoomlist.SetActive(true);
-        }
-        
 
+        ToggleCheck();
     }
     public void Gotest()
     {
@@ -203,7 +204,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LoadLevel("SB_Player_Photon");
         }
-        else if(currentRoomname == "TestRoom")
+        else if (currentRoomname == "TestRoom")
         {
             PhotonNetwork.LoadLevel("CamInteraction");
 
@@ -317,7 +318,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void OnClick_GetDate()
     {
         DateTime dt = unityCalendar.GetDate();
-        textCalendar.text = "~" + dt.ToString("yyyy-MM-dd");
+        textCalendar.text = startDate + "~" + dt.ToString("yyyy-MM-dd");
     }
 
     public void OnClick_Clear()
@@ -325,4 +326,67 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         textCalendar.text = string.Empty;
         unityCalendar.Init();
     }
+
+    public void HandleInputData(int val)
+    {
+        if (val == 0)
+        {            
+            dateTime1 = dateTime.AddHours(24);
+            startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
+            print("24");
+        }
+        if (val == 1)
+        {            
+            dateTime1 = dateTime.AddHours(72);
+            startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
+            print("72");
+        }
+        if (val == 2)
+        {         
+            dateTime1 = dateTime.AddHours(168);
+            startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
+            print("168");
+        }
+    }
+   
+    void ToggleCheck()
+    {
+        //Debug.Log("월: " + isCheckMon +"\r\n화: " + isCheckTue + "\r\n수: "+ isCheckWed+ "\r\n목: "+ isCheckThu+"\r\n금: "+isCheckFri+"\r\n토: "+isCheckSat+"\r\n일:"+isCheckSun);
+        if (toggleMon.isOn)
+        {
+            isCheckMon = true;
+        }
+        else { isCheckMon = false; }
+        if(toggleTue.isOn)
+        {
+            isCheckTue = true;
+        }
+        else { isCheckTue = false; }
+        if (toggleWed.isOn)
+        {
+            isCheckWed = true;
+        }
+        else { isCheckWed = false; }
+        if (toggleThu.isOn)
+        {
+            isCheckThu = true;
+        }
+        else { isCheckThu = false; }
+        if (toggleFri.isOn)
+        {
+            isCheckFri = true;
+        }
+        else { isCheckFri = false; }
+        if (toggleSat.isOn)
+        {
+            isCheckSat = true;
+        }
+        else { isCheckSat = false; }
+        if (toggleSun.isOn)
+        {
+            isCheckSun = true;
+        }
+        else { isCheckSun = false; }
+    }
 }
+   

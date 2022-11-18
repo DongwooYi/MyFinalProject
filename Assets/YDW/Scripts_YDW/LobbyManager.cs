@@ -117,6 +117,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             setRoom.SetActive(false);
         }
+        ToggleCheck();
     }
     public void Gotest()
     {
@@ -167,7 +168,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         // custom 정보를 셋팅
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
 
-        hash["desc"] = $"{textCalendar.text}\r\n{monText.ToString()}{tueText.ToString()}{wedText.ToString()}{thuText.ToString()}{friText.ToString()}{sunText.ToString()}{sunText.ToString()}\r\n{inputFieldRoomDescription.text}"; 
+        hash["desc"] = $"챌린지 기간: {textCalendar.text}\r\n요일: {monText.ToString()}{tueText.ToString()}{wedText.ToString()}{thuText.ToString()}{friText.ToString()}{sunText.ToString()}{sunText.ToString()}\r\n{inputFieldRoomDescription.text}"; 
         hash["map_id"] = UnityEngine.Random.Range(0, mapThumbs.Length);
         hash["room_name"] = inputRoomName.text;
         hash["password"] = inputPassword.text;

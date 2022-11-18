@@ -10,10 +10,12 @@ public class RoomItem : MonoBehaviour
     public Text roomInfo;
 
     //설명
-    //public Text roomDesc;
+    public Text roomDesc;
 
     //맵 id
     int map_id;
+
+//    public Text roomMeetingDate;
 
     //클릭이 되었을 때 호출되는 함수를 가지고있는 변수
     public System.Action<string, int> onClickAction;
@@ -36,10 +38,12 @@ public class RoomItem : MonoBehaviour
         SetInfo((string)info.CustomProperties["room_name"]);//, info.PlayerCount, info.MaxPlayers);
 
         //desc 설정
-        //roomDesc.text = (string)info.CustomProperties["desc"];
+        roomDesc.text = (string)info.CustomProperties["desc"];
 
         //map id 설정
         map_id = (int)info.CustomProperties["map_id"];
+
+        //roomMeetingDate.text = (string)info.CustomProperties["meetingDate"];
     }
 
 

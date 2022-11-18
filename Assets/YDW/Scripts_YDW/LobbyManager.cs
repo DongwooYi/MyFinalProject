@@ -33,12 +33,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     //방의 정보들   
     Dictionary<string, RoomInfo> roomCache = new Dictionary<string, RoomInfo>();
     //룸 리스트 Content
+
+    [Header("룸 리스트")]
+    public GameObject roomItemFactory;
     public Transform trListContent;
 
     public LoadGallery loadGallery;
 
     //map Thumbnail
-    public GameObject[] Picture;
+    public GameObject[] mapThumbs;
 
     [Header("방만들기 및 방 리스트")]
     public GameObject setRoom;
@@ -54,6 +57,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public string startDate;
     DateTime dateTime;
     DateTime dateTime1;
+
     [Header("요일 선택")]
     public Toggle toggleMon;
     public Toggle toggleTue;
@@ -69,6 +73,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public bool isCheckFri;
     public bool isCheckSat;
     public bool isCheckSun;
+    public string monText;
+    public string tueText;
+    public string wedText;
+    public string thuText;
+    public string friText;
+    public string satText;
+    public string sunText;
 
     void Start()
     {
@@ -84,7 +95,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     private void Update()
     {
-        lobbyInfoText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "로비 /" + PhotonNetwork.CountOfPlayers + "접속";
+        //lobbyInfoText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "로비 /" + PhotonNetwork.CountOfPlayers + "접속";
         dateTime = DateTime.Now;
        // var time = (float.Parse(dateSelected.ToString()));
 
@@ -97,27 +108,24 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             CreateChatroom();
         }
-        if (Input.GetKeyDown(KeyCode.F10))
-        {
-            PlayerPrefs.DeleteAll();
-        }
         if (Input.GetKeyDown(KeyCode.F9))
         {
             //testRoom();
             setRoom.SetActive(true);
         }
-
-        ToggleCheck();
+        if (Input.GetKeyDown(KeyCode.F10))
+        {
+            setRoom.SetActive(false);
+        }
     }
     public void Gotest()
     {
         testRoom();
-
     }
     public void OnRoomNameValueChanged(string s)
     {
         //참가
-        btnJoin.interactable = s.Length > 0;
+      //  btnJoin.interactable = s.Length > 0;
         //생성
         btnCreate.interactable = s.Length > 0 && inputMaxPlayer.text.Length > 0;
     }
@@ -159,8 +167,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         // custom 정보를 셋팅
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
 
-        hash["desc"] = inputFieldRoomDescription.text;
-        hash["map_id"] = UnityEngine.Random.Range(0, Picture.Length);
+        hash["desc"] = $"{textCalendar.text}\r\n{monText.ToString()}{tueText.ToString()}{wedText.ToString()}{thuText.ToString()}{friText.ToString()}{sunText.ToString()}{sunText.ToString()}\r\n{inputFieldRoomDescription.text}"; 
+        hash["map_id"] = UnityEngine.Random.Range(0, mapThumbs.Length);
         hash["room_name"] = inputRoomName.text;
         hash["password"] = inputPassword.text;
         roomOptions.CustomRoomProperties = hash;
@@ -207,7 +215,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         else if (currentRoomname == "TestRoom")
         {
             PhotonNetwork.LoadLevel("CamInteraction");
-
         }
     }
 
@@ -268,7 +275,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public GameObject roomItemFactory;
+    
     void CreateRoomListUI()
     {
         foreach (RoomInfo info in roomCache.Values)
@@ -301,7 +308,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //룸이름 설정
         inputRoomName.text = room;
 
-        /* //만약에 이전 맵 Thumbnail이 활성화가 되어있다면
+         //만약에 이전 맵 Thumbnail이 활성화가 되어있다면
          if (prevMapId > -1)
          {
              //이전 맵 Thumbnail을 비활성화
@@ -309,24 +316,21 @@ public class LobbyManager : MonoBehaviourPunCallbacks
          }
 
          //맵 Thumbnail 설정
-         mapThumbs[map_id].SetActive(true);*/
+         mapThumbs[map_id].SetActive(true);
 
         //이전 맵 id 저장
         prevMapId = map_id;
     }
-
     public void OnClick_GetDate()
     {
         DateTime dt = unityCalendar.GetDate();
         textCalendar.text = startDate + "~" + dt.ToString("yyyy-MM-dd");
     }
-
     public void OnClick_Clear()
     {
         textCalendar.text = string.Empty;
         unityCalendar.Init();
     }
-
     public void HandleInputData(int val)
     {
         if (val == 0)
@@ -348,45 +352,68 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             print("168");
         }
     }
-   
-    void ToggleCheck()
+  public void ToggleCheck()
     {
         //Debug.Log("월: " + isCheckMon +"\r\n화: " + isCheckTue + "\r\n수: "+ isCheckWed+ "\r\n목: "+ isCheckThu+"\r\n금: "+isCheckFri+"\r\n토: "+isCheckSat+"\r\n일:"+isCheckSun);
         if (toggleMon.isOn)
         {
             isCheckMon = true;
+            monText = "월";
         }
-        else { isCheckMon = false; }
-        if(toggleTue.isOn)
+        else 
+        {
+            isCheckMon = false;
+            monText = "";
+        }
+        if (toggleTue.isOn)
         {
             isCheckTue = true;
+            tueText = "화";
         }
-        else { isCheckTue = false; }
+        else { isCheckTue = false;
+            thuText = "";
+        }
         if (toggleWed.isOn)
         {
             isCheckWed = true;
+            wedText = "수";
         }
-        else { isCheckWed = false; }
+        else { isCheckWed = false;
+            wedText = "";
+        }
         if (toggleThu.isOn)
         {
             isCheckThu = true;
+            thuText = "목";
         }
-        else { isCheckThu = false; }
+        else { isCheckThu = false;
+            thuText = "";
+        }
         if (toggleFri.isOn)
         {
             isCheckFri = true;
+            friText = "금";
         }
-        else { isCheckFri = false; }
+        else { isCheckFri = false;
+            friText = "";
+        }
         if (toggleSat.isOn)
         {
             isCheckSat = true;
+            satText = "토";
         }
-        else { isCheckSat = false; }
+        else { isCheckSat = false;
+          satText = "";
+        }
         if (toggleSun.isOn)
         {
             isCheckSun = true;
+            sunText = "일";
         }
-        else { isCheckSun = false; }
+        else { isCheckSun = false;
+            sunText = "";
+        }
+
     }
 }
    

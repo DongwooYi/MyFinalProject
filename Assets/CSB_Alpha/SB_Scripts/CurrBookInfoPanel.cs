@@ -36,7 +36,7 @@ public class CurrBookInfoPanel : MonoBehaviour
 
     public Toggle headBook;
 
-    MyCurrBookPanel currBookPanel;
+    MyBookManager bookManager;
     WorldManager2D wm;
 
     GameObject myCurrBookPanel;
@@ -74,7 +74,7 @@ public class CurrBookInfoPanel : MonoBehaviour
         book = GameObject.Find("Book");
 
         myCurrBookPanel = GameObject.Find("MyCurrBookPanel");
-        currBookPanel = GameObject.Find("MyBookManager").GetComponent<MyCurrBookPanel>();
+        bookManager = GameObject.Find("MyBookManager").GetComponent<MyBookManager>();
 
         inputFieldReview.onValueChanged.AddListener(OnValueChanged);
     }
@@ -111,7 +111,7 @@ public class CurrBookInfoPanel : MonoBehaviour
         }
 
         // 업데이트 된 <현재 도서 목록> 에서 받아와서 뿌리기
-        int destroyBookIdx = currBookPanel.idx;
+        int destroyBookIdx = bookManager.idx;
         myBookInfoList.RemoveAt(destroyBookIdx);
         //myBookListNet.RemoveAt(destroyBookIdx);
 

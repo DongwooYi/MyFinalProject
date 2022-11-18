@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 
 
 // 플레이어가 책상 가까이 가면 현재 읽고 있는 책 UI 가 뜬다
-public class MyCurrBookPanel : MonoBehaviour
+public class MyBookManager : MonoBehaviour
 {
     public GameObject player;   // 플레이어
     public GameObject myDesk;   // 책상
@@ -71,6 +71,9 @@ public class MyCurrBookPanel : MonoBehaviour
     {
         // 손가락 쿼드를 띄워준다
         myDesk.transform.GetChild(0).gameObject.SetActive(true);
+        // 손가락 쿼드 항상 카메라 방향
+        myDesk.transform.GetChild(0).forward = Camera.main.transform.forward;
+
         myCurrBookList = worldManager.myBookList;
         //myBookListNet = worldManager.myBookListNet;
 
@@ -106,6 +109,9 @@ public class MyCurrBookPanel : MonoBehaviour
     {
         // 손가락 쿼드를 띄워준다
         myBookshelf.transform.GetChild(0).gameObject.SetActive(true);
+        // 손가락 쿼드의 앞방향을 항상 카메라
+        myBookshelf.transform.GetChild(0).forward = Camera.main.transform.forward;
+
         myPastBookList = worldManager.myPastBookList;
         //myBookListNet = worldManager.myBookListNet;
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);

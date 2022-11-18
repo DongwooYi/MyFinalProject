@@ -76,8 +76,8 @@ MonoBehaviour:
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC81C\uBAA9"
 --- !u!1 &318626364981816602
@@ -185,6 +185,7 @@ MonoBehaviour:
   reviewPanelFactory: {fileID: 619597165726824052, guid: 1213c436b6a8feb468ab7f54d5666ce6, type: 3}
   alarmFactory: {fileID: 8270181874862600635, guid: 4ee3d44cd7a38a64684b034223261f45, type: 3}
   myDesk: {fileID: 0}
+  wm: {fileID: 0}
 --- !u!1 &318626365412915695
 GameObject:
   m_ObjectHideFlags: 0

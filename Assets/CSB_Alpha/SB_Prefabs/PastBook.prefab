@@ -91,7 +91,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2566380848797471047}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 2446095364022220283}
+        m_TargetAssemblyTypeName: PastBook, Assembly-CSharp
+        m_MethodName: OnClickBookInfo
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &2566380848797471047
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -134,3 +146,8 @@ MonoBehaviour:
   bookTitle: 
   bookAuthor: 
   bookReview: 
+  bookIsbn: 
+  bookInfo: 
+  bookRating: 
+  thumbnail: {fileID: 2566380848797471047}
+  pastBookInfoPanelFactory: {fileID: 576350660957396816, guid: 8c8f9c2732701d54bb43607b93325433, type: 3}

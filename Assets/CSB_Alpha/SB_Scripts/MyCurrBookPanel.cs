@@ -129,8 +129,12 @@ public class MyCurrBookPanel : MonoBehaviour
                         go.GetComponent<RawImage>().texture = myPastBookList[i].thumbnail.texture;
                         PastBook pastBook = go.GetComponent<PastBook>();
 
+                        pastBook.thumbnail.texture = myPastBookList[i].thumbnail.texture;
                         pastBook.bookTitle = myPastBookList[i].bookName;
                         pastBook.bookAuthor = myPastBookList[i].bookAuthor;
+                        pastBook.bookInfo = myPastBookList[i].bookPublishInfo;
+                        pastBook.bookIsbn = myPastBookList[i].bookISBN;
+                        pastBook.bookRating = myPastBookList[i].rating;
                         pastBook.bookReview = myPastBookList[i].review;
                     }
                     myPastBookPanel.SetActive(true);

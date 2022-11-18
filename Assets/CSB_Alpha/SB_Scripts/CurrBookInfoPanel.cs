@@ -94,7 +94,7 @@ public class CurrBookInfoPanel : MonoBehaviour
         myPastBookInfo.bookName = title.text;
         myPastBookInfo.bookAuthor = author.text;
         myPastBookInfo.bookPublishInfo = publishInfo.text;
-        //myPastBookInfo.bookISBN = isbn.text;
+        myPastBookInfo.bookISBN = isbn.text;
         myPastBookInfo.thumbnail = thumbnail;
         myPastBookInfo.isDone = true;
         myPastBookInfo.rating = dropdown.captionText.text;
@@ -105,7 +105,7 @@ public class CurrBookInfoPanel : MonoBehaviour
         //myPastBookListNet.Add(myPastBookInfo);
 
         // texture ´Ù •û±â
-        for(int i = 0; i < 6; i++)
+        for (int i = 0; i < 6; i++)
         {
             myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = null;
         }

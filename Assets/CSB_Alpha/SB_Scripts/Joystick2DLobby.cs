@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 
 //, IBeginDragHandler, IDragHandler, IEndDragHandler
-public class Joystick2DLobby : MonoBehaviourPun
+public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField]
     private RectTransform innerCircle;  // Inspector 창에서 Drag 해서 넣어줌

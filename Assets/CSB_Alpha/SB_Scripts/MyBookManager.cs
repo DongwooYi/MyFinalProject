@@ -114,11 +114,12 @@ public class MyBookManager : MonoBehaviour
 
         myPastBookList = worldManager.myPastBookList;
         //myBookListNet = worldManager.myBookListNet;
-        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        RaycastHit hitInfo;
 
         if (Input.GetMouseButtonDown(0))
         {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitInfo;
+
             if (Physics.Raycast(ray, out hitInfo))
             {
                 print(hitInfo.transform.name);
@@ -126,6 +127,17 @@ public class MyBookManager : MonoBehaviour
                 {
                     //HttpGetPastBook();  // 네트워크 통신 -> 함수 만들어줘야함
                     print("완독도서 목록 출력");
+
+                    // 자식이 있다면 삭제
+                    Transform[] childList = content.GetComponentsInChildren<Transform>();
+                    if(childList != null)
+                    {
+                        for(int i = 1; i < childList.Length; i++)
+                        {
+                            Destroy(childList[i].gameObject);
+                        }
+                    }
+
 
                     // myPastBookList 의 크기만큼 프리펩 생성
                     for (int i = 0; i < myPastBookList.Count; i++)

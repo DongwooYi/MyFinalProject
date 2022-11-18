@@ -6,7 +6,7 @@ using UnityEngine.UI;
 public class MyBestBook : MonoBehaviour
 {
     public GameObject player;   // 플레이어
-    public GameObject myBestBookshelf;
+    public GameObject myBestBookshelf;  // 나 자신
     public GameObject pastBookFactory; // 다읽은도서 상세 내용
 
 
@@ -73,18 +73,15 @@ public class MyBestBook : MonoBehaviour
                     // myPastBookList 의 크기만큼 프리펩 생성
                     for (int i = 0; i < myPastBookList.Count; i++)
                     {
+                        // 생성
                         GameObject go = Instantiate(pastBookFactory, content);
-                        // 얘의 RawImage 의 Texture 를 리스트 순서대로
-                        go.GetComponent<RawImage>().texture = myPastBookList[i].thumbnail.texture;
-                        PastBook pastBook = go.GetComponent<PastBook>();
 
-                        pastBook.thumbnail.texture = myPastBookList[i].thumbnail.texture;
-                        pastBook.bookTitle = myPastBookList[i].bookName;
-                        pastBook.bookAuthor = myPastBookList[i].bookAuthor;
-                        pastBook.bookInfo = myPastBookList[i].bookPublishInfo;
-                        pastBook.bookIsbn = myPastBookList[i].bookISBN;
-                        pastBook.bookRating = myPastBookList[i].rating;
-                        pastBook.bookReview = myPastBookList[i].review;
+                        // 얘의 자식인 Label의 RawImage 의 Texture 를 리스트 순서대로
+                        GameObject myChild = go.transform.GetChild(1).gameObject;
+                        myChild.GetComponent<RawImage>().texture = myPastBookList[i].thumbnail.texture;
+                        // go.GetComponent<RawImage>().texture = myPastBookList[i].thumbnail.texture;
+
+
                     }
                     myPastBookPanel.SetActive(true);
                     transform.GetChild(0).gameObject.SetActive(false);

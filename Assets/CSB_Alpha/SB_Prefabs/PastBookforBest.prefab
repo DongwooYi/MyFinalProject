@@ -12,7 +12,6 @@ GameObject:
   - component: {fileID: 7759399319579323816}
   - component: {fileID: 1179298554856380871}
   - component: {fileID: 2566380848797471047}
-  - component: {fileID: 2446095364022220283}
   m_Layer: 5
   m_Name: PastBookforBest
   m_TagString: Untagged
@@ -119,23 +118,3 @@ MonoBehaviour:
     y: 0
     width: 1
     height: 1
---- !u!114 &2446095364022220283
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8278307531473684122}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4ef6dc13c317bfa4aaf489a2aaf2506d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  bookTitle: 
-  bookAuthor: 
-  bookReview: 
-  bookIsbn: 
-  bookInfo: 
-  bookRating: 
-  thumbnail: {fileID: 2566380848797471047}
-  pastBookInfoPanelFactory: {fileID: 576350660957396816, guid: 8c8f9c2732701d54bb43607b93325433, type: 3}

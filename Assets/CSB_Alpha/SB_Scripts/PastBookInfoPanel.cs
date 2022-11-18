@@ -14,6 +14,11 @@ public class PastBookInfoPanel : MonoBehaviour
     public Text bookRating;
     public Text bookReview;
 
+    public void OnClickExit()
+    {
+        Destroy(gameObject);
+    }
+
     public void SetTitle(string s)
     {
         bookTitle.text = s;

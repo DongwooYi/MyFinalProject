@@ -109,8 +109,6 @@ public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler
     public void ControlJoystickInnerCircle(PointerEventData eventData)
     {
         var inputDir = eventData.position - outerCircle.anchoredPosition;
-
-
         var clampedDir = inputDir.magnitude < joystickRange ? inputDir : inputDir.normalized * joystickRange;
         //innerCircle.anchoredPosition = inputDir;
         innerCircle.anchoredPosition = clampedDir;

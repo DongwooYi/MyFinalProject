@@ -953,6 +953,8 @@ MonoBehaviour:
   - {fileID: 1155799857267373104, guid: eca89e98b8a8a0f4eb5b7ec89b0289f0, type: 3}
   - {fileID: 1155799857267373104, guid: 25606912974dbd24aa2bb347863a0fd3, type: 3}
   - {fileID: 1155799857267373104, guid: a1c01cd6bdfee414eb10c9c58cb791d6, type: 3}
+  bestBookContent: {fileID: 0}
+  bestBookFactory: {fileID: 8613809099920707880, guid: 3bf4c07a55a67e24d9c888a1078302bc, type: 3}
 --- !u!1 &1774560480238711709
 GameObject:
   m_ObjectHideFlags: 0

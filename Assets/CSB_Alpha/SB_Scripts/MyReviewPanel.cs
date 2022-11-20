@@ -37,6 +37,8 @@ public class MyReviewPanel : MonoBehaviour
         myPastBookInfoList = worldManager.GetComponent<WorldManager2D>().myPastBookList;
         //myPastBookListNet = worldManager.GetComponent<WorldManager2D>().myPastBookListNet;
 
+        // 이게 맞나..........
+        bestBookContent = GameObject.Find("Canvas").transform.Find("BestBookPanel").Find("Scroll View_BestBook").Find("Viewport").Find("Content_Best");
         book = GameObject.Find("Book");
 
         inputFieldReview.onValueChanged.AddListener(OnValueChanged);
@@ -64,6 +66,8 @@ public class MyReviewPanel : MonoBehaviour
         // <다읽은책목록> 에 추가
         myPastBookInfoList.Add(myPastBookInfo);
 
+        ManageBestBook();   // 인생책 관련 
+
         //HttpPostPastBookInfo();
 
         // <다읽은책목록>의 마지막 인덱스 
@@ -83,6 +87,21 @@ public class MyReviewPanel : MonoBehaviour
         GameObject go = Instantiate(alarmFactory, gameObject.transform);    // 나의 자식으로 생성
 
     }
+
+    // BestBookPanel 에 toggle 추가 관련 -----------
+    public Transform bestBookContent;
+    public GameObject bestBookFactory;
+
+    public void ManageBestBook()
+    {
+        // 인생책에 넣어줄 도서 관련
+        GameObject book = Instantiate(bestBookFactory, bestBookContent);
+
+        // 이 book 을 
+        GameObject myChild = book.transform.GetChild(1).gameObject;
+        myChild.GetComponent<RawImage>().texture = thumbnail.texture;
+    }
+    // -----------------------------
 
     // 나가기 버튼 (누르면 저장되지 않음)
     public void OnClickExit()

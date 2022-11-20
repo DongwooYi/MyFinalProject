@@ -66,6 +66,7 @@ public class WorldManager2D : MonoBehaviour
 
     public Material matBook;    // 책의 Material
 
+
     void Start()
     {
         // 책 제목 입력

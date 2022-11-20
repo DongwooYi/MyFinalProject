@@ -96,8 +96,9 @@ public class MyReviewPanel : MonoBehaviour
     {
         // 인생책에 넣어줄 도서 관련
         GameObject book = Instantiate(bestBookFactory, bestBookContent);
-        GameObject myChild = book.transform.GetChild(1).gameObject;
 
+        // 이 book 을 
+        GameObject myChild = book.transform.GetChild(1).gameObject;
         myChild.GetComponent<RawImage>().texture = thumbnail.texture;
     }
     // -----------------------------

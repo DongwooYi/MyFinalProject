@@ -7,28 +7,23 @@ using UnityEngine.UI;
 public class MyBestBook : MonoBehaviour
 {
     // Toggle 들로 구성된 List
-    //public Dictionary<GameObject, bool> toggles =
-
+    public Dictionary<int, bool> toggles = new Dictionary<int, bool>();
+    
     public GameObject player;   // 플레이어
-
-
-    public WorldManager2D worldManager;
-
-
     public GameObject myPastBookPanel;  // 다읽은 책 목록 UI
 
     public float distance = 1.5f;   // 플레이어와 물체의 거리
 
-    public Transform content;
+    public int idx; // 생성된 BestBook 프리펩의 인덱스
 
     void Start()
     {
         player = GameObject.Find("Character");
+
     }
 
     void Update()
     {
-
         if (Vector3.Distance(player.transform.position, transform.position) < distance)
         {
             ShowClickHereBestBook();

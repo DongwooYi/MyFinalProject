@@ -21,6 +21,7 @@ public class MyReviewPanel : MonoBehaviour
     public Dropdown dropdown;
 
     public InputField inputFieldReview; // 리뷰 입력 칸
+
     public Button btnEnter; // 등록하기 버튼
 
     // 등록됨 안내 메시지 띄우기

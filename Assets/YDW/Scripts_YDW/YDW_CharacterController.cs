@@ -10,7 +10,7 @@ public class YDW_CharacterController : MonoBehaviour
     public GameObject myself;
     public Transform characterBody;
     public Transform cameraArm;
-
+    public Joystick2DLobby joystick2DLobby;
     Animator animator;
 
     bool isCollisionCheck;
@@ -43,7 +43,7 @@ public class YDW_CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (sceneName.name != "MyRoomScene_Beta")
+        if (sceneName.name != "MyRoomScene_Beta 1")
         {
             myself.SetActive(false);
         }
@@ -95,6 +95,7 @@ public class YDW_CharacterController : MonoBehaviour
         Vector2 moveInput = vector2;
         // 이동 방향키 입력 판정 : 이동 방향 벡터가 0보다 크면 입력이 발생하고 있는 중
         bool isMove = moveInput.magnitude != 0;
+        //bool isMove = joystick2DLobby.isInput;
         // 입력이 발생하는 중이라면 이동 애니메이션 재생
         animator.SetBool("isMove", isMove);
         if (isMove)
@@ -124,8 +125,8 @@ public class YDW_CharacterController : MonoBehaviour
         // 카메라의 원래 각도를 오일러 각으로 저장
 
         // 카메라의 피치 값 계산
-        x += (camAngle.y + (secondTouch.y - firstTouch.y)) * Time.deltaTime * rotSpeed;
-        y += (camAngle.x - (secondTouch.x - firstTouch.x)) * Time.deltaTime * rotSpeed;
+        x += (camAngle.y + (secondTouch.y - firstTouch.y)) * Time.deltaTime * rotSpeed * 0.1f;
+        y += (camAngle.x - (secondTouch.x - firstTouch.x)) * Time.deltaTime * rotSpeed * 0.1f;
         // 카메라 피치 값을 위쪽으로 70도 아래쪽으로 25도 이상 움직이지 못하게 제한
         // 위아래쪽으로 회전 (0~90도 사이)
         if (x < 180)
@@ -162,7 +163,7 @@ public class YDW_CharacterController : MonoBehaviour
         // 거리 차이 구함(거리가 이전보다 크면(마이너스가 나오면)손가락을 벌린 상태_줌인 상태)
         float deltaMagnitudeDiff = prevTouchDeltaMag - touchDeltaMag;
 
-        Camera.main.fieldOfView += deltaMagnitudeDiff * zoomIn;
+        Camera.main.fieldOfView += deltaMagnitudeDiff * zoomIn * 0.1f;
         Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView, 0.1f, 100f);
 
     }

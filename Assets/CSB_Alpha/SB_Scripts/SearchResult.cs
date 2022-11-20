@@ -67,6 +67,9 @@ public class SearchResult : MonoBehaviour
     // 그 클래스를 MyBookList 에 추가
     public void OnClickAddCurrBook()
     {
+
+        // 현재 도서 count 1 증가
+        wm.bookCurrCount++;
         _MyBookInfo myBookInfo = new _MyBookInfo();
 
         myBookInfo.bookName = bookTitle.text;
@@ -85,6 +88,7 @@ public class SearchResult : MonoBehaviour
         // <등록 되었습니다>
         Transform canvas = GameObject.Find("Canvas").transform;
         GameObject go = Instantiate(alarmFactory, canvas);
+        
     }
 
 
@@ -93,7 +97,7 @@ public class SearchResult : MonoBehaviour
     // 버튼을 클릭하면 Canvas 에서 책리뷰 작성하는 panel 찾아서 SetActive true 로
     public void OnClickAddPastBook()
     {
-        wm.bookCount++;
+        wm.bookPastCount++;
 
         // 부모가 될 친구
         Transform canvas = GameObject.Find("Canvas").transform;

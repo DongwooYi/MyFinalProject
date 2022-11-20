@@ -1777,7 +1777,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC11C\uD3C9\uC744 \uC785\uB825\uD558\uC138\uC694"
+  m_Text: "\uC11C\uD3C9\uC744 \uC785\uB825\uD558\uC138\uC694 (300\uC790 \uC774\uD558)"
 --- !u!1 &8267027178958573437
 GameObject:
   m_ObjectHideFlags: 0
@@ -2218,8 +2218,8 @@ MonoBehaviour:
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uCC45 \uC81C\uBAA9"
 --- !u!1 &8267027179380222971
@@ -2331,6 +2331,8 @@ MonoBehaviour:
   inputFieldReview: {fileID: 8267027179699988871}
   btnEnter: {fileID: 8267027179038700454}
   player: {fileID: 0}
+  bookQuad0: {fileID: 0}
+  bookQuad1: {fileID: 0}
   alarmFactory: {fileID: 8270181874862600635, guid: 4ee3d44cd7a38a64684b034223261f45, type: 3}
   headBook: {fileID: 9171950763518429126}
 --- !u!1 &8267027179699988873
@@ -2462,7 +2464,7 @@ MonoBehaviour:
   m_LineType: 0
   m_HideMobileInput: 0
   m_CharacterValidation: 0
-  m_CharacterLimit: 0
+  m_CharacterLimit: 300
   m_OnSubmit:
     m_PersistentCalls:
       m_Calls: []

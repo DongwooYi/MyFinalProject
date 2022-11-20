@@ -36,7 +36,7 @@ public class CurrBookInfoPanel : MonoBehaviour
 
     public Toggle headBook;
 
-    MyCurrBookPanel currBookPanel;
+    MyBookManager bookManager;
     WorldManager2D wm;
 
     GameObject myCurrBookPanel;
@@ -74,7 +74,7 @@ public class CurrBookInfoPanel : MonoBehaviour
         book = GameObject.Find("Book");
 
         myCurrBookPanel = GameObject.Find("MyCurrBookPanel");
-        currBookPanel = GameObject.Find("MyBookManager").GetComponent<MyCurrBookPanel>();
+        bookManager = GameObject.Find("MyBookManager").GetComponent<MyBookManager>();
 
         inputFieldReview.onValueChanged.AddListener(OnValueChanged);
     }
@@ -87,14 +87,14 @@ public class CurrBookInfoPanel : MonoBehaviour
     // 등록 버튼 (누르면 <다읽은 책목록>에 추가)
     public void OnClickAddPastBook()
     {
-        wm.bookCount++;
+        wm.bookPastCount++;
 
         _MyPastBookInfo myPastBookInfo = new _MyPastBookInfo();
 
         myPastBookInfo.bookName = title.text;
         myPastBookInfo.bookAuthor = author.text;
         myPastBookInfo.bookPublishInfo = publishInfo.text;
-        //myPastBookInfo.bookISBN = isbn.text;
+        myPastBookInfo.bookISBN = isbn.text;
         myPastBookInfo.thumbnail = thumbnail;
         myPastBookInfo.isDone = true;
         myPastBookInfo.rating = dropdown.captionText.text;
@@ -105,13 +105,13 @@ public class CurrBookInfoPanel : MonoBehaviour
         //myPastBookListNet.Add(myPastBookInfo);
 
         // texture 다 뺴기
-        for(int i = 0; i < 6; i++)
+        for (int i = 0; i < 6; i++)
         {
             myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = null;
         }
 
         // 업데이트 된 <현재 도서 목록> 에서 받아와서 뿌리기
-        int destroyBookIdx = currBookPanel.idx;
+        int destroyBookIdx = bookManager.idx;
         myBookInfoList.RemoveAt(destroyBookIdx);
         //myBookListNet.RemoveAt(destroyBookIdx);
 

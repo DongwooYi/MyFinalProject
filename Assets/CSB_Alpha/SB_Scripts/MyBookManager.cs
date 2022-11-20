@@ -9,25 +9,29 @@ using Newtonsoft.Json.Linq;
 
 
 // 플레이어가 책상 가까이 가면 현재 읽고 있는 책 UI 가 뜬다
-public class MyCurrBookPanel : MonoBehaviour
+public class MyBookManager : MonoBehaviour
 {
     public GameObject player;   // 플레이어
     public GameObject myDesk;   // 책상
     public GameObject myCurrBookPanel;  // 현재 읽고 있는 책 목록 UI
-    public GameObject currBookInfoPanel; // 선택한 책 상세 정보
 
-    public GameObject currBookInfoPanelFactory;
+    public GameObject myBookshelf;    // 책장
+    public GameObject myPastBookPanel;  // 다읽은 책 목록 UI
+
+    public GameObject currBookInfoPanelFactory; // 현재 도서 상세 내용
+    public GameObject pastBookFactory; // 다읽은도서 상세 내용
 
     public Transform canvas;
+    public Transform content;
 
     public WorldManager2D worldManager;
-    List<_MyBookInfo> myCurrBookList = new List<_MyBookInfo>();
+    List<_MyBookInfo> myCurrBookList = new List<_MyBookInfo>(); // 현재 도서
     //public List<_MyBookInfo> myBookListNet = new List<_MyBookInfo>();
 
+    List<_MyPastBookInfo> myPastBookList = new List<_MyPastBookInfo>(); // 다읽은도서
 
-    public float distance = 1.5f;
+    public float distance = 1.5f;   // 플레이어와 물체의 거리
 
-    // 아바타 머리에 띄우고 싶은 책 선택 관련
 
 
     void Start()
@@ -35,9 +39,7 @@ public class MyCurrBookPanel : MonoBehaviour
         player = GameObject.Find("Character");
 
         // 여기서 씬 시작할 때 다 읽었던 책 한번 뿌려주고 시작
-        //HttpGetPastBookList();
-
-        
+        //HttpGetPastBookList();    
     }
 
     void Update()
@@ -45,19 +47,33 @@ public class MyCurrBookPanel : MonoBehaviour
         // 만약 플레이어가 책상 가까이 가면(거리 1정도)
         if (Vector3.Distance(player.transform.position, myDesk.transform.position) < distance)
         {
-            ShowClickHereObj();
+            ShowClickHereCurrBook();
         }
         else
         {
             myDesk.transform.GetChild(0).gameObject.SetActive(false);
         }
 
+        // 만약 플레이어가 책장 가까이 가면
+        if(Vector3.Distance(player.transform.position, myBookshelf.transform.position) < distance)
+        {
+            ShowClickHerePastBook();
+        }
+        else
+        {
+            myBookshelf.transform.GetChild(0).gameObject.SetActive(true);
+        }
+
     }
 
-    public void ShowClickHereObj()
+    /* 현재도서 목록 관련 */
+    public void ShowClickHereCurrBook()
     {
         // 손가락 쿼드를 띄워준다
         myDesk.transform.GetChild(0).gameObject.SetActive(true);
+        // 손가락 쿼드 항상 카메라 방향
+        myDesk.transform.GetChild(0).forward = Camera.main.transform.forward;
+
         myCurrBookList = worldManager.myBookList;
         //myBookListNet = worldManager.myBookListNet;
 
@@ -87,6 +103,66 @@ public class MyCurrBookPanel : MonoBehaviour
             }
         }
     }
+
+    /* 다읽은도서 목록 관련 */
+    public void ShowClickHerePastBook()
+    {
+        // 손가락 쿼드를 띄워준다
+        myBookshelf.transform.GetChild(0).gameObject.SetActive(true);
+        // 손가락 쿼드의 앞방향을 항상 카메라
+        myBookshelf.transform.GetChild(0).forward = Camera.main.transform.forward;
+
+        myPastBookList = worldManager.myPastBookList;
+        //myBookListNet = worldManager.myBookListNet;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitInfo;
+
+            if (Physics.Raycast(ray, out hitInfo))
+            {
+                print(hitInfo.transform.name);
+                if (hitInfo.transform.gameObject.tag == "ClickHere" || hitInfo.transform.gameObject.name == "MyBookshelf")
+                {
+                    //HttpGetPastBook();  // 네트워크 통신 -> 함수 만들어줘야함
+                    print("완독도서 목록 출력");
+
+                    // 자식이 있다면 삭제
+                    Transform[] childList = content.GetComponentsInChildren<Transform>();
+                    if(childList != null)
+                    {
+                        for(int i = 1; i < childList.Length; i++)
+                        {
+                            Destroy(childList[i].gameObject);
+                        }
+                    }
+
+
+                    // myPastBookList 의 크기만큼 프리펩 생성
+                    for (int i = 0; i < myPastBookList.Count; i++)
+                    {
+                        GameObject go = Instantiate(pastBookFactory, content);
+                        // 얘의 RawImage 의 Texture 를 리스트 순서대로
+                        go.GetComponent<RawImage>().texture = myPastBookList[i].thumbnail.texture;
+                        PastBook pastBook = go.GetComponent<PastBook>();
+
+                        pastBook.thumbnail.texture = myPastBookList[i].thumbnail.texture;
+                        pastBook.bookTitle = myPastBookList[i].bookName;
+                        pastBook.bookAuthor = myPastBookList[i].bookAuthor;
+                        pastBook.bookInfo = myPastBookList[i].bookPublishInfo;
+                        pastBook.bookIsbn = myPastBookList[i].bookISBN;
+                        pastBook.bookRating = myPastBookList[i].rating;
+                        pastBook.bookReview = myPastBookList[i].review;
+                    }
+                    myPastBookPanel.SetActive(true);
+                    myBookshelf.transform.GetChild(0).gameObject.SetActive(false);
+                    return;
+                }
+            }
+        }
+    }
+
 
     public GameObject me;
     public int idx;
@@ -118,9 +194,13 @@ public class MyCurrBookPanel : MonoBehaviour
     }
 
     // 뒤로 가기 버튼
-    public void OnClickExit()
+    public void OnClickExitCurr()
     {
         myCurrBookPanel.SetActive(false);
+    }
+    public void OnClickExitPast()
+    {
+        myPastBookPanel.SetActive(false);
     }
 
     public List<string> titleListNet = new List<string>();

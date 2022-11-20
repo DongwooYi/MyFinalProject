@@ -5,6 +5,8 @@ using UnityEngine.UI;
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
+
+//, IBeginDragHandler, IDragHandler, IEndDragHandler
 public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField]
@@ -47,7 +49,7 @@ public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler
 
         //if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false)
         // if (EventSystem.current.IsPointerOverGameObject() == false)
-#if !UNITY_EDITOR
+#if !PC
         Touch touch = Input.GetTouch(0);
 
         bool isIn = Vector3.Distance(outerCircle.position, touch.position) <= 400;
@@ -57,11 +59,16 @@ public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler
             if (touch.phase == TouchPhase.Began)
             {
                 touchOrigin = touch.position;
-
+                isInput = true;
             }
             else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
             {
                 ControlJoystickInnerCircle((touch.position - touchOrigin).normalized);
+            }
+            else if(touch.phase == TouchPhase.Ended)
+            {
+                innerCircle.anchoredPosition = Vector2.zero;    // 원점으로 돌아옴
+                isInput = false;    // 입력 끝
             }
         }
 #endif
@@ -69,7 +76,7 @@ public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler
     }
 
 
-#if UNITY_EDITOR
+#if PC
     // Drag 를 시작
     public void OnBeginDrag(PointerEventData eventData)
     {
@@ -109,8 +116,6 @@ public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler
     public void ControlJoystickInnerCircle(PointerEventData eventData)
     {
         var inputDir = eventData.position - outerCircle.anchoredPosition;
-
-
         var clampedDir = inputDir.magnitude < joystickRange ? inputDir : inputDir.normalized * joystickRange;
         //innerCircle.anchoredPosition = inputDir;
         innerCircle.anchoredPosition = clampedDir;

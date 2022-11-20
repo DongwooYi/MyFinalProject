@@ -35,15 +35,13 @@ public class YDW_CharacterController : MonoBehaviour
     {
         sceneName = SceneManager.GetActiveScene();
         animator = characterBody.GetComponent<Animator>();
-        camAngle = cameraArm.rotation.eulerAngles;
-        
-       
+        camAngle = cameraArm.rotation.eulerAngles; 
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (sceneName.name != "MyRoomScene_BetaYDW")
+        if (sceneName.name != "MyRoomScene_Beta")
         {
             myself.SetActive(false);
         }

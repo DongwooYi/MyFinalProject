@@ -25,25 +25,23 @@ public class RoomItem : MonoBehaviour
 
     }
 
-    public void SetInfo(string roomName)//, int currPlayer, byte maxPlayer)
+    public void SetInfo(string roomName, int currPlayer, byte maxPlayer)
     {
         //게임오브젝트의 이름을 roomName으로!
         name = roomName;
         //방이름 (0/0)
-        roomInfo.text = roomName;// + " (" + currPlayer + " / " + maxPlayer + ")"; 
+        roomInfo.text = roomName + " (" + currPlayer + " / " + maxPlayer + ")"; 
     }
 
     public void SetInfo(RoomInfo info)
     {
-        SetInfo((string)info.CustomProperties["room_name"]);//, info.PlayerCount, info.MaxPlayers);
+        SetInfo((string)info.CustomProperties["room_name"], info.PlayerCount, info.MaxPlayers);
 
         //desc 설정
         roomDesc.text = (string)info.CustomProperties["desc"];
 
         //map id 설정
         map_id = (int)info.CustomProperties["map_id"];
-
-        //roomMeetingDate.text = (string)info.CustomProperties["meetingDate"];
     }
 
 

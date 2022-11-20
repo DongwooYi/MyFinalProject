@@ -10,8 +10,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 {
     [Header("룸리스트")]
     public Text welcomeText;
-    public Text lobbyInfoText;
-    public Text welcomeTextInPersonalNote;
+
     [Header("메인 광장")]
     // 메인월드
 
@@ -85,7 +84,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
 
         welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
-        welcomeTextInPersonalNote.text = PhotonNetwork.LocalPlayer.NickName + " 의 노트";
         dropdown.onValueChanged.AddListener(delegate { HandleInputData(dropdown.value); });
         // 방이름(InputField)이 변경될때 호출되는 함수 등록
         inputRoomName.onValueChanged.AddListener(OnRoomNameValueChanged);
@@ -95,11 +93,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     private void Update()
     {
-        //lobbyInfoText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "로비 /" + PhotonNetwork.CountOfPlayers + "접속";
         dateTime = DateTime.Now;
        // var time = (float.Parse(dateSelected.ToString()));
-
-
         if (NPC.isTiggerEnter)
         {
             setRoom.SetActive(true);
@@ -110,7 +105,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
         if (Input.GetKeyDown(KeyCode.F9))
         {
-            //testRoom();
             setRoom.SetActive(true);
         }
         if (Input.GetKeyDown(KeyCode.F10))
@@ -168,14 +162,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         // custom 정보를 셋팅
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
 
-        hash["desc"] = $"챌린지 기간: {textCalendar.text}\r\n요일: {monText.ToString()}{tueText.ToString()}{wedText.ToString()}{thuText.ToString()}{friText.ToString()}{sunText.ToString()}{sunText.ToString()}\r\n{inputFieldRoomDescription.text}"; 
+        hash["desc"] = $"회의 요일: {monText.ToString()}{tueText.ToString()}{wedText.ToString()}{thuText.ToString()}{friText.ToString()}{sunText.ToString()}{sunText.ToString()}\r\n{inputFieldRoomDescription.text}"; 
         hash["map_id"] = UnityEngine.Random.Range(0, mapThumbs.Length);
         hash["room_name"] = inputRoomName.text;
         hash["password"] = inputPassword.text;
+        hash["date"] = textCalendar.text;
         roomOptions.CustomRoomProperties = hash;
         // custom 정보를 공개하는 설정
         roomOptions.CustomRoomPropertiesForLobby = new string[] {
-            "desc", "map_id", "room_name", "password"
+            "desc", "map_id", "room_name", "password", "date"
         };
 
         // 방 생성 요청 (해당 옵션을 이용해서)
@@ -217,6 +212,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LoadLevel("CamInteraction");
         }
+        else
+        {
+            PhotonNetwork.LoadLevel("CamInteraction");
+        }
     }
 
     //방 참가가 실패 되었을 때 호출 되는 함수
@@ -246,7 +245,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             Destroy(tr.gameObject);
         }
     }
-
     void UpdateRoomCache(List<RoomInfo> roomList)
     {
 
@@ -275,13 +273,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             }
         }
     }
-
-    
     void CreateRoomListUI()
     {
         foreach (RoomInfo info in roomCache.Values)
         {
-
+            
             //룸아이템 만든다.
             GameObject go = Instantiate(roomItemFactory, trListContent);
             //룸아이템 정보를 셋팅(방제목(0/0))
@@ -300,8 +296,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             print(desc + ", " + map_id);
         }
     }
-
-
     //이전 Thumbnail id
     int prevMapId = -1;
     void SetRoomName(string room, int map_id)

@@ -9,6 +9,14 @@ TagManager:
   - BannerItem
   - ClickHere
   - Character
+  - Feedback
+  - Hold
+  - Cancel
+  - Request
+  - Complete
+  - DI
+  - Doing
+  - Overdue
   layers:
   - Default
   - TransparentFX

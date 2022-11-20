@@ -13,6 +13,7 @@ public class HttpManager : MonoBehaviour
         //만약에 instance가 null이라면
         if (instance == null)
         {
+            
             //instance에 나를 넣겠다.
             instance = this;
             //씬이 전환이 되어도 나를 파괴되지 않게 하겠다.
@@ -39,6 +40,7 @@ public class HttpManager : MonoBehaviour
         //requestType 에 따라서 호출해줘야한다.
         switch (requester.requestType)
         {
+            
 
             case RequestType.LOGIN:
                 webRequest = UnityWebRequest.Post(requester.url, requester.body);

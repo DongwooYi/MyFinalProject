@@ -57,7 +57,7 @@ public class ChatManager : MonoBehaviourPun
 
     void Start()
     {
-        welcomText.text = $"{PhotonNetwork.LocalPlayer.NickName}님 환영합니다. \r\n {(PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms)} 로비/ {PhotonNetwork.CountOfPlayers} 접속";
+        //welcomText.text = $"{PhotonNetwork.LocalPlayer.NickName}님 환영합니다. \r\n {(PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms)} 로비/ {PhotonNetwork.CountOfPlayers} 접속";
         //InputField에서 엔터를 쳤을 때 호출되는 함수 등록
         inputChat.onSubmit.AddListener(OnSubmit);
 

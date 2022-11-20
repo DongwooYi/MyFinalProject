@@ -66,6 +66,7 @@ public class MyBestBook : MonoBehaviour
                 idx = me.transform.GetSiblingIndex();
                 print("나의 인덱스 " + idx);
                 toggles[idx] = me.GetComponent<Toggle>().isOn;
+                Debug.Log("toggles[idx] = me.GetComponent<Toggle>().isOn;" + toggles[idx] + ":" + me.GetComponent<Toggle>().isOn);
             }
 
 
@@ -88,13 +89,14 @@ public class MyBestBook : MonoBehaviour
     // 클릭하면 toggles dictionary 의 values 가 true 인 친구들로 인생책이 등록됨
     public void OnClickSetBestBook()
     {
+        print("1111111");
         for(int i = 0; i < toggles.Count; i++)
         {
             // 만약 value 값이 true 면
             if (toggles.Values.ToList()[i])
             {
                 // 해당하는 
-                GameObject bestBook = transform.GetChild(i + 1).gameObject;
+                GameObject bestBook = transform.GetChild(i).gameObject;
                 bestBook.SetActive(true);
                 bestBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", texture);
             }

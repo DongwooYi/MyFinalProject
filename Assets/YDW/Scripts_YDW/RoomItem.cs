@@ -47,7 +47,6 @@ public class RoomItem : MonoBehaviour
         roomDesc.text = $"챌린지 기간: {(string)info.CustomProperties["date"]}\r\n{(string)info.CustomProperties["desc"]}";
         time = ((string)info.CustomProperties["TimerData"]);
         isTimerOn = true;
-        Debug.Log("time" + time + isTimerOn);
         //map id 설정
         map_id = (int)info.CustomProperties["map_id"];
     }

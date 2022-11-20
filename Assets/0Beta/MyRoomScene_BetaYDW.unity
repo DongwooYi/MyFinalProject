@@ -5027,11 +5027,10 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 7214948666270163599}
   - {fileID: 8175853768287898331}
   - {fileID: 899520397}
   m_Father: {fileID: 1754603825}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7668,7 +7667,7 @@ RectTransform:
   m_Children:
   - {fileID: 255905205}
   m_Father: {fileID: 520148578}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7718,7 +7717,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 899520399}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1851127534}
+        m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
+        m_MethodName: JoinRoom
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &899520399
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -13587,6 +13598,7 @@ RectTransform:
   - {fileID: 754510108}
   - {fileID: 1734827433}
   - {fileID: 1934735860}
+  - {fileID: 7214948666270163599}
   - {fileID: 520148578}
   m_Father: {fileID: 0}
   m_RootOrder: 2
@@ -14294,7 +14306,7 @@ MonoBehaviour:
   inputRoomName: {fileID: 2070394679}
   inputPassword: {fileID: 478624}
   inputMaxPlayer: {fileID: 362426739}
-  btnJoin: {fileID: 0}
+  btnJoin: {fileID: 899520398}
   btnCreate: {fileID: 1116495120}
   doorCheck: {fileID: 9096773608882701692}
   roomItemFactory: {fileID: 356185162197043259, guid: 15a15981542e4e948906f696a2171cd0, type: 3}
@@ -14311,7 +14323,6 @@ MonoBehaviour:
   textCalendar: {fileID: 1902759078}
   unityCalendar: {fileID: 1855308836555300429}
   dropdown: {fileID: 280983945}
-  dateSelected: 
   startDate: 
   toggleMon: {fileID: 1187756428}
   toggleTue: {fileID: 511384517}
@@ -21797,8 +21808,8 @@ RectTransform:
   - {fileID: 7214948666597130192}
   - {fileID: 7214948665844733149}
   - {fileID: 7214948665760194534}
-  m_Father: {fileID: 520148578}
-  m_RootOrder: 0
+  m_Father: {fileID: 1754603825}
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
@@ -22719,7 +22730,7 @@ RectTransform:
   - {fileID: 8175853767064085689}
   - {fileID: 8175853768312073938}
   m_Father: {fileID: 520148578}
-  m_RootOrder: 1
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}

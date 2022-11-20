@@ -35,8 +35,7 @@ public struct AiChatInfo
 
 public class ChatManager : MonoBehaviourPun
 {
-    [Header("채팅 로그")]
-    public Text welcomText;
+
     [Header("일반 채팅")]
     //InputChat -> 사용자가 채팅한 내용
     public InputField inputChat;
@@ -51,30 +50,37 @@ public class ChatManager : MonoBehaviourPun
     [Header("채팅창")]
     public GameObject ChattingPannel;
 
+    public Toggle toggleChatting;
     //내 아이디 색
     Color idColor;
     Color otherColor;
 
+    public YDW_CharacterControllerPhoton gameObjectPlayerMine;
     void Start()
     {
-        //welcomText.text = $"{PhotonNetwork.LocalPlayer.NickName}님 환영합니다. \r\n {(PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms)} 로비/ {PhotonNetwork.CountOfPlayers} 접속";
         //InputField에서 엔터를 쳤을 때 호출되는 함수 등록
         inputChat.onSubmit.AddListener(OnSubmit);
-
+      
         //idColor를 랜덤하게
         //idColor = new Color32((byte)Random.Range(0, 256),(byte)Random.Range(0, 256),(byte)Random.Range(0, 256),255);
         idColor = Color.yellow;
         otherColor = Color.green;
+        if(photonView.IsMine)
+        {
+            gameObjectPlayerMine = GameObject.FindObjectOfType<YDW_CharacterControllerPhoton>();
+        }
     }
 
     void Update()
     {
-            //만약에 커서가 해당 위치에 UI가 없을때
-            //IsPointerOverGameObject는 pointer가 UI에 있는 경우 True를 아닌 경우에는 false를 반환
-            /*if (EventSystem.current.IsPointerOverGameObject() == false)
-            {
-                Cursor.visible = false;
-            }*/
+        if (toggleChatting.isOn)
+        {
+            ChattingPannel.SetActive(true);
+        }
+        else
+        {
+            ChattingPannel.SetActive(false);
+        }
     }
 
     string findPlayer()
@@ -130,7 +136,6 @@ public class ChatManager : MonoBehaviourPun
     public RectTransform AIScrollView;
 
     string jsonData;
-        
     [PunRPC]
     void RpcAddChat(string nick, string chatText, float r, float g, float b)
     {
@@ -141,6 +146,7 @@ public class ChatManager : MonoBehaviourPun
         ChatInfo info = new ChatInfo();
         info.nickName = nick;
         info.chatText = chatText;
+
         print(info.chatText);
 
         //<color=#FFFFFF>닉네임</color>
@@ -259,13 +265,5 @@ public class ChatManager : MonoBehaviourPun
         //3.가져온 컴포넌트에 s를 셋팅
         chat.SetText(add);
                      
-    }
-    public void OnclickChattingPannelOn()
-    {
-        ChattingPannel.SetActive(true);
-    }
-   public void OnClickChattingEnd()
-    {
-        ChattingPannel.SetActive(false);
     }
 }

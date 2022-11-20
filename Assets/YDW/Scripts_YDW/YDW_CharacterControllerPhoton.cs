@@ -8,7 +8,7 @@ using Photon.Pun;
 
 public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
 {
-    
+
     public Transform characterBody;
     [Header("카메라")]
     public Transform cameraArm;
@@ -33,11 +33,11 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
 
     Scene sceneName;
 
-    
+
     // Start is called before the first frame update
     void Start()
     {
-        if(photonView.IsMine)
+        if (photonView.IsMine)
         {
             cameraArm.gameObject.SetActive(true);
             characterBody.gameObject.tag = "Player";
@@ -45,8 +45,6 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
         sceneName = SceneManager.GetActiveScene();
         animator = characterBody.GetComponent<Animator>();
         camAngle = cameraArm.rotation.eulerAngles;
-        
-       
     }
 
     // Update is called once per frame
@@ -55,25 +53,25 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
         if (!EventSystem.current.IsPointerOverGameObject() == false) return;
         if (Input.touchCount > 0)
         {
-            if (Input.touchCount ==1)
+            if (Input.touchCount == 1)
             {
                 firstTouch = touchZero.position;
                 touchZero = Input.GetTouch(0);
-                if(touchZero.phase==TouchPhase.Moved)
+                if (touchZero.phase == TouchPhase.Moved)
                 {
                     LookAround();
 
                 }
-            
+
             }
-            if(Input.touchCount ==2)
+            if (Input.touchCount == 2)
             {
                 touchOne = Input.GetTouch(1);
                 GetTouchZoomInOut();
             }
 
 
-            
+
 
         }
 
@@ -110,7 +108,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
             // 이동할 때 카메라가 보는 방향 바라보기
             //characterBody.forward = lookForward;
             // 이동할 때 이동 방향 바라보기
-           characterBody.forward = moveDir;
+            characterBody.forward = moveDir;
             // 이동
             if (!isCollisionCheck)
                 transform.position += moveDir * Time.deltaTime * 3f;
@@ -141,7 +139,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
     {
         Debug.DrawRay(transform.position, characterBody.forward * rayDistance, Color.black);
         isCollisionCheck = Physics.Raycast(transform.position, characterBody.forward, rayDistance, LayerMask.GetMask("CollisionCheck"));
-       
+
     }
 
 
@@ -165,7 +163,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
 
         Camera.main.fieldOfView += deltaMagnitudeDiff * zoomIn;
         Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView, 0.1f, 100f);
-
     }
+
 
 }

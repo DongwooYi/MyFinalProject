@@ -44,6 +44,9 @@ MonoBehaviour:
   - CantHearYou
   - ChangeColour
   - HeresWhy
+  - ChatRPC
+  - send
+  - SendContents
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

@@ -5,6 +5,8 @@ using Photon.Realtime;
 using UnityEngine.UI;
 using System.Collections;
 using System;
+using UnityEngine.Networking;
+using Newtonsoft.Json.Linq;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
@@ -101,6 +103,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
         if (doorCheck.GotoMainWorld == true)
         {
+            doorCheck.GotoMainWorld = false;
             CreateChatroom();
         }
         if (Input.GetKeyDown(KeyCode.F9))
@@ -117,10 +120,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
         ToggleCheck();
     }
-    public void Gotest()
-    {
-        testRoom();
-    }
+
     public void OnRoomNameValueChanged(string s)
     {
         //참가
@@ -134,22 +134,21 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //생성
         btnCreate.interactable = s.Length > 0 && inputRoomName.text.Length > 0;
     }
+
     public void CreateChatroom()
     {
+        //mapThumbs.texture = loadGallery.gameObject.GetComponent<RawImage>().texture;
+        // 방 옵션을 설정
         RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 10;
+        // 최대 인원 (0이면 최대인원)
+        roomOptions.MaxPlayers = 4;
+        // 룸 리스트에 보이지 않게? 보이게?
         roomOptions.IsVisible = false;
-        doorCheck.GotoMainWorld = false;
-        PhotonNetwork.JoinOrCreateRoom("ChatRoom", roomOptions, null);
+        
+        PhotonNetwork.JoinOrCreateRoom("Room",roomOptions, null);
+       
     }
-    public void testRoom()
-    {
-        RoomOptions roomOptions = new RoomOptions();
-        roomOptions.MaxPlayers = 10;
-        roomOptions.IsVisible = false;
-        doorCheck.GotoMainWorld = false;
-        PhotonNetwork.JoinOrCreateRoom("TestRoom", roomOptions, null);
-    }
+        
     //방 생성
     public void CreateRoom()
     {
@@ -186,6 +185,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         base.OnCreatedRoom();
+        
         print("OnCreatedRoom");
     }
 
@@ -209,7 +209,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         print("OnJoinedRoom");
         var currentRoomname = PhotonNetwork.CurrentRoom.Name;
         print(currentRoomname);
-        if (currentRoomname == "ChatRoom")
+        if (currentRoomname.Contains("Room"))
         {
             PhotonNetwork.LoadLevel("SB_Player_Photon");
         }
@@ -431,7 +431,35 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     }
 
+    #region Http
+    public void SendRoomData()
+    {
+        HttpRequester requester = new HttpRequester();
 
+        requester.url = "";
+        requester.requestType = RequestType.POST;
+
+        RoomData roomData = new RoomData();
+
+        roomData.RoomName = inputRoomName.text;
+        roomData.ThePeriodProject = textCalendar.text; 
+        roomData.MeetingDate = $"{monText}{tueText}{wedText}{thuText}{friText}{sunText}{sunText}";
+        
+        requester.body = JsonUtility.ToJson(roomData, true);
+        requester.onComplete = OnCompletePostRoomData;
+
+        //HttpManager에게 요청
+        HttpManager.instance.SendRequest(requester, "application/json");
+    }
+
+    public void OnCompletePostRoomData(DownloadHandler downloadHandler)
+    {
+        JObject jObject = JObject.Parse(downloadHandler.text);
+
+       // int type = (int)jObject["status"];
+        //CreateRoom();
+    }
+    #endregion
 }
- 
-   
+
+

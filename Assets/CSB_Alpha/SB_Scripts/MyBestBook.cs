@@ -3,15 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 책장에 붙어있는 코드
 public class MyBestBook : MonoBehaviour
 {
+    // Toggle 들로 구성된 List
+    //public Dictionary<GameObject, bool> toggles =
+
     public GameObject player;   // 플레이어
-    public GameObject myBestBookshelf;  // 나 자신
-    public GameObject pastBookFactory; // 다읽은도서 상세 내용
 
 
     public WorldManager2D worldManager;
-    List<_MyPastBookInfo> myPastBookList = new List<_MyPastBookInfo>(); // 다읽은도서
+
 
     public GameObject myPastBookPanel;  // 다읽은 책 목록 UI
 
@@ -22,11 +24,11 @@ public class MyBestBook : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Character");
-
     }
 
     void Update()
     {
+
         if (Vector3.Distance(player.transform.position, transform.position) < distance)
         {
             ShowClickHereBestBook();
@@ -44,8 +46,6 @@ public class MyBestBook : MonoBehaviour
         // 손가락 쿼드 항상 카메라 방향
         transform.GetChild(0).forward = Camera.main.transform.forward;
 
-        myPastBookList = worldManager.myPastBookList;   // 다읽은도서 목록 가져오기
-
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -60,29 +60,7 @@ public class MyBestBook : MonoBehaviour
                     //HttpGetPastBook();  // 네트워크 통신 -> 함수 만들어줘야함
                     print("완독도서 목록 출력");
 
-                    // 자식이 있다면 삭제
-                    Transform[] childList = content.GetComponentsInChildren<Transform>();
-                    if (childList != null)
-                    {
-                        for (int i = 1; i < childList.Length; i++)
-                        {
-                            Destroy(childList[i].gameObject);
-                        }
-                    }
 
-                    // myPastBookList 의 크기만큼 프리펩 생성
-                    for (int i = 0; i < myPastBookList.Count; i++)
-                    {
-                        // 생성
-                        GameObject go = Instantiate(pastBookFactory, content);
-
-                        // 얘의 자식인 Label의 RawImage 의 Texture 를 리스트 순서대로
-                        GameObject myChild = go.transform.GetChild(1).gameObject;
-                        myChild.GetComponent<RawImage>().texture = myPastBookList[i].thumbnail.texture;
-                        // go.GetComponent<RawImage>().texture = myPastBookList[i].thumbnail.texture;
-
-
-                    }
                     myPastBookPanel.SetActive(true);
                     transform.GetChild(0).gameObject.SetActive(false);
                     return;

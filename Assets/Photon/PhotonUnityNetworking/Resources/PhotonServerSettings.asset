@@ -47,6 +47,9 @@ MonoBehaviour:
   - ChatRPC
   - send
   - SendContents
+  - Send
+  - RPC_ResetInputString
+  - RPC_SetInputString
   DisableAutoOpenWizard: 1
   ShowSettings: 1
   DevRegionSetOnce: 0

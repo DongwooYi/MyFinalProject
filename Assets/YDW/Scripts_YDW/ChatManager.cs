@@ -55,7 +55,12 @@ public class ChatManager : MonoBehaviourPun
     Color idColor;
     Color otherColor;
 
-    public YDW_CharacterControllerPhoton gameObjectPlayerMine;
+    private void Awake()
+    {
+   
+       
+    }
+
     void Start()
     {
         //InputField에서 엔터를 쳤을 때 호출되는 함수 등록
@@ -65,10 +70,6 @@ public class ChatManager : MonoBehaviourPun
         //idColor = new Color32((byte)Random.Range(0, 256),(byte)Random.Range(0, 256),(byte)Random.Range(0, 256),255);
         idColor = Color.yellow;
         otherColor = Color.green;
-        if(photonView.IsMine)
-        {
-            gameObjectPlayerMine = GameObject.FindObjectOfType<YDW_CharacterControllerPhoton>();
-        }
     }
 
     void Update()
@@ -112,6 +113,7 @@ public class ChatManager : MonoBehaviourPun
          idColor.r,
          idColor.g,
          idColor.b);
+       
         }
         else
         {
@@ -129,16 +131,20 @@ public class ChatManager : MonoBehaviourPun
         inputChat.ActivateInputField();
     }
 
-
+    
     //이전 Content의 H
     float prevContentH;
     //ScorllView의 RectTransform
     public RectTransform AIScrollView;
 
     string jsonData;
+    public GameObject speechbubbleFactory;
+
+    float currentTime = 0;
     [PunRPC]
     void RpcAddChat(string nick, string chatText, float r, float g, float b)
     {
+        currentTime += Time.deltaTime;
         enterchat = false;
         print("보낸 놈 : " + nick);
         print("보낸 내용 : " + chatText);
@@ -151,7 +157,7 @@ public class ChatManager : MonoBehaviourPun
 
         //<color=#FFFFFF>닉네임</color>
         string s = "<color=#" + ColorUtility.ToHtmlStringRGB(new Color(r, g, b)) + ">" + nick + "</color>" + " : " + chatText;
-        
+        string j = chatText;
         
         //0. 바뀌기 전의 Content H값을 넣자
         prevContentH = trContent.sizeDelta.y;
@@ -166,7 +172,10 @@ public class ChatManager : MonoBehaviourPun
         
         //3.가져온 컴포넌트에 s를 셋팅
         chat.SetText(s);
-
+        
+       // gameObjectPlayerMine.gameObject.GetComponent<YDW_CharacterControllerPhoton>().speecgBubbleGameObj.SetActive(true);
+       // gameObjectPlayerMine.gameObject.GetComponent<YDW_CharacterControllerPhoton>().speechBubble.text = chatText;
+       
         //Json 보내기 -> List에 담기
         chatList.Add(info);
 

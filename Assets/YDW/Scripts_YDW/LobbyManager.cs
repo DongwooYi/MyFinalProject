@@ -102,9 +102,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             setRoom.SetActive(true);
         }
         if (doorCheck.GotoMainWorld == true)
-        {
-            doorCheck.GotoMainWorld = false;
+        {            
             CreateChatroom();
+            doorCheck.GotoMainWorld = false;
+            Debug.Log("CreateChatroom");
         }
         if (Input.GetKeyDown(KeyCode.F9))
         {
@@ -117,6 +118,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (Input.GetKeyDown(KeyCode.F11))
         {
            setRoomlist.SetActive(true);
+        }
+        if(Input.GetKeyDown(KeyCode.Alpha9))
+        {
+            CreateChatroom();
         }
         ToggleCheck();
     }

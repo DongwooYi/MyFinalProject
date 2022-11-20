@@ -9,6 +9,7 @@ using Photon.Pun;
 public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
 {
 
+    public GameObject mainbody;
     public Transform characterBody;
     [Header("카메라")]
     public Transform cameraArm;
@@ -33,14 +34,16 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
 
     Scene sceneName;
 
+    public GameObject speecgBubbleGameObj;
+    public Text speechBubble;
 
     // Start is called before the first frame update
     void Start()
     {
+      
         if (photonView.IsMine)
         {
             cameraArm.gameObject.SetActive(true);
-            characterBody.gameObject.tag = "Player";
         }
         sceneName = SceneManager.GetActiveScene();
         animator = characterBody.GetComponent<Animator>();
@@ -165,5 +168,5 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
         Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView, 0.1f, 100f);
     }
 
-
+ 
 }

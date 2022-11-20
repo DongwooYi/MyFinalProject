@@ -15,6 +15,6 @@ public class MakingChattingRoom : MonoBehaviour
         {
             print(other.gameObject.name);
             GotoMainWorld = true;
-        }
+                   }
     }
 }

@@ -17,8 +17,11 @@ public class PhotonGameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.SerializationRate = 60;
         //Rpc »£√‚ ∫Ûµµ
         PhotonNetwork.SendRate = 60;
-        PhotonNetwork.Instantiate("Player", Vector3.zero , Quaternion.identity);
+        GameObject go = PhotonNetwork.Instantiate("Player", Vector3.zero , Quaternion.identity) as GameObject;
+        go.transform.parent = GameObject.Find("Spawner").transform;
+
     }
+
     private void Update()
     {
         if(NPC.isTiggerEnter || NPC.isTriggershowRoomList)

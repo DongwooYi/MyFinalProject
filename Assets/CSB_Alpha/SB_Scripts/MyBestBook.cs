@@ -50,17 +50,21 @@ public class MyBestBook : MonoBehaviour
             {
                 if (hitInfo.transform.gameObject.tag == "ClickHere")
                 {
-                    // 다읽은도서 받아오기  // 네트워크 통신
-                    // 받아온 다읽은도서 넣기
-                    //HttpGetPastBook();  // 네트워크 통신 -> 함수 만들어줘야함
-                    print("완독도서 목록 출력");
-
-
                     myPastBookPanel.SetActive(true);
+                    // 토글 선택하면 
+                    print("도서 목록 출력");
+
                     transform.GetChild(0).gameObject.SetActive(false);
                     return;
                 }
             }
         }
+    }
+
+    // 확인 버튼
+    // 클릭하면 인생책이 등록됨
+    public void OnClickSetBestBook()
+    {
+
     }
 }

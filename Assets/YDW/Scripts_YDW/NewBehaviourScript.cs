@@ -6,7 +6,7 @@ using UnityEngine.Android;
 using Agora.Rtc;
 using Photon.Pun;
 
-public class NewBehaviourScript : MonoBehaviourPun
+public class NewBehaviourScript : MonoBehaviour
 {
     private ArrayList permissionList = new ArrayList() { Permission.Camera, Permission.Microphone };
 

@@ -1,4 +1,5 @@
 using Photon.Realtime;
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -15,16 +16,22 @@ public class RoomItem : MonoBehaviour
     //맵 id
     int map_id;
 
-//    public Text roomMeetingDate;
+    [Header("타이머")]
+    public Text textTimer;
+    public string time;
+    public bool isTimerOn;
 
     //클릭이 되었을 때 호출되는 함수를 가지고있는 변수
     public System.Action<string, int> onClickAction;
 
     void Start()
-    {
-
+    {     
     }
-
+    private void Update()
+    {
+        if (isTimerOn)
+        { CountDownTimer(); }
+    }
     public void SetInfo(string roomName, int currPlayer, byte maxPlayer)
     {
         //게임오브젝트의 이름을 roomName으로!
@@ -32,14 +39,15 @@ public class RoomItem : MonoBehaviour
         //방이름 (0/0)
         roomInfo.text = roomName + " (" + currPlayer + " / " + maxPlayer + ")"; 
     }
-
     public void SetInfo(RoomInfo info)
     {
         SetInfo((string)info.CustomProperties["room_name"], info.PlayerCount, info.MaxPlayers);
 
         //desc 설정
-        roomDesc.text = $"{(string)info.CustomProperties["date"]}\r\n{(string)info.CustomProperties["desc"]}";
-
+        roomDesc.text = $"챌린지 기간: {(string)info.CustomProperties["date"]}\r\n{(string)info.CustomProperties["desc"]}";
+        time = ((string)info.CustomProperties["TimerData"]);
+        isTimerOn = true;
+        Debug.Log("time" + time + isTimerOn);
         //map id 설정
         map_id = (int)info.CustomProperties["map_id"];
     }
@@ -61,5 +69,13 @@ public class RoomItem : MonoBehaviour
         //InputField inputField = go.GetComponent<InputField>();
         ////3. text에 roomName 넣자.
         //inputField.text = name;
+    }
+
+    void CountDownTimer()
+    {
+        DateTime expiringTime = DateTime.Parse(time);
+        print(time + "카운트다운");
+        TimeSpan remainingTime = expiringTime - DateTime.Now;
+        textTimer.text = $"챌린지 시작까지: {remainingTime.ToString(@"dd'일 'hh'시간 'mm'분 'ss'초'")} 남음";       
     }
 }

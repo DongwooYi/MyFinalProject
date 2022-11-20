@@ -52,9 +52,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public Dropdown dropdown;
 
     [Header("시작 시간")]
-    public string dateSelected;
+    [Header("시작 시간")]
     public string startDate;
-    float dueDate;
     DateTime dateTime;
     DateTime dateTime1;
     #region 요일 선택
@@ -91,12 +90,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         // 총인원(InputField)이 변경될때 호출되는 함수 등록
         inputMaxPlayer.onValueChanged.AddListener(OnMaxPlayerValueChanged);
         string[] s = Microphone.devices;
-        float time = (float.Parse(dateSelected));
+
     }
     private void Update()
     {
         dateTime = DateTime.Now;
-        //dueDate = time * 60 * 60;
         if (NPC.isTiggerEnter)
         {
             setRoom.SetActive(true);
@@ -113,6 +111,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             setRoom.SetActive(false);
         }
+        if (Input.GetKeyDown(KeyCode.F11))
+        {
+           setRoomlist.SetActive(true);
+        }
         ToggleCheck();
     }
     public void Gotest()
@@ -122,7 +124,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void OnRoomNameValueChanged(string s)
     {
         //참가
-      //  btnJoin.interactable = s.Length > 0;
+        //  btnJoin.interactable = s.Length > 0;
         //생성
         btnCreate.interactable = s.Length > 0 && inputMaxPlayer.text.Length > 0;
     }
@@ -162,19 +164,21 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         // custom 정보를 셋팅
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
 
-        hash["desc"] = $"회의 요일: {monText}{tueText}{wedText}{thuText}{friText}{sunText}{sunText}\r\n{inputFieldRoomDescription.text}"; 
+        hash["desc"] = $"회의 요일: {monText}{tueText}{wedText}{thuText}{friText}{sunText}{sunText}\r\n방 설명: {inputFieldRoomDescription.text}";
         hash["map_id"] = UnityEngine.Random.Range(0, mapThumbs.Length);
         hash["room_name"] = inputRoomName.text;
         hash["password"] = inputPassword.text;
         hash["date"] = textCalendar.text;
+        hash["TimerData"] = startDate;
+
+
         roomOptions.CustomRoomProperties = hash;
         // custom 정보를 공개하는 설정
         roomOptions.CustomRoomPropertiesForLobby = new string[] {
-            "desc", "map_id", "room_name", "password", "date"
+            "desc", "map_id", "room_name", "password", "date", "TimerData"
         };
 
         // 방 생성 요청 (해당 옵션을 이용해서)
-        print(dueDate);
         PhotonNetwork.CreateRoom(inputRoomName.text + inputPassword.text, roomOptions);
     }
 
@@ -278,7 +282,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         foreach (RoomInfo info in roomCache.Values)
         {
-            
+
             //룸아이템 만든다.
             GameObject go = Instantiate(roomItemFactory, trListContent);
             //룸아이템 정보를 셋팅(방제목(0/0))
@@ -304,15 +308,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //룸이름 설정
         inputRoomName.text = room;
 
-         //만약에 이전 맵 Thumbnail이 활성화가 되어있다면
-         if (prevMapId > -1)
-         {
-             //이전 맵 Thumbnail을 비활성화
-             mapThumbs[prevMapId].SetActive(false);
-         }
+        //만약에 이전 맵 Thumbnail이 활성화가 되어있다면
+        if (prevMapId > -1)
+        {
+            //이전 맵 Thumbnail을 비활성화
+            mapThumbs[prevMapId].SetActive(false);
+        }
 
-         //맵 Thumbnail 설정
-         mapThumbs[map_id].SetActive(true);
+        //맵 Thumbnail 설정
+        mapThumbs[map_id].SetActive(true);
 
         //이전 맵 id 저장
         prevMapId = map_id;
@@ -331,27 +335,27 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (val == 0)
         {
-            dateSelected = "24";
+            
             dateTime1 = dateTime.AddHours(24);
             startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
             print("24");
         }
         if (val == 1)
         {
-            dateSelected = "72";
+           
             dateTime1 = dateTime.AddHours(72);
             startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
             print("72");
         }
         if (val == 2)
         {
-            dateSelected = "168";
+           
             dateTime1 = dateTime.AddHours(168);
             startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
             print("168");
         }
     }
-  public void ToggleCheck()
+    public void ToggleCheck()
     {
         //Debug.Log("월: " + isCheckMon +"\r\n화: " + isCheckTue + "\r\n수: "+ isCheckWed+ "\r\n목: "+ isCheckThu+"\r\n금: "+isCheckFri+"\r\n토: "+isCheckSat+"\r\n일:"+isCheckSun);
         if (toggleMon.isOn)
@@ -359,7 +363,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             isCheckMon = true;
             monText = "월";
         }
-        else 
+        else
         {
             isCheckMon = false;
             monText = "";
@@ -369,7 +373,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             isCheckTue = true;
             tueText = "화";
         }
-        else { isCheckTue = false;
+        else
+        {
+            isCheckTue = false;
             thuText = "";
         }
         if (toggleWed.isOn)
@@ -377,7 +383,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             isCheckWed = true;
             wedText = "수";
         }
-        else { isCheckWed = false;
+        else
+        {
+            isCheckWed = false;
             wedText = "";
         }
         if (toggleThu.isOn)
@@ -385,7 +393,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             isCheckThu = true;
             thuText = "목";
         }
-        else { isCheckThu = false;
+        else
+        {
+            isCheckThu = false;
             thuText = "";
         }
         if (toggleFri.isOn)
@@ -393,7 +403,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             isCheckFri = true;
             friText = "금";
         }
-        else { isCheckFri = false;
+        else
+        {
+            isCheckFri = false;
             friText = "";
         }
         if (toggleSat.isOn)
@@ -401,25 +413,25 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             isCheckSat = true;
             satText = "토";
         }
-        else { isCheckSat = false;
-          satText = "";
+        else
+        {
+            isCheckSat = false;
+            satText = "";
         }
         if (toggleSun.isOn)
         {
             isCheckSun = true;
             sunText = "일";
         }
-        else { isCheckSun = false;
+        else
+        {
+            isCheckSun = false;
             sunText = "";
         }
 
     }
-   string CountDownTimer()
-    {
-        dueDate -= Time.deltaTime;
-        TimeSpan timeSpan = TimeSpan.FromSeconds(dueDate);
-        string timer = string.Format("{0:00}:{1:00}{2:00}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
-        return timer;
-    }
+
+
 }
+ 
    

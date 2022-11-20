@@ -38,7 +38,7 @@ public class RoomItem : MonoBehaviour
         SetInfo((string)info.CustomProperties["room_name"], info.PlayerCount, info.MaxPlayers);
 
         //desc 설정
-        roomDesc.text = (string)info.CustomProperties["desc"];
+        roomDesc.text = $"{(string)info.CustomProperties["date"]}\r\n{(string)info.CustomProperties["desc"]}";
 
         //map id 설정
         map_id = (int)info.CustomProperties["map_id"];

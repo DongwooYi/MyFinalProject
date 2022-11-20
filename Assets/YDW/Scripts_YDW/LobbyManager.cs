@@ -54,9 +54,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [Header("시작 시간")]
     public string dateSelected;
     public string startDate;
+    float dueDate;
     DateTime dateTime;
     DateTime dateTime1;
-
+    #region 요일 선택
     [Header("요일 선택")]
     public Toggle toggleMon;
     public Toggle toggleTue;
@@ -79,10 +80,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public string friText;
     public string satText;
     public string sunText;
+    #endregion
 
     void Start()
     {
-
         welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
         dropdown.onValueChanged.AddListener(delegate { HandleInputData(dropdown.value); });
         // 방이름(InputField)이 변경될때 호출되는 함수 등록
@@ -90,11 +91,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         // 총인원(InputField)이 변경될때 호출되는 함수 등록
         inputMaxPlayer.onValueChanged.AddListener(OnMaxPlayerValueChanged);
         string[] s = Microphone.devices;
+        float time = (float.Parse(dateSelected));
     }
     private void Update()
     {
         dateTime = DateTime.Now;
-       // var time = (float.Parse(dateSelected.ToString()));
+        //dueDate = time * 60 * 60;
         if (NPC.isTiggerEnter)
         {
             setRoom.SetActive(true);
@@ -130,8 +132,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //생성
         btnCreate.interactable = s.Length > 0 && inputRoomName.text.Length > 0;
     }
-
-
     public void CreateChatroom()
     {
         RoomOptions roomOptions = new RoomOptions();
@@ -162,7 +162,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         // custom 정보를 셋팅
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
 
-        hash["desc"] = $"회의 요일: {monText.ToString()}{tueText.ToString()}{wedText.ToString()}{thuText.ToString()}{friText.ToString()}{sunText.ToString()}{sunText.ToString()}\r\n{inputFieldRoomDescription.text}"; 
+        hash["desc"] = $"회의 요일: {monText}{tueText}{wedText}{thuText}{friText}{sunText}{sunText}\r\n{inputFieldRoomDescription.text}"; 
         hash["map_id"] = UnityEngine.Random.Range(0, mapThumbs.Length);
         hash["room_name"] = inputRoomName.text;
         hash["password"] = inputPassword.text;
@@ -174,6 +174,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         };
 
         // 방 생성 요청 (해당 옵션을 이용해서)
+        print(dueDate);
         PhotonNetwork.CreateRoom(inputRoomName.text + inputPassword.text, roomOptions);
     }
 
@@ -329,19 +330,22 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void HandleInputData(int val)
     {
         if (val == 0)
-        {            
+        {
+            dateSelected = "24";
             dateTime1 = dateTime.AddHours(24);
             startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
             print("24");
         }
         if (val == 1)
-        {            
+        {
+            dateSelected = "72";
             dateTime1 = dateTime.AddHours(72);
             startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
             print("72");
         }
         if (val == 2)
-        {         
+        {
+            dateSelected = "168";
             dateTime1 = dateTime.AddHours(168);
             startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
             print("168");
@@ -409,6 +413,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             sunText = "";
         }
 
+    }
+   string CountDownTimer()
+    {
+        dueDate -= Time.deltaTime;
+        TimeSpan timeSpan = TimeSpan.FromSeconds(dueDate);
+        string timer = string.Format("{0:00}:{1:00}{2:00}", timeSpan.Hours, timeSpan.Minutes, timeSpan.Seconds);
+        return timer;
     }
 }
    

@@ -17,7 +17,6 @@ public class chatData
     }
 }
 #endregion
-
 #region 현재 책/과거 책
 [System.Serializable]
 public class CurrBookdata
@@ -45,7 +44,6 @@ public class PastBookdata
 
 }
 #endregion
-
 #region 배너 관련 책
 [System.Serializable]
 public class AllBookReview
@@ -56,7 +54,6 @@ public class AllBookReview
     public RawImage thumbnail;
 }
 #endregion
-
 #region 회원가입
 [System.Serializable]
 public class UserData
@@ -91,6 +88,16 @@ public class LoginData
 public class ImageData
 {
     public byte[] imageDatas;
+}
+#endregion
+#region
+[System.Serializable]
+public class RoomData
+{
+    public string RoomName;
+    public string ThePeriodProject;
+    public string MeetingDate;
+
 }
 #endregion
 public enum RequestType

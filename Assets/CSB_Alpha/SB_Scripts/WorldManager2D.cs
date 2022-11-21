@@ -53,6 +53,8 @@ public class WorldManager2D : MonoBehaviour
     public Transform content;   // 책 목록 content
     public GameObject resultFactory;    // 도서 검색 결과
 
+    public GameObject showBook;
+
     // -------------------------------------------------------------------------------
     // 나의 현재 책 목록
     public List<_MyBookInfo> myBookList = new List<_MyBookInfo>();
@@ -77,10 +79,10 @@ public class WorldManager2D : MonoBehaviour
 
     private void Update()
     {
-/*        if (bookPastCount > 2)
+        if (bookPastCount > 2)
         {
-
-        }*/
+            showBook.GetComponent<Outline>().OutlineColor = Color.yellow;
+        }
     }
 
     void OnValueChanged(string s)

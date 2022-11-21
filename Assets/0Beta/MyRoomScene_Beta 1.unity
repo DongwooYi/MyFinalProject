@@ -19446,11 +19446,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4603593404386480, guid: 8d669beb3609811419654e7d89da4c55, type: 3}
   m_PrefabInstance: {fileID: 1765201147}
   m_PrefabAsset: {fileID: 0}
---- !u!198 &1573715828 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198818429960264178, guid: 8d669beb3609811419654e7d89da4c55, type: 3}
-  m_PrefabInstance: {fileID: 1765201147}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1594809776
 GameObject:
   m_ObjectHideFlags: 0
@@ -22899,11 +22894,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1851127535}
   - component: {fileID: 1851127534}
-  - component: {fileID: 1851127536}
   - component: {fileID: 1851127538}
-  - component: {fileID: 1851127539}
-  - component: {fileID: 1851127541}
-  - component: {fileID: 1851127540}
   m_Layer: 0
   m_Name: LobbyManager
   m_TagString: Untagged
@@ -22924,30 +22915,30 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   welcomeText: {fileID: 1311056388}
-  inputFieldRoomDescription: {fileID: 0}
-  inputRoomName: {fileID: 0}
-  inputPassword: {fileID: 0}
-  inputMaxPlayer: {fileID: 0}
-  btnJoin: {fileID: 0}
-  btnCreate: {fileID: 0}
+  inputFieldRoomDescription: {fileID: 1374693886}
+  inputRoomName: {fileID: 23954221}
+  inputPassword: {fileID: 837795906}
+  inputMaxPlayer: {fileID: 272874465}
+  btnJoin: {fileID: 1377652916}
+  btnCreate: {fileID: 1928142535}
   doorCheck: {fileID: 9096773608882701692}
   roomItemFactory: {fileID: 356185162197043259, guid: 15a15981542e4e948906f696a2171cd0, type: 3}
-  trListContent: {fileID: 0}
+  trListContent: {fileID: 178871613}
   loadGallery: {fileID: 1851127538}
   mapThumbs: []
-  setRoom: {fileID: 0}
-  setRoomlist: {fileID: 0}
-  textCalendar: {fileID: 0}
-  unityCalendar: {fileID: 0}
-  dropdown: {fileID: 0}
+  setRoom: {fileID: 2043631493}
+  setRoomlist: {fileID: 218841929}
+  textCalendar: {fileID: 793954939}
+  unityCalendar: {fileID: 1209584524}
+  dropdown: {fileID: 1594809778}
   startDate: 
-  toggleMon: {fileID: 0}
-  toggleTue: {fileID: 0}
-  toggleWed: {fileID: 0}
-  toggleThu: {fileID: 0}
-  toggleFri: {fileID: 0}
-  toggleSat: {fileID: 0}
-  toggleSun: {fileID: 0}
+  toggleMon: {fileID: 1461801049}
+  toggleTue: {fileID: 764361568}
+  toggleWed: {fileID: 1412058235}
+  toggleThu: {fileID: 536327335}
+  toggleFri: {fileID: 248514935}
+  toggleSat: {fileID: 216523243}
+  toggleSun: {fileID: 1070334359}
   isCheckMon: 0
   isCheckTue: 0
   isCheckWed: 0
@@ -22977,24 +22968,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1851127536
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1851127533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 411bf42cb3641f146894480c5a21c276, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hourTime: {fileID: 0}
-  textTimerTest: {fileID: 0}
-  startdate: {fileID: 0}
-  totalHourTime: 0
-  isTimercheckTrue: 0
-  isCheckStartTimer: 0
 --- !u!114 &1851127538
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -23009,88 +22982,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lobbyManager: {fileID: 1851127533}
   image: {fileID: 457477824}
---- !u!114 &1851127539
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1851127533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7282487f1bd38e14dbdc2d908fd046b3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  metalsText: {fileID: 1527446982}
-  coinsText: {fileID: 496016391}
-  gemsText: {fileID: 828155131}
-  rewardsCanvas: {fileID: 754510107}
-  openButton: {fileID: 1603004631}
-  closeButton: {fileID: 1297247715}
-  rewardImage: {fileID: 1557784778}
-  rewardAmountText: {fileID: 253129114}
-  claimButton: {fileID: 11350563}
-  rewardsNotification: {fileID: 1083740619}
-  noMoreRewardsPanel: {fileID: 375217694}
-  iconMetalsSprite: {fileID: 21300010, guid: e5ed181af84de7b4a8d5489ba55d5414, type: 3}
-  iconCoinsSprite: {fileID: 21300008, guid: e5ed181af84de7b4a8d5489ba55d5414, type: 3}
-  iconGemsSprite: {fileID: 21300006, guid: e5ed181af84de7b4a8d5489ba55d5414, type: 3}
-  rewardsDB: {fileID: 11400000, guid: 840f44a1a9ab3b646b5817b130037d5e, type: 2}
-  fxMetals: {fileID: 1573715828}
-  fxCoins: {fileID: 2087014099}
-  fxGems: {fileID: 1989093241}
-  nextRewardDelay: 10
-  checkForRewardDelay: 2
---- !u!114 &1851127540
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1851127533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6a4a436fb3788bb47a68d0ef2a5a552a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  Tags: {fileID: 0}
-  doing: {fileID: 0}
-  complete: {fileID: 0}
-  hold: {fileID: 0}
-  cancel: {fileID: 0}
-  di: {fileID: 0}
-  TagContent: {fileID: 0}
-  cardContent: {fileID: 0}
-  meTagContent: {fileID: 0}
-  cardPlayTagContent: {fileID: 0}
-  cardObject: {fileID: 0}
-  cardDisplay: {fileID: 0}
-  CardNameText: {fileID: 0}
-  DescText: {fileID: 0}
-  memoUI: {fileID: 0}
-  idx: []
-  canTag: 0
-  cardTexts: {fileID: 0}
---- !u!114 &1851127541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1851127533}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3587cfd971cda8b4385dd28638541647, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  type: {fileID: 0}
-  btn_add: {fileID: 0}
-  descDisplay: {fileID: 0}
-  descDisplay_cancelBtn: {fileID: 0}
-  descDisplay_OkBtn: {fileID: 0}
-  input_Title: {fileID: 0}
-  input_memo: {fileID: 0}
-  dataList2: []
 --- !u!1 &1853578883
 GameObject:
   m_ObjectHideFlags: 0
@@ -24721,11 +24612,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1987222264}
   m_CullTransparentMesh: 1
---- !u!198 &1989093241 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198057594858985612, guid: 10b4bce8c88e3f4499031ee16cbb1f37, type: 3}
-  m_PrefabInstance: {fileID: 1193304035}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1989093243 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4166546489801070, guid: 10b4bce8c88e3f4499031ee16cbb1f37, type: 3}
@@ -25743,11 +25629,6 @@ CanvasRenderer:
 --- !u!4 &2087014097 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4701665169273488, guid: f48faa1725631d64987ae8060137c620, type: 3}
-  m_PrefabInstance: {fileID: 1546000273}
-  m_PrefabAsset: {fileID: 0}
---- !u!198 &2087014099 stripped
-ParticleSystem:
-  m_CorrespondingSourceObject: {fileID: 198551463337987226, guid: f48faa1725631d64987ae8060137c620, type: 3}
   m_PrefabInstance: {fileID: 1546000273}
   m_PrefabAsset: {fileID: 0}
 --- !u!1 &2102414715

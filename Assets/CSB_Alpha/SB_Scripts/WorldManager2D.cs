@@ -75,6 +75,14 @@ public class WorldManager2D : MonoBehaviour
 
     }
 
+    private void Update()
+    {
+/*        if (bookPastCount > 2)
+        {
+
+        }*/
+    }
+
     void OnValueChanged(string s)
     {
         btnSearch.interactable = s.Length > 0;  // 검색 버튼 활성화

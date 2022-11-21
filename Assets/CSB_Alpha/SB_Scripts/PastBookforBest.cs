@@ -15,22 +15,11 @@ public class PastBookforBest : MonoBehaviour
     {
         bestBookContent = GameObject.Find("Canvas").transform.Find("BestBookPanel").Find("Scroll View_BestBook").Find("Viewport").Find("Content_Best");
         bestBook = GameObject.Find("myroom/MyBestBookshelf").GetComponent<MyBestBook>();
-        //bestBook.idx = FindMyIndex();
-        //bestBook.toggles.Add(FindMyIndex(), false);
         bestBook.toggleList.Add(false);
     }
 
     void Update()
     {
         
-    }
-
-    // 나의 인덱스를 찾음
-    public int FindMyIndex()
-    {
-        // 내가 내 부모의 몇번째인지
-        int idx = transform.GetSiblingIndex();
-
-        return idx;
     }
 }

@@ -37,7 +37,7 @@ public class PhotonGameManager : MonoBehaviourPunCallbacks
     {
         base.OnLeftRoom();
         print(System.Reflection.MethodBase.GetCurrentMethod().Name);
-        PhotonNetwork.LoadLevel("MyRoomScene_Beta");
+        PhotonNetwork.LoadLevel("MyRoomScene_Beta 1");
     }
     
 }

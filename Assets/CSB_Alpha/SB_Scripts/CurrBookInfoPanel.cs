@@ -28,6 +28,7 @@ public class CurrBookInfoPanel : MonoBehaviour
     public GameObject player;   // 플레이어
     public GameObject bookQuad0;   // 머리 위 책 관련
     public GameObject bookQuad1;   // 머리 위 책 관련
+    public GameObject showBook;
 
     GameObject book;
 
@@ -47,9 +48,10 @@ public class CurrBookInfoPanel : MonoBehaviour
         if (headBook.isOn)
         {
             print("토글" + headBook.isOn);
-            bookQuad0.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
-            bookQuad1.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
-            player.transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
+            // bookQuad0.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
+            // bookQuad1.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
+            showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
+            //player.transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
         }
     }
 
@@ -57,9 +59,9 @@ public class CurrBookInfoPanel : MonoBehaviour
     {
         player = GameObject.Find("Character");
 
-        bookQuad0 = GameObject.Find("BookQuad");
-        bookQuad1 = GameObject.Find("BookQuad(1)");
-
+        //bookQuad0 = GameObject.Find("BookQuad");
+        //bookQuad1 = GameObject.Find("BookQuad(1)");
+        showBook = GameObject.Find("ShowBook");
 
         worldManager = GameObject.Find("WorldManager");
         wm = worldManager.GetComponent<WorldManager2D>();

@@ -72,12 +72,6 @@ public class MyBestBook : MonoBehaviour
                 //Debug.Log("toggles[idx] = me.GetComponent<Toggle>().isOn;" + toggles[idx] + ":" + me.GetComponent<Toggle>().isOn);
             }
 
-
-            foreach(bool data in toggles.Values)
-            {
-                print("Values" + data);
-            }
-
                     // 토글 선택하면 
             print("도서 목록 출력");
 
@@ -89,7 +83,6 @@ public class MyBestBook : MonoBehaviour
     }
 
     // 확인 버튼
-    // 클릭하면 toggles dictionary 의 values 가 true 인 친구들로 인생책이 등록됨
     public void OnClickSetBestBook()
     {
         print("1111111");

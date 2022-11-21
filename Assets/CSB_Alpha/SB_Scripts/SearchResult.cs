@@ -67,7 +67,6 @@ public class SearchResult : MonoBehaviour
     // 그 클래스를 MyBookList 에 추가
     public void OnClickAddCurrBook()
     {
-
         // 현재 도서 count 1 증가
         wm.bookCurrCount++;
         _MyBookInfo myBookInfo = new _MyBookInfo();

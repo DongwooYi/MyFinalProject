@@ -91,8 +91,6 @@ public class RegisterManager : MonoBehaviour
             // 1. 회원 가입 성공했습니다. ui
             rgiOk.SetActive(true);
             print("통신 성공");
-            // 2. PlayerPref에 key는 jwt, value는 token
-            //PlayerPrefs.SetString("jwt", );
         }
         else
         {

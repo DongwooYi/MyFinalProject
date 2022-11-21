@@ -22,7 +22,6 @@ public class MyBestBook : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Character");     
-
     }
 
     void Update()

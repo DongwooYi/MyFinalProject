@@ -10,6 +10,7 @@ public class MyBestBook : MonoBehaviour
 {
     // Toggle 들로 구성된 List
     public Dictionary<int, bool> toggles = new Dictionary<int, bool>();
+    public List<bool> toggleList = new List<bool>();
     
     public GameObject player;   // 플레이어
     public GameObject myPastBookPanel;  // 다읽은 책 목록 UI
@@ -22,6 +23,8 @@ public class MyBestBook : MonoBehaviour
     {
         player = GameObject.Find("Character");
         me.GetComponent<Button>().onClick.AddListener(ShowClickHereBestBook);
+       
+
     }
 
     void Update()
@@ -66,9 +69,10 @@ public class MyBestBook : MonoBehaviour
                 idx = me.transform.GetSiblingIndex();
                 print("나의 인덱스 " + idx);
 
-                toggles[idx] = me.GetComponent<Toggle>().isOn;
+                //toggles[idx] = me.GetComponent<Toggle>().isOn;
+                toggleList[idx] = me.GetComponent<Toggle>().isOn;
                
-                Debug.Log("toggles[idx] = me.GetComponent<Toggle>().isOn;" + toggles[idx] + ":" + me.GetComponent<Toggle>().isOn);
+                //Debug.Log("toggles[idx] = me.GetComponent<Toggle>().isOn;" + toggles[idx] + ":" + me.GetComponent<Toggle>().isOn);
             }
 
 

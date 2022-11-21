@@ -16,7 +16,8 @@ public class PastBookforBest : MonoBehaviour
         bestBookContent = GameObject.Find("Canvas").transform.Find("BestBookPanel").Find("Scroll View_BestBook").Find("Viewport").Find("Content_Best");
         bestBook = GameObject.Find("myroom/MyBestBookshelf").GetComponent<MyBestBook>();
         //bestBook.idx = FindMyIndex();
-        bestBook.toggles.Add(FindMyIndex(), false);
+        //bestBook.toggles.Add(FindMyIndex(), false);
+        bestBook.toggleList.Add(false);
     }
 
     void Update()

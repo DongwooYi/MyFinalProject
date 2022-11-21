@@ -55,17 +55,13 @@ public class ChatManager : MonoBehaviourPun
     Color idColor;
     Color otherColor;
 
-    private void Awake()
-    {
-   
-       
-    }
-
+    YDW_CharacterControllerPhoton ydw_CharacterControllerPhoton;
     void Start()
     {
+        ydw_CharacterControllerPhoton = GameObject.FindObjectOfType<YDW_CharacterControllerPhoton>();
         //InputField에서 엔터를 쳤을 때 호출되는 함수 등록
         inputChat.onSubmit.AddListener(OnSubmit);
-      
+   
         //idColor를 랜덤하게
         //idColor = new Color32((byte)Random.Range(0, 256),(byte)Random.Range(0, 256),(byte)Random.Range(0, 256),255);
         idColor = Color.yellow;
@@ -138,7 +134,6 @@ public class ChatManager : MonoBehaviourPun
     public RectTransform AIScrollView;
 
     string jsonData;
-    public GameObject speechbubbleFactory;
 
     float currentTime = 0;
     [PunRPC]
@@ -173,8 +168,8 @@ public class ChatManager : MonoBehaviourPun
         //3.가져온 컴포넌트에 s를 셋팅
         chat.SetText(s);
         
-       // gameObjectPlayerMine.gameObject.GetComponent<YDW_CharacterControllerPhoton>().speecgBubbleGameObj.SetActive(true);
-       // gameObjectPlayerMine.gameObject.GetComponent<YDW_CharacterControllerPhoton>().speechBubble.text = chatText;
+        ydw_CharacterControllerPhoton.speecgBubbleGameObj.SetActive(true);
+        ydw_CharacterControllerPhoton.speechBubble.text = chatText;
        
         //Json 보내기 -> List에 담기
         chatList.Add(info);

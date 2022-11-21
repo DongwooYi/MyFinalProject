@@ -124,7 +124,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8613809099920707880}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 9085046f02f69544eb97fd06b6048fe2, type: 3}
   m_Name: 
@@ -185,6 +185,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ebbcdfe937c4140408a5762597a5eae7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bestBookContent: {fileID: 0}
 --- !u!1 &8613809100659822544
 GameObject:
   m_ObjectHideFlags: 0

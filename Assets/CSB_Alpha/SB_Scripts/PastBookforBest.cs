@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
 // 생성될 때 MyBestBook.cs 의 toggles 
@@ -16,8 +15,6 @@ public class PastBookforBest : MonoBehaviour
     {
         bestBookContent = GameObject.Find("Canvas").transform.Find("BestBookPanel").Find("Scroll View_BestBook").Find("Viewport").Find("Content_Best");
         bestBook = GameObject.Find("myroom/MyBestBookshelf").GetComponent<MyBestBook>();
-        print(bestBookContent.name);
-        print(bestBook.name);
         //bestBook.idx = FindMyIndex();
         bestBook.toggles.Add(FindMyIndex(), false);
     }
@@ -32,7 +29,6 @@ public class PastBookforBest : MonoBehaviour
     {
         // 내가 내 부모의 몇번째인지
         int idx = transform.GetSiblingIndex();
-        print(idx);
 
         return idx;
     }

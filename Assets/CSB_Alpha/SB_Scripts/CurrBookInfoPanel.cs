@@ -7,6 +7,8 @@ using Newtonsoft.Json.Linq;
 
 public class CurrBookInfoPanel : MonoBehaviour
 {
+    public GameObject bookFactory;  // 담은도서 목록 공장
+
     GameObject worldManager;
     List<_MyPastBookInfo> myPastBookInfoList = new List<_MyPastBookInfo>();
     //List<_MyPastBookInfo> myPastBookListNet = new List<_MyPastBookInfo>();
@@ -19,7 +21,7 @@ public class CurrBookInfoPanel : MonoBehaviour
     public Text publishInfo;
     public Text isbn;
     //public Text rating;
-    public Text review;
+    public InputField review;
     public RawImage thumbnail;
 
     bool isDone;
@@ -124,6 +126,8 @@ public class CurrBookInfoPanel : MonoBehaviour
             myBookInfo.review = inputFieldReview.text;
 
             wm.myDoneBookList.Add(myBookInfo);
+
+            // POSt 로 보내기
         }
         else
         {
@@ -134,13 +138,18 @@ public class CurrBookInfoPanel : MonoBehaviour
             wm.myAllBookList[idx].bookPublishInfo = publishInfo.text;
             wm.myAllBookList[idx].bookISBN = isbn.text;
             wm.myAllBookList[idx].thumbnail = thumbnail;
-            wm.myAllBookList[idx].isDone = true;
+            wm.myAllBookList[idx].isDone = false;
             wm.myAllBookList[idx].rating = dropdown.captionText.text;
             wm.myAllBookList[idx].review = inputFieldReview.text;
         }
+
+        bookManager.ShowAllBookList();
+        print("111111111");
     }
 
-
+   
+    
+    // ===============================================================
     // 등록 버튼 (누르면 <다읽은 책목록>에 추가)
     public void OnClickAddPastBook()
     {

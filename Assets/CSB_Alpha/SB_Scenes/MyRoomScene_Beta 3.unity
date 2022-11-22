@@ -4926,6 +4926,7 @@ MonoBehaviour:
   resultFactory: {fileID: 318626364981816602, guid: d6147a7b136793b45a66ee1aa5f3dddd, type: 3}
   showBook: {fileID: 1672068904}
   myAllBookList: []
+  myDoneBookList: []
   myBookList: []
   myBookListNet: []
   myPastBookList: []
@@ -7292,7 +7293,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.0000069609273, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &525621047
 MonoBehaviour:
@@ -19352,7 +19353,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1523634684
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19781,7 +19782,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.0000069609273, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1568041449
 MonoBehaviour:
@@ -23788,7 +23789,7 @@ MonoBehaviour:
   content: {fileID: 123335692}
   bookContent: {fileID: 525621046}
   bookContentIsDoneT: {fileID: 1568041448}
-  worldManager: {fileID: 359941974}
+  wm: {fileID: 359941974}
   distance: 1.5
   me: {fileID: 0}
   idx: 0

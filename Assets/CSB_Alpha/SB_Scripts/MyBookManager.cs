@@ -31,7 +31,7 @@ public class MyBookManager : MonoBehaviour
     public Transform bookContent;
     public Transform bookContentIsDoneT;
 
-    public WorldManager2D worldManager;
+    public WorldManager2D wm;
 
     List<_MyBookInfo> myBookList = new List<_MyBookInfo>(); // 담은책
 
@@ -47,7 +47,7 @@ public class MyBookManager : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Character");
-        myBookList = worldManager.myAllBookList;
+        myBookList = wm.myAllBookList;
         // 여기서 씬 시작할 때 다 읽었던 책 한번 뿌려주고 시작
         //HttpGetPastBookList();    
     }
@@ -68,7 +68,8 @@ public class MyBookManager : MonoBehaviour
         // 만약 플레이어가 책장 가까이 가면
         if(Vector3.Distance(player.transform.position, myBookshelf.transform.position) < distance)
         {
-            ShowClickHerePastBook();
+            //ShowClickHerePastBook();
+            ShowBookIsDoneT();
         }
         else
         {
@@ -109,6 +110,15 @@ public class MyBookManager : MonoBehaviour
                         }
                     }
 
+                    // 자식이 있다면 삭제
+                    Transform[] childList1 = bookContentIsDoneT.GetComponentsInChildren<Transform>();
+                    if (childList1 != null)
+                    {
+                        for (int i = 1; i < childList1.Length; i++)
+                        {
+                            Destroy(childList1[i].gameObject);
+                        }
+                    }
 
                     // 담은도서의 수만큼 프리펩 생성
                     for (int i = 0; i < myBookList.Count; i++)
@@ -161,6 +171,132 @@ public class MyBookManager : MonoBehaviour
         }
     }
 
+    public void ShowAllBookList()
+    {
+        // 자식이 있다면 삭제
+        Transform[] childList = bookContent.GetComponentsInChildren<Transform>();
+        if (childList != null)
+        {
+            for (int i = 1; i < childList.Length; i++)
+            {
+                Destroy(childList[i].gameObject);
+            }
+        }
+
+        // 자식이 있다면 삭제
+        Transform[] childList1 = bookContentIsDoneT.GetComponentsInChildren<Transform>();
+        if (childList1 != null)
+        {
+            for (int i = 1; i < childList1.Length; i++)
+            {
+                Destroy(childList1[i].gameObject);
+            }
+        }
+
+        // 담은도서의 수만큼 프리펩 생성
+        for (int i = 0; i < wm.myAllBookList.Count; i++)
+        {
+            // 만약 isDone 이 true 면 다읽음 목록에 보여줌
+            if (wm.myAllBookList[i].isDone)
+            {
+                GameObject go = Instantiate(bookFactory, bookContentIsDoneT);
+                // 얘의 RawImage 의 Texture 를 리스트 순서대로
+                go.GetComponent<RawImage>().texture = wm.myAllBookList[i].thumbnail.texture;
+                MyBook myBook = go.GetComponent<MyBook>();
+
+                myBook.thumbnail.texture = wm.myAllBookList[i].thumbnail.texture;
+                myBook.bookTitle = wm.myAllBookList[i].bookName;
+                myBook.bookAuthor = wm.myAllBookList[i].bookAuthor;
+                myBook.bookInfo = wm.myAllBookList[i].bookPublishInfo;
+                myBook.bookIsbn = wm.myAllBookList[i].bookISBN;
+                myBook.bookRating = wm.myAllBookList[i].rating;
+                myBook.bookReview = wm.myAllBookList[i].review;
+                myBook.isDone = wm.myAllBookList[i].isDone;
+                // index 인 i 값도 넘겨줘야할듯
+                myBook.idx = i;
+            }
+            else
+            {
+                GameObject go = Instantiate(bookFactory, bookContent);
+                // 얘의 RawImage 의 Texture 를 리스트 순서대로
+                go.GetComponent<RawImage>().texture = wm.myAllBookList[i].thumbnail.texture;
+                MyBook myBook = go.GetComponent<MyBook>();
+
+                myBook.thumbnail.texture = wm.myAllBookList[i].thumbnail.texture;
+                myBook.bookTitle = wm.myAllBookList[i].bookName;
+                myBook.bookAuthor = wm.myAllBookList[i].bookAuthor;
+                myBook.bookInfo = wm.myAllBookList[i].bookPublishInfo;
+                myBook.bookIsbn = wm.myAllBookList[i].bookISBN;
+                myBook.bookRating = wm.myAllBookList[i].rating;
+                myBook.bookReview = wm.myAllBookList[i].review;
+                myBook.isDone = wm.myAllBookList[i].isDone;
+
+                // index 인 i 값도 넘겨줘야할듯
+                myBook.idx = i;
+            }
+
+        }
+    }
+
+        /* 책장 앞에서 isDone == true 인 책 보기 관련 */
+    public void ShowBookIsDoneT()
+    {
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitInfo;
+
+            if (Physics.Raycast(ray, out hitInfo))
+            {
+                print(hitInfo.transform.name);
+                if (hitInfo.transform.gameObject.tag == "ClickHere" || hitInfo.transform.gameObject.name == "MyBookshelf")
+                {
+                    //HttpGetPastBook();  // 네트워크 통신 -> 함수 만들어줘야함
+                    print("완독도서 목록 출력");
+
+                    // 자식이 있다면 삭제
+                    Transform[] childList = content.GetComponentsInChildren<Transform>();
+                    if (childList != null)
+                    {
+                        for (int i = 1; i < childList.Length; i++)
+                        {
+                            Destroy(childList[i].gameObject);
+                        }
+                    }
+
+                    // WorldManager 의 myAllBookList 의 중 isDone == true 인 것들 프리펩 생성
+                    for (int i = 0; i < wm.myAllBookList.Count; i++)
+                    {
+                        if (wm.myAllBookList[i].isDone)
+                        {
+                            // 프리펩 생성
+                            GameObject go = Instantiate(pastBookFactory, content);
+                            go.GetComponent<RawImage>().texture = wm.myAllBookList[i].thumbnail.texture;
+                            MyBook pastBook = go.GetComponent<MyBook>();
+
+                            pastBook.thumbnail.texture = myBookList[i].thumbnail.texture;
+                            pastBook.bookTitle = myBookList[i].bookName;
+                            pastBook.bookAuthor = myBookList[i].bookAuthor;
+                            pastBook.bookInfo = myBookList[i].bookPublishInfo;
+                            pastBook.bookIsbn = myBookList[i].bookISBN;
+                            pastBook.bookRating = myBookList[i].rating;
+                            pastBook.bookReview = myBookList[i].review;
+                            pastBook.isDone = myBookList[i].isDone;
+
+                            // index 인 i 값도 넘겨줘야할듯
+                            pastBook.idx = i;
+                        }
+                        else { continue; }
+                    }
+
+                    myPastBookPanel.SetActive(true);
+                    myBookshelf.transform.GetChild(0).gameObject.SetActive(false);
+                    return;
+                }
+            }
+        }
+    }
+
 
     /* 현재도서 목록 관련 */
     public void ShowClickHereCurrBook()
@@ -170,7 +306,7 @@ public class MyBookManager : MonoBehaviour
         // 손가락 쿼드 항상 카메라 방향
         myDesk.transform.GetChild(0).forward = Camera.main.transform.forward;
 
-        myCurrBookList = worldManager.myBookList;
+        myCurrBookList = wm.myBookList;
         //myBookListNet = worldManager.myBookListNet;
 
         // MyCurrBookPanel 의 자식의 인덱스와 myCurrBookList 의 인덱스 맞춰서 넣어줌
@@ -208,7 +344,7 @@ public class MyBookManager : MonoBehaviour
         // 손가락 쿼드의 앞방향을 항상 카메라
         myBookshelf.transform.GetChild(0).forward = Camera.main.transform.forward;
 
-        myPastBookList = worldManager.myPastBookList;
+        myPastBookList = wm.myPastBookList;
         //myBookListNet = worldManager.myBookListNet;
 
         if (Input.GetMouseButtonDown(0))

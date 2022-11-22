@@ -18,7 +18,7 @@ public class MyBook : MonoBehaviour
     public RawImage thumbnail;
 
     public GameObject bookInfoPanelFactory;
-    public GameObject modifyBookInfoPanelFactory;
+    public GameObject doneBookInfoPanelFactory;
     Transform canvas;
     void Start()
     {
@@ -33,9 +33,6 @@ public class MyBook : MonoBehaviour
     // 나를 클릭하면 canvas 에 나의 정보 Panel 생성
     public void OnClickBookInfo()
     {
-        // 만약 bookReview 가 null 이면
-        //if (bookReview == null)
-        //{
             GameObject go = Instantiate(bookInfoPanelFactory, canvas);
             go.GetComponent<CurrBookInfoPanel>().SetTitle(bookTitle);
             go.GetComponent<CurrBookInfoPanel>().SetAuthor(bookAuthor);
@@ -48,12 +45,18 @@ public class MyBook : MonoBehaviour
         go.GetComponent<CurrBookInfoPanel>().SetIndex(idx); // myAllBookList 의 인덱스 값과
         go.GetComponent<CurrBookInfoPanel>().SetIsDone(isDone); // isDone 여부 넘겨줌
 
-        //}
-        // null 이 아니면
-/*        else
-        {
-            GameObject go = Instantiate(modifyBookInfoPanelFactory, canvas);
-            
-        }*/
+    }
+
+    // 나를 클릭하면 canvas
+    public void OnClickDoneBookInfo()
+    {
+        GameObject go = Instantiate(doneBookInfoPanelFactory, canvas);
+        go.GetComponent<PastBookInfoPanel>().SetTitle(bookTitle);
+        go.GetComponent<PastBookInfoPanel>().SetAuthor(bookAuthor);
+        go.GetComponent<PastBookInfoPanel>().SetIsbn(bookIsbn);
+        go.GetComponent<PastBookInfoPanel>().SetInfo(bookInfo);
+        go.GetComponent<PastBookInfoPanel>().SetRating(bookReview);
+        go.GetComponent<PastBookInfoPanel>().SetReview(bookReview);
+        go.GetComponent<PastBookInfoPanel>().SetThumbnail(thumbnail.texture);
     }
 }

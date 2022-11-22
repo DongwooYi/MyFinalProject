@@ -93,7 +93,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 2446095364022220283}
-        m_TargetAssemblyTypeName: PastBook, Assembly-CSharp
+        m_TargetAssemblyTypeName: MyBook, Assembly-CSharp
         m_MethodName: OnClickBookInfo
         m_Mode: 1
         m_Arguments:
@@ -149,5 +149,8 @@ MonoBehaviour:
   bookIsbn: 
   bookInfo: 
   bookRating: 
+  isDone: 0
+  idx: 0
   thumbnail: {fileID: 2566380848797471047}
   bookInfoPanelFactory: {fileID: 8267027179380222971, guid: ac93ff256d890ee4989ddf0e8e78fc14, type: 3}
+  doneBookInfoPanelFactory: {fileID: 576350660957396816, guid: 8c8f9c2732701d54bb43607b93325433, type: 3}

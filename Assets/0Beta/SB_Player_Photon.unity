@@ -740,7 +740,7 @@ MonoBehaviour:
   chatList: []
   ChattingPannel: {fileID: 899334411}
   toggleChatting: {fileID: 329645701}
-  ydw_CharacterControllerPhoton: {fileID: 0}
+  player: {fileID: 0}
   enterchat: 0
   AIScrollView: {fileID: 2498813817201900162}
 --- !u!1 &42746352
@@ -3830,6 +3830,7 @@ MonoBehaviour:
   myPastBookList: []
   myPastBookListNet: []
   matBook: {fileID: 0}
+  textBookName: {fileID: 0}
 --- !u!114 &359941975
 MonoBehaviour:
   m_ObjectHideFlags: 0

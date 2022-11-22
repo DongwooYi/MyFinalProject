@@ -52,19 +52,17 @@ public class ChatManager : MonoBehaviourPun
 
     public Toggle toggleChatting;
     //내 아이디 색
-    Color idColor;
-    Color otherColor;
+    Color nickColor;
 
     public GameObject player;
     void Start()
     {
         //InputField에서 엔터를 쳤을 때 호출되는 함수 등록
         inputChat.onSubmit.AddListener( OnSubmit);
-        
-        //idColor를 랜덤하게
-        //idColor = new Color32((byte)Random.Range(0, 256),(byte)Random.Range(0, 256),(byte)Random.Range(0, 256),255);
-        idColor = Color.yellow;
-        otherColor = Color.green;
+        nickColor = new Color(
+            Random.Range(0.0f, 1.0f),
+            Random.Range(0.0f, 1.0f),
+            Random.Range(0.0f, 1.0f));
     }
 
     void Update()
@@ -99,15 +97,13 @@ public class ChatManager : MonoBehaviourPun
     void OnSubmit(string s)
     {
         enterchat = true;
+        //<color=#FF0000>닉네임</color>
+        string chatText = "<color=#" + ColorUtility.ToHtmlStringRGB(nickColor) + ">" +
+            PhotonNetwork.NickName + "</color>" + " : " + s;
         //나라면
-        if(photonView.IsMine)
+        /*if(photonView.IsMine)
         {
-         photonView.RPC("RpcAddChat", RpcTarget.All,
-         PhotonNetwork.NickName,
-         s,
-         idColor.r,
-         idColor.g,
-         idColor.b);
+        
        
         }
         else
@@ -119,7 +115,8 @@ public class ChatManager : MonoBehaviourPun
             idColor.g,
             idColor.b);
 
-        }
+        }*/
+        photonView.RPC("RpcAddChat", RpcTarget.All,PhotonNetwork.NickName,chatText);
 
         //4. InputChat의 내용을 초기화
         inputChat.text = "";
@@ -138,7 +135,7 @@ public class ChatManager : MonoBehaviourPun
 
     string j;
     [PunRPC]
-    void RpcAddChat(string nick, string chatText, float r, float g, float b)
+    void RpcAddChat(string nick, string chatText)
     {
         enterchat = false;
         print("보낸 놈 : " + nick);
@@ -147,14 +144,11 @@ public class ChatManager : MonoBehaviourPun
         ChatInfo info = new ChatInfo();
         info.nickName = nick;
         info.chatText = chatText;
-
-        print(info.chatText);
-
-        //<color=#FFFFFF>닉네임</color>
-        string s = "<color=#" + ColorUtility.ToHtmlStringRGB(new Color(r, g, b)) + ">" + nick + "</color>" + " : " + chatText;
         j = chatText;
+
         StopAllCoroutines();
         StartCoroutine("ChattingSpeech");
+        
         //0. 바뀌기 전의 Content H값을 넣자
         prevContentH = trContent.sizeDelta.y;
 
@@ -164,10 +158,8 @@ public class ChatManager : MonoBehaviourPun
         //2.만든 ChatItem에서 ChatItem 컴포넌트 가져온다
         ChatItem chat = item.GetComponent<ChatItem>();
 
-
-        
         //3.가져온 컴포넌트에 s를 셋팅
-        chat.SetText(s);
+        chat.SetText(chatText);
        
         //Json 보내기 -> List에 담기
         chatList.Add(info);
@@ -192,12 +184,9 @@ public class ChatManager : MonoBehaviourPun
 
             OnPost(jsonData);
         }
-        //위에서 설정해야함 ->Rpc이기 때문에
-        //inputChat.text = "";
 
         //스크롤 바 계속 내리기 코드로 구현
         StartCoroutine(AIAutoScrollBottom());
-        
     }
 
     IEnumerator ChattingSpeech()
@@ -206,6 +195,7 @@ public class ChatManager : MonoBehaviourPun
         player.gameObject.GetComponent<YDW_CharacterControllerPhoton>().speechBubble.text = j;
         yield return new WaitForSeconds(5.0f);
         player.gameObject.GetComponent<YDW_CharacterControllerPhoton>().speecgBubbleGameObj.SetActive(false) ;
+        yield break;
     }
     IEnumerator AIAutoScrollBottom()
     {

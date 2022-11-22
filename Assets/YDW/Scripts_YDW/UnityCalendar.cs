@@ -85,7 +85,7 @@ using UnityEngine.UI;
             yearGroup = new List<int>();
             op.Add("SelectYear");
             dropdownYear.ClearOptions();
-            for (int i = curYear; i <= 2025; i++)
+            for (int i = curYear; i <= 2023; i++)
             {
                 yearGroup.Add(i);
                 op.Add(i.ToString());

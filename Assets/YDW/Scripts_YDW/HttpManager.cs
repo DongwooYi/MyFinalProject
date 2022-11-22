@@ -27,6 +27,7 @@ public class HttpManager : MonoBehaviour
         }
     }
 
+   
     //서버에게 요청
     //url(posts/1), GET
     public void SendRequest(HttpRequester requester, string contentType)
@@ -40,8 +41,6 @@ public class HttpManager : MonoBehaviour
         //requestType 에 따라서 호출해줘야한다.
         switch (requester.requestType)
         {
-            
-
             case RequestType.LOGIN:
                 webRequest = UnityWebRequest.Post(requester.url, requester.body);
                 byte[] data = Encoding.UTF8.GetBytes(requester.body);
@@ -76,8 +75,8 @@ public class HttpManager : MonoBehaviour
                 }
                 else
                 {
-                    requester.onFailed();
                     print("통신 실패");
+                    requester.onFailed();
 
                 }
                 break;
@@ -99,7 +98,7 @@ public class HttpManager : MonoBehaviour
                     print("통신 실패");
                 }
                 break;
-          
+           
         }
         yield return null;      
     }

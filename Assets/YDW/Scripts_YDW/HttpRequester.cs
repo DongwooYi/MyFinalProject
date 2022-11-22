@@ -117,11 +117,11 @@ public class RoomData
     public string startDate;
     public string endDate;
     //최대인원수
-    public int numberOfMember;
+    public string numberOfMember;
     //요일 
-    public string  dayofWeeks;
-    public byte[] imgFile;
+    public string  dayOfWeeks;
 
+    public byte[] imgFile;
 
 
     /*     "clubName":"김태리클럽30",
@@ -144,16 +144,17 @@ public enum RequestType
     LOGIN,
     POST,
     GET
+    
 }
 
 public class HttpRequester : MonoBehaviour
 {
+    
     //url
     public string url;
     //요청 타입: Get, post)
     public RequestType requestType;
     public string body;
-  
 
     //응답이 왔을 때 호출해줄 함수 (Action)
     //Action 함수를 담을 수 있ㄴ느 자료형 

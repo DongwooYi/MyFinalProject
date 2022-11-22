@@ -48,6 +48,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [Header("방만들기 및 방 리스트")]
     public GameObject setRoom;
     public GameObject setRoomlist;
+    public GameObject FailCreateaRoom;
 
     [Header("챌린지 기간")]
     public Text textCalendar;
@@ -89,6 +90,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+
         welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
         dropdown.onValueChanged.AddListener(delegate { HandleInputData(dropdown.value); });
         // 방이름(InputField)이 변경될때 호출되는 함수 등록
@@ -334,7 +336,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void OnClick_GetDate()
     {
         dt = unityCalendar.GetDate();
+        if(dt >= dateTime)
+        {
         textCalendar.text = startDate + "~" + dt.ToString("yyyy-MM-dd");
+        }
+        else
+        {
+            textCalendar.text = "먼저 모집기간을 설정해주세요";
+        }
+        //print("dt"+dt+"dateTime:"+dateTime);
     }
     public void OnClick_Clear()
     {
@@ -347,21 +357,20 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
 
             dateTime1 = dateTime.AddHours(24);
-            startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
-            print("24");
+            startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}T{dateTime1.Hour}:{dateTime1.Minute}";
         }
         if (val == 1)
         {
 
             dateTime1 = dateTime.AddHours(72);
-            startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
+            startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}T{dateTime1.Hour}:{dateTime1.Minute}";
             print("72");
         }
         if (val == 2)
         {
 
             dateTime1 = dateTime.AddHours(168);
-            startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
+            startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}T{dateTime1.Hour}:{dateTime1.Minute}";
             print("168");
         }
     }
@@ -444,7 +453,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject lobbyManager;
     public RawImage image;
     #region 이미지
-    
     public void OnClickImageLoad()
     {
 
@@ -487,64 +495,91 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         img = File.ReadAllBytes(savePath + fileName + ".png");
         Texture2D tex = new Texture2D(0, 0);
         tex.LoadImage(temp);
-
         image.texture = tex;
-
     }
     #endregion
-    #region Http
+    #region Http Web
     public void SendRoomData()
+    {
+        StartCoroutine("SendRoomDataCoroutine");  
+    }
+
+    IEnumerator SendRoomDataCoroutine()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("clubName", inputRoomName.text);
+        form.AddField("bookName", "이동우");
+        form.AddField("clubIntro", inputFieldRoomDescription.text);
+        form.AddField("numberOfMember", inputMaxPlayer.text);
+        form.AddField("recruitStartDate", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm"));
+        form.AddField("recruitEndDate", startDate);
+        form.AddField("startDate", startDate);
+        form.AddField("endDate", dt.ToString("yyyy-MM-ddTHH:mm"));
+        print("recruitStartDate" + DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm") + "\r\n" + "startDate" + startDate + "\r\n" + dt.ToString("yyyy-MM-ddTHH:mm"));
+       
+        form.AddField("dayOfWeeks", $"{monText}{tueText}{wedText}{thuText}{friText}{satText}{sunText}");
+        form.AddBinaryData("imgFile", img);
+
+        UnityWebRequest www = UnityWebRequest.Post("http://192.168.0.11:8080/v1/clubs", form);
+        print(form);
+        www.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("jwt"));
+        yield return www.SendWebRequest();
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            Debug.Log(www.error);
+            StartCoroutine(SetactiveRoomCreation());
+        }
+        else
+        {
+            print("Post성공");
+            CreateRoom();
+        }
+    }
+    IEnumerator SetactiveRoomCreation()
+    {
+        FailCreateaRoom.SetActive(true);
+        yield return new WaitForSeconds(3.0f);
+    }
+    #endregion
+    #region HTTP Json
+    public void  SendRoomDataFunction()
     {
 
         RoomData roomData = new RoomData();
-        roomData.clubName = inputRoomName.text;
-        roomData.bookName = "이동우";
-        roomData.clubIntro = inputFieldRoomDescription.text;
-        roomData.numberOfMember = int.Parse(inputMaxPlayer.text);
-        roomData.recruitStartDate = DateTime.Now.ToString();
-        roomData.recruitEndDate = startDate;
-        roomData.startDate = startDate;
-        roomData.endDate = dt.ToString("yyyy-MM-dd");
-        roomData.dayofWeeks = $"{monText}{tueText}{wedText}{thuText}{friText}{satText}{sunText}";
-        //roomData.imgFile = img;
+          roomData.clubName = inputRoomName.text;
+           roomData.bookName = "이동우";
+           roomData.clubIntro = inputFieldRoomDescription.text;
+           roomData.numberOfMember = inputMaxPlayer.text;
+           roomData.recruitStartDate = DateTime.Now.ToString();
+           roomData.recruitEndDate = startDate;
+           roomData.startDate = startDate;
+           roomData.endDate = dt.ToString("yyyy-MM-dd");
+           roomData.dayOfWeeks = $"{monText}{tueText}{wedText}{thuText}{friText}{satText}{sunText}";
+           roomData.imgFile = img;
 
-      /* Request request = new Request();
-        request.roomDataforSedning = roomData;     
-        request.imgFile = tex.EncodeToPNG();*/
-        
-        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
-        formData.Add(new MultipartFormDataSection("Request", roomData.ToString()));
-        //formData.Add(new MultipartFormDataSection("Request", );
+        /*roomData.clubName = "클럽이름";
+        roomData.bookName = "책이름";
+        roomData.clubIntro = "방설명";
+        roomData.numberOfMember = "10";
+        roomData.recruitStartDate = "2022-11-20T14:00";
+        roomData.recruitEndDate = "2022-11-22T14:00";
+        roomData.startDate = "2022-11-22T14:00";
+        roomData.endDate = "2022-11-30T14:00";
+        roomData.dayOfWeeks = "월수금";
+        roomData.imgFile = img;*/
 
-       // WWWForm form = new WWWForm();
-       //form.AddField("Request",);
-       // form.AddBinaryData("datofWeek" request.imgFile);
 
-        HttpRequester requester = new HttpRequester();
-        requester.url = "http://192.168.0.11:8080";
-        requester.requestType = RequestType.POST;
-        requester.body = JsonUtility.ToJson(formData, true);
+         HttpRequester requester = new HttpRequester();
+         requester.url = "http://192.168.0.11:8080/v1/clubs";
+         requester.requestType = RequestType.POST;
+         requester.body = JsonUtility.ToJson(roomData, true);
         requester.onComplete = OnCompletePostRoomData;
 
         //HttpManager에게 요청
-        HttpManager.instance.SendRequest(requester, "application/json");
-        print("Post성공");
-    }
-
-    /* public void SendImageRoomData()
-     {
-         HttpRequester requester = new HttpRequester();
-
-         requester.url = "192.168.0.16:8080.";
-         requester.requestType = RequestType.POST;
-
-         RoomDataImage roomDataimage = new RoomDataImage();
-         roomDataimage.imgFile = tex.EncodeToPNG();
-         requester.body = JsonUtility.ToJson(roomDataimage, true);
-         requester.onComplete = OnCompletePostRoomDataImage;
          HttpManager.instance.SendRequest(requester, "application/json");
-     }*/
+        //HttpManager.instance.SendRequest(www, "application/x-www-form-urlencoded");
 
+    }
     public void OnCompletePostRoomData(DownloadHandler downloadHandler)
     {
         JObject jObject = JObject.Parse(downloadHandler.text);
@@ -556,20 +591,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             //CreateRoom();
         }
     }
-
-    /*public void OnCompletePostRoomDataImage(DownloadHandler downloadHandler)
-    {
-        JObject jObject = JObject.Parse(downloadHandler.text);
-
-        int type = (int)jObject["status"];
-        if (type == 200)
-        {
-            Debug.Log("성공");
-            
-             CreateRoom();
-        }
-    }*/
     #endregion
 }
+
+
+
 
 

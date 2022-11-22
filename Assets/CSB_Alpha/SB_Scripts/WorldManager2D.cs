@@ -18,7 +18,7 @@ public class _MyBookInfo
     public string bookISBN;
     public RawImage thumbnail;
 
-    // 완료 여부 -> 읽고 있는 책 버튼: false / 다 읽은 책 버튼: true
+    // 완독 여부
     public bool isDone;
 }
 

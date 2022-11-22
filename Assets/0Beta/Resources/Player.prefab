@@ -2216,7 +2216,6 @@ GameObject:
   - component: {fileID: 59213966509150195}
   - component: {fileID: 8511231882516670466}
   - component: {fileID: 7842056752142607855}
-  - component: {fileID: 5755814119753580017}
   m_Layer: 0
   m_Name: TextSpeechBubble
   m_TagString: Untagged
@@ -2323,19 +2322,6 @@ MonoBehaviour:
   m_ChildScaleWidth: 1
   m_ChildScaleHeight: 1
   m_ReverseArrangement: 0
---- !u!114 &5755814119753580017
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7906358165277930735}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e40b342b3cf85940ad803317e54a58b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  isDebug: 1
 --- !u!1 &8042117765041485166
 GameObject:
   m_ObjectHideFlags: 0

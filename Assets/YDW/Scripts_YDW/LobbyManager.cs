@@ -60,6 +60,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     DateTime dateTime;
     DateTime dateTime1;
 
+    public byte[] img;
     public WorldManager2D worldManager2D;
     #region 요일 선택
     [Header("요일 선택")]
@@ -95,7 +96,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         // 총인원(InputField)이 변경될때 호출되는 함수 등록
         inputMaxPlayer.onValueChanged.AddListener(OnMaxPlayerValueChanged);
         string[] s = Microphone.devices;
-        //Debug.Log(Application.persistentDataPath);
+        Debug.Log(Application.persistentDataPath);
     }
     private void Update()
     {
@@ -329,10 +330,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //이전 맵 id 저장
         prevMapId = map_id;
     }
-        DateTime dt;
+    DateTime dt;
     public void OnClick_GetDate()
     {
-         dt= unityCalendar.GetDate();
+        dt = unityCalendar.GetDate();
         textCalendar.text = startDate + "~" + dt.ToString("yyyy-MM-dd");
     }
     public void OnClick_Clear()
@@ -443,7 +444,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject lobbyManager;
     public RawImage image;
     #region 이미지
-    Texture2D tex;
+    
     public void OnClickImageLoad()
     {
 
@@ -483,7 +484,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         File.WriteAllBytes(savePath + fileName + ".png", fileData);
 
         var temp = File.ReadAllBytes(savePath + fileName + ".png");
-        tex = new Texture2D(0, 0);
+        img = File.ReadAllBytes(savePath + fileName + ".png");
+        Texture2D tex = new Texture2D(0, 0);
         tex.LoadImage(temp);
 
         image.texture = tex;
@@ -493,43 +495,55 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     #region Http
     public void SendRoomData()
     {
-        HttpRequester requester = new HttpRequester();
-
-        requester.url = "192.168.0.16:8080.";
-        requester.requestType = RequestType.POST;
 
         RoomData roomData = new RoomData();
-
         roomData.clubName = inputRoomName.text;
-        roomData.bookName = worldManager2D.textBookName.text;
+        roomData.bookName = "이동우";
         roomData.clubIntro = inputFieldRoomDescription.text;
-        roomData.dayOfWeek = $"{monText}{tueText}{wedText}{thuText}{friText}{sunText}{sunText}";
-        roomData.numberOfMember = byte.Parse( inputMaxPlayer.text);
+        roomData.numberOfMember = int.Parse(inputMaxPlayer.text);
         roomData.recruitStartDate = DateTime.Now.ToString();
         roomData.recruitEndDate = startDate;
         roomData.startDate = startDate;
         roomData.endDate = dt.ToString("yyyy-MM-dd");
+        roomData.dayofWeeks = $"{monText}{tueText}{wedText}{thuText}{friText}{satText}{sunText}";
+        //roomData.imgFile = img;
 
-        requester.body = JsonUtility.ToJson(roomData, true);
+      /* Request request = new Request();
+        request.roomDataforSedning = roomData;     
+        request.imgFile = tex.EncodeToPNG();*/
+        
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        formData.Add(new MultipartFormDataSection("Request", roomData.ToString()));
+        //formData.Add(new MultipartFormDataSection("Request", );
+
+       // WWWForm form = new WWWForm();
+       //form.AddField("Request",);
+       // form.AddBinaryData("datofWeek" request.imgFile);
+
+        HttpRequester requester = new HttpRequester();
+        requester.url = "http://192.168.0.11:8080";
+        requester.requestType = RequestType.POST;
+        requester.body = JsonUtility.ToJson(formData, true);
         requester.onComplete = OnCompletePostRoomData;
 
         //HttpManager에게 요청
         HttpManager.instance.SendRequest(requester, "application/json");
+        print("Post성공");
     }
 
-    public void SendImageRoomData()
-    {
-        HttpRequester requester = new HttpRequester();
+    /* public void SendImageRoomData()
+     {
+         HttpRequester requester = new HttpRequester();
 
-        requester.url = "192.168.0.16:8080.";
-        requester.requestType = RequestType.POST;
+         requester.url = "192.168.0.16:8080.";
+         requester.requestType = RequestType.POST;
 
-        RoomDataImage roomDataimage = new RoomDataImage();
-        roomDataimage.imgFile = tex.EncodeToPNG();
-        requester.body = JsonUtility.ToJson(roomDataimage, true);
-        requester.onComplete = OnCompletePostRoomDataImage;
-        HttpManager.instance.SendRequest(requester, "application/json");
-    }
+         RoomDataImage roomDataimage = new RoomDataImage();
+         roomDataimage.imgFile = tex.EncodeToPNG();
+         requester.body = JsonUtility.ToJson(roomDataimage, true);
+         requester.onComplete = OnCompletePostRoomDataImage;
+         HttpManager.instance.SendRequest(requester, "application/json");
+     }*/
 
     public void OnCompletePostRoomData(DownloadHandler downloadHandler)
     {
@@ -539,12 +553,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (type == 200)
         {
             Debug.Log("성공");
-            SendImageRoomData();
-           // CreateRoom();
+            //CreateRoom();
         }
     }
 
-    public void OnCompletePostRoomDataImage(DownloadHandler downloadHandler)
+    /*public void OnCompletePostRoomDataImage(DownloadHandler downloadHandler)
     {
         JObject jObject = JObject.Parse(downloadHandler.text);
 
@@ -555,7 +568,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             
              CreateRoom();
         }
-    }
+    }*/
     #endregion
 }
 

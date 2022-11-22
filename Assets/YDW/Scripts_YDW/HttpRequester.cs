@@ -97,6 +97,12 @@ public class RoomDataImage
     public byte[] imgFile;
 }
 [System.Serializable]
+public class Request
+{
+    //public RoomData roomDataforSedning;
+   // public byte[] imgFile;
+}
+[System.Serializable]
 public class RoomData
 {//방이름
     public string clubName;
@@ -108,25 +114,28 @@ public class RoomData
    public string recruitStartDate;
    public string recruitEndDate;
     //챌린지 기간
-   public string startDate;
-   public string endDate;
+    public string startDate;
+    public string endDate;
     //최대인원수
     public int numberOfMember;
     //요일 
-    public string dayOfWeek;
+    public string  dayofWeeks;
+    public byte[] imgFile;
 
-/*     "clubName":"김태리클럽30",
-    "bookName":"미스터선샤인",
-    "clubIntro":" 화이팅하는 독서모임입니다. 화이팅!",
-    "recruitStartDate":"2022-11-01T12:00",
-    "recruitEndDate":"2022-11-22T22:00",
-    "startDate":"2022-11-23T00:00",
-    "endDate":"2022-11-27T14:00",
-    "numberOfMember":8,
-    "scheduleDTOList":[
-        {"dayOfWeek" : "", "startTime" : "14:05", "endTime" : "22:05"},
-        { "dayOfWeek" : "수", "startTime" : "15:00", "endTime" : "16:00"},
-        { "dayOfWeek" : "금", "startTime" : "17:00", "endTime" : "18:00"}*/
+
+
+    /*     "clubName":"김태리클럽30",
+        "bookName":"미스터선샤인",
+        "clubIntro":" 화이팅하는 독서모임입니다. 화이팅!",
+        "recruitStartDate":"2022-11-01T12:00",
+        "recruitEndDate":"2022-11-22T22:00",
+        "startDate":"2022-11-23T00:00",
+        "endDate":"2022-11-27T14:00",
+        "numberOfMember":8,
+        "scheduleDTOList":[
+            {"dayOfWeek" : "", "startTime" : "14:05", "endTime" : "22:05"},
+            { "dayOfWeek" : "수", "startTime" : "15:00", "endTime" : "16:00"},
+            { "dayOfWeek" : "금", "startTime" : "17:00", "endTime" : "18:00"}*/
 
 }
 #endregion

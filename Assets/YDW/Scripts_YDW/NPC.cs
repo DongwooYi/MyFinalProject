@@ -29,7 +29,6 @@ public class NPC : MonoBehaviour
     private void Start()
     {
         //PlayerControllerPhoton = playerPrefabs.GetComponent<PlayerControllerPhoton>();
-
         /*if (PlayerControllerPhoton == null || PlayerControllerPhoton.isActiveAndEnabled ==false)
         {
             return;
@@ -66,8 +65,6 @@ public class NPC : MonoBehaviour
     {
         NPCSpeaking.SetActive(false);
         isTriggershowRoomList = true;
-
-
     }
 
     public void OnClickNottoMakeaRoom()

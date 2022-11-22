@@ -110,7 +110,17 @@ public class ChatManager : MonoBehaviourPun
          idColor.b);
        
         }
-      
+        else
+        {
+            photonView.RPC("RpcAddChat", RpcTarget.All,
+            PhotonNetwork.NickName,
+            s,
+            idColor.r,
+            idColor.g,
+            idColor.b);
+
+        }
+
         //4. InputChat의 내용을 초기화
         inputChat.text = "";
         //5. InputChat에 Focusing 을 해주자.

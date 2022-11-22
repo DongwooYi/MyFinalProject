@@ -18,6 +18,12 @@ public class _MyBookInfo
     public string bookISBN;
     public RawImage thumbnail;
 
+    // 기록 관련
+    public string rating;  // 평점
+    public string review;   // 리뷰
+    //public string bookRating;  // 평점
+    //public string bookReview;   // 리뷰
+
     // 완독 여부
     public bool isDone;
 }
@@ -25,8 +31,8 @@ public class _MyBookInfo
 [Serializable]
 public class _MyPastBookInfo : _MyBookInfo
 {
-    public string rating;  // 평점
-    public string review;   // 리뷰
+    //public string rating;  // 평점
+    //public string review;   // 리뷰
 }
 
 public class WorldManager2D : MonoBehaviour
@@ -56,6 +62,9 @@ public class WorldManager2D : MonoBehaviour
     public GameObject showBook;
 
     // -------------------------------------------------------------------------------
+    public List<_MyBookInfo> myAllBookList = new List<_MyBookInfo>();   // 담은도서
+    public List<_MyBookInfo> myDoneBookList = new List<_MyBookInfo>();  // isDone == true 도서
+
     // 나의 현재 책 목록
     public List<_MyBookInfo> myBookList = new List<_MyBookInfo>();
     public List<_MyBookInfo> myBookListNet = new List<_MyBookInfo>();

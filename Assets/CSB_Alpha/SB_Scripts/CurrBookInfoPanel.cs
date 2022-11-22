@@ -18,7 +18,13 @@ public class CurrBookInfoPanel : MonoBehaviour
     public Text author;
     public Text publishInfo;
     public Text isbn;
+    //public Text rating;
+    public Text review;
     public RawImage thumbnail;
+
+    bool isDone;
+    int idx;
+
 
     public Dropdown dropdown;
 
@@ -26,8 +32,6 @@ public class CurrBookInfoPanel : MonoBehaviour
     public Button btnEnter; // 등록하기 버튼
 
     public GameObject player;   // 플레이어
-    public GameObject bookQuad0;   // 머리 위 책 관련
-    public GameObject bookQuad1;   // 머리 위 책 관련
     public GameObject showBook;
 
     GameObject book;
@@ -36,6 +40,7 @@ public class CurrBookInfoPanel : MonoBehaviour
     public GameObject alarmFactory;
 
     public Toggle headBook;
+    public Toggle checkIsDone;
 
     MyBookManager bookManager;
     WorldManager2D wm;
@@ -48,8 +53,6 @@ public class CurrBookInfoPanel : MonoBehaviour
         if (headBook.isOn)
         {
             print("토글" + headBook.isOn);
-            // bookQuad0.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
-            // bookQuad1.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
             showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
             //player.transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
         }
@@ -59,16 +62,12 @@ public class CurrBookInfoPanel : MonoBehaviour
     {
         player = GameObject.Find("Character");
 
-        //bookQuad0 = GameObject.Find("BookQuad");
-        //bookQuad1 = GameObject.Find("BookQuad(1)");
         showBook = GameObject.Find("ShowBook");
 
         worldManager = GameObject.Find("WorldManager");
         wm = worldManager.GetComponent<WorldManager2D>();
         myPastBookInfoList = wm.myPastBookList;
         //myPastBookListNet = worldManager.GetComponent<WorldManager2D>().myPastBookList;
-
-
 
         myBookInfoList = worldManager.GetComponent<WorldManager2D>().myBookList;
         //myBookListNet = worldManager.GetComponent<WorldManager2D>().myBookList;
@@ -85,6 +84,62 @@ public class CurrBookInfoPanel : MonoBehaviour
     {
         btnEnter.interactable = s.Length > 0;  // 등록 버튼 활성화
     }
+
+    // isDone 확인 토글 관련
+
+
+    // 등록 버튼
+    // isDone == true 면 WorldManager 의 myDoneBookList 에
+    // isDone == false 면 review 저장
+    public void OnClickEnter()
+    {
+        if (checkIsDone.isOn) isDone = true;
+        else if (!checkIsDone.isOn) isDone = false;
+
+        print(isDone);
+
+        if (isDone)
+        {
+            // 0. WorldManager 의 myAllBookList 업데이트
+            // isDone = true 포함
+            wm.myAllBookList[idx].bookName = title.text;
+            wm.myAllBookList[idx].bookAuthor = author.text;
+            wm.myAllBookList[idx].bookPublishInfo = publishInfo.text;
+            wm.myAllBookList[idx].bookISBN = isbn.text;
+            wm.myAllBookList[idx].thumbnail = thumbnail;
+            wm.myAllBookList[idx].isDone = true;
+            wm.myAllBookList[idx].rating = dropdown.captionText.text;
+            wm.myAllBookList[idx].review = inputFieldReview.text;
+
+            // 1. WorldManager 의 myDoneBookList 에 추가
+            _MyBookInfo myBookInfo = new _MyBookInfo();
+
+            myBookInfo.bookName = title.text;
+            myBookInfo.bookAuthor = author.text;
+            myBookInfo.bookPublishInfo = publishInfo.text;
+            myBookInfo.bookISBN = isbn.text;
+            myBookInfo.thumbnail = thumbnail;
+            myBookInfo.isDone = true;
+            myBookInfo.rating = dropdown.captionText.text;
+            myBookInfo.review = inputFieldReview.text;
+
+            wm.myDoneBookList.Add(myBookInfo);
+        }
+        else
+        {
+            // 0. WorldManager 의 myAllBookList review 업데이트
+            // 1. WorldManager 전체 업데이트
+            wm.myAllBookList[idx].bookName = title.text;
+            wm.myAllBookList[idx].bookAuthor = author.text;
+            wm.myAllBookList[idx].bookPublishInfo = publishInfo.text;
+            wm.myAllBookList[idx].bookISBN = isbn.text;
+            wm.myAllBookList[idx].thumbnail = thumbnail;
+            wm.myAllBookList[idx].isDone = true;
+            wm.myAllBookList[idx].rating = dropdown.captionText.text;
+            wm.myAllBookList[idx].review = inputFieldReview.text;
+        }
+    }
+
 
     // 등록 버튼 (누르면 <다읽은 책목록>에 추가)
     public void OnClickAddPastBook()
@@ -169,10 +224,29 @@ public class CurrBookInfoPanel : MonoBehaviour
         isbn.text = s;
     }
 
-
-    public void SetImage(Texture texture)
+    public void SetThumbnail(Texture texture)
     {
         thumbnail.texture = texture;
+    }
+
+/*    public void SetRating(string s)
+    {
+        rating.text = s;
+    }*/
+
+    public void SetReview(string s)
+    {
+        review.text = s;
+    }
+
+    public void SetIndex(int num)
+    {
+        idx = num; ;
+    }
+
+    public void SetIsDone(bool done)
+    {
+        isDone = done;
     }
     #endregion
 

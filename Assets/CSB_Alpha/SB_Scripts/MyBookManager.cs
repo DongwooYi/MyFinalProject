@@ -18,13 +18,23 @@ public class MyBookManager : MonoBehaviour
     public GameObject myBookshelf;    // 책장
     public GameObject myPastBookPanel;  // 다읽은 책 목록 UI
 
+    public GameObject myBookPanel;  // 다읽은 책 목록 UI
+
+    public GameObject bookFactory;  // 담은도서 목록 공장
     public GameObject currBookInfoPanelFactory; // 현재 도서 상세 내용
     public GameObject pastBookFactory; // 다읽은도서 상세 내용
 
     public Transform canvas;
     public Transform content;
 
+    // 담은도서
+    public Transform bookContent;
+    public Transform bookContentIsDoneT;
+
     public WorldManager2D worldManager;
+
+    List<_MyBookInfo> myBookList = new List<_MyBookInfo>(); // 담은책
+
     List<_MyBookInfo> myCurrBookList = new List<_MyBookInfo>(); // 현재 도서
     //public List<_MyBookInfo> myBookListNet = new List<_MyBookInfo>();
 
@@ -37,7 +47,7 @@ public class MyBookManager : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Character");
-
+        myBookList = worldManager.myAllBookList;
         // 여기서 씬 시작할 때 다 읽었던 책 한번 뿌려주고 시작
         //HttpGetPastBookList();    
     }
@@ -47,7 +57,8 @@ public class MyBookManager : MonoBehaviour
         // 만약 플레이어가 책상 가까이 가면(거리 1정도)
         if (Vector3.Distance(player.transform.position, myDesk.transform.position) < distance)
         {
-            ShowClickHereCurrBook();
+            //ShowClickHereCurrBook();
+            ShowMyBookList();
         }
         else
         {
@@ -65,6 +76,91 @@ public class MyBookManager : MonoBehaviour
         }
 
     }
+
+    /* 담은도서 목록 관련 */
+    // 책상앞에 가면 담은도서들 보여줌 (isDone == true / false 구분)
+    public void ShowMyBookList()
+    {
+        // 손가락 쿼드를 띄워준다
+        myDesk.transform.GetChild(0).gameObject.SetActive(true);
+        // 손가락 쿼드 항상 카메라 방향
+        myDesk.transform.GetChild(0).forward = Camera.main.transform.forward;
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hitInfo;
+
+            if (Physics.Raycast(ray, out hitInfo))
+            {
+                print(hitInfo.transform.name);
+                if (hitInfo.transform.gameObject.tag == "ClickHere" || hitInfo.transform.gameObject.name == "MyDesk")
+                { 
+                    //HttpGetPastBook();  // 네트워크 통신 -> 함수 만들어줘야함
+                    print("담은도서 목록 출력");
+
+                    // 자식이 있다면 삭제
+                    Transform[] childList = bookContent.GetComponentsInChildren<Transform>();
+                    if (childList != null)
+                    {
+                        for (int i = 1; i < childList.Length; i++)
+                        {
+                            Destroy(childList[i].gameObject);
+                        }
+                    }
+
+
+                    // 담은도서의 수만큼 프리펩 생성
+                    for (int i = 0; i < myBookList.Count; i++)
+                    {
+                        // 만약 isDone 이 true 면 다읽음 목록에 보여줌
+                        if (myBookList[i].isDone)
+                        {
+                            GameObject go = Instantiate(bookFactory, bookContentIsDoneT);
+                            // 얘의 RawImage 의 Texture 를 리스트 순서대로
+                            go.GetComponent<RawImage>().texture = myBookList[i].thumbnail.texture;
+                            MyBook myBook = go.GetComponent<MyBook>();
+
+                            myBook.thumbnail.texture = myBookList[i].thumbnail.texture;
+                            myBook.bookTitle = myBookList[i].bookName;
+                            myBook.bookAuthor = myBookList[i].bookAuthor;
+                            myBook.bookInfo = myBookList[i].bookPublishInfo;
+                            myBook.bookIsbn = myBookList[i].bookISBN;
+                            myBook.bookRating = myBookList[i].rating;
+                            myBook.bookReview = myBookList[i].review;
+                            myBook.isDone = myBookList[i].isDone;
+                            // index 인 i 값도 넘겨줘야할듯
+                            myBook.idx = i;
+                        }
+                        else
+                        {
+                            GameObject go = Instantiate(bookFactory, bookContent);
+                            // 얘의 RawImage 의 Texture 를 리스트 순서대로
+                            go.GetComponent<RawImage>().texture = myBookList[i].thumbnail.texture;
+                            MyBook myBook = go.GetComponent<MyBook>();
+
+                            myBook.thumbnail.texture = myBookList[i].thumbnail.texture;
+                            myBook.bookTitle = myBookList[i].bookName;
+                            myBook.bookAuthor = myBookList[i].bookAuthor;
+                            myBook.bookInfo = myBookList[i].bookPublishInfo;
+                            myBook.bookIsbn = myBookList[i].bookISBN;
+                            myBook.bookRating = myBookList[i].rating;
+                            myBook.bookReview = myBookList[i].review;
+                            myBook.isDone = myBookList[i].isDone;
+
+                            // index 인 i 값도 넘겨줘야할듯
+                            myBook.idx = i;
+                        }
+
+                    }
+                    myBookPanel.SetActive(true);
+                    myBookshelf.transform.GetChild(0).gameObject.SetActive(false);
+                    return;
+                }
+            }
+        }
+    }
+
 
     /* 현재도서 목록 관련 */
     public void ShowClickHereCurrBook()
@@ -145,7 +241,7 @@ public class MyBookManager : MonoBehaviour
                         GameObject go = Instantiate(pastBookFactory, content);
                         // 얘의 RawImage 의 Texture 를 리스트 순서대로
                         go.GetComponent<RawImage>().texture = myPastBookList[i].thumbnail.texture;
-                        PastBook pastBook = go.GetComponent<PastBook>();
+                        MyBook pastBook = go.GetComponent<MyBook>();
 
                         pastBook.thumbnail.texture = myPastBookList[i].thumbnail.texture;
                         pastBook.bookTitle = myPastBookList[i].bookName;
@@ -185,7 +281,7 @@ public class MyBookManager : MonoBehaviour
         currBookInfoPanel.SetTitle(myCurrBookList[idx].bookName);
         currBookInfoPanel.SetAuthor(myCurrBookList[idx].bookAuthor);
         currBookInfoPanel.SetPublishInfo(myCurrBookList[idx].bookPublishInfo);
-        currBookInfoPanel.SetImage(myCurrBookList[idx].thumbnail.texture);
+        currBookInfoPanel.SetThumbnail(myCurrBookList[idx].thumbnail.texture);
 
         /*        currBookInfoPanel.SetTitle(myBookListNet[idx].bookName);
                 currBookInfoPanel.SetAuthor(myBookListNet[idx].bookAuthor);

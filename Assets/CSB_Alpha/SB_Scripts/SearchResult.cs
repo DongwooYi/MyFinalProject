@@ -35,6 +35,12 @@ public class SearchResult : MonoBehaviour
         myBookInfoList = wm.myBookList;
     }
 
+    /* 책 담기 관련 */
+    public void OnClickAddBook()
+    {
+
+    }
+
     #region Text Setting
     public void SetBookTitle(string s)
     {
@@ -62,12 +68,12 @@ public class SearchResult : MonoBehaviour
     }
     #endregion
 
+    #region 따로 담기 관련
     /* 현재 읽고 있는 책 등록(추가)하기 버튼 */
     // 버튼을 클릭하면 클래스에 제목, 작가, 출판정보, 썸네일 넣어줌
     // 그 클래스를 MyBookList 에 추가
     public void OnClickAddCurrBook()
     {
-
         // 현재 도서 count 1 증가
         wm.bookCurrCount++;
         _MyBookInfo myBookInfo = new _MyBookInfo();
@@ -114,6 +120,7 @@ public class SearchResult : MonoBehaviour
         myReviewPanel.SetIsbn(isbn.text);
         myReviewPanel.SetImage(thumbnail.texture);
     }
+    #endregion
 
     // Http 통신 함수 (POST)
     void HttpPostCurrBookInfo()

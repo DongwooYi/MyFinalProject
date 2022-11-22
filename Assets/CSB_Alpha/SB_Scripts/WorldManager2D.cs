@@ -15,6 +15,7 @@ public class _MyBookInfo
     public string bookName;
     public string bookAuthor;
     public string bookPublishInfo;
+    public string thumbnailLink;
     public string bookISBN;
     public RawImage thumbnail;
 
@@ -26,6 +27,7 @@ public class _MyBookInfo
 
     // 완독 여부
     public bool isDone;
+    public string isDoneString;
 
     // 인생책 여부
     public bool isBest;

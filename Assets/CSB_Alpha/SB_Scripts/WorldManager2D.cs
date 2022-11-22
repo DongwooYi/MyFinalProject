@@ -26,6 +26,9 @@ public class _MyBookInfo
 
     // 완독 여부
     public bool isDone;
+
+    // 인생책 여부
+    public bool isBest;
 }
 
 [Serializable]

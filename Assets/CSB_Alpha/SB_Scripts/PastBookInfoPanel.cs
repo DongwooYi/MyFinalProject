@@ -14,6 +14,8 @@ public class PastBookInfoPanel : MonoBehaviour
     public Text bookRating;
     public Text bookReview;
 
+    bool isBest;
+
     public void OnClickExit()
     {
         Destroy(gameObject);
@@ -53,4 +55,9 @@ public class PastBookInfoPanel : MonoBehaviour
     {
         thumbnail.texture = texture;
     }
+
+/*    public void SetBestBook(bool best)
+    {
+        isBest = best;
+    }*/
 }

@@ -171,6 +171,7 @@ public class MyBookManager : MonoBehaviour
         }
     }
 
+    // 재정렬
     public void ShowAllBookList()
     {
         // 자식이 있다면 삭제

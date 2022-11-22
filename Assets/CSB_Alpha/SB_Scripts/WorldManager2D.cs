@@ -68,6 +68,7 @@ public class WorldManager2D : MonoBehaviour
     public List<_MyBookInfo> myAllBookList = new List<_MyBookInfo>();   // 담은도서
     public List<_MyBookInfo> myDoneBookList = new List<_MyBookInfo>();  // isDone == true 도서
 
+    // 지난 버전
     // 나의 현재 책 목록
     public List<_MyBookInfo> myBookList = new List<_MyBookInfo>();
     public List<_MyBookInfo> myBookListNet = new List<_MyBookInfo>();
@@ -83,6 +84,8 @@ public class WorldManager2D : MonoBehaviour
 
     void Start()
     {
+        HttpGetMyBookData();
+
         // 책 제목 입력
         inputBookTitleName.onValueChanged.AddListener(OnValueChanged);
         inputBookTitleName.onEndEdit.AddListener(OnEndEdit);
@@ -140,6 +143,27 @@ public class WorldManager2D : MonoBehaviour
         searchBookPanel.SetActive(false);
     }
 
+    // Http 통신 관련
+    // 1. 월드 입장시 요청할 API : 읽은 책(책장), 인생책 (낮은 책장) 정보 보내주기
+    void HttpGetMyBookData()
+    {
+        HttpRequester requester = new HttpRequester();
+
+        // /posts/1. GET, 완료되었을 때 호출되는 함수
+        requester.url = "http://15.165.28.206:8080/v1/records/myroom";
+        requester.requestType = RequestType.GET;
+        requester.onComplete = OnCompleteGetMyBookData;
+
+        // HttpManager 에게 요청
+        HttpManager.instance.SendRequest(requester, "");
+    }
+
+    void OnCompleteGetMyBookData(DownloadHandler handler)
+    {
+        // 나의 데이터 받아오기
+    }
+
+    #region 도서 API 받아오기 관련
     // 검색 버튼 관련 (돋보기 버튼)
     public void OnClickSearchBook()
     {
@@ -192,6 +216,7 @@ public class WorldManager2D : MonoBehaviour
             StartCoroutine(GetThumbnail(imageList[i],searchResult.thumbnail));
         }
     }
+    #endregion
 
     // 검색 버튼 관련 (돋보기 버튼)
     public void OnClickSearchBookGroup()

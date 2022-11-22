@@ -81,6 +81,47 @@ public class SearchResult : MonoBehaviour
     }
     #endregion
 
+    // (바뀐 버전) Http 통신 관련 -------------------
+    // 3. 도서 담을 때 호출하는 API
+    void HttpPostMyBook()
+    {
+        HttpRequester requester = new HttpRequester();
+
+        requester.url = "http://15.165.28.206:8080/v1/records/contain";
+        requester.requestType = RequestType.POST;
+
+        CurrBookdata currBookdata = new CurrBookdata();
+
+        currBookdata.bookName = bookTitle.text;
+        currBookdata.bookAuthor = author.text;
+        currBookdata.bookISBN = isbn.text;
+        currBookdata.bookPublishInfo = publishInfo.text;
+        currBookdata.thumbnail = thumbnail;
+
+        requester.body = JsonUtility.ToJson(currBookdata, true);
+
+        requester.onComplete = OnCompletePostMyBook;
+
+        HttpManager.instance.SendRequest(requester, "application/json");
+    }
+
+    void OnCompletePostMyBook(DownloadHandler handler)
+    {
+        // 처리
+        JObject jObject = JObject.Parse(handler.text);
+        int type = (int)jObject["status"];
+
+        if (type == 200)
+        {
+
+        }
+        else if(type == 423)
+        {
+            // <담겨있는 책입니다>
+        }
+    }
+
+
     #region 따로 담기 관련
     /* 현재 읽고 있는 책 등록(추가)하기 버튼 */
     // 버튼을 클릭하면 클래스에 제목, 작가, 출판정보, 썸네일 넣어줌
@@ -135,8 +176,8 @@ public class SearchResult : MonoBehaviour
     }
     #endregion
 
-    // Http 통신 함수 (POST)
-    void HttpPostCurrBookInfo()
+    // (지난 버전) Http 통신 함수 (POST)
+/*    void HttpPostCurrBookInfo()
     {
         print("넌 몇번 들어오니");
         //HttpRequester requester = gameObject.AddComponent<HttpRequester>();
@@ -165,5 +206,5 @@ public class SearchResult : MonoBehaviour
     {
         JObject jObject = JObject.Parse(handler.text);
         int type = (int)jObject["status"];
-    }
+    }*/
 }

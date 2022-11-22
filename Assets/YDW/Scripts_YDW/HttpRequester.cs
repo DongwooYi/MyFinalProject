@@ -44,6 +44,29 @@ public class PastBookdata
 
 }
 #endregion
+
+[System.Serializable]
+public class BookData
+{
+    // 도서 정보
+    public string bookName;
+    public string bookAuthor;
+    public string bookPublishInfo;
+    public string thumbnailLink;
+    public string bookISBN;
+    public string rating;
+    public string pageSource;
+    public string bookReview;
+    public string oneLineReview;
+    public string isDone;
+    public string isActivated;
+    public string startDate;
+    public string endDate;
+    public string reportDate;
+    public string memberCode;
+}
+
+
 #region 배너 관련 책
 [System.Serializable]
 public class AllBookReview

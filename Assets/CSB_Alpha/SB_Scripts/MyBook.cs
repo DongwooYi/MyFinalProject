@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Networking;
+using Newtonsoft.Json.Linq;
 
 public class MyBook : MonoBehaviour
 {
@@ -94,4 +96,39 @@ public class MyBook : MonoBehaviour
         // 인생책으로 <등록> 클릭하면 
         // 
     }
+
+    // (바뀐 버전) Http 통신 관련 ----------------------------------
+    // 5. 책장 -> Post요청 (체크에 변화가 있는 것들의 값을 보내면 될 것 같습니다.)
+    // 비고) 호출 완료 후 1번 호출 다시 해줘야 함.
+    void HttpPostMyBestBook()
+    {
+        //서버에 게시물 조회 요청
+        //HttpRequester를 생성
+        HttpRequester requester = new HttpRequester();
+
+        requester.url = "http://15.165.28.206:8080/v1/records/best";
+        requester.requestType = RequestType.POST;
+
+        PastBookdata pastBookdata = new PastBookdata();
+
+/*        pastBookdata.bookName = title.text;
+        pastBookdata.bookAuthor = author.text;
+        pastBookdata.bookPublishInfo = publishInfo.text;
+        pastBookdata.bookISBN = isbn.text;
+        pastBookdata.thumbnail = thumbnail;
+        pastBookdata.rating = dropdown.captionText.text;
+        pastBookdata.bookReview = inputFieldReview.text;*/
+
+        requester.body = JsonUtility.ToJson(pastBookdata, true);
+        requester.onComplete = OnCompletePostMyBestBook;
+
+        //HttpManager에게 요청
+        HttpManager.instance.SendRequest(requester, "application/json");
+    }
+
+    void OnCompletePostMyBestBook(DownloadHandler handler)
+    {
+
+    }
+
 }

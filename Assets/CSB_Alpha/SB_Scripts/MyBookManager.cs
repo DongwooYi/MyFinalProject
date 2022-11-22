@@ -96,7 +96,8 @@ public class MyBookManager : MonoBehaviour
             {
                 print(hitInfo.transform.name);
                 if (hitInfo.transform.gameObject.tag == "ClickHere" || hitInfo.transform.gameObject.name == "MyDesk")
-                { 
+                {
+                    HttpGetMyBookData();
                     //HttpGetPastBook();  // 네트워크 통신 -> 함수 만들어줘야함
                     print("담은도서 목록 출력");
 
@@ -239,9 +240,14 @@ public class MyBookManager : MonoBehaviour
         }
     }
 
-        /* 책장 앞에서 isDone == true 인 책 보기 관련 */
+    /* 책장 앞에서 isDone == true 인 책 보기 관련 */
     public void ShowBookIsDoneT()
     {
+        // 손가락 쿼드를 띄워준다
+        myDesk.transform.GetChild(0).gameObject.SetActive(true);
+        // 손가락 쿼드 항상 카메라 방향
+        myDesk.transform.GetChild(0).forward = Camera.main.transform.forward;
+
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -298,7 +304,7 @@ public class MyBookManager : MonoBehaviour
         }
     }
 
-
+    #region (지난 버전) 책 관리 
     /* 현재도서 목록 관련 */
     public void ShowClickHereCurrBook()
     {
@@ -395,7 +401,7 @@ public class MyBookManager : MonoBehaviour
             }
         }
     }
-
+    #endregion
 
     public GameObject me;
     public int idx;
@@ -443,65 +449,32 @@ public class MyBookManager : MonoBehaviour
     public List<string> isbnListNet = new List<string>();
     public List<string> imageListNet = new List<string>();
 
-
-    // 통신 관련 -------------------------
-    #region 현재도서
-    void HttpGetCurrBook()
+    // (바뀐 버전) Http 통신 관련 ------------------------
+    // 2. 책상 앞으로 갔을 때 호출할 API : 담은 책 + 읽은 책 가져오기 (모든 책 정보 다 보내줌)
+    void HttpGetMyBookData()
     {
-        // 서버에 게시물 조회 요청(/post/1, GET)
-        // HttpRequester를 생성
         HttpRequester requester = new HttpRequester();
 
         // /posts/1. GET, 완료되었을 때 호출되는 함수
-        requester.url = "http://15.165.28.206:8080/v1/records/reading";
+        requester.url = "http://15.165.28.206:8080/v1/records/desk";
         requester.requestType = RequestType.GET;
-        requester.onComplete = OnComplteGetMyCurrBook;
+        requester.onComplete = OnCompleteGetMyBookData;
 
         // HttpManager 에게 요청
         HttpManager.instance.SendRequest(requester, "");
     }
 
-
-    public void OnComplteGetMyCurrBook(DownloadHandler handler)
+    void OnCompleteGetMyBookData(DownloadHandler handler)
     {
-
+        // 데이터 처리
         JObject jObject = JObject.Parse(handler.text);
         int type = (int)jObject["status"];
-        //string type = (int)jObject["data"]["recordCode"];
-       
-        //string result_data = ParseJson("[" + handler.text + "]", "data");
 
-        // 통신 성공
         if (type == 200)
         {
-            print("통신성공.현재도서");
-            // 1. PlayerPref에 key는 jwt, value는 token
-
+            print("통신성공. 모든도서");
             string result_data = ParseJson("[" + handler.text + "]", "data");
 
-            titleListNet = ParseCurrBookList(result_data, "bookName");
-            authorListNet = ParseCurrBookList(result_data, "bookAuthor");
-            publishInfoListNet = ParseCurrBookList(result_data, "bookPublishInfo");
-            //pubdateList = ParseCurrBookList(result_data, "pubdate");
-            isbnListNet = ParseCurrBookList(result_data, "bookISBN");
-            imageListNet = ParseCurrBookList(result_data, "thumbnailLink");
-
-
-            for(int i = 0; i < titleListNet.Count; i++)
-            {
-                _MyBookInfo myCurrBookInfo = new _MyBookInfo();
-                
-                myCurrBookInfo.bookName = titleListNet[i];
-                myCurrBookInfo.bookAuthor = authorListNet[i];
-                myCurrBookInfo.bookPublishInfo = publishInfoListNet[i];
-                myCurrBookInfo.bookISBN = isbnListNet[i];
-                //myCurrBookInfo.thumbnail = imageListNet[i];
-
-                //myBookListNet.Add(myCurrBookInfo);
-            }
-
-            print(jObject);
-            //PhotonNetwork.ConnectUsingSettings();
         }
     }
 
@@ -519,47 +492,123 @@ public class MyBookManager : MonoBehaviour
         return result;
     }
 
-    List<string> ParseCurrBookList(string jsonText, string key)
-    {
-        JArray parseData = JArray.Parse(jsonText);
-        List<string> result = new List<string>();
-
-        foreach (JObject obj in parseData.Children())
+    // (지난 버전) 통신 관련 -------------------------
+    #region 현재도서
+    /*    void HttpGetCurrBook()
         {
-            result.Add(obj.GetValue(key).ToString());
+            // 서버에 게시물 조회 요청(/post/1, GET)
+            // HttpRequester를 생성
+            HttpRequester requester = new HttpRequester();
+
+            // /posts/1. GET, 완료되었을 때 호출되는 함수
+            requester.url = "http://15.165.28.206:8080/v1/records/reading";
+            requester.requestType = RequestType.GET;
+            requester.onComplete = OnComplteGetMyCurrBook;
+
+            // HttpManager 에게 요청
+            HttpManager.instance.SendRequest(requester, "");
         }
 
-        return result;
-    }
+
+        public void OnComplteGetMyCurrBook(DownloadHandler handler)
+        {
+
+            JObject jObject = JObject.Parse(handler.text);
+            int type = (int)jObject["status"];
+            //string type = (int)jObject["data"]["recordCode"];
+
+            //string result_data = ParseJson("[" + handler.text + "]", "data");
+
+            // 통신 성공
+            if (type == 200)
+            {
+                print("통신성공.현재도서");
+                // 1. PlayerPref에 key는 jwt, value는 token
+
+                string result_data = ParseJson("[" + handler.text + "]", "data");
+
+                titleListNet = ParseCurrBookList(result_data, "bookName");
+                authorListNet = ParseCurrBookList(result_data, "bookAuthor");
+                publishInfoListNet = ParseCurrBookList(result_data, "bookPublishInfo");
+                //pubdateList = ParseCurrBookList(result_data, "pubdate");
+                isbnListNet = ParseCurrBookList(result_data, "bookISBN");
+                imageListNet = ParseCurrBookList(result_data, "thumbnailLink");
+
+
+                for(int i = 0; i < titleListNet.Count; i++)
+                {
+                    _MyBookInfo myCurrBookInfo = new _MyBookInfo();
+
+                    myCurrBookInfo.bookName = titleListNet[i];
+                    myCurrBookInfo.bookAuthor = authorListNet[i];
+                    myCurrBookInfo.bookPublishInfo = publishInfoListNet[i];
+                    myCurrBookInfo.bookISBN = isbnListNet[i];
+                    //myCurrBookInfo.thumbnail = imageListNet[i];
+
+                    //myBookListNet.Add(myCurrBookInfo);
+                }
+
+                print(jObject);
+                //PhotonNetwork.ConnectUsingSettings();
+            }
+        }
+
+        // data parsing
+        string ParseJson(string jsonText, string key)
+        {
+            JArray parseData = JArray.Parse(jsonText);
+            string result = "";
+
+            foreach (JObject obj in parseData.Children())
+            {
+                result = obj.GetValue(key).ToString();
+            }
+
+            return result;
+        }
+
+        List<string> ParseCurrBookList(string jsonText, string key)
+        {
+            JArray parseData = JArray.Parse(jsonText);
+            List<string> result = new List<string>();
+
+            foreach (JObject obj in parseData.Children())
+            {
+                result.Add(obj.GetValue(key).ToString());
+            }
+
+            return result;
+        }*/
     #endregion
 
-    void HttpGetPastBookList()
-    {
-        HttpRequester requester = new HttpRequester();
-
-        // /posts/1. GET, 완료되었을 때 호출되는 함수
-        requester.url = "http://15.165.28.206:8080/v1/records/count";
-        requester.requestType = RequestType.GET;
-        requester.onComplete = OnComplteGetMyPastBookList;
-
-        // HttpManager 에게 요청
-        HttpManager.instance.SendRequest(requester, "");
-    }
-
-    public void OnComplteGetMyPastBookList(DownloadHandler handler)
-    {
-        JObject jObject = JObject.Parse(handler.text);
-        int type = (int)jObject["status"];
-        //string type = (int)jObject["data"]["recordCode"];
-
-        // 통신 성공
-        if (type == 200)
+    #region 다읽은도서
+    /*    void HttpGetPastBookList()
         {
-            print("통신성공.읽은도서 모두");
-            // 1. PlayerPref에 key는 jwt, value는 token
-            print(jObject);
-            //PhotonNetwork.ConnectUsingSettings();
-        }
-    }
+            HttpRequester requester = new HttpRequester();
 
+            // /posts/1. GET, 완료되었을 때 호출되는 함수
+            requester.url = "http://15.165.28.206:8080/v1/records/count";
+            requester.requestType = RequestType.GET;
+            requester.onComplete = OnComplteGetMyPastBookList;
+
+            // HttpManager 에게 요청
+            HttpManager.instance.SendRequest(requester, "");
+        }
+
+        public void OnComplteGetMyPastBookList(DownloadHandler handler)
+        {
+            JObject jObject = JObject.Parse(handler.text);
+            int type = (int)jObject["status"];
+            //string type = (int)jObject["data"]["recordCode"];
+
+            // 통신 성공
+            if (type == 200)
+            {
+                print("통신성공.읽은도서 모두");
+                // 1. PlayerPref에 key는 jwt, value는 token
+                print(jObject);
+                //PhotonNetwork.ConnectUsingSettings();
+            }
+        }*/
+    #endregion
 }

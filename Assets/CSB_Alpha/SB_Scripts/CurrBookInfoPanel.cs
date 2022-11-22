@@ -147,8 +147,8 @@ public class CurrBookInfoPanel : MonoBehaviour
         print("111111111");
     }
 
-   
-    
+
+    #region 지난 버전
     // ===============================================================
     // 등록 버튼 (누르면 <다읽은 책목록>에 추가)
     public void OnClickAddPastBook()
@@ -203,6 +203,7 @@ public class CurrBookInfoPanel : MonoBehaviour
         GameObject go = Instantiate(alarmFactory, gameObject.transform);    // 나의 자식으로 생성
 
     }
+    #endregion
 
     // 나가기 버튼 (누르면 저장되지 않음)
     public void OnClickExit()
@@ -259,7 +260,11 @@ public class CurrBookInfoPanel : MonoBehaviour
     }
     #endregion
 
-    public void HttpPostPastBookInfo()
+    // (바뀐 버전) Http 통신 관련 ---------------------------------------------
+    // 4. 독서 기록 쓰기
+    // 비고) 이미 담는 과정에서 이미지 파일은 업로드 했기 때문에, 이미지 파일 제외하고 보내주세요
+    // 비고) 호출 후 1번 다시 호출해줘야 함
+    void HttpPostMyBookData()
     {
         //서버에 게시물 조회 요청
         //HttpRequester를 생성
@@ -279,19 +284,60 @@ public class CurrBookInfoPanel : MonoBehaviour
         pastBookdata.bookReview = inputFieldReview.text;
 
         requester.body = JsonUtility.ToJson(pastBookdata, true);
-        requester.onComplete = OnCompletePostMyPastBook;
+        requester.onComplete = OnCompletePostMyBookData;
 
         //HttpManager에게 요청
         HttpManager.instance.SendRequest(requester, "application/json");
     }
 
-    public void OnCompletePostMyPastBook(DownloadHandler handler)
+    void OnCompletePostMyBookData(DownloadHandler handler)
     {
         JObject jObject = JObject.Parse(handler.text);
 
-        //print(jObject + "jobj");
         int type = (int)jObject["status"];
-        // UserData user = (UserData)jObject["results"]["data"]["user"];
-        // string token = (string)jObject["results"]["data"]["token"];
+
+        if(type == 200)
+        {
+
+        }
     }
+
+    #region 지난 버전 통신
+    // (지난 버전) Http 통신 관련 -------------------------------------
+    /*    public void HttpPostPastBookInfo()
+        {
+            //서버에 게시물 조회 요청
+            //HttpRequester를 생성
+            HttpRequester requester = new HttpRequester();
+
+            requester.url = "http://15.165.28.206:8080/v1/records/write";
+            requester.requestType = RequestType.POST;
+
+            PastBookdata pastBookdata = new PastBookdata();
+
+            pastBookdata.bookName = title.text;
+            pastBookdata.bookAuthor = author.text;
+            pastBookdata.bookPublishInfo = publishInfo.text;
+            pastBookdata.bookISBN = isbn.text;
+            pastBookdata.thumbnail = thumbnail;
+            pastBookdata.rating = dropdown.captionText.text;
+            pastBookdata.bookReview = inputFieldReview.text;
+
+            requester.body = JsonUtility.ToJson(pastBookdata, true);
+            requester.onComplete = OnCompletePostMyPastBook;
+
+            //HttpManager에게 요청
+            HttpManager.instance.SendRequest(requester, "application/json");
+        }
+
+        public void OnCompletePostMyPastBook(DownloadHandler handler)
+        {
+            JObject jObject = JObject.Parse(handler.text);
+
+            //print(jObject + "jobj");
+            int type = (int)jObject["status"];
+            // UserData user = (UserData)jObject["results"]["data"]["user"];
+            // string token = (string)jObject["results"]["data"]["token"];
+        }*/
+    #endregion
 }

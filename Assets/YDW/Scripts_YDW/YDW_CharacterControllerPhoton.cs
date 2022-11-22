@@ -37,13 +37,22 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
     public GameObject speecgBubbleGameObj;
     public Text speechBubble;
 
+    public ChatManager chatManager;
     // Start is called before the first frame update
     void Start()
     {
-      
+        chatManager = FindObjectOfType<ChatManager>();
+
+        if(chatManager)
+        {
+            chatManager.player = gameObject;
+        }
+
+
         if (photonView.IsMine)
         {
             cameraArm.gameObject.SetActive(true);
+            mainbody.gameObject.tag = "Player";
         }
         sceneName = SceneManager.GetActiveScene();
         animator = characterBody.GetComponent<Animator>();
@@ -167,6 +176,4 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
         Camera.main.fieldOfView += deltaMagnitudeDiff * zoomIn;
         Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView, 0.1f, 100f);
     }
-
- 
 }

@@ -181,6 +181,36 @@ public class WorldManager2D : MonoBehaviour
         }
     }
 
+    // 검색 버튼 관련 (돋보기 버튼)
+    public void OnClickSearchBookGroup()
+    {
+        // 검색 버튼을 클릭하면 
+
+        // 생성되어 있는 검색 결과 삭제
+        Transform[] childList = content.GetComponentsInChildren<Transform>();
+        if (childList != null)
+        {
+            for (int i = 1; i < childList.Length; i++)
+            {
+                Destroy(childList[i].gameObject);
+            }
+        }
+
+        APIRequester requester = new APIRequester();
+
+        requester.onComplete = OnCompleteBook;
+
+        manager.SendRequest(requester);
+    }
+
+    public Text textBookName;
+    public void OnCompleteBook(DownloadHandler handler)
+    {
+        string result_items = ParseJson("[" + handler.text + "]", "items");
+
+        titleList = ParseJsonList(result_items, "title");
+        textBookName.text= result_items;
+    }
 
     IEnumerator GetThumbnail(string url, RawImage rawImage)
     {

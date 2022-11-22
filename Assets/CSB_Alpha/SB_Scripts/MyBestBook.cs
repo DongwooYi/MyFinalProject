@@ -21,10 +21,7 @@ public class MyBestBook : MonoBehaviour
 
     void Start()
     {
-        player = GameObject.Find("Character");
-        me.GetComponent<Button>().onClick.AddListener(ShowClickHereBestBook);
-       
-
+        player = GameObject.Find("Character");     
     }
 
     void Update()

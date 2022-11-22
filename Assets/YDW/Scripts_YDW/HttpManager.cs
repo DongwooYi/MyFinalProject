@@ -49,17 +49,17 @@ public class HttpManager : MonoBehaviour
                 webRequest.SetRequestHeader("Content-Type", contentType);
                 //webRequest.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("jwt"));
                 yield return webRequest.SendWebRequest();
-                //만약에 응답이 성공했다면
+                 //만약에 응답이 성공했다면
                 if (webRequest.result == UnityWebRequest.Result.Success)
                 {                    
                     requester.onComplete(webRequest.downloadHandler);
                 }
                 else
                 {
-                    requester.onFailed();
                     print("통신 실패");
-                    
+                    requester.onFailed();
                 }
+                webRequest.Dispose();
                 break;
 
             case RequestType.POST:

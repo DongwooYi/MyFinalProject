@@ -193,7 +193,7 @@ namespace DailyRewardSystem {
 
 		//Open | Close UI -------------------------------------------------------
 		void OnOpenButtonClick ( ) {
-			rewardsCanvas.SetActive ( true );
+			rewardsCanvas.SetActive ( true ); 
 		}
 
 		void OnCloseButtonClick ( ) {

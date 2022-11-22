@@ -5,7 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 public class PhotonGameManager : MonoBehaviourPunCallbacks
 {
-    public static PhotonGameManager instance;    
+    public static PhotonGameManager instance;
     private void Awake()
     {
         instance = this;
@@ -17,8 +17,7 @@ public class PhotonGameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.SerializationRate = 60;
         //Rpc »£√‚ ∫Ûµµ
         PhotonNetwork.SendRate = 60;
-        GameObject go = PhotonNetwork.Instantiate("Player", Vector3.zero , Quaternion.identity) as GameObject;
-        go.transform.parent = GameObject.Find("Spawner").transform;
+        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
 
     }
 

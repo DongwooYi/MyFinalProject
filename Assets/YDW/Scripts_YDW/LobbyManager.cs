@@ -7,6 +7,7 @@ using System.Collections;
 using System;
 using UnityEngine.Networking;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
@@ -58,6 +59,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public string startDate;
     DateTime dateTime;
     DateTime dateTime1;
+
+    public byte[] img;
+    public WorldManager2D worldManager2D;
     #region 요일 선택
     [Header("요일 선택")]
     public Toggle toggleMon;
@@ -92,6 +96,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         // 총인원(InputField)이 변경될때 호출되는 함수 등록
         inputMaxPlayer.onValueChanged.AddListener(OnMaxPlayerValueChanged);
         string[] s = Microphone.devices;
+        Debug.Log(Application.persistentDataPath);
     }
     private void Update()
     {
@@ -101,7 +106,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             setRoom.SetActive(true);
         }
         if (doorCheck.GotoMainWorld == true)
-        {            
+        {
             CreateChatroom();
             doorCheck.GotoMainWorld = false;
             Debug.Log("CreateChatroom");
@@ -116,9 +121,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
         if (Input.GetKeyDown(KeyCode.F11))
         {
-           setRoomlist.SetActive(true);
+            setRoomlist.SetActive(true);
         }
-        if(Input.GetKeyDown(KeyCode.Alpha9))
+        if (Input.GetKeyDown(KeyCode.Alpha9))
         {
             CreateChatroom();
         }
@@ -148,11 +153,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         roomOptions.MaxPlayers = 4;
         // 룸 리스트에 보이지 않게? 보이게?
         roomOptions.IsVisible = false;
-        
-        PhotonNetwork.JoinOrCreateRoom("Room",roomOptions, null);
-       
+
+        PhotonNetwork.JoinOrCreateRoom("Room", roomOptions, null);
+
     }
-        
+
     //방 생성
     public void CreateRoom()
     {
@@ -189,7 +194,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnCreatedRoom()
     {
         base.OnCreatedRoom();
-        
+
         print("OnCreatedRoom");
     }
 
@@ -325,9 +330,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //이전 맵 id 저장
         prevMapId = map_id;
     }
+    DateTime dt;
     public void OnClick_GetDate()
     {
-        DateTime dt = unityCalendar.GetDate();
+        dt = unityCalendar.GetDate();
         textCalendar.text = startDate + "~" + dt.ToString("yyyy-MM-dd");
     }
     public void OnClick_Clear()
@@ -339,21 +345,21 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         if (val == 0)
         {
-            
+
             dateTime1 = dateTime.AddHours(24);
             startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
             print("24");
         }
         if (val == 1)
         {
-           
+
             dateTime1 = dateTime.AddHours(72);
             startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
             print("72");
         }
         if (val == 2)
         {
-           
+
             dateTime1 = dateTime.AddHours(168);
             startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
             print("168");
@@ -434,35 +440,135 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
 
     }
+    [Header("이미지")]
+    public GameObject lobbyManager;
+    public RawImage image;
+    #region 이미지
+    
+    public void OnClickImageLoad()
+    {
 
+        NativeGallery.GetImageFromGallery((file) =>
+        {
+            //이미지 정보
+            FileInfo selected = new FileInfo(file);
+
+            //이미지 용량 제한(나중의 문제 생길수있기에 예방)
+            if (selected.Length > 5000000)
+            {
+                return;
+            }
+
+            if (!string.IsNullOrEmpty(file))
+            {
+                // 불러오기
+                StartCoroutine(LoadImage(file));
+            }
+
+        });
+    }
+    IEnumerator LoadImage(string path)
+    {
+        yield return null;
+        byte[] fileData = File.ReadAllBytes(path);
+        // 확장자의 이름 은 필요없음
+        string fileName = Path.GetFileName(path).Split('.')[0];
+        //설정된 이미지
+        string savePath = Application.persistentDataPath + "/Image";
+        // 만약 내가 지정한 저장 경로가 없다면 지정 경로를 만들어라
+        if (!Directory.Exists(savePath))
+        {
+            Directory.CreateDirectory(savePath);
+        }
+        // 내가 원하는 장소의 PNG 형식의 파일 이름으로 저장
+        File.WriteAllBytes(savePath + fileName + ".png", fileData);
+
+        var temp = File.ReadAllBytes(savePath + fileName + ".png");
+        img = File.ReadAllBytes(savePath + fileName + ".png");
+        Texture2D tex = new Texture2D(0, 0);
+        tex.LoadImage(temp);
+
+        image.texture = tex;
+
+    }
+    #endregion
     #region Http
     public void SendRoomData()
     {
-        HttpRequester requester = new HttpRequester();
-
-        requester.url = "";
-        requester.requestType = RequestType.POST;
 
         RoomData roomData = new RoomData();
+        roomData.clubName = inputRoomName.text;
+        roomData.bookName = "이동우";
+        roomData.clubIntro = inputFieldRoomDescription.text;
+        roomData.numberOfMember = int.Parse(inputMaxPlayer.text);
+        roomData.recruitStartDate = DateTime.Now.ToString();
+        roomData.recruitEndDate = startDate;
+        roomData.startDate = startDate;
+        roomData.endDate = dt.ToString("yyyy-MM-dd");
+        roomData.dayofWeeks = $"{monText}{tueText}{wedText}{thuText}{friText}{satText}{sunText}";
+        //roomData.imgFile = img;
 
-        roomData.RoomName = inputRoomName.text;
-        roomData.ThePeriodProject = textCalendar.text; 
-        roomData.MeetingDate = $"{monText}{tueText}{wedText}{thuText}{friText}{sunText}{sunText}";
+      /* Request request = new Request();
+        request.roomDataforSedning = roomData;     
+        request.imgFile = tex.EncodeToPNG();*/
         
-        requester.body = JsonUtility.ToJson(roomData, true);
+        List<IMultipartFormSection> formData = new List<IMultipartFormSection>();
+        formData.Add(new MultipartFormDataSection("Request", roomData.ToString()));
+        //formData.Add(new MultipartFormDataSection("Request", );
+
+       // WWWForm form = new WWWForm();
+       //form.AddField("Request",);
+       // form.AddBinaryData("datofWeek" request.imgFile);
+
+        HttpRequester requester = new HttpRequester();
+        requester.url = "http://192.168.0.11:8080";
+        requester.requestType = RequestType.POST;
+        requester.body = JsonUtility.ToJson(formData, true);
         requester.onComplete = OnCompletePostRoomData;
 
         //HttpManager에게 요청
         HttpManager.instance.SendRequest(requester, "application/json");
+        print("Post성공");
     }
+
+    /* public void SendImageRoomData()
+     {
+         HttpRequester requester = new HttpRequester();
+
+         requester.url = "192.168.0.16:8080.";
+         requester.requestType = RequestType.POST;
+
+         RoomDataImage roomDataimage = new RoomDataImage();
+         roomDataimage.imgFile = tex.EncodeToPNG();
+         requester.body = JsonUtility.ToJson(roomDataimage, true);
+         requester.onComplete = OnCompletePostRoomDataImage;
+         HttpManager.instance.SendRequest(requester, "application/json");
+     }*/
 
     public void OnCompletePostRoomData(DownloadHandler downloadHandler)
     {
         JObject jObject = JObject.Parse(downloadHandler.text);
 
-       // int type = (int)jObject["status"];
-        //CreateRoom();
+        int type = (int)jObject["status"];
+        if (type == 200)
+        {
+            Debug.Log("성공");
+            //CreateRoom();
+        }
     }
+
+    /*public void OnCompletePostRoomDataImage(DownloadHandler downloadHandler)
+    {
+        JObject jObject = JObject.Parse(downloadHandler.text);
+
+        int type = (int)jObject["status"];
+        if (type == 200)
+        {
+            Debug.Log("성공");
+            
+             CreateRoom();
+        }
+    }*/
     #endregion
 }
 

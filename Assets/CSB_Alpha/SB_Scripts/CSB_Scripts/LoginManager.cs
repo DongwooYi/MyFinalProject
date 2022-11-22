@@ -31,13 +31,14 @@ public class LoginManager : MonoBehaviourPunCallbacks
         HttpRequester requester = gameObject.AddComponent<HttpRequester>();
 
         ///post/1, GET, 완료되었을 때 호출되는 함수
-        requester.url = "http://15.165.28.206:8080/v1/auths/login";
+        requester.url = "http://192.168.0.11:8080/v1/auths/login";
 
         LoginData ldata = new()
         {
             memberId = id.text,
             memberPwd = pw.text
         };
+        print(ldata.memberId + ldata.memberPwd);
 
         requester.body = JsonUtility.ToJson(ldata, true);
         requester.requestType = RequestType.LOGIN;
@@ -52,12 +53,13 @@ public class LoginManager : MonoBehaviourPunCallbacks
         JObject jObject = JObject.Parse(handler.text);
         int type = (int)jObject["status"];
         string token = (string)jObject["data"]["accessToken"];
-        
+
         // 통신 성공
         if (type==200)
         {
-            HttpManager.instance.nickName = (string)jObject["data"]["membersName"];
-            print("통신성공");
+            
+            HttpManager.instance.nickName = (string)jObject["data"]["memberName"];
+            print("통신성공/ 닉네임: "+(string)jObject["data"]["memberName"]);
             // 1. PlayerPref에 key는 jwt, value는 token
             PlayerPrefs.SetString("jwt", token);
             print("token값" + token);
@@ -86,6 +88,8 @@ public class LoginManager : MonoBehaviourPunCallbacks
         base.OnConnectedToMaster();
         print(System.Reflection.MethodBase.GetCurrentMethod().Name);
 
+        PhotonNetwork.NickName = HttpManager.instance.nickName;
+
         //로비 진입 요청
         PhotonNetwork.JoinLobby();
     }
@@ -94,7 +98,7 @@ public class LoginManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
         print(System.Reflection.MethodBase.GetCurrentMethod().Name);
-        PhotonNetwork.LoadLevel("LobbyScene");
+        PhotonNetwork.LoadLevel("MyRoomScene_Beta 1");
     }
     #endregion
 }

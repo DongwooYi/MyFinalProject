@@ -208,6 +208,7 @@ public class WorldManager2D : MonoBehaviour
     // 1. 월드 입장시 요청할 API : 읽은 책(책장), 인생책 (낮은 책장) 정보 보내주기
     void HttpGetMyBookData()
     {
+        print("요청");
         HttpRequester requester = new HttpRequester();
 
         // /posts/1. GET, 완료되었을 때 호출되는 함수
@@ -272,6 +273,9 @@ public class WorldManager2D : MonoBehaviour
             isBestsListNet.Clear();
 
             print(jObject);
+
+            // 내서재 셋팅
+            SettingMyRoom();
         }
     }
 

@@ -87,15 +87,19 @@ public class SearchResult : MonoBehaviour
         requester.url = "http://15.165.28.206:8080/v1/records/contain";
         requester.requestType = RequestType.POST;
 
-        BookData bookData = new BookData();
+        BookRecord bookRecord = new BookRecord();
 
-        bookData.bookName = bookTitle.text;
-        bookData.bookAuthor = author.text;
-        bookData.bookISBN = isbn.text;
-        bookData.bookPublishInfo = publishInfo.text;
-        //bookData.thumbnail = thumbnail;
+        BookInfo bookInfo = new BookInfo();
 
-        requester.body = JsonUtility.ToJson(bookData, true);
+        bookInfo.bookName = bookTitle.text;
+        bookInfo.bookAuthor = author.text;
+        bookInfo.bookISBN = isbn.text;
+        bookInfo.bookPublishInfo = publishInfo.text;
+
+        bookRecord.record = bookInfo;
+        //bookRecord.bookImg = 
+
+        //requester.body = JsonUtility.ToJson(bookData, true);
 
         requester.onComplete = OnCompletePostMyBook;
 

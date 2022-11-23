@@ -8,7 +8,7 @@ using System.Linq;
 // 책장에 붙어있는 코드
 public class MyBestBook : MonoBehaviour
 {
-    // Toggle 들로 구성된 List
+    /*// Toggle 들로 구성된 List
     public Dictionary<int, bool> toggles = new Dictionary<int, bool>();
     public List<bool> toggleList = new List<bool>();
     
@@ -97,5 +97,5 @@ public class MyBestBook : MonoBehaviour
                 bestBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", texture);
             }
         }
-    }
+    }*/
 }

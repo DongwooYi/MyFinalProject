@@ -66,6 +66,43 @@ public class BookData
     public string memberCode;
 }
 
+[System.Serializable]
+public class BookRecord
+{
+    public BookInfo record;
+    public byte[] bookImg;
+}
+
+
+[System.Serializable]
+public class BookInfo
+{
+    public string bookName;
+    public string bookAuthor;
+    public string bookPublishInfo;
+    public string bookISBN;
+}
+
+/*public class AAA
+{
+    public BBB mine;
+}
+
+
+public class BBB
+{
+    public int number;
+    public string name;
+}
+
+
+{
+    mine:
+    {
+        number: 2,
+        name:"수빈"
+    }
+}*/
 
 #region 배너 관련 책
 [System.Serializable]

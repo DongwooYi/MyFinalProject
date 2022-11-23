@@ -183,6 +183,7 @@ MonoBehaviour:
   publishInfo: {fileID: 318626366261211663}
   isbn: {fileID: 117586242441034359}
   thumbnail: {fileID: 5227978238119400292}
+  aa: {fileID: 2800000, guid: 678c84fbe8cb0e7418a53218f432f2f7, type: 3}
   reviewPanelFactory: {fileID: 619597165726824052, guid: 1213c436b6a8feb468ab7f54d5666ce6, type: 3}
   alarmFactory: {fileID: 8270181874862600635, guid: 4ee3d44cd7a38a64684b034223261f45, type: 3}
   myDesk: {fileID: 0}

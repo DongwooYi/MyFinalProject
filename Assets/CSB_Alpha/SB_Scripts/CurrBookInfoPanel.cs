@@ -25,6 +25,7 @@ public class CurrBookInfoPanel : MonoBehaviour
     public RawImage thumbnail;
 
     bool isDone;
+    string isDoneString;
     int idx;
 
 
@@ -102,6 +103,8 @@ public class CurrBookInfoPanel : MonoBehaviour
 
         if (isDone)
         {
+            // 
+            isDoneString = "Y";
             // 0. WorldManager 의 myAllBookList 업데이트
             // isDone = true 포함
             wm.myAllBookList[idx].bookName = title.text;
@@ -273,17 +276,18 @@ public class CurrBookInfoPanel : MonoBehaviour
         requester.url = "http://15.165.28.206:8080/v1/records/write";
         requester.requestType = RequestType.POST;
 
-        PastBookdata pastBookdata = new PastBookdata();
+        BookData bookData = new BookData();
 
-        pastBookdata.bookName = title.text;
-        pastBookdata.bookAuthor = author.text;
-        pastBookdata.bookPublishInfo = publishInfo.text;
-        pastBookdata.bookISBN = isbn.text;
-        pastBookdata.thumbnail = thumbnail;
-        pastBookdata.rating = dropdown.captionText.text;
-        pastBookdata.bookReview = inputFieldReview.text;
+        bookData.bookName = title.text;
+        bookData.bookAuthor = author.text;
+        bookData.bookPublishInfo = publishInfo.text;
+        bookData.bookISBN = isbn.text;
+        //bookData.thumbnail = thumbnail;
+        bookData.rating = dropdown.captionText.text;
+        bookData.bookReview = inputFieldReview.text;
+        //bookData.isDone = inputFieldReview.text;
 
-        requester.body = JsonUtility.ToJson(pastBookdata, true);
+        requester.body = JsonUtility.ToJson(bookData, true);
         requester.onComplete = OnCompletePostMyBookData;
 
         //HttpManager에게 요청

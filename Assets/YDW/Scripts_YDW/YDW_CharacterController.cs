@@ -10,7 +10,6 @@ public class YDW_CharacterController : MonoBehaviour
     public GameObject myself;
     public Transform characterBody;
     public Transform cameraArm;
-    public Joystick2DLobby joystick2DLobby;
     Animator animator;
 
     bool isCollisionCheck;
@@ -41,7 +40,7 @@ public class YDW_CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (sceneName.name != "MyRoomScene_Beta 1")
+        if (sceneName.name != "MyRoomScene_Beta")
         {
             myself.SetActive(false);
         }
@@ -93,7 +92,6 @@ public class YDW_CharacterController : MonoBehaviour
         Vector2 moveInput = vector2;
         // 이동 방향키 입력 판정 : 이동 방향 벡터가 0보다 크면 입력이 발생하고 있는 중
         bool isMove = moveInput.magnitude != 0;
-        //bool isMove = joystick2DLobby.isInput;
         // 입력이 발생하는 중이라면 이동 애니메이션 재생
         animator.SetBool("isMove", isMove);
         if (isMove)

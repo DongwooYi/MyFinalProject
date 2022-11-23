@@ -90,7 +90,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
-
         welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
         dropdown.onValueChanged.AddListener(delegate { HandleInputData(dropdown.value); });
         // 방이름(InputField)이 변경될때 호출되는 함수 등록
@@ -351,27 +350,38 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         textCalendar.text = string.Empty;
         unityCalendar.Init();
     }
+    public string recruitDate;
     public void HandleInputData(int val)
     {
         if (val == 0)
         {
 
             dateTime1 = dateTime.AddHours(24);
-            startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}T{dateTime1.Hour}:{dateTime1.Minute}";
+             startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
+            recruitDate = dateTime.ToString("yyyy-MM-ddTHH:mm");
+            Debug.Log("1일:" + startDate);
+
         }
         if (val == 1)
         {
 
             dateTime1 = dateTime.AddHours(72);
-            startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}T{dateTime1.Hour}:{dateTime1.Minute}";
+
+            startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
+            recruitDate = dateTime.ToString("yyyy-MM-ddTHH:mm");
             print("72");
+            Debug.Log("3일:" + startDate);
+
         }
         if (val == 2)
         {
 
             dateTime1 = dateTime.AddHours(168);
-            startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}T{dateTime1.Hour}:{dateTime1.Minute}";
+            startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
+            recruitDate = dateTime.ToString("yyyy-MM-ddTHH:mm");
             print("168");
+            Debug.Log("7일"+startDate);
+
         }
     }
     public void ToggleCheck()
@@ -512,16 +522,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         form.AddField("clubIntro", inputFieldRoomDescription.text);
         form.AddField("numberOfMember", inputMaxPlayer.text);
         form.AddField("recruitStartDate", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm"));
-        form.AddField("recruitEndDate", startDate);
-        form.AddField("startDate", startDate);
+        form.AddField("recruitEndDate", recruitDate);
+        form.AddField("startDate", recruitDate);
         form.AddField("endDate", dt.ToString("yyyy-MM-ddTHH:mm"));
         print("recruitStartDate" + DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm") + "\r\n" + "startDate" + startDate + "\r\n" + dt.ToString("yyyy-MM-ddTHH:mm"));
        
         form.AddField("dayOfWeeks", $"{monText}{tueText}{wedText}{thuText}{friText}{satText}{sunText}");
         form.AddBinaryData("imgFile", img);
 
-        UnityWebRequest www = UnityWebRequest.Post("http://192.168.0.11:8080/v1/clubs", form);
-        print(form);
+       // UnityWebRequest www = UnityWebRequest.Post("http://192.168.0.11:8080/v1/clubs", form);
+        UnityWebRequest www = UnityWebRequest.Post("http://15.165.28.206:8080/v1/clubs", form);
         www.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("jwt"));
         yield return www.SendWebRequest();
         if (www.result != UnityWebRequest.Result.Success)
@@ -539,13 +549,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         FailCreateaRoom.SetActive(true);
         yield return new WaitForSeconds(3.0f);
+        FailCreateaRoom.SetActive(false);
     }
     #endregion
     #region HTTP Json
     public void  SendRoomDataFunction()
     {
 
-        RoomData roomData = new RoomData();
+         RoomData roomData = new RoomData();
           roomData.clubName = inputRoomName.text;
            roomData.bookName = "이동우";
            roomData.clubIntro = inputFieldRoomDescription.text;
@@ -588,7 +599,32 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (type == 200)
         {
             Debug.Log("성공");
-            //CreateRoom();
+            Debug.Log(downloadHandler.text);
+            
+        }
+    }
+    #endregion
+    #region
+    public void MyRoomJoinedList()
+    {
+        StartCoroutine(GetRequest("http://192.168.0.11:8080/v1/clubs?option=1"));
+    }
+    
+    IEnumerator GetRequest(string URL)
+    {
+        using (UnityWebRequest webRequest = UnityWebRequest.Get(URL))
+        {
+            webRequest.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("jwt"));
+            yield return webRequest.SendWebRequest();
+
+            if (webRequest.error == null)  // 에러가 나지 않으면 동작.
+            {
+                Debug.Log(webRequest.downloadHandler.text);
+            }
+            else
+            {
+                Debug.Log("error");
+            }
         }
     }
     #endregion

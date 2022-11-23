@@ -18,9 +18,9 @@ namespace DailyRewardSystem {
 	public class DailyRewards : MonoBehaviour {
 
 		[Header ( "Main Menu UI" )]
-		[SerializeField] Text metalsText;
+		//[SerializeField] Text metalsText;
 		[SerializeField] Text coinsText;
-		[SerializeField] Text gemsText;
+		//[SerializeField] Text gemsText;
 
 		[Space]
 		[Header ( "Reward UI" )]
@@ -36,9 +36,9 @@ namespace DailyRewardSystem {
 
 		[Space]
 		[Header ( "Rewards Images" )]
-		[SerializeField] Sprite iconMetalsSprite;
+		//[SerializeField] Sprite iconMetalsSprite;
 		[SerializeField] Sprite iconCoinsSprite;
-		[SerializeField] Sprite iconGemsSprite;
+		//[SerializeField] Sprite iconGemsSprite;
 
 		[Space]
 		[Header ( "Rewards Database" )]
@@ -46,9 +46,9 @@ namespace DailyRewardSystem {
 
 		[Space]
 		[Header ( "FX" )]
-		[SerializeField] ParticleSystem fxMetals;
+		//[SerializeField] ParticleSystem fxMetals;
 		[SerializeField] ParticleSystem fxCoins;
-		[SerializeField] ParticleSystem fxGems;
+		//[SerializeField] ParticleSystem fxGems;
 
 		[Space]
 		[Header ( "Timing" )]
@@ -63,18 +63,25 @@ namespace DailyRewardSystem {
 
 		void Start ( ) {
 			Initialize ( );
-
 			StopAllCoroutines ( );
 			StartCoroutine ( CheckForRewards ( ) );
 		}
+        private void Update()
+        {
+			if(Input.GetKeyDown(KeyCode.F12))
+            {
+			PlayerPrefs.DeleteAll();
 
-		void Initialize ( ) {
+            }
+        }
+
+        void Initialize ( ) {
 			nextRewardIndex = PlayerPrefs.GetInt ( "Next_Reward_Index", 0 );
 
 			//Update Mainmenu UI (metals,coins,gems)
-			UpdateMetalsTextUI ( );
+			//UpdateMetalsTextUI ( );
 			UpdateCoinsTextUI ( );
-			UpdateGemsTextUI ( );
+			//UpdateGemsTextUI ( );
 
 			//Add Click Events
 			openButton.onClick.RemoveAllListeners ( );
@@ -121,13 +128,12 @@ namespace DailyRewardSystem {
 			Reward reward = rewardsDB.GetReward ( nextRewardIndex );
 
 			//Icon
-			if ( reward.Type == RewardType.Metals )
-				rewardImage.sprite = iconMetalsSprite;
-			else if ( reward.Type == RewardType.Coins )
+			/*if ( reward.Type == RewardType.Metals )
+				rewardImage.sprite = iconMetalsSprite;*/
+			 if ( reward.Type == RewardType.Coins )
 				rewardImage.sprite = iconCoinsSprite;
-			else
-				rewardImage.sprite = iconGemsSprite;
-
+			/*else
+				rewardImage.sprite = iconGemsSprite;*/
 			//Amount
 			rewardAmountText.text = string.Format ( "+{0}", reward.Amount );
 
@@ -144,26 +150,26 @@ namespace DailyRewardSystem {
 			Reward reward = rewardsDB.GetReward ( nextRewardIndex );
 
 			//check reward type
-			if ( reward.Type == RewardType.Metals ) {
+			/*if ( reward.Type == RewardType.Metals ) {
 				Debug.Log ( "<color=white>" + reward.Type.ToString ( ) + " Claimed : </color>+" + reward.Amount );
 				GameData.Metals += reward.Amount;
 				fxMetals.Play ( );
 				UpdateMetalsTextUI ( );
 
-			} else if ( reward.Type == RewardType.Coins ) {
+			}*/  if ( reward.Type == RewardType.Coins ) {
 				Debug.Log ( "<color=yellow>" + reward.Type.ToString ( ) + " Claimed : </color>+" + reward.Amount );
 				GameData.Coins += reward.Amount;
 				fxCoins.Play ( );
 				UpdateCoinsTextUI ( );
 
-			} else {//reward.Type == RewardType.Gems
+			} /*else if(reward.Type == RewardType.Gems) { 
 				Debug.Log ( "<color=green>" + reward.Type.ToString ( ) + " Claimed : </color>+" + reward.Amount );
 				GameData.Gems += reward.Amount;
 				fxGems.Play ( );
 				UpdateGemsTextUI ( );
 
 				isRewardReady = false;
-			}
+			}*/
 
 			//Save next reward index
 			nextRewardIndex++;
@@ -179,17 +185,17 @@ namespace DailyRewardSystem {
 		}
 
 		//Update Mainmenu UI (metals,coins,gems)--------------------------------
-		void UpdateMetalsTextUI ( ) {
+		/*void UpdateMetalsTextUI ( ) {
 			metalsText.text = GameData.Metals.ToString ( );
-		}
+		}*/
 
 		void UpdateCoinsTextUI ( ) {
 			coinsText.text = GameData.Coins.ToString ( );
 		}
 
-		void UpdateGemsTextUI ( ) {
+		/*void UpdateGemsTextUI ( ) {
 			gemsText.text = GameData.Gems.ToString ( );
-		}
+		}*/
 
 		//Open | Close UI -------------------------------------------------------
 		void OnOpenButtonClick ( ) {

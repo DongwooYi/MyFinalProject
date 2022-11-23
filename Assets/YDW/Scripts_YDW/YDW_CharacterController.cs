@@ -22,9 +22,8 @@ public class YDW_CharacterController : MonoBehaviour
     public float rotSpeed = 50f;
     [Range(0.1f, 1f)]
     public float zoomIn = 1f;
-    Vector3 firstTouch;
-    Vector3 secondTouch;
-    Vector3 camAngle;
+
+    //Vector3 camAngle;
 
     Touch touchZero;
     Touch touchOne;
@@ -35,13 +34,13 @@ public class YDW_CharacterController : MonoBehaviour
     {
         sceneName = SceneManager.GetActiveScene();
         animator = characterBody.GetComponent<Animator>();
-        camAngle = cameraArm.rotation.eulerAngles; 
+        //camAngle = cameraArm.rotation.eulerAngles;
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (sceneName.name != "MyRoomScene_Beta 3")
+        if (sceneName.name != "MyRoomScene_Beta")    // MyRoomScene_Beta_SB
         {
             myself.SetActive(false);
         }
@@ -52,27 +51,19 @@ public class YDW_CharacterController : MonoBehaviour
         if (!EventSystem.current.IsPointerOverGameObject() == false) return;
         if (Input.touchCount > 0)
         {
-            if (Input.touchCount ==1)
-            {
-                firstTouch = touchZero.position;
-                touchZero = Input.GetTouch(0);
-                if(touchZero.phase==TouchPhase.Moved)
-                {
-                    LookAround();
 
-                }
-            
-            }
-            if(Input.touchCount ==2)
+            if (Input.touchCount == 2)
             {
                 touchOne = Input.GetTouch(1);
                 GetTouchZoomInOut();
             }
 
 
-            
+
 
         }
+
+
 
     }
 
@@ -108,43 +99,23 @@ public class YDW_CharacterController : MonoBehaviour
             // 이동할 때 카메라가 보는 방향 바라보기
             //characterBody.forward = lookForward;
             // 이동할 때 이동 방향 바라보기
-           characterBody.forward = moveDir;
+            characterBody.forward = moveDir;
             // 이동
             if (!isCollisionCheck)
                 transform.position += moveDir * Time.deltaTime * 3f;
         }
     }
 
+
+
     public Text log;
     float x, y;
-    public void LookAround()
-    {
-        secondTouch = touchOne.position;
-        // 마우스 이동 값 검출
-        // Vector2 mouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        // 카메라의 원래 각도를 오일러 각으로 저장
-
-        // 카메라의 피치 값 계산
-        x += (camAngle.y + (secondTouch.y - firstTouch.y)) * Time.deltaTime * rotSpeed * 0.1f;
-        y += (camAngle.x - (secondTouch.x - firstTouch.x)) * Time.deltaTime * rotSpeed * 0.1f;
-
-
-        // 카메라 피치 값을 위쪽으로 70도 아래쪽으로 25도 이상 움직이지 못하게 제한
-        // 위아래쪽으로 회전 (0~90도 사이)
-        if (x < 180)
-        {
-            x = Mathf.Clamp(x, -1f, 30f);
-        }
-        // 카메라 회전 시키기
-        log.text = $"x: {x}, \r\n y: {y}";
-        cameraArm.rotation = Quaternion.Euler(x, y, camAngle.z);
-    }
-
+ 
     void CollisionCheck()
     {
         Debug.DrawRay(transform.position, characterBody.forward * rayDistance, Color.black);
         isCollisionCheck = Physics.Raycast(transform.position, characterBody.forward, rayDistance, LayerMask.GetMask("CollisionCheck"));
-       
+
     }
 
 
@@ -170,5 +141,5 @@ public class YDW_CharacterController : MonoBehaviour
         Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView, 0.1f, 100f);
 
     }
-    
+
 }

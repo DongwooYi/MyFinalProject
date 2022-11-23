@@ -17,6 +17,8 @@ public class SearchResult : MonoBehaviour
     public Text isbn;
     public RawImage thumbnail;
 
+    public Texture aa;
+
     public GameObject reviewPanelFactory;
     public GameObject alarmFactory;
 
@@ -35,6 +37,10 @@ public class SearchResult : MonoBehaviour
     /* 책 담기 관련 */
     public void OnClickAddBook()
     {
+        //HttpPostMyBook();
+        imageData = TexToTex2D(aa).EncodeToJPG();
+        StartCoroutine(SendBookData());
+
         _MyBookInfo myBookInfo = new _MyBookInfo();
 
         myBookInfo.bookName = bookTitle.text;
@@ -82,28 +88,48 @@ public class SearchResult : MonoBehaviour
     // 3. 도서 담을 때 호출하는 API
     void HttpPostMyBook()
     {
-        HttpRequester requester = new HttpRequester();
-
-        requester.url = "http://15.165.28.206:8080/v1/records/contain";
-        requester.requestType = RequestType.POST;
-
-        BookRecord bookRecord = new BookRecord();
-
+        
+    }
+    
+    IEnumerator SendBookData()
+    {
         BookInfo bookInfo = new BookInfo();
-
         bookInfo.bookName = bookTitle.text;
         bookInfo.bookAuthor = author.text;
         bookInfo.bookISBN = isbn.text;
         bookInfo.bookPublishInfo = publishInfo.text;
 
-        bookRecord.record = bookInfo;
-        //bookRecord.bookImg = 
+        WWWForm www = new WWWForm();
+        www.AddBinaryData("bookImg", imageData, "image/jpg");
+        www.AddField("bookName", bookTitle.text);
+        www.AddField("bookISBN", isbn.text);
+        www.AddField("bookPublishInfo", publishInfo.text);
+        
 
-        //requester.body = JsonUtility.ToJson(bookData, true);
+        UnityWebRequest webRequest = UnityWebRequest.Post("http://192.168.0.45:8080/v1/records/contain", www);
+        webRequest.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("jwt"));
+        yield return webRequest.SendWebRequest();
+        if (webRequest.result == UnityWebRequest.Result.Success)
+        {
+            print("성공");
+        }
+        else
+        {
+            Debug.Log(webRequest.error);
+        }
+    }
+    public byte[] imageData;
+    Texture2D TexToTex2D(Texture img)
+    {
+        RenderTexture rt = new RenderTexture(img.width, img.height, 32);
+        Texture2D convertImg = new Texture2D(img.width, img.height);
 
-        requester.onComplete = OnCompletePostMyBook;
+        Graphics.Blit(img, rt);
 
-        HttpManager.instance.SendRequest(requester, "application/json");
+        convertImg.ReadPixels(new Rect(0, 0, img.width, img.height), 0, 0);
+        //imageData = TexToTex2D(aa).EncodeToJPG();
+        return convertImg;
+
     }
 
     void OnCompletePostMyBook(DownloadHandler handler)
@@ -114,7 +140,8 @@ public class SearchResult : MonoBehaviour
 
         if (type == 200)
         {
-
+            print("통신 성공. 책 담기");
+            //wm.myAllBookListNet.Add();
         }
         else if(type == 423)
         {

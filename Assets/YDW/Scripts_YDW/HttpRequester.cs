@@ -70,7 +70,7 @@ public class BookData
 public class BookRecord
 {
     public BookInfo record;
-    public Texture2D bookImg;
+    public byte[] bookImg;
 }
 
 

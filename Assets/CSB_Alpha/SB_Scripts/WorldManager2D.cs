@@ -18,6 +18,7 @@ public class _MyBookInfo
     public string thumbnailLink;
     public string bookISBN;
     public RawImage thumbnail;
+    public Texture texture;
 
     // 기록 관련
     public string rating;  // 평점
@@ -93,7 +94,7 @@ public class WorldManager2D : MonoBehaviour
     void Start()
     {
         book = GameObject.Find("Book");
-        bookBest = GameObject.Find("MyBestBookshelf");
+        bookBest = GameObject.Find("myroom/MyBestBookshelf");
 
         HttpGetMyBookData();
 
@@ -105,20 +106,18 @@ public class WorldManager2D : MonoBehaviour
 
     private void Update()
     {
-/*        if (bookPastCount > 2)
-        {
-            showBook.GetComponent<Outline>().OutlineColor = Color.yellow;
-        }*/
+       SettingMyRoom();
     }
 
     // 월드 입장 시 월드 세팅
     // 책장, 낮은 책장, 리워드
-    int bookIdx = 0;
-    int bestBookIdx = 0;
-    int bookCount;
+
     void SettingMyRoom()
     {
-        for(int i = 0; i < myAllBookListNet.Count; i++)
+        int bookIdx = 0;
+        int bestBookIdx = 0;
+        int bookCount = 0;
+        for (int i = 0; i < myAllBookListNet.Count; i++)
         {
             // 만약 isDoneString == "Y" 면
             // 책장 세팅 & 개수 세기
@@ -128,19 +127,26 @@ public class WorldManager2D : MonoBehaviour
                 // 책장에 책 생성
                 GameObject setBook = book.transform.GetChild(bookIdx).gameObject;
                 setBook.SetActive(true);
-                setBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", myAllBookListNet[i].thumbnail.texture);
+                setBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnailImgListNet[i]);
+                print(i);
                 bookIdx++;
-            }
 
+
+            }
             // 만약 isBestString == "Y" 면
             if (myAllBookListNet[i].isBestString == "Y")
             {
+                print("111");
+                print("bestBook1" + bestBookIdx);
                 // 낮은 책장에 책 생성
                 GameObject setBestBook = bookBest.transform.GetChild(bestBookIdx).gameObject;
+                print(setBestBook);
                 setBestBook.SetActive(true);
-                setBestBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", myAllBookListNet[i].thumbnail.texture);
+                setBestBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnailImgListNet[i]);
                 bestBookIdx++;
+                print("bestBook2" + bestBookIdx);
             }
+
         }
 
         // 리워드 관련
@@ -203,6 +209,7 @@ public class WorldManager2D : MonoBehaviour
     public List<string> reviewListNet = new List<string>();
     public List<string> isDoneListNet = new List<string>();
     public List<string> isBestsListNet = new List<string>();
+    public List<Texture> thumbnailImgListNet = new List<Texture>();
 
     // (바뀐 버전) Http 통신 관련 -------------------------------------------------------
     // 1. 월드 입장시 요청할 API : 읽은 책(책장), 인생책 (낮은 책장) 정보 보내주기
@@ -212,7 +219,7 @@ public class WorldManager2D : MonoBehaviour
         HttpRequester requester = new HttpRequester();
 
         // /posts/1. GET, 완료되었을 때 호출되는 함수
-        requester.url = "http://15.165.28.206:8080/v1/records/myroom";
+        requester.url = "http://192.168.0.45:8080/v1/records/myroom";
         requester.requestType = RequestType.GET;
         requester.onComplete = OnCompleteGetMyBookData;
 
@@ -257,9 +264,13 @@ public class WorldManager2D : MonoBehaviour
                 myBookInfo.review = reviewListNet[i];
                 myBookInfo.isDoneString = isDoneListNet[i];
                 myBookInfo.isBestString = isBestsListNet[i];
+                //myBookInfo.thumbnail;
+                
 
+                StartCoroutine(GetThumbnailImg(thumbnailLinkListNet[i]));   //, myBookInfo.thumbnail)
                 myAllBookListNet.Add(myBookInfo);
             }
+            
 
             // 각 data 리스트들 초기화
             titleListNet.Clear();
@@ -271,12 +282,37 @@ public class WorldManager2D : MonoBehaviour
             reviewListNet.Clear();
             isDoneListNet.Clear();
             isBestsListNet.Clear();
+            //thumbnailImgListNet.Clear();
 
             print(jObject);
 
             // 내서재 셋팅
-            SettingMyRoom();
+            //SettingMyRoom();
         }
+    }
+
+    IEnumerator GetThumbnailImg(string url)
+    {
+        UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
+        yield return www.SendWebRequest();
+        print(www.result);
+
+        if (www.result != UnityWebRequest.Result.Success)
+        {
+            print("실패");
+        }
+        else
+        {
+            Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            //rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            thumbnailImgListNet.Add(myTexture);
+            //rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            //texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            //print(rawImage);
+            print(myTexture);
+        }
+        yield return null;
+
     }
 
     // data parsing
@@ -398,6 +434,8 @@ public class WorldManager2D : MonoBehaviour
     {
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
         yield return www.SendWebRequest();
+
+        print(www.result);
 
         if(www.result != UnityWebRequest.Result.Success)
         {

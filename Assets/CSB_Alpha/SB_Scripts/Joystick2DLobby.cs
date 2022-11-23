@@ -6,8 +6,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 
-//, IBeginDragHandler, IDragHandler, IEndDragHandler
-public class Joystick2DLobby : MonoBehaviourPun
+
+public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField]
     private RectTransform innerCircle;  // Inspector 창에서 Drag 해서 넣어줌
@@ -23,12 +23,11 @@ public class Joystick2DLobby : MonoBehaviourPun
     public Text log;
     public float moveSpeed = 10;
     Vector2 touchOrigin;
-
     private Vector2 inputVector;
+
     #region 이동우 조이스틱 수정 부분
     public enum JoystickType { Move, Rotate }
     public JoystickType joystickType;
-    string sceneName;
     #endregion
     private void Awake()
     {

@@ -95,7 +95,7 @@ public class WorldManager2D : MonoBehaviour
         book = GameObject.Find("Book");
         bookBest = GameObject.Find("MyBestBookshelf");
 
-        HttpGetMyBookData();
+     //   HttpGetMyBookData();
 
         // 책 제목 입력
         inputBookTitleName.onValueChanged.AddListener(OnValueChanged);

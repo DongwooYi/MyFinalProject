@@ -492,6 +492,7 @@ public class MyBookManager : MonoBehaviour
             isDoneListNet = ParseMyBookData(result_data, "isDone");
 
             // 담은도서 관리하는 List 초기화
+            myBookListNet.Clear();
 
             // 담은도서 관리하는 List에 넣어주기
             for (int i = 0; i < titleListNet.Count; i++)

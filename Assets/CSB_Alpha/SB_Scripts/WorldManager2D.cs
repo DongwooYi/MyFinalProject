@@ -31,6 +31,7 @@ public class _MyBookInfo
 
     // 인생책 여부
     public bool isBest;
+    public string isBestString;
 }
 
 [Serializable]
@@ -65,9 +66,14 @@ public class WorldManager2D : MonoBehaviour
     public GameObject resultFactory;    // 도서 검색 결과
 
     public GameObject showBook;
+    GameObject book;
+    GameObject bookBest;
+
 
     // -------------------------------------------------------------------------------
     public List<_MyBookInfo> myAllBookList = new List<_MyBookInfo>();   // 담은도서
+    public List<_MyBookInfo> myAllBookListNet = new List<_MyBookInfo>();   // 담은도서
+
     public List<_MyBookInfo> myDoneBookList = new List<_MyBookInfo>();  // isDone == true 도서
 
     // 지난 버전
@@ -86,6 +92,9 @@ public class WorldManager2D : MonoBehaviour
 
     void Start()
     {
+        book = GameObject.Find("Book");
+        bookBest = GameObject.Find("MyBestBookshelf");
+
         HttpGetMyBookData();
 
         // 책 제목 입력
@@ -96,7 +105,46 @@ public class WorldManager2D : MonoBehaviour
 
     private void Update()
     {
-        if (bookPastCount > 2)
+/*        if (bookPastCount > 2)
+        {
+            showBook.GetComponent<Outline>().OutlineColor = Color.yellow;
+        }*/
+    }
+
+    // 월드 입장 시 월드 세팅
+    // 책장, 낮은 책장, 리워드
+    int bookIdx = 0;
+    int bestBookIdx = 0;
+    int bookCount;
+    void SettingMyRoom()
+    {
+        for(int i = 0; i < myAllBookListNet.Count; i++)
+        {
+            // 만약 isDoneString == "Y" 면
+            // 책장 세팅 & 개수 세기
+            if (myAllBookListNet[i].isDoneString == "Y")
+            {
+                bookCount++;
+                // 책장에 책 생성
+                GameObject setBook = book.transform.GetChild(bookIdx).gameObject;
+                setBook.SetActive(true);
+                setBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", myAllBookListNet[i].thumbnail.texture);
+                bookIdx++;
+            }
+
+            // 만약 isBestString == "Y" 면
+            if (myAllBookListNet[i].isBestString == "Y")
+            {
+                // 낮은 책장에 책 생성
+                GameObject setBestBook = bookBest.transform.GetChild(bestBookIdx).gameObject;
+                setBestBook.SetActive(true);
+                setBestBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", myAllBookListNet[i].thumbnail.texture);
+                bestBookIdx++;
+            }
+        }
+
+        // 리워드 관련
+        if(bookCount > 2)
         {
             showBook.GetComponent<Outline>().OutlineColor = Color.yellow;
         }
@@ -145,7 +193,18 @@ public class WorldManager2D : MonoBehaviour
         searchBookPanel.SetActive(false);
     }
 
-    // Http 통신 관련
+    // 네트워크에서 받아온 정보 저장할 리스트
+    public List<string> titleListNet = new List<string>();
+    public List<string> authorListNet = new List<string>();
+    public List<string> publishInfoListNet = new List<string>();
+    public List<string> thumbnailLinkListNet = new List<string>();
+    public List<string> isbnListNet = new List<string>();
+    public List<string> ratingListNet = new List<string>();
+    public List<string> reviewListNet = new List<string>();
+    public List<string> isDoneListNet = new List<string>();
+    public List<string> isBestsListNet = new List<string>();
+
+    // (바뀐 버전) Http 통신 관련 -------------------------------------------------------
     // 1. 월드 입장시 요청할 API : 읽은 책(책장), 인생책 (낮은 책장) 정보 보내주기
     void HttpGetMyBookData()
     {
@@ -162,8 +221,88 @@ public class WorldManager2D : MonoBehaviour
 
     void OnCompleteGetMyBookData(DownloadHandler handler)
     {
-        // 나의 데이터 받아오기
+        // 데이터 처리
+        JObject jObject = JObject.Parse(handler.text);
+        int type = (int)jObject["status"];
+
+        if(type == 200)
+        {
+            print("통신성공. 모든도서");
+            string result_data = ParseGETJson("[" + handler.text + "]", "data");
+
+            titleListNet = ParseMyBookData(result_data, "bookName");
+            authorListNet = ParseMyBookData(result_data, "bookAuthor");
+            publishInfoListNet = ParseMyBookData(result_data, "bookPublishInfo");
+            thumbnailLinkListNet = ParseMyBookData(result_data, "thumbnailLink");
+            isbnListNet = ParseMyBookData(result_data, "bookISBN");
+            ratingListNet = ParseMyBookData(result_data, "rating");
+            reviewListNet = ParseMyBookData(result_data, "bookReview");
+            isDoneListNet = ParseMyBookData(result_data, "isDone");
+            isBestsListNet = ParseMyBookData(result_data, "isBest");
+
+            myAllBookListNet.Clear();
+
+            // 담은도서 관리하는 List에 넣어주기
+            for (int i = 0; i < titleListNet.Count; i++)
+            {
+                _MyBookInfo myBookInfo = new _MyBookInfo();
+
+                myBookInfo.bookName = titleListNet[i];
+                myBookInfo.bookAuthor = authorListNet[i];
+                myBookInfo.bookPublishInfo = publishInfoListNet[i];
+                myBookInfo.thumbnailLink = thumbnailLinkListNet[i];
+                myBookInfo.bookISBN = isbnListNet[i];
+                myBookInfo.rating = ratingListNet[i];
+                myBookInfo.review = reviewListNet[i];
+                myBookInfo.isDoneString = isDoneListNet[i];
+                myBookInfo.isBestString = isBestsListNet[i];
+
+                myAllBookListNet.Add(myBookInfo);
+            }
+
+            // 각 data 리스트들 초기화
+            titleListNet.Clear();
+            authorListNet.Clear();
+            publishInfoListNet.Clear();
+            thumbnailLinkListNet.Clear();
+            isbnListNet.Clear();
+            ratingListNet.Clear();
+            reviewListNet.Clear();
+            isDoneListNet.Clear();
+            isBestsListNet.Clear();
+
+            print(jObject);
+        }
     }
+
+    // data parsing
+    string ParseGETJson(string jsonText, string key)
+    {
+        JArray parseData = JArray.Parse(jsonText);
+        string result = "";
+
+        foreach (JObject obj in parseData.Children())
+        {
+            result = obj.GetValue(key).ToString();
+        }
+
+        return result;
+    }
+
+    // data 에서 key 별로 parsing
+    List<string> ParseMyBookData(string jsonText, string key)
+    {
+        JArray parseData = JArray.Parse(jsonText);
+        List<string> result = new List<string>();
+
+        foreach (JObject obj in parseData.Children())
+        {
+            result.Add(obj.GetValue(key).ToString());
+        }
+
+        return result;
+    }
+
 
     #region 도서 API 받아오기 관련
     // 검색 버튼 관련 (돋보기 버튼)

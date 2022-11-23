@@ -6,9 +6,6 @@ using UnityEngine.Networking;
 using Newtonsoft.Json.Linq;
 
 
-// 도서 검색 결과를 UI에 넣어줌
-// 
-
 public class SearchResult : MonoBehaviour
 {
     GameObject worldManager;
@@ -90,15 +87,15 @@ public class SearchResult : MonoBehaviour
         requester.url = "http://15.165.28.206:8080/v1/records/contain";
         requester.requestType = RequestType.POST;
 
-        CurrBookdata currBookdata = new CurrBookdata();
+        BookData bookData = new BookData();
 
-        currBookdata.bookName = bookTitle.text;
-        currBookdata.bookAuthor = author.text;
-        currBookdata.bookISBN = isbn.text;
-        currBookdata.bookPublishInfo = publishInfo.text;
-        currBookdata.thumbnail = thumbnail;
+        bookData.bookName = bookTitle.text;
+        bookData.bookAuthor = author.text;
+        bookData.bookISBN = isbn.text;
+        bookData.bookPublishInfo = publishInfo.text;
+        //bookData.thumbnail = thumbnail;
 
-        requester.body = JsonUtility.ToJson(currBookdata, true);
+        requester.body = JsonUtility.ToJson(bookData, true);
 
         requester.onComplete = OnCompletePostMyBook;
 

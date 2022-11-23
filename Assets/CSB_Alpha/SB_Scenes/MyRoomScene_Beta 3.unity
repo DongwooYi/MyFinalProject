@@ -1863,7 +1863,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0.0000069609273, y: 0}
-  m_SizeDelta: {x: 0, y: 0}
+  m_SizeDelta: {x: 0, y: 30}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &123335693
 MonoBehaviour:
@@ -4926,6 +4926,7 @@ MonoBehaviour:
   resultFactory: {fileID: 318626364981816602, guid: d6147a7b136793b45a66ee1aa5f3dddd, type: 3}
   showBook: {fileID: 1672068904}
   myAllBookList: []
+  myAllBookListNet: []
   myDoneBookList: []
   myBookList: []
   myBookListNet: []
@@ -18662,6 +18663,86 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4117999537100202, guid: 784cd8e77087af3488f478770e91b684, type: 3}
   m_PrefabInstance: {fileID: 1444662766}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1455214750
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1455214753}
+  - component: {fileID: 1455214752}
+  - component: {fileID: 1455214751}
+  m_Layer: 5
+  m_Name: log
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1455214751
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455214750}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5f7201a12d95ffc409449d95f23cf332, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Material: {fileID: 0}
+  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_RaycastTarget: 1
+  m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
+  m_Maskable: 1
+  m_OnCullStateChanged:
+    m_PersistentCalls:
+      m_Calls: []
+  m_FontData:
+    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
+    m_FontSize: 50
+    m_FontStyle: 0
+    m_BestFit: 0
+    m_MinSize: 0
+    m_MaxSize: 50
+    m_Alignment: 0
+    m_AlignByGeometry: 0
+    m_RichText: 1
+    m_HorizontalOverflow: 1
+    m_VerticalOverflow: 1
+    m_LineSpacing: 1
+  m_Text: New Text
+--- !u!222 &1455214752
+CanvasRenderer:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455214750}
+  m_CullTransparentMesh: 1
+--- !u!224 &1455214753
+RectTransform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1455214750}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1754603825}
+  m_RootOrder: 18
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 0, y: 803}
+  m_SizeDelta: {x: 900, y: 300}
+  m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1456004828
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -22250,6 +22331,7 @@ RectTransform:
   - {fileID: 2043631494}
   - {fileID: 1337096279}
   - {fileID: 218841930}
+  - {fileID: 1455214753}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -23062,7 +23144,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1813356537
 RectTransform:
   m_ObjectHideFlags: 0
@@ -23791,14 +23873,18 @@ MonoBehaviour:
   bookContent: {fileID: 525621046}
   bookContentIsDoneT: {fileID: 1568041448}
   wm: {fileID: 359941974}
+  myBookListNet: []
   distance: 1.5
   me: {fileID: 0}
   idx: 0
   titleListNet: []
   authorListNet: []
   publishInfoListNet: []
+  thumbnailLinkListNet: []
   isbnListNet: []
-  imageListNet: []
+  ratingListNet: []
+  reviewListNet: []
+  isDoneListNet: []
 --- !u!4 &1857761108
 Transform:
   m_ObjectHideFlags: 0
@@ -28618,6 +28704,7 @@ MonoBehaviour:
   rayDistance: 0.1
   rotSpeed: 5
   zoomIn: 0.5
+  log: {fileID: 1455214751}
 --- !u!1 &4716824547458769522
 GameObject:
   m_ObjectHideFlags: 0

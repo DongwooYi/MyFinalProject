@@ -114,6 +114,8 @@ public class YDW_CharacterController : MonoBehaviour
                 transform.position += moveDir * Time.deltaTime * 3f;
         }
     }
+
+    public Text log;
     float x, y;
     public void LookAround()
     {
@@ -125,6 +127,8 @@ public class YDW_CharacterController : MonoBehaviour
         // 카메라의 피치 값 계산
         x += (camAngle.y + (secondTouch.y - firstTouch.y)) * Time.deltaTime * rotSpeed * 0.1f;
         y += (camAngle.x - (secondTouch.x - firstTouch.x)) * Time.deltaTime * rotSpeed * 0.1f;
+
+
         // 카메라 피치 값을 위쪽으로 70도 아래쪽으로 25도 이상 움직이지 못하게 제한
         // 위아래쪽으로 회전 (0~90도 사이)
         if (x < 180)
@@ -132,6 +136,7 @@ public class YDW_CharacterController : MonoBehaviour
             x = Mathf.Clamp(x, -1f, 30f);
         }
         // 카메라 회전 시키기
+        log.text = $"x: {x}, \r\n y: {y}";
         cameraArm.rotation = Quaternion.Euler(x, y, camAngle.z);
     }
 

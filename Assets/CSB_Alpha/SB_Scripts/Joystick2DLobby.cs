@@ -6,8 +6,8 @@ using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 using Photon.Pun;
 
-// , IBeginDragHandler, IDragHandler, IEndDragHandler
-public class Joystick2DLobby : MonoBehaviourPun
+
+public class Joystick2DLobby : MonoBehaviourPun//, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField]
     private RectTransform innerCircle;  // Inspector 창에서 Drag 해서 넣어줌
@@ -37,7 +37,6 @@ public class Joystick2DLobby : MonoBehaviourPun
     private void Start()
     {
         playerController = GameObject.FindObjectOfType<YDW_CharacterController>();
-
     }
     private void Update()
     {
@@ -45,9 +44,6 @@ public class Joystick2DLobby : MonoBehaviourPun
         {
             InputControl();
         }
-
-        //if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false)
-        // if (EventSystem.current.IsPointerOverGameObject() == false)
 #if !PC
         Touch touch = Input.GetTouch(0);
 

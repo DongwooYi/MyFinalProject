@@ -174,7 +174,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
 
         hash["desc"] = $"회의 요일: {monText}{tueText}{wedText}{thuText}{friText}{sunText}{sunText}\r\n방 설명: {inputFieldRoomDescription.text}";
-        hash["map_id"] = UnityEngine.Random.Range(0, mapThumbs.Length);
+        hash["map_id"] = image.texture;
         hash["room_name"] = inputRoomName.text;
         hash["password"] = inputPassword.text;
         hash["date"] = textCalendar.text;
@@ -604,7 +604,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
     #endregion
-    #region
+    #region 참여중인 방 
     public void MyRoomJoinedList()
     {
         StartCoroutine(GetRequest("http://192.168.0.11:8080/v1/clubs?option=1"));

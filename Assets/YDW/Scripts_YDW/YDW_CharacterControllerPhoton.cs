@@ -58,39 +58,9 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
         animator = characterBody.GetComponent<Animator>();
         camAngle = cameraArm.rotation.eulerAngles;
     }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (!EventSystem.current.IsPointerOverGameObject() == false) return;
-        if (Input.touchCount > 0)
-        {
-            if (Input.touchCount == 1)
-            {
-                firstTouch = touchZero.position;
-                touchZero = Input.GetTouch(0);
-                if (touchZero.phase == TouchPhase.Moved)
-                {
-                    LookAround();
-
-                }
-
-            }
-            if (Input.touchCount == 2)
-            {
-                touchOne = Input.GetTouch(1);
-                GetTouchZoomInOut();
-            }
-
-
-
-
-        }
-
-    }
-
     private void FixedUpdate()
     {
+        GetTouchInput();
         CollisionCheck();
     }
     public void Move(Vector2 vector2)
@@ -126,35 +96,12 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
                 transform.position += moveDir * Time.deltaTime * 3f;
         }
     }
-    float x, y;
-    public void LookAround()
-    {
-        secondTouch = touchOne.position;
-        // 마우스 이동 값 검출
-        // Vector2 mouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
-        // 카메라의 원래 각도를 오일러 각으로 저장
-
-        // 카메라의 피치 값 계산
-        x += (camAngle.y + (secondTouch.y - firstTouch.y)) * Time.deltaTime * rotSpeed;
-        y += (camAngle.x - (secondTouch.x - firstTouch.x)) * Time.deltaTime * rotSpeed;
-        // 카메라 피치 값을 위쪽으로 70도 아래쪽으로 25도 이상 움직이지 못하게 제한
-        // 위아래쪽으로 회전 (0~90도 사이)
-        if (x < 180)
-        {
-            x = Mathf.Clamp(x, -1f, 30f);
-        }
-        // 카메라 회전 시키기
-        cameraArm.rotation = Quaternion.Euler(x, y, camAngle.z);
-    }
-
     void CollisionCheck()
     {
         Debug.DrawRay(transform.position, characterBody.forward * rayDistance, Color.black);
         isCollisionCheck = Physics.Raycast(transform.position, characterBody.forward, rayDistance, LayerMask.GetMask("CollisionCheck"));
 
     }
-
-
     // 카메라 줌인 줌아웃 관련
     // 두 손가락
     private void GetTouchZoomInOut()
@@ -176,4 +123,44 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
         Camera.main.fieldOfView += deltaMagnitudeDiff * zoomIn;
         Camera.main.fieldOfView = Mathf.Clamp(Camera.main.fieldOfView, 0.1f, 100f);
     }
+    Vector2 startPos;
+    float rotX, rotY;
+    void GetTouchInput()
+    {
+        for (int i = 0; i < Input.touchCount; i++)
+        {
+            Touch t = Input.GetTouch(i);
+            switch (t.phase)
+            {
+                case TouchPhase.Began:
+                    touchZero = Input.GetTouch(0);
+                    startPos = t.position;
+                    break;
+                case TouchPhase.Moved:
+                    if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false)
+                    {
+                        if (Input.touchCount == 1)
+                        {
+                            Vector2 delta = t.position - startPos;
+                            rotX += delta.y * Time.deltaTime;
+                            rotX = Mathf.Clamp(rotX, 5f, 20f);
+                            rotY += delta.x * Time.deltaTime;
+                            cameraArm.eulerAngles = new Vector3(rotX, rotY, 0);
+                        }
+                        else if (Input.touchCount == 2)
+                        {
+                            touchOne = Input.GetTouch(1);
+                            GetTouchZoomInOut();
+                        }                        
+                    }
+                    break;
+                case TouchPhase.Stationary:
+                    cameraArm.eulerAngles = Vector3.zero;
+                    break;
+                case TouchPhase.Ended:
+                    break;
+            }
+        }
+    }
+
 }

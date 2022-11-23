@@ -822,11 +822,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c134d07e1cc0a0d4f83cdca1528d7aef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toggleList: 
-  player: {fileID: 0}
-  myPastBookPanel: {fileID: 0}
-  distance: 1.5
-  idx: 0
 --- !u!1 &52481702
 GameObject:
   m_ObjectHideFlags: 0
@@ -4250,7 +4245,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1851127534}
         m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
         m_MethodName: OnClick_GetDate
         m_Mode: 1
@@ -5095,7 +5090,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &366308956
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9078,7 +9073,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1851127534}
         m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
         m_MethodName: OnClickImageLoad
         m_Mode: 1
@@ -11283,7 +11278,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1851127534}
         m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
         m_MethodName: OnClick_Clear
         m_Mode: 1
@@ -13114,7 +13109,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: -38, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1146684143
@@ -13169,7 +13164,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   innerCircle: {fileID: 91110657}
   joystickRange: 40
-  playerController: {fileID: 4650388130931660544}
+  playerController: {fileID: 0}
   isInput: 0
   log: {fileID: 0}
   moveSpeed: 10
@@ -17321,7 +17316,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 30.608, y: -38}
+  m_AnchoredPosition: {x: 30.60791, y: -38}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &1492798874
@@ -20911,8 +20906,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 77, y: 409}
-  m_SizeDelta: {x: 100, y: 100}
+  m_AnchoredPosition: {x: 0, y: 352}
+  m_SizeDelta: {x: 300, y: 300}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1842758847
 MonoBehaviour:
@@ -21953,7 +21948,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 1851127534}
         m_TargetAssemblyTypeName: LobbyManager, Assembly-CSharp
         m_MethodName: CreateRoom
         m_Mode: 1
@@ -25545,26 +25540,6 @@ Transform:
   m_Father: {fileID: 6089803038125465048}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4650388130931660544
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5129947490483535169}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c003d37c253ad9c479a7ce2fe03acdac, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  myself: {fileID: 5129947490483535169}
-  characterBody: {fileID: 165376302356796333}
-  cameraArm: {fileID: 5129947491288090059}
-  joystick2DLobby: {fileID: 0}
-  rayDistance: 0.1
-  rotSpeed: 5
-  zoomIn: 0.5
-  log: {fileID: 366308957}
 --- !u!1 &4716824547458769522
 GameObject:
   m_ObjectHideFlags: 0
@@ -25702,7 +25677,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 5129947490483535174}
-  - component: {fileID: 4650388130931660544}
+  - component: {fileID: 5129947490483535175}
   m_Layer: 0
   m_Name: Character
   m_TagString: Character
@@ -25727,6 +25702,25 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5129947490483535175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5129947490483535169}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c003d37c253ad9c479a7ce2fe03acdac, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  myself: {fileID: 5129947490483535169}
+  characterBody: {fileID: 165376302356796333}
+  cameraArm: {fileID: 5129947491688910190}
+  rayDistance: 0.1
+  rotSpeed: 1
+  zoomIn: 0.5
+  log: {fileID: 366308957}
 --- !u!1 &5129947491288090058
 GameObject:
   m_ObjectHideFlags: 0
@@ -27107,11 +27101,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c134d07e1cc0a0d4f83cdca1528d7aef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toggleList: 
-  player: {fileID: 0}
-  myPastBookPanel: {fileID: 876673484}
-  distance: 1.5
-  idx: 0
 --- !u!1 &8403107697155588798
 GameObject:
   m_ObjectHideFlags: 0

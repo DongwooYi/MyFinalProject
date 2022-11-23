@@ -23,10 +23,6 @@ public class RoomItem : MonoBehaviour
 
     //클릭이 되었을 때 호출되는 함수를 가지고있는 변수
     public System.Action<string, int> onClickAction;
-
-    void Start()
-    {     
-    }
     private void Update()
     {
         if (isTimerOn)
@@ -69,7 +65,11 @@ public class RoomItem : MonoBehaviour
         ////3. text에 roomName 넣자.
         //inputField.text = name;
     }
-
+   /* IEnumerator GetImageData()
+    {
+        yield return ;
+    }
+*/
     void CountDownTimer()
     {
         DateTime expiringTime = DateTime.Parse(time);

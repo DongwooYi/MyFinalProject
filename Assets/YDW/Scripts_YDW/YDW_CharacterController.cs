@@ -10,7 +10,6 @@ public class YDW_CharacterController : MonoBehaviour
     public GameObject myself;
     public Transform characterBody;
     public Transform cameraArm;
-    public Joystick2DLobby joystick2DLobby;
     Animator animator;
 
     bool isCollisionCheck;
@@ -100,8 +99,6 @@ public class YDW_CharacterController : MonoBehaviour
     // 두 손가락
     private void GetTouchZoomInOut()
     {
-
-
         //터치에 대한 이전 위치값을 각각 저장함
         //처음 터치한 위치(touchZero.position)에서 이전 프레임에서의 터치 위치와 이번 프로임에서 터치 위치의 차이를 뺌
         Vector2 touchZeroPrevPos = touchZero.position - touchZero.deltaPosition; //deltaPosition는 이동방향 추적할 때 사용
@@ -145,7 +142,6 @@ public class YDW_CharacterController : MonoBehaviour
                         else if (Input.touchCount == 2)
                         {
                             touchOne = Input.GetTouch(1);
-                            print("1111");
                             GetTouchZoomInOut();
                         }
                         log.text = $"touchCount:{Input.touchCount},\r\n rotX: {rotX}, \r\n rotY: {rotY}";

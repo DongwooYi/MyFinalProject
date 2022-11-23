@@ -506,6 +506,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         Texture2D tex = new Texture2D(0, 0);
         tex.LoadImage(temp);
         image.texture = tex;
+        //mapThumbs[0] = image.texture as gameObject;
     }
     #endregion
     #region Http Web

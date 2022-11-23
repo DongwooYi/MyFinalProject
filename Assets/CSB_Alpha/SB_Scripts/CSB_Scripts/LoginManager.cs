@@ -31,8 +31,8 @@ public class LoginManager : MonoBehaviourPunCallbacks
         HttpRequester requester = gameObject.AddComponent<HttpRequester>();
 
         ///post/1, GET, 완료되었을 때 호출되는 함수
-       requester.url = "http://192.168.0.11:8080/v1/auths/login";
-      //  requester.url = "http://15.165.28.206:8080/v1/auths/login";
+       //requester.url = "http://192.168.0.11:8080/v1/auths/login";
+       requester.url = "http://15.165.28.206:8080/v1/auths/login";
 
         LoginData ldata = new()
         {
@@ -99,7 +99,9 @@ public class LoginManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
         print(System.Reflection.MethodBase.GetCurrentMethod().Name);
-        PhotonNetwork.LoadLevel("MyRoomScene_Beta 1");
+        PhotonNetwork.LoadLevel("MyRoomScene_Beta");
     }
     #endregion
+
+
 }

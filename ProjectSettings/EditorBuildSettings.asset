@@ -5,10 +5,10 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
+  - enabled: 1
     path: Assets/0Beta/LoginandRegister_YDW.unity
     guid: 778886b6811be3749a7c92ca27958cd2
-  - enabled: 0
+  - enabled: 1
     path: Assets/0Beta/SB_Player_Photon.unity
     guid: 27cee20446ba7944388f35664575d29d
   - enabled: 1

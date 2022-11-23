@@ -106,7 +106,7 @@ public class SearchResult : MonoBehaviour
         www.AddField("bookPublishInfo", publishInfo.text);
         
 
-        UnityWebRequest webRequest = UnityWebRequest.Post("http://192.168.0.45:8080/v1/records/contain", www);
+        UnityWebRequest webRequest = UnityWebRequest.Post("http://15.165.28.206:8080/v1/records/contain", www);
         webRequest.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("jwt"));
         yield return webRequest.SendWebRequest();
         if (webRequest.result == UnityWebRequest.Result.Success)

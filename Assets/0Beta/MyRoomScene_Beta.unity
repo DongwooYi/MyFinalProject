@@ -23894,7 +23894,12 @@ MonoBehaviour:
   roomItemFactory: {fileID: 356185162197043259, guid: 15a15981542e4e948906f696a2171cd0, type: 3}
   trListContent: {fileID: 178871613}
   loadGallery: {fileID: 0}
-  mapThumbs: []
+  mapThumbs:
+  - {fileID: 1623143924}
+  - {fileID: 1885318257}
+  - {fileID: 664380096}
+  - {fileID: 1295795142}
+  - {fileID: 1292611433}
   setRoom: {fileID: 2043631493}
   setRoomlist: {fileID: 218841929}
   FailCreateaRoom: {fileID: 1891548368}

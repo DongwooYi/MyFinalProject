@@ -174,7 +174,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
 
         hash["desc"] = $"회의 요일: {monText}{tueText}{wedText}{thuText}{friText}{sunText}{sunText}\r\n방 설명: {inputFieldRoomDescription.text}";
-        hash["map_id"] = image.texture;
+        hash["map_id"] = UnityEngine.Random.Range(0,mapThumbs.Length);
         hash["room_name"] = inputRoomName.text;
         hash["password"] = inputPassword.text;
         hash["date"] = textCalendar.text;
@@ -506,7 +506,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         Texture2D tex = new Texture2D(0, 0);
         tex.LoadImage(temp);
         image.texture = tex;
-        //mapThumbs[0] = image.texture as gameObject;
+      //  mapThumbs[0] = image.texture as gameObject;
     }
     #endregion
     #region Http Web

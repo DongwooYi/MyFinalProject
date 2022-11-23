@@ -540,7 +540,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Texture: {fileID: 0}
+  m_Texture: {fileID: 2800000, guid: cf632ed80bf1f46c980de6b1b8b903ef, type: 3}
   m_UVRect:
     serializedVersion: 2
     x: 0
@@ -2855,12 +2855,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee75f4c67d7069f4687a977a14cdb9d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  welcomText: {fileID: 2051674978}
   inputChat: {fileID: 1764866544}
   trContent: {fileID: 398851085}
   chatItemFactory: {fileID: 7615626875906248610, guid: e36651287759e2247974d85a26e7879b, type: 3}
   chatList: []
   ChattingPannel: {fileID: 1839324522}
+  toggleChatting: {fileID: 0}
+  player: {fileID: 0}
   enterchat: 0
   AIScrollView: {fileID: 1346012640}
 --- !u!114 &1752359475

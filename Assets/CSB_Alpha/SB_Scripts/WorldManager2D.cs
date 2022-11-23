@@ -205,12 +205,14 @@ public class WorldManager2D : MonoBehaviour
             authorListNet.Clear();
             publishInfoListNet.Clear();
             thumbnailLinkListNet.Clear();
+            thumbnailImgListNet.Clear();
             isbnListNet.Clear();
             ratingListNet.Clear();
             reviewListNet.Clear();
             isDoneListNet.Clear();
             isBestsListNet.Clear();
 
+            myAllBookListNet.Clear();
             print("통신성공. 모든도서.서재입장");
             string result_data = ParseGETJson("[" + handler.text + "]", "data");
 
@@ -224,7 +226,8 @@ public class WorldManager2D : MonoBehaviour
             isDoneListNet = ParseMyBookData(result_data, "isDone");
             isBestsListNet = ParseMyBookData(result_data, "isBest");
 
-            myAllBookListNet.Clear();
+
+            GETThumbnailTexture();
 
             // 담은도서 관리하는 List에 넣어주기
             for (int i = 0; i < titleListNet.Count; i++)
@@ -239,13 +242,23 @@ public class WorldManager2D : MonoBehaviour
                 myBookInfo.rating = ratingListNet[i];
                 myBookInfo.review = reviewListNet[i];
                 myBookInfo.isDoneString = isDoneListNet[i];
-                myBookInfo.isBestString = isBestsListNet[i];                
+                myBookInfo.isBestString = isBestsListNet[i];
+                //myBookInfo.texture = thumbnailImgListNet[i];
 
-                StartCoroutine(GetThumbnailImg(thumbnailLinkListNet[i]));   //, myBookInfo.thumbnail)
+                //StartCoroutine(GetThumbnailImg(thumbnailLinkListNet[i]));   //, myBookInfo.thumbnail)
                 myAllBookListNet.Add(myBookInfo);
             }
-
+            //myAllBookListNet
             print(jObject);
+        }
+    }
+
+    void GETThumbnailTexture()
+    {
+        for (int i = 0; i < thumbnailLinkListNet.Count; i++)
+        {
+            StartCoroutine(GetThumbnailImg(thumbnailLinkListNet[i]));
+
         }
     }
 
@@ -253,7 +266,7 @@ public class WorldManager2D : MonoBehaviour
     {
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
         yield return www.SendWebRequest();
-        print(www.result);
+        print(url);
 
         if (www.result != UnityWebRequest.Result.Success)
         {
@@ -267,7 +280,6 @@ public class WorldManager2D : MonoBehaviour
             //rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             //texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             //print(rawImage);
-            print(myTexture);
         }
         yield return null;
 
@@ -297,10 +309,8 @@ public class WorldManager2D : MonoBehaviour
         {
             result.Add(obj.GetValue(key).ToString());
         }
-
         return result;
     }
-
 
     #region 도서 API 받아오기 관련
     // 검색 버튼 관련 (돋보기 버튼)

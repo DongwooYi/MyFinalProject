@@ -44,7 +44,7 @@ public class MyBookManager : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Character");
-        myBookListNet = wm.myAllBookListNet;
+        //myBookListNet = wm.myAllBookListNet;
     }
 
     void Update()
@@ -106,86 +106,92 @@ public class MyBookManager : MonoBehaviour
 
                     thumbnailImgListNet.Clear();
 
-                    myBookListNet.Clear();  // 담은도서 리스트 초기화
+                    wm.myAllBookListNet.Clear();  // 담은도서 리스트 초기화
                     HttpGetMyBookData();
                     // 담은도서 리스트인 myBookLIstNet 에 담은도서들 들어있음
                     // 담은도서 리스트인 wm.myAllBookListNet 에 담은도서들 들어있음
                     print("책상 앞 담은도서 전체 스크롤뷰에 배치");
-                    #region 자식 삭제 (프리펩)
-                    // 자식이 있다면 삭제
-                    Transform[] childList = bookContent.GetComponentsInChildren<Transform>();
-                    if (childList != null)
-                    {
-                        for (int i = 1; i < childList.Length; i++)
-                        {
-                            Destroy(childList[i].gameObject);
-                        }
-                    }
 
-                    // 자식이 있다면 삭제
-                    Transform[] childList1 = bookContentIsDoneT.GetComponentsInChildren<Transform>();
-                    if (childList1 != null)
-                    {
-                        for (int i = 1; i < childList1.Length; i++)
-                        {
-                            Destroy(childList1[i].gameObject);
-                        }
-                    }
-                    #endregion
                     // 담은도서의 수만큼 프리펩 생성
-                    for (int i = 0; i < myBookListNet.Count; i++)
-                    {
-                        print("여기 들어오니1");
 
-                        // 만약 isDoneString 이 "Y" 면 담은도서(done) 목록에 보여줌
-                        if (myBookListNet[i].isDoneString == "Y")
-                        {
-                            print("여기 들어오니2");
-                            GameObject go = Instantiate(bookFactory, bookContentIsDoneT);
-                            // 얘의 RawImage 의 Texture 를 리스트 순서대로
-                            go.GetComponent<RawImage>().texture = wm.thumbnailImgListNet[i];
-                            MyBook myBook = go.GetComponent<MyBook>();
-
-                            myBook.thumbnail.texture = wm.thumbnailImgListNet[i];
-                            myBook.bookTitle = myBookListNet[i].bookName;
-                            myBook.bookAuthor = myBookListNet[i].bookAuthor;
-                            myBook.bookInfo = myBookListNet[i].bookPublishInfo;
-                            myBook.bookIsbn = myBookListNet[i].bookISBN;
-                            myBook.bookRating = myBookListNet[i].rating;
-                            myBook.bookReview = myBookListNet[i].review;
-                            myBook.isDone = true;
-                            
-                            // index 인 i 값도 넘겨줘야할듯
-                            myBook.idx = i;
-                        }
-                        // 만약 isDoneString 이 "N" 이면 담은도서(ing) 목록
-                        else if (myBookListNet[i].isDoneString == "N")
-                        {
-                            print("여기 들어오니3");
-
-                            GameObject go = Instantiate(bookFactory, bookContent);
-                            // 얘의 RawImage 의 Texture 를 리스트 순서대로
-                            go.GetComponent<RawImage>().texture = wm.thumbnailImgListNet[i];
-                            MyBook myBook = go.GetComponent<MyBook>();
-
-                            myBook.thumbnail.texture = wm.thumbnailImgListNet[i];
-                            myBook.bookTitle = myBookListNet[i].bookName;
-                            myBook.bookAuthor = myBookListNet[i].bookAuthor;
-                            myBook.bookInfo = myBookListNet[i].bookPublishInfo;
-                            myBook.bookIsbn = myBookListNet[i].bookISBN;
-                            myBook.bookRating = myBookListNet[i].rating;
-                            myBook.bookReview = myBookListNet[i].review;
-                            myBook.isDone = false;
-
-                            // index 인 i 값도 넘겨줘야할듯
-                            myBook.idx = i;
-                        }
-
-                    }
+                    //MakePrefab();
                     myBookPanel.SetActive(true);
                     myBookshelf.transform.GetChild(0).gameObject.SetActive(false);
                     return;
                 }
+            }
+        }
+    }
+
+    public void MakePrefab()
+    {
+        #region 자식 삭제 (프리펩)
+        // 자식이 있다면 삭제
+        Transform[] childList = bookContent.GetComponentsInChildren<Transform>();
+        if (childList != null)
+        {
+            for (int i = 1; i < childList.Length; i++)
+            {
+                Destroy(childList[i].gameObject);
+            }
+        }
+
+        // 자식이 있다면 삭제
+        Transform[] childList1 = bookContentIsDoneT.GetComponentsInChildren<Transform>();
+        if (childList1 != null)
+        {
+            for (int i = 1; i < childList1.Length; i++)
+            {
+                Destroy(childList1[i].gameObject);
+            }
+        }
+        #endregion
+        for (int i = 0; i < wm.myAllBookListNet.Count; i++)
+        {
+            print("여기 들어오니1");
+
+            // 만약 isDoneString 이 "Y" 면 담은도서(done) 목록에 보여줌
+            if (wm.myAllBookListNet[i].isDoneString == "Y")
+            {
+                print("여기 들어오니2");
+                GameObject go = Instantiate(bookFactory, bookContentIsDoneT);
+                // 얘의 RawImage 의 Texture 를 리스트 순서대로
+                go.GetComponent<RawImage>().texture = wm.thumbnailImgListNet[i];
+                MyBook myBook = go.GetComponent<MyBook>();
+
+                myBook.thumbnail.texture = wm.thumbnailImgListNet[i];
+                myBook.bookTitle = wm.myAllBookListNet[i].bookName;
+                myBook.bookAuthor = wm.myAllBookListNet[i].bookAuthor;
+                myBook.bookInfo = wm.myAllBookListNet[i].bookPublishInfo;
+                myBook.bookIsbn = wm.myAllBookListNet[i].bookISBN;
+                myBook.bookRating = wm.myAllBookListNet[i].rating;
+                myBook.bookReview = wm.myAllBookListNet[i].review;
+                myBook.isDone = true;
+
+                // index 인 i 값도 넘겨줘야할듯
+                myBook.idx = i;
+            }
+            // 만약 isDoneString 이 "N" 이면 담은도서(ing) 목록
+            else if (wm.myAllBookListNet[i].isDoneString == "N")
+            {
+                print("여기 들어오니3");
+
+                GameObject go = Instantiate(bookFactory, bookContent);
+                // 얘의 RawImage 의 Texture 를 리스트 순서대로
+                go.GetComponent<RawImage>().texture = wm.thumbnailImgListNet[i];
+                MyBook myBook = go.GetComponent<MyBook>();
+
+                myBook.thumbnail.texture = wm.thumbnailImgListNet[i];
+                myBook.bookTitle = wm.myAllBookListNet[i].bookName;
+                myBook.bookAuthor = wm.myAllBookListNet[i].bookAuthor;
+                myBook.bookInfo = wm.myAllBookListNet[i].bookPublishInfo;
+                myBook.bookIsbn = wm.myAllBookListNet[i].bookISBN;
+                myBook.bookRating = wm.myAllBookListNet[i].rating;
+                myBook.bookReview = wm.myAllBookListNet[i].review;
+                myBook.isDone = false;
+
+                // index 인 i 값도 넘겨줘야할듯
+                myBook.idx = i;
             }
         }
     }
@@ -299,14 +305,14 @@ public class MyBookManager : MonoBehaviour
                             go.GetComponent<RawImage>().texture = wm.myAllBookListNet[i].thumbnail.texture;
                             MyBook pastBook = go.GetComponent<MyBook>();
 
-                            pastBook.thumbnail.texture = myBookListNet[i].thumbnail.texture;
-                            pastBook.bookTitle = myBookListNet[i].bookName;
-                            pastBook.bookAuthor = myBookListNet[i].bookAuthor;
-                            pastBook.bookInfo = myBookListNet[i].bookPublishInfo;
-                            pastBook.bookIsbn = myBookListNet[i].bookISBN;
-                            pastBook.bookRating = myBookListNet[i].rating;
-                            pastBook.bookReview = myBookListNet[i].review;
-                            pastBook.isDone = myBookListNet[i].isDone;
+                            pastBook.thumbnail.texture = wm.myAllBookListNet[i].thumbnail.texture;
+                            pastBook.bookTitle = wm.myAllBookListNet[i].bookName;
+                            pastBook.bookAuthor = wm.myAllBookListNet[i].bookAuthor;
+                            pastBook.bookInfo = wm.myAllBookListNet[i].bookPublishInfo;
+                            pastBook.bookIsbn = wm.myAllBookListNet[i].bookISBN;
+                            pastBook.bookRating = wm.myAllBookListNet[i].rating;
+                            pastBook.bookReview = wm.myAllBookListNet[i].review;
+                            pastBook.isDone = wm.myAllBookListNet[i].isDone;
 
                             // index 인 i 값도 넘겨줘야할듯
                             pastBook.idx = i;
@@ -497,15 +503,17 @@ public class MyBookManager : MonoBehaviour
         if (type == 200)
         {
             // 각 data 리스트들 초기화
-            titleListNet.Clear();
-            authorListNet.Clear();
-            publishInfoListNet.Clear();
-            thumbnailLinkListNet.Clear();
-            isbnListNet.Clear();
-            ratingListNet.Clear();
-            reviewListNet.Clear();
-            isDoneListNet.Clear();
-            isBestsListNet.Clear();
+            wm.titleListNet.Clear();
+            wm.authorListNet.Clear();
+            wm.publishInfoListNet.Clear();
+            wm.thumbnailLinkListNet.Clear();
+            wm.thumbnailImgListNet.Clear();
+            wm.isbnListNet.Clear();
+            wm.ratingListNet.Clear();
+            wm.reviewListNet.Clear();
+            wm.isDoneListNet.Clear();
+            wm.isBestsListNet.Clear();
+
 
             print("통신성공. 모든도서.책상앞");
             string result_data = ParseJson("[" + handler.text + "]", "data");
@@ -521,9 +529,12 @@ public class MyBookManager : MonoBehaviour
             isBestsListNet = ParseMyBookData(result_data, "isBest");
 
             // 담은도서 관리하는 List 초기화
-            myBookListNet.Clear();
+            //myBookListNet.Clear();
             wm.myAllBookListNet.Clear();
-
+            for (int i = 0; i < thumbnailLinkListNet.Count; i++)
+            {
+                StartCoroutine(GetThumbnailImg(thumbnailLinkListNet[i]));   //, myBookInfo.thumbnail)
+            }
             // 담은도서 관리하는 List에 넣어주기
             for (int i = 0; i < titleListNet.Count; i++)
             {
@@ -539,12 +550,12 @@ public class MyBookManager : MonoBehaviour
                 myBookInfo.isDoneString = isDoneListNet[i];
                 myBookInfo.isBestString = isBestsListNet[i];
 
-                StartCoroutine(GetThumbnailImg(thumbnailLinkListNet[i]));   //, myBookInfo.thumbnail)
-                myBookListNet.Add(myBookInfo);
-                //wm.myAllBookListNet.Add(myBookInfo);
+                //StartCoroutine(GetThumbnailImg(thumbnailLinkListNet[i]));   //, myBookInfo.thumbnail)
+                //myBookListNet.Add(myBookInfo);
+                wm.myAllBookListNet.Add(myBookInfo);
             }
-
             print(jObject);
+            MakePrefab();
         }
     }
 

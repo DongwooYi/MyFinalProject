@@ -13,21 +13,21 @@ MonoBehaviour:
   m_Name: RewardsDB
   m_EditorClassIdentifier: 
   rewards:
-  - Type: 0
+  - Type: 1
     Amount: 100
   - Type: 1
     Amount: 60
-  - Type: 2
+  - Type: 1
     Amount: 10
-  - Type: 0
+  - Type: 1
     Amount: 200
   - Type: 1
     Amount: 100
-  - Type: 2
+  - Type: 1
     Amount: 20
-  - Type: 0
+  - Type: 1
     Amount: 320
   - Type: 1
     Amount: 200
-  - Type: 2
+  - Type: 1
     Amount: 35

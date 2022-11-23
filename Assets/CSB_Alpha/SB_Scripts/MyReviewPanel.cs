@@ -9,7 +9,7 @@ using Newtonsoft.Json.Linq;
 public class MyReviewPanel : MonoBehaviour
 {
     GameObject worldManager;
-    List<_MyPastBookInfo> myPastBookInfoList = new List<_MyPastBookInfo>();
+    //List<_MyPastBookInfo> myPastBookInfoList = new List<_MyPastBookInfo>();
     //public List<_MyPastBookInfo> myPastBookListNet = new List<_MyPastBookInfo>();
 
     public Text title;
@@ -34,7 +34,7 @@ public class MyReviewPanel : MonoBehaviour
     void Start()
     {
         worldManager = GameObject.Find("WorldManager");
-        myPastBookInfoList = worldManager.GetComponent<WorldManager2D>().myPastBookList;
+        //myPastBookInfoList = worldManager.GetComponent<WorldManager2D>().myPastBookList;
         //myPastBookListNet = worldManager.GetComponent<WorldManager2D>().myPastBookListNet;
 
         // 이게 맞나..........
@@ -50,7 +50,7 @@ public class MyReviewPanel : MonoBehaviour
     }
 
     // 등록 버튼 (누르면 <다읽은 책목록>에 추가)
-    public void OnClickAddPastBook()
+/*    public void OnClickAddPastBook()
     {
         _MyPastBookInfo myPastBookInfo = new _MyPastBookInfo();
 
@@ -77,16 +77,16 @@ public class MyReviewPanel : MonoBehaviour
         setBook.SetActive(true);
         setBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
 
-/*        // 책장에 넣기
+*//*        // 책장에 넣기
         int idx = Random.Range(0, 3);
         GameObject book = Instantiate(bookRewardFactory[idx]);  // 세 가지 모양 중 하나 생성
 
-        book.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);*/
+        book.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);*//*
 
         // <등록 되었습니다>
         GameObject go = Instantiate(alarmFactory, gameObject.transform);    // 나의 자식으로 생성
 
-    }
+    }*/
 
     // BestBookPanel 에 toggle 추가 관련 -----------
     public Transform bestBookContent;

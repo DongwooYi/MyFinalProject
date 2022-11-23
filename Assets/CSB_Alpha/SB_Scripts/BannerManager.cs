@@ -15,7 +15,7 @@ public class BannerManager : MonoBehaviour
     // 일단은 myPastBookInfo 리스트의 인덱스 젤 마지막 친구를 데려옴
     // 싱글톤으로 올리면 안되낭..
     GameObject worldManager;
-    List<_MyPastBookInfo> myPastBookInfoList = new List<_MyPastBookInfo>();
+   // List<_MyPastBookInfo> myPastBookInfoList = new List<_MyPastBookInfo>();
 
     public GameObject bannerFactory;
     GameObject banneritem;
@@ -35,14 +35,14 @@ public class BannerManager : MonoBehaviour
         // 내가 다 읽은 책 list 받아옴 -> 여기서 (랜덤으로) 일정 시간마다 생성
         // 만약 리스트가 비어있으면 안됨
         worldManager = GameObject.Find("WorldManager");
-        myPastBookInfoList = worldManager.GetComponent<WorldManager2D>().myPastBookList;
+       // myPastBookInfoList = worldManager.GetComponent<WorldManager2D>().myPastBookList;
 
         //banneritem = GameObject.FindGameObjectWithTag("BannerItem");
     }
 
     void Update()
     {
-        if(myPastBookInfoList.Count <= 0)
+/*        if(myPastBookInfoList.Count <= 0)
         {
             return;
         }
@@ -67,17 +67,17 @@ public class BannerManager : MonoBehaviour
             }
             MakeBanner(banneritem);
             currTime = 0;
-        }
+        }*/
     }
 
     public void MakeBanner(GameObject bannerItem)
     {
-        ReviewManager reviewManager = bannerItem.GetComponent<ReviewManager>();
+/*        ReviewManager reviewManager = bannerItem.GetComponent<ReviewManager>();
 
         reviewManager.SetTitle(myPastBookInfoList[idx].bookName);
         reviewManager.SetReview(myPastBookInfoList[idx].review);
         reviewManager.SetNickname("Nickname");
-        reviewManager.SetThumbnail(myPastBookInfoList[idx].thumbnail.texture);
+        reviewManager.SetThumbnail(myPastBookInfoList[idx].thumbnail.texture);*/
     }
 
     // Http 통신 관련 -----------------------------------------------

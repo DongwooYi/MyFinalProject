@@ -10,7 +10,7 @@ public class CurrBookInfoPanel : MonoBehaviour
     public GameObject bookFactory;  // 담은도서 목록 공장
 
     GameObject worldManager;
-    List<_MyPastBookInfo> myPastBookInfoList = new List<_MyPastBookInfo>();
+    //List<_MyPastBookInfo> myPastBookInfoList = new List<_MyPastBookInfo>();
     //List<_MyPastBookInfo> myPastBookListNet = new List<_MyPastBookInfo>();
 
     List<_MyBookInfo> myBookInfoList = new List<_MyBookInfo>();
@@ -69,10 +69,10 @@ public class CurrBookInfoPanel : MonoBehaviour
 
         worldManager = GameObject.Find("WorldManager");
         wm = worldManager.GetComponent<WorldManager2D>();
-        myPastBookInfoList = wm.myPastBookList;
+        //myPastBookInfoList = wm.myPastBookList;
         //myPastBookListNet = worldManager.GetComponent<WorldManager2D>().myPastBookList;
 
-        myBookInfoList = worldManager.GetComponent<WorldManager2D>().myBookList;
+        //myBookInfoList = worldManager.GetComponent<WorldManager2D>().myBookList;
         //myBookListNet = worldManager.GetComponent<WorldManager2D>().myBookList;
 
         book = GameObject.Find("Book");
@@ -107,14 +107,14 @@ public class CurrBookInfoPanel : MonoBehaviour
             isDoneString = "Y";
             // 0. WorldManager 의 myAllBookList 업데이트
             // isDone = true 포함
-            wm.myAllBookList[idx].bookName = title.text;
-            wm.myAllBookList[idx].bookAuthor = author.text;
-            wm.myAllBookList[idx].bookPublishInfo = publishInfo.text;
-            wm.myAllBookList[idx].bookISBN = isbn.text;
-            wm.myAllBookList[idx].thumbnail = thumbnail;
-            wm.myAllBookList[idx].isDone = true;
-            wm.myAllBookList[idx].rating = dropdown.captionText.text;
-            wm.myAllBookList[idx].review = inputFieldReview.text;
+            wm.myAllBookListNet[idx].bookName = title.text;
+            wm.myAllBookListNet[idx].bookAuthor = author.text;
+            wm.myAllBookListNet[idx].bookPublishInfo = publishInfo.text;
+            wm.myAllBookListNet[idx].bookISBN = isbn.text;
+            wm.myAllBookListNet[idx].thumbnail = thumbnail;
+            wm.myAllBookListNet[idx].isDone = true;
+            wm.myAllBookListNet[idx].rating = dropdown.captionText.text;
+            wm.myAllBookListNet[idx].review = inputFieldReview.text;
 
             // 1. WorldManager 의 myDoneBookList 에 추가
             _MyBookInfo myBookInfo = new _MyBookInfo();
@@ -136,14 +136,14 @@ public class CurrBookInfoPanel : MonoBehaviour
         {
             // 0. WorldManager 의 myAllBookList review 업데이트
             // 1. WorldManager 전체 업데이트
-            wm.myAllBookList[idx].bookName = title.text;
-            wm.myAllBookList[idx].bookAuthor = author.text;
-            wm.myAllBookList[idx].bookPublishInfo = publishInfo.text;
-            wm.myAllBookList[idx].bookISBN = isbn.text;
-            wm.myAllBookList[idx].thumbnail = thumbnail;
-            wm.myAllBookList[idx].isDone = false;
-            wm.myAllBookList[idx].rating = dropdown.captionText.text;
-            wm.myAllBookList[idx].review = inputFieldReview.text;
+            wm.myAllBookListNet[idx].bookName = title.text;
+            wm.myAllBookListNet[idx].bookAuthor = author.text;
+            wm.myAllBookListNet[idx].bookPublishInfo = publishInfo.text;
+            wm.myAllBookListNet[idx].bookISBN = isbn.text;
+            wm.myAllBookListNet[idx].thumbnail = thumbnail;
+            wm.myAllBookListNet[idx].isDone = false;
+            wm.myAllBookListNet[idx].rating = dropdown.captionText.text;
+            wm.myAllBookListNet[idx].review = inputFieldReview.text;
         }
 
         bookManager.ShowAllBookList();
@@ -154,7 +154,7 @@ public class CurrBookInfoPanel : MonoBehaviour
     #region 지난 버전
     // ===============================================================
     // 등록 버튼 (누르면 <다읽은 책목록>에 추가)
-    public void OnClickAddPastBook()
+/*    public void OnClickAddPastBook()
     {
         wm.bookPastCount++;
 
@@ -205,7 +205,7 @@ public class CurrBookInfoPanel : MonoBehaviour
         // <등록 되었습니다>
         GameObject go = Instantiate(alarmFactory, gameObject.transform);    // 나의 자식으로 생성
 
-    }
+    }*/
     #endregion
 
     // 나가기 버튼 (누르면 저장되지 않음)

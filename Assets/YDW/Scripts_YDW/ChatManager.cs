@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using UnityEngine.EventSystems;
 using UnityEngine.Networking;
+using UnityEngine.SceneManagement;
 
 //채팅 로그 저장
 //Json - 전체 보낼 데이터 
@@ -55,8 +56,11 @@ public class ChatManager : MonoBehaviourPun
     Color nickColor;
 
     public GameObject player;
+    Scene sceneName;
+
     void Start()
     {
+        sceneName = SceneManager.GetActiveScene();
         //InputField에서 엔터를 쳤을 때 호출되는 함수 등록
         inputChat.onSubmit.AddListener( OnSubmit);
         nickColor = new Color(
@@ -146,8 +150,11 @@ public class ChatManager : MonoBehaviourPun
         info.chatText = chatText;
         j = chatText;
 
+        if (sceneName.name != "SB_Player_Photon")
+        {
         StopAllCoroutines();
         StartCoroutine("ChattingSpeech");
+        }
         
         //0. 바뀌기 전의 Content H값을 넣자
         prevContentH = trContent.sizeDelta.y;

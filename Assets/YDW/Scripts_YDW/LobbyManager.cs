@@ -331,6 +331,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //이전 맵 id 저장
         prevMapId = map_id;
     }
+    #region 날짜
     DateTime dt;
     public void OnClick_GetDate()
     {
@@ -350,6 +351,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         textCalendar.text = string.Empty;
         unityCalendar.Init();
     }
+    #endregion
+    #region 모집기간
     public string recruitDate;
     public void HandleInputData(int val)
     {
@@ -459,10 +462,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
 
     }
+    #endregion
+    #region 이미지
     [Header("이미지")]
     public GameObject lobbyManager;
     public RawImage image;
-    #region 이미지
     public void OnClickImageLoad()
     {
 
@@ -506,7 +510,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         Texture2D tex = new Texture2D(0, 0);
         tex.LoadImage(temp);
         image.texture = tex;
-      //  mapThumbs[0] = image.texture as gameObject;
+        mapThumbs[0].gameObject.GetComponent<RawImage>().texture = image.texture;
     }
     #endregion
     #region Http Web

@@ -27,8 +27,6 @@ public class YDW_CharacterController : MonoBehaviour
     Touch touchOne;
 
     Scene sceneName;
-
-
     void Start()
     {
         sceneName = SceneManager.GetActiveScene();

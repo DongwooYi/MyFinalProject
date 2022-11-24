@@ -223,7 +223,6 @@ public class CurrBookInfoPanel : MonoBehaviour
             isDone = "Y",
         };
 
-        print(bookData.isDone);
         requester.body = JsonUtility.ToJson(bookData, true);
         requester.onComplete = OnCompletePostMyBookData;
 

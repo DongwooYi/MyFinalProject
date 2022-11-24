@@ -239,6 +239,7 @@ public class MyBookManager : MonoBehaviour
                             pastBook.bookRating = wm.myAllBookListNet[i].rating;
                             pastBook.bookReview = wm.myAllBookListNet[i].review;
                             pastBook.isDone = true;
+                            pastBook.isBestStr = wm.myAllBookListNet[i].isBestString;
 
                             // index 인 i 값도 넘겨줘야할듯
                             pastBook.idx = i;

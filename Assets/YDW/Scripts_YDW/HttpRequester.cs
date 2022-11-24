@@ -59,11 +59,24 @@ public class BookData
     public string bookReview;
     public string oneLineReview;
     public string isDone;
-    public string isActivated;
+/*    public string isActivated;
     public string startDate;
     public string endDate;
     public string reportDate;
-    public string memberCode;
+    public string memberCode;*/
+}
+
+[System.Serializable]
+public class BestBookData
+{
+    public List<BestBook> recordDTOList;
+}
+
+[System.Serializable]
+public class BestBook
+{
+    public string bookISBN;
+    public string isBest;
 }
 
 [System.Serializable]

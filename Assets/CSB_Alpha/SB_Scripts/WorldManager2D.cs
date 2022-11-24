@@ -103,7 +103,7 @@ public class WorldManager2D : MonoBehaviour
     private void Update()
     {
         // 내서재 셋팅
-      //  SettingMyRoom();
+        //SettingMyRoom();
     }
 
         int bookIdx = 0;
@@ -125,7 +125,8 @@ public class WorldManager2D : MonoBehaviour
                 // 책장에 책 생성
                 GameObject setBook = book.transform.GetChild(bookIdx).gameObject;
                 setBook.SetActive(true);
-                setBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex",);
+                
+                setBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnailImgListNet[i] );
                 //log.text = $" 이름 : {book.transform.GetChild(i).gameObject.name}, 썸네일: {thumbnailImgListNet[i].name}";
                 bookIdx++;
             }
@@ -136,7 +137,7 @@ public class WorldManager2D : MonoBehaviour
                 // 낮은 책장에 책 생성
                 GameObject setBestBook = bookBest.transform.GetChild(bestBookIdx).gameObject;
                 setBestBook.SetActive(true);
-               // setBestBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnailImgListNet[i]);
+                setBestBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnailImgListNet[i]);
                 bestBookIdx++;
             }
         }
@@ -259,34 +260,15 @@ public class WorldManager2D : MonoBehaviour
                         }*/
             GETThumbnailTexture();
 
-            for (int i = 0; i < titleListNet.Count; i++)
-            {
-                print("담은 도서를 관리하는 List");
-                _MyBookInfo myBookInfo = new _MyBookInfo();
 
-                myBookInfo.bookName = titleListNet[i];
-                myBookInfo.bookAuthor = authorListNet[i];
-                myBookInfo.bookPublishInfo = publishInfoListNet[i];
-                myBookInfo.thumbnailLink = thumbnailLinkListNet[i];
-                myBookInfo.bookISBN = isbnListNet[i];
-                myBookInfo.rating = ratingListNet[i];
-                myBookInfo.review = reviewListNet[i];
-                myBookInfo.isDoneString = isDoneListNet[i];
-                myBookInfo.isBestString = isBestsListNet[i];
-               // myBookInfo.texture = thumbnailImgListNet[0];
-                myAllBookListNet.Add(myBookInfo);
-            }
 
-          SettingMyRoom();
-
-            // 담은도서 관리하는 List에 넣어주기
-
-            //myAllBookListNet
-            print(jObject);
+           
+            
         }
     }
-    
 
+    public List<RawImage> rawImages = new List<RawImage>();
+    //public RawImage[] raws;
     public Text log;
     void GETThumbnailTexture()
     {
@@ -300,7 +282,7 @@ public class WorldManager2D : MonoBehaviour
         {
             UnityWebRequest www = UnityWebRequestTexture.GetTexture(url[j]);
             yield return www.SendWebRequest();
-            print(url);
+   
 
             if (www.result != UnityWebRequest.Result.Success)
             {
@@ -310,21 +292,32 @@ public class WorldManager2D : MonoBehaviour
             else
             {
                 Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-                
                 thumbnailImgListNet.Add(myTexture);
-               
-
-
-                //rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-                //texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-                //print(rawImage);
             }
             yield return null;
         }
-       
+        for (int i = 0; i < titleListNet.Count; i++)
+        {
+           
+            _MyBookInfo myBookInfo = new _MyBookInfo();
 
+            myBookInfo.bookName = titleListNet[i];
+            myBookInfo.bookAuthor = authorListNet[i];
+            myBookInfo.bookPublishInfo = publishInfoListNet[i];
+            myBookInfo.thumbnailLink = thumbnailLinkListNet[i];
+            myBookInfo.bookISBN = isbnListNet[i];
+            myBookInfo.rating = ratingListNet[i];
+            myBookInfo.review = reviewListNet[i];
+            myBookInfo.isDoneString = isDoneListNet[i];
+            myBookInfo.isBestString = isBestsListNet[i];
+            //myBookInfo.thumbnail = rawImages[i];
+            myBookInfo.texture = thumbnailImgListNet[i];
+            myAllBookListNet.Add(myBookInfo);
+
+        }
+        SettingMyRoom();
     }
-    RawImage rawImage;
+
     // data parsing
     string ParseGETJson(string jsonText, string key)
     {

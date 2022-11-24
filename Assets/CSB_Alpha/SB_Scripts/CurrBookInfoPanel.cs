@@ -65,7 +65,6 @@ public class CurrBookInfoPanel : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Character");
-
         showBook = GameObject.Find("ShowBook");
 
         worldManager = GameObject.Find("WorldManager");
@@ -199,47 +198,6 @@ public class CurrBookInfoPanel : MonoBehaviour
         print(isDone);
     }
 
-/*    int bookIdx = 0;
-    int bestBookIdx = 0;
-    int bookCount = 0;
-    // 월드 입장 시 월드 세팅
-    // 책장, 낮은 책장, 리워드
-    public void SettingMyRoom()
-    {
-        for (int i = 0; i < wm.myAllBookListNet.Count; i++)
-        {
-            // 만약 isDoneString == "Y" 면
-            // 책장 세팅 & 개수 세기
-            if (wm.myAllBookListNet[i].isDoneString == "Y")
-            {
-                bookCount++;
-                // 책장에 책 생성
-                GameObject setBook = book.transform.GetChild(bookIdx).gameObject;
-                setBook.SetActive(true);
-
-                setBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", wm.thumbnailImgListNet[i]);
-                //log.text = $" 이름 : {book.transform.GetChild(i).gameObject.name}, 썸네일: {thumbnailImgListNet[i].name}";
-                bookIdx++;
-            }
-
-            // 만약 isBestString == "Y" 면
-            if (wm.myAllBookListNet[i].isBestString == "Y")
-            {
-                // 낮은 책장에 책 생성
-                GameObject setBestBook = bookBest.transform.GetChild(bestBookIdx).gameObject;
-                setBestBook.SetActive(true);
-                setBestBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", wm.thumbnailImgListNet[i]);
-                bestBookIdx++;
-            }
-        }
-
-        // 리워드 관련
-        if (bookCount > 2)
-        {
-            showBook.GetComponent<Outline>().OutlineColor = Color.yellow;
-        }
-    }*/
-
     // (바뀐 버전) Http 통신 관련 ---------------------------------------------
     // 4. 독서 기록 쓰기
     // 비고) 이미 담는 과정에서 이미지 파일은 업로드 했기 때문에, 이미지 파일 제외하고 보내주세요
@@ -366,7 +324,6 @@ public class CurrBookInfoPanel : MonoBehaviour
         }
     }
 
-    public Text log;
     public void GETThumbnailTexture()
     {
         StartCoroutine(GetThumbnailImg(wm.thumbnailLinkListNet.ToArray()));

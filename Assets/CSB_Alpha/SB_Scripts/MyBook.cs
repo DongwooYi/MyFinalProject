@@ -51,6 +51,7 @@ public class MyBook : MonoBehaviour
 
     }
 
+    // ----------------------------------------------------------------------
     // isDone == true 인 도서 -> isDone == true 면 toggle 을 isOn 상태로
     // 나를 클릭하면 canvas
     public void OnClickDoneBookInfo()

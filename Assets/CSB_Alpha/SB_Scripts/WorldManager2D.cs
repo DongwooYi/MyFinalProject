@@ -86,7 +86,7 @@ public class WorldManager2D : MonoBehaviour
     private void Update()
     {
         // 내서재 셋팅
-        SettingMyRoom();
+       // SettingMyRoom();
     }
 
     // 월드 입장 시 월드 세팅
@@ -176,6 +176,8 @@ public class WorldManager2D : MonoBehaviour
     public List<string> isBestsListNet = new List<string>();
     public List<Texture> thumbnailImgListNet = new List<Texture>();
 
+    public List<Texture2D> thumbnailImgList2D = new List<Texture2D>();
+
     // (바뀐 버전) Http 통신 관련 -------------------------------------------------------
     // 1. 월드 입장시 요청할 API : 읽은 책(책장), 인생책 (낮은 책장) 정보 보내주기
     void HttpGetMyBookData()
@@ -184,7 +186,8 @@ public class WorldManager2D : MonoBehaviour
         HttpRequester requester = new HttpRequester();
 
         // /posts/1. GET, 완료되었을 때 호출되는 함수
-        requester.url = "http://15.165.28.206:8080/v1/records/myroom";
+       // requester.url = "http://15.165.28.206:8080/v1/records/myroom";
+        requester.url = "http://15.165.28.206:80/v1/records/myroom";
         requester.requestType = RequestType.GET;
         requester.onComplete = OnCompleteGetMyBookData;
 
@@ -266,7 +269,6 @@ public class WorldManager2D : MonoBehaviour
     {
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
         yield return www.SendWebRequest();
-        print(url);
 
         if (www.result != UnityWebRequest.Result.Success)
         {
@@ -276,7 +278,15 @@ public class WorldManager2D : MonoBehaviour
         {
             Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             //rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            /*int width = myTexture.width;
+            int height = myTexture.height;
+            Texture2D texture2D = new Texture2D(width, height, TextureFormat.ARGB32, false);
+            texture2D.ReadPixels(new Rect(0, 0, width, height), 0, 0);
+            texture2D.Apply();*/
+
+            print("myTexture"+ myTexture);
             thumbnailImgListNet.Add(myTexture);
+            SettingMyRoom();
             //rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             //texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             //print(rawImage);
@@ -285,6 +295,7 @@ public class WorldManager2D : MonoBehaviour
 
     }
 
+    Renderer renderer;
     // data parsing
     string ParseGETJson(string jsonText, string key)
     {

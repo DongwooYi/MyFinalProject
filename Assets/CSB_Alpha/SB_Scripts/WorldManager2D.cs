@@ -132,6 +132,7 @@ public class WorldManager2D : MonoBehaviour
     void OnEndEdit(string s)
     {
         print("OnEndEdit : " + s);
+        OnClickSearchBook();
     }
 
     // 책 찾기 버튼 관련

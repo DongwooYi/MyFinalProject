@@ -27,8 +27,6 @@ public class YDW_CharacterController : MonoBehaviour
     Touch touchOne;
 
     Scene sceneName;
-
-
     void Start()
     {
         sceneName = SceneManager.GetActiveScene();
@@ -38,7 +36,7 @@ public class YDW_CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (sceneName.name != "MyRoomScene_Beta 1")
+        if (sceneName.name != "MyRoomScene_Beta")
         {
             myself.SetActive(false);
         }

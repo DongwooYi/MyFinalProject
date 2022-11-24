@@ -196,6 +196,7 @@ public class SearchResult : MonoBehaviour
         myReviewPanel.SetImage(thumbnail.texture);
     }
     #endregion
+     
 
     // (지난 버전) Http 통신 함수 (POST)
 /*    void HttpPostCurrBookInfo()

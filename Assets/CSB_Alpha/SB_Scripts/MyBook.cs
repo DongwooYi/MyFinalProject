@@ -61,7 +61,7 @@ public class MyBook : MonoBehaviour
         go.GetComponent<CurrBookInfoPanel>().SetAuthor(bookAuthor);
         go.GetComponent<CurrBookInfoPanel>().SetIsbn(bookIsbn);
         go.GetComponent<CurrBookInfoPanel>().SetPublishInfo(bookInfo);
-        go.GetComponent<CurrBookInfoPanel>().SetRating(bookRating);
+       // go.GetComponent<CurrBookInfoPanel>().SetRating(bookRating);
         go.GetComponent<CurrBookInfoPanel>().SetReview(bookReview);
         go.GetComponent<CurrBookInfoPanel>().SetThumbnail(thumbnail.texture);
 

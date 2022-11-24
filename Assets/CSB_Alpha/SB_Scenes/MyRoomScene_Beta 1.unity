@@ -24624,6 +24624,7 @@ MonoBehaviour:
   trListContent: {fileID: 178871613}
   loadGallery: {fileID: 0}
   mapThumbs: []
+  setRoomTitle: {fileID: 0}
   setRoom: {fileID: 2043631493}
   setRoomlist: {fileID: 218841929}
   FailCreateaRoom: {fileID: 1891548368}

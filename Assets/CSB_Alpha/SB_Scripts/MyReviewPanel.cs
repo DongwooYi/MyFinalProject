@@ -29,6 +29,9 @@ public class MyReviewPanel : MonoBehaviour
 
     GameObject book;
 
+    [Header("스타 버튼")]
+    public Button[] starButton;
+    public Button acceptButton;
     void Start()
     {
         worldManager = GameObject.Find("WorldManager");
@@ -170,5 +173,35 @@ public class MyReviewPanel : MonoBehaviour
         int type = (int)jObject["status"];
         // UserData user = (UserData)jObject["results"]["data"]["user"];
         // string token = (string)jObject["results"]["data"]["token"];
+    }
+
+
+    [HideInInspector] public int ratedApp;
+    public void RateApplication(int rate)
+    {
+        ratedApp = rate;
+
+        // active rate button if use click some stars
+        if (rate > 0)
+            acceptButton.GetComponent<Button>().interactable = true;
+
+        // enable stars equal than user rated
+        for (int i = 0; i < rate; i++)
+        {
+            foreach (Transform t in starButton[i].transform)
+            {
+                t.gameObject.SetActive(true);
+            }
+        }
+
+        // enable stars greater than user rated
+        for (int i = rate; i < starButton.Length; i++)
+        {
+            foreach (Transform t in starButton[i].transform)
+            {
+                t.gameObject.SetActive(false);
+            }
+
+        }
     }
 }

@@ -12,8 +12,7 @@ public class MakingChattingRoom : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Character")
-        {
-            print(other.gameObject.name);
+        {           
             GotoMainWorld = true;
                    }
     }

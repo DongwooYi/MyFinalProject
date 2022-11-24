@@ -46,6 +46,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject[] mapThumbs;
 
     [Header("방만들기 및 방 리스트")]
+    public GameObject setRoomTitle;
     public GameObject setRoom;
     public GameObject setRoomlist;
     public GameObject FailCreateaRoom;
@@ -104,6 +105,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         dateTime = DateTime.Now;
         if (NPC.isTiggerEnter)
         {
+            setRoomTitle.SetActive(true);
             setRoom.SetActive(true);
         }
         if (doorCheck.GotoMainWorld == true)

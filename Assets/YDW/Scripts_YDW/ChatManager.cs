@@ -150,7 +150,7 @@ public class ChatManager : MonoBehaviourPun
         info.chatText = chatText;
         j = chatText;
 
-        if (sceneName.name != "SB_Player_Photon")
+        if (sceneName.name == "SB_Player_Photon")
         {
         StopAllCoroutines();
         StartCoroutine("ChattingSpeech");
@@ -172,7 +172,7 @@ public class ChatManager : MonoBehaviourPun
         chatList.Add(info);
 
         // 5개 이상이 된다면 Json보내기
-        if (chatList.Count >= 6)
+      /*  if (chatList.Count >= 6)
         {
 
             ChatInfoList chatInfoList = new ChatInfoList();
@@ -190,7 +190,7 @@ public class ChatManager : MonoBehaviourPun
             chatList.Clear();
 
             OnPost(jsonData);
-        }
+        }*/
 
         //스크롤 바 계속 내리기 코드로 구현
         StartCoroutine(AIAutoScrollBottom());

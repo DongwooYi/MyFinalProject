@@ -123,9 +123,7 @@ public class SearchResult : MonoBehaviour
         Graphics.Blit(img, rt);
 
         convertImg.ReadPixels(new Rect(0, 0, img.width, img.height), 0, 0);
-        //imageData = TexToTex2D(aa).EncodeToJPG();
         return convertImg;
-
     }
 
     void OnCompletePostMyBook(DownloadHandler handler)

@@ -285,7 +285,6 @@ public class WorldManager2D : MonoBehaviour
         }
         for (int i = 0; i < titleListNet.Count; i++)
         {
-           
             _MyBookInfo myBookInfo = new _MyBookInfo();
 
             myBookInfo.bookName = titleListNet[i];
@@ -300,7 +299,6 @@ public class WorldManager2D : MonoBehaviour
             //myBookInfo.thumbnail = rawImages[i];
             myBookInfo.texture = thumbnailImgListNet[i];
             myAllBookListNet.Add(myBookInfo);
-
         }
         SettingMyRoom();
     }

@@ -10,11 +10,6 @@ public class CurrBookInfoPanel : MonoBehaviour
     public GameObject bookFactory;  // 담은도서 목록 공장
 
     GameObject worldManager;
-    //List<_MyPastBookInfo> myPastBookInfoList = new List<_MyPastBookInfo>();
-    //List<_MyPastBookInfo> myPastBookListNet = new List<_MyPastBookInfo>();
-
-    List<_MyBookInfo> myBookInfoList = new List<_MyBookInfo>();
-    //List<_MyBookInfo> myBookListNet = new List<_MyBookInfo>();
 
     public Text title;
     public Text author;
@@ -27,7 +22,6 @@ public class CurrBookInfoPanel : MonoBehaviour
     bool isDone;
     string isDoneString;
     int idx;
-
 
     public Dropdown dropdown;
 

@@ -30,17 +30,6 @@ public class _MyBookInfo
     // 인생책 여부
     public bool isBest;
     public string isBestString;
-
-/*    public _MyBookInfo(string name, string author, string info, string link, string ISBN, string isDoneStr, string isBestStr)
-    {
-        bookName = name;
-        bookAuthor = author;
-        bookPublishInfo = info;
-        thumbnailLink = link;
-        bookISBN = ISBN;
-        isDoneString = isDoneStr;
-        isBestString = isBestStr;
-    }*/
 }
 
 
@@ -68,8 +57,8 @@ public class WorldManager2D : MonoBehaviour
     public GameObject resultFactory;    // 도서 검색 결과
 
     public GameObject showBook;
-    GameObject book;
-    GameObject bookBest;
+    public GameObject book;
+    public GameObject bookBest;
 
 
     // -------------------------------------------------------------------------------
@@ -81,40 +70,26 @@ public class WorldManager2D : MonoBehaviour
 
     public Material matBook;    // 책의 Material
 
-    private void Awake()
-    {
-        
-    }
-
     void Start()
     {
         book = GameObject.Find("Book");
         bookBest = GameObject.Find("myroom/MyBestBookshelf");
 
-
         HttpGetMyBookData();
        
-
         // 책 제목 입력
         inputBookTitleName.onValueChanged.AddListener(OnValueChanged);
         inputBookTitleName.onEndEdit.AddListener(OnEndEdit);
     }
 
-    private void Update()
-    {
-        // 내서재 셋팅
-        //SettingMyRoom();
-    }
 
+    // 월드 입장 시 월드 세팅
+    // 책장, 낮은 책장, 리워드
+    public void SettingMyRoom()
+    {
         int bookIdx = 0;
         int bestBookIdx = 0;
         int bookCount = 0;
-    public Texture tex;
-    // 월드 입장 시 월드 세팅
-    // 책장, 낮은 책장, 리워드
-    void SettingMyRoom()
-    {
-        
         for (int i = 0; i < myAllBookListNet.Count; i++)
         {
             // 만약 isDoneString == "Y" 면
@@ -141,8 +116,6 @@ public class WorldManager2D : MonoBehaviour
                 bestBookIdx++;
             }
         }
-
-
 
         // 리워드 관련
         if(bookCount > 2)
@@ -200,13 +173,22 @@ public class WorldManager2D : MonoBehaviour
     public List<string> isBestsListNet = new List<string>();
     public List<Texture> thumbnailImgListNet = new List<Texture>();
 
-    // 테스트용 
-    public List<RawImage> rawImagethumbnailImgList = new List<RawImage>();
-
     // (바뀐 버전) Http 통신 관련 -------------------------------------------------------
     // 1. 월드 입장시 요청할 API : 읽은 책(책장), 인생책 (낮은 책장) 정보 보내주기
-    void HttpGetMyBookData()
-    {
+    public void HttpGetMyBookData()
+    {            // 각 data 리스트들 초기화
+        titleListNet.Clear();
+        authorListNet.Clear();
+        publishInfoListNet.Clear();
+        thumbnailLinkListNet.Clear();
+        thumbnailImgListNet.Clear();
+        isbnListNet.Clear();
+        ratingListNet.Clear();
+        reviewListNet.Clear();
+        isDoneListNet.Clear();
+        isBestsListNet.Clear();
+
+        myAllBookListNet.Clear();
         print("요청");
         HttpRequester requester = new HttpRequester();
 
@@ -219,7 +201,7 @@ public class WorldManager2D : MonoBehaviour
         HttpManager.instance.SendRequest(requester, "");
     }
 
-    void OnCompleteGetMyBookData(DownloadHandler handler)
+    public void OnCompleteGetMyBookData(DownloadHandler handler)
     {
         // 데이터 처리
         JObject jObject = JObject.Parse(handler.text);
@@ -227,19 +209,6 @@ public class WorldManager2D : MonoBehaviour
 
         if(type == 200)
         {
-            // 각 data 리스트들 초기화
-            titleListNet.Clear();
-            authorListNet.Clear();
-            publishInfoListNet.Clear();
-            thumbnailLinkListNet.Clear();
-            thumbnailImgListNet.Clear();
-            isbnListNet.Clear();
-            ratingListNet.Clear();
-            reviewListNet.Clear();
-            isDoneListNet.Clear();
-            isBestsListNet.Clear();
-
-            myAllBookListNet.Clear();
             print("통신성공. 모든도서.서재입장");
             string result_data = ParseGETJson("[" + handler.text + "]", "data");
 
@@ -258,12 +227,12 @@ public class WorldManager2D : MonoBehaviour
     }
 
     public Text log;
-    void GETThumbnailTexture()
+    public void GETThumbnailTexture()
     {
         StartCoroutine(GetThumbnailImg(thumbnailLinkListNet.ToArray()));
     }
 
-    IEnumerator GetThumbnailImg(string[] url)
+    public IEnumerator GetThumbnailImg(string[] url)
     {
         for (int j = 0; j < url.Length; j++)
         {
@@ -304,7 +273,7 @@ public class WorldManager2D : MonoBehaviour
     }
 
     // data parsing
-    string ParseGETJson(string jsonText, string key)
+    public string ParseGETJson(string jsonText, string key)
     {
         JArray parseData = JArray.Parse(jsonText);
         string result = "";
@@ -318,7 +287,7 @@ public class WorldManager2D : MonoBehaviour
     }
 
     // data 에서 key 별로 parsing
-    List<string> ParseMyBookData(string jsonText, string key)
+    public List<string> ParseMyBookData(string jsonText, string key)
     {
         JArray parseData = JArray.Parse(jsonText);
         List<string> result = new List<string>();

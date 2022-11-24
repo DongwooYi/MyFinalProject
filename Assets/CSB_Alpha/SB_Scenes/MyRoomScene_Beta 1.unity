@@ -5151,6 +5151,7 @@ MonoBehaviour:
   isDoneListNet: []
   isBestsListNet: []
   thumbnailImgListNet: []
+  rawImagethumbnailImgList: []
   log: {fileID: 1455214751}
   textBookName: {fileID: 0}
 --- !u!114 &359941975
@@ -18972,7 +18973,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 803}
-  m_SizeDelta: {x: 900, y: 300}
+  m_SizeDelta: {x: 500, y: 300}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1001 &1456004828
 PrefabInstance:

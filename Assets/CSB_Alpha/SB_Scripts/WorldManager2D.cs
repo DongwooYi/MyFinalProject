@@ -432,6 +432,7 @@ public class WorldManager2D : MonoBehaviour
         else
         {
             //Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+            //Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
         }
         yield return null;

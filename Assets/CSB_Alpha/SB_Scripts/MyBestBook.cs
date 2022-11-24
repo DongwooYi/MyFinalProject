@@ -4,10 +4,73 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 using System.Linq;
+using UnityEngine.Networking;
 
 // 책장에 붙어있는 코드
 public class MyBestBook : MonoBehaviour
 {
+    public List<string> link = new List<string>();
+    public string[] lonkArray;
+
+    public List<Texture> linkTex = new List<Texture>();
+
+    public Texture[] texArray;
+    private void Start()
+    {
+        link.Add("https://thehabit.s3.ap-northeast-2.amazonaws.com/record/cba2334f9a504ca595325b2df6fefa7e");
+        link.Add("https://thehabit.s3.ap-northeast-2.amazonaws.com/record/2188885e1b1141a6a67d3c3194840efe");
+        link.Add("https://thehabit.s3.ap-northeast-2.amazonaws.com/record/e843b5d709fa47ac84a264966e51f084");
+        link.Add("https://thehabit.s3.ap-northeast-2.amazonaws.com/record/102d7865d7ac4a4cb08543d858268283");
+
+    }
+    public void OnClick()
+    {
+        GETThumbnailTexture();
+
+    }
+
+    void GETThumbnailTexture()
+    {
+        StartCoroutine(GetThumbnailImg(link.ToArray()));
+    }
+
+    IEnumerator GetThumbnailImg(string[] url)
+    {
+        for (int i = 0; i < url.Length; i++)
+        {
+            UnityWebRequest www = UnityWebRequestTexture.GetTexture(url[i]);
+            yield return www.SendWebRequest();
+
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                print("실패");
+                break;
+            }
+            else
+            {
+
+                Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+
+                linkTex.Add(myTexture);
+                /*for (int i = 0; i < link.Count; i++)
+                {
+                    texArray[i] = myTexture;
+                }*/
+                print("데이터 형식 " + www.downloadHandler.text);
+                //rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+
+                //rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+                //texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+                //print(rawImage);
+            }
+            yield return null;
+        }
+         
+
+
+    }
+
     /*// Toggle 들로 구성된 List
     public Dictionary<int, bool> toggles = new Dictionary<int, bool>();
     public List<bool> toggleList = new List<bool>();

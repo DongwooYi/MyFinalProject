@@ -538,7 +538,7 @@ public class MyBookManager : MonoBehaviour
             // 담은도서 관리하는 List에 넣어주기
             for (int i = 0; i < titleListNet.Count; i++)
             {
-                _MyBookInfo myBookInfo = new _MyBookInfo();
+/*                _MyBookInfo myBookInfo = new _MyBookInfo();
 
                 myBookInfo.bookName = titleListNet[i];
                 myBookInfo.bookAuthor = authorListNet[i];
@@ -552,7 +552,7 @@ public class MyBookManager : MonoBehaviour
 
                 //StartCoroutine(GetThumbnailImg(thumbnailLinkListNet[i]));   //, myBookInfo.thumbnail)
                 //myBookListNet.Add(myBookInfo);
-                wm.myAllBookListNet.Add(myBookInfo);
+                wm.myAllBookListNet.Add(myBookInfo);*/
             }
             print(jObject);
             MakePrefab();

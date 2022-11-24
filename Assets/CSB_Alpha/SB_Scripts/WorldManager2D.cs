@@ -7,7 +7,6 @@ using UnityEngine.UI;
 using Newtonsoft.Json.Linq;
 
 // 책 검색, 책 등록 관리
-
 [Serializable]
 public class _MyBookInfo
 {
@@ -27,10 +26,21 @@ public class _MyBookInfo
     // 완독 여부
     public bool isDone;
     public string isDoneString;
-
+    
     // 인생책 여부
     public bool isBest;
     public string isBestString;
+
+/*    public _MyBookInfo(string name, string author, string info, string link, string ISBN, string isDoneStr, string isBestStr)
+    {
+        bookName = name;
+        bookAuthor = author;
+        bookPublishInfo = info;
+        thumbnailLink = link;
+        bookISBN = ISBN;
+        isDoneString = isDoneStr;
+        isBestString = isBestStr;
+    }*/
 }
 
 
@@ -63,6 +73,7 @@ public class WorldManager2D : MonoBehaviour
 
 
     // -------------------------------------------------------------------------------
+    [Header("담은도서 리스트")]
     public List<_MyBookInfo> myAllBookListNet = new List<_MyBookInfo>();   // 담은도서
 
     public List<_MyBookInfo> myDoneBookList = new List<_MyBookInfo>();  // isDone == true 도서
@@ -70,13 +81,19 @@ public class WorldManager2D : MonoBehaviour
 
     public Material matBook;    // 책의 Material
 
+    private void Awake()
+    {
+        
+    }
 
     void Start()
     {
         book = GameObject.Find("Book");
         bookBest = GameObject.Find("myroom/MyBestBookshelf");
 
+
         HttpGetMyBookData();
+       
 
         // 책 제목 입력
         inputBookTitleName.onValueChanged.AddListener(OnValueChanged);
@@ -86,16 +103,18 @@ public class WorldManager2D : MonoBehaviour
     private void Update()
     {
         // 내서재 셋팅
-       // SettingMyRoom();
+      //  SettingMyRoom();
     }
 
+        int bookIdx = 0;
+        int bestBookIdx = 0;
+        int bookCount = 0;
+    public Texture tex;
     // 월드 입장 시 월드 세팅
     // 책장, 낮은 책장, 리워드
     void SettingMyRoom()
     {
-        int bookIdx = 0;
-        int bestBookIdx = 0;
-        int bookCount = 0;
+        
         for (int i = 0; i < myAllBookListNet.Count; i++)
         {
             // 만약 isDoneString == "Y" 면
@@ -106,19 +125,23 @@ public class WorldManager2D : MonoBehaviour
                 // 책장에 책 생성
                 GameObject setBook = book.transform.GetChild(bookIdx).gameObject;
                 setBook.SetActive(true);
-                setBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnailImgListNet[i]);
+                setBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex",);
+                //log.text = $" 이름 : {book.transform.GetChild(i).gameObject.name}, 썸네일: {thumbnailImgListNet[i].name}";
                 bookIdx++;
             }
+
             // 만약 isBestString == "Y" 면
             if (myAllBookListNet[i].isBestString == "Y")
             {
                 // 낮은 책장에 책 생성
                 GameObject setBestBook = bookBest.transform.GetChild(bestBookIdx).gameObject;
                 setBestBook.SetActive(true);
-                setBestBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnailImgListNet[i]);
+               // setBestBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnailImgListNet[i]);
                 bestBookIdx++;
             }
         }
+
+
 
         // 리워드 관련
         if(bookCount > 2)
@@ -176,7 +199,8 @@ public class WorldManager2D : MonoBehaviour
     public List<string> isBestsListNet = new List<string>();
     public List<Texture> thumbnailImgListNet = new List<Texture>();
 
-    public List<Texture2D> thumbnailImgList2D = new List<Texture2D>();
+    // 테스트용 
+    public List<RawImage> rawImagethumbnailImgList = new List<RawImage>();
 
     // (바뀐 버전) Http 통신 관련 -------------------------------------------------------
     // 1. 월드 입장시 요청할 API : 읽은 책(책장), 인생책 (낮은 책장) 정보 보내주기
@@ -186,7 +210,6 @@ public class WorldManager2D : MonoBehaviour
         HttpRequester requester = new HttpRequester();
 
         // /posts/1. GET, 완료되었을 때 호출되는 함수
-       // requester.url = "http://15.165.28.206:8080/v1/records/myroom";
         requester.url = "http://15.165.28.206:80/v1/records/myroom";
         requester.requestType = RequestType.GET;
         requester.onComplete = OnCompleteGetMyBookData;
@@ -229,12 +252,16 @@ public class WorldManager2D : MonoBehaviour
             isDoneListNet = ParseMyBookData(result_data, "isDone");
             isBestsListNet = ParseMyBookData(result_data, "isBest");
 
+            /*            for (int i = 0; i < titleListNet.Count; i++)
+                        {
+                            _MyBookInfo test = new _MyBookInfo(titleListNet[i], authorListNet[i],  publishInfoListNet[i], thumbnailLinkListNet[i], isbnListNet[i], isDoneListNet[i], isBestsListNet[i]);
 
+                        }*/
             GETThumbnailTexture();
 
-            // 담은도서 관리하는 List에 넣어주기
             for (int i = 0; i < titleListNet.Count; i++)
             {
+                print("담은 도서를 관리하는 List");
                 _MyBookInfo myBookInfo = new _MyBookInfo();
 
                 myBookInfo.bookName = titleListNet[i];
@@ -246,56 +273,58 @@ public class WorldManager2D : MonoBehaviour
                 myBookInfo.review = reviewListNet[i];
                 myBookInfo.isDoneString = isDoneListNet[i];
                 myBookInfo.isBestString = isBestsListNet[i];
-                //myBookInfo.texture = thumbnailImgListNet[i];
-
-                //StartCoroutine(GetThumbnailImg(thumbnailLinkListNet[i]));   //, myBookInfo.thumbnail)
+               // myBookInfo.texture = thumbnailImgListNet[0];
                 myAllBookListNet.Add(myBookInfo);
             }
+
+          SettingMyRoom();
+
+            // 담은도서 관리하는 List에 넣어주기
+
             //myAllBookListNet
             print(jObject);
         }
     }
+    
 
+    public Text log;
     void GETThumbnailTexture()
     {
-        for (int i = 0; i < thumbnailLinkListNet.Count; i++)
-        {
-            StartCoroutine(GetThumbnailImg(thumbnailLinkListNet[i]));
-
-        }
+            StartCoroutine(GetThumbnailImg(thumbnailLinkListNet.ToArray()));
+      
     }
 
-    IEnumerator GetThumbnailImg(string url)
+    IEnumerator GetThumbnailImg(string[] url)
     {
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
-        yield return www.SendWebRequest();
-
-        if (www.result != UnityWebRequest.Result.Success)
+        for (int j = 0; j < url.Length; j++)
         {
-            print("실패");
-        }
-        else
-        {
-            Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            //rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            /*int width = myTexture.width;
-            int height = myTexture.height;
-            Texture2D texture2D = new Texture2D(width, height, TextureFormat.ARGB32, false);
-            texture2D.ReadPixels(new Rect(0, 0, width, height), 0, 0);
-            texture2D.Apply();*/
+            UnityWebRequest www = UnityWebRequestTexture.GetTexture(url[j]);
+            yield return www.SendWebRequest();
+            print(url);
 
-            print("myTexture"+ myTexture);
-            thumbnailImgListNet.Add(myTexture);
-            SettingMyRoom();
-            //rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            //texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            //print(rawImage);
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                print("실패");
+                break;
+            }
+            else
+            {
+                Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+                
+                thumbnailImgListNet.Add(myTexture);
+               
+
+
+                //rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+                //texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+                //print(rawImage);
+            }
+            yield return null;
         }
-        yield return null;
+       
 
     }
-
-    Renderer renderer;
+    RawImage rawImage;
     // data parsing
     string ParseGETJson(string jsonText, string key)
     {

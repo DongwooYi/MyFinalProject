@@ -930,6 +930,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c134d07e1cc0a0d4f83cdca1528d7aef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  link: []
+  lonkArray: []
+  linkTex: []
+  texArray: []
 --- !u!1 &51849707
 GameObject:
   m_ObjectHideFlags: 0
@@ -4900,7 +4904,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   searchBookPanel: {fileID: 1409154689}
   myPastBookPanel: {fileID: 1813356536}
-  bookCurrCount: 0
   bookPastCount: 0
   inputBookTitleName: {fileID: 987129400}
   btnSearch: {fileID: 928072426}
@@ -4914,14 +4917,10 @@ MonoBehaviour:
   content: {fileID: 109277309}
   resultFactory: {fileID: 318626364981816602, guid: d6147a7b136793b45a66ee1aa5f3dddd, type: 3}
   showBook: {fileID: 1672068904}
-  myAllBookList: []
   myAllBookListNet: []
   myDoneBookList: []
-  myBookList: []
-  myBookListNet: []
-  myPastBookList: []
-  myPastBookListNet: []
   matBook: {fileID: 2100000, guid: b075668e458718049a46cbbe7780bfc6, type: 2}
+  tex: {fileID: 2800000, guid: 01ba8318450f014478c9b504f3f43da0, type: 3}
   titleListNet: []
   authorListNet: []
   publishInfoListNet: []
@@ -4932,6 +4931,7 @@ MonoBehaviour:
   isDoneListNet: []
   isBestsListNet: []
   thumbnailImgListNet: []
+  log: {fileID: 1455214751}
   textBookName: {fileID: 0}
 --- !u!114 &359941975
 MonoBehaviour:
@@ -16018,7 +16018,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!114 &1455214751
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -20279,6 +20279,8 @@ MonoBehaviour:
   ratingListNet: []
   reviewListNet: []
   isDoneListNet: []
+  isBestsListNet: []
+  thumbnailImgListNet: []
 --- !u!4 &1857761108
 Transform:
   m_ObjectHideFlags: 0
@@ -26129,6 +26131,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c134d07e1cc0a0d4f83cdca1528d7aef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  link: []
+  lonkArray: []
+  linkTex: []
+  texArray: []
 --- !u!1 &8403107697155588798
 GameObject:
   m_ObjectHideFlags: 0

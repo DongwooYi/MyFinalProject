@@ -56,6 +56,7 @@ public class MyBook : MonoBehaviour
     // 나를 클릭하면 canvas
     public void OnClickDoneBookInfo()
     {
+        print("??");
         GameObject go = Instantiate(doneBookInfoPanelFactory, canvas);
 
         go.GetComponent<PastBookInfoPanel>().SetTitle(bookTitle);
@@ -66,6 +67,8 @@ public class MyBook : MonoBehaviour
         go.GetComponent<PastBookInfoPanel>().SetReview(bookReview);
         go.GetComponent<PastBookInfoPanel>().SetThumbnail(thumbnail.texture);
         go.GetComponent<PastBookInfoPanel>().SetBestBook(isBest);
+
+        //go.SetActive(true);
     }
 
     // 인생책 선정 관련

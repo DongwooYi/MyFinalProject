@@ -33,18 +33,15 @@ public class MyBookManager : MonoBehaviour
 
     public WorldManager2D wm;
 
-    //List<_MyBookInfo> myBookList = new List<_MyBookInfo>(); // 담은책
     public List<_MyBookInfo> myBookListNet = new List<_MyBookInfo>();  // 담은책 네트워크
 
     List<_MyBookInfo> myCurrBookList = new List<_MyBookInfo>(); // 현재 도서
-    //public List<_MyBookInfo> myBookListNet = new List<_MyBookInfo>();
 
     public float distance = 1.5f;   // 플레이어와 물체의 거리
 
     void Start()
     {
         player = GameObject.Find("Character");
-        //myBookListNet = wm.myAllBookListNet;
     }
 
     void Update()
@@ -52,7 +49,6 @@ public class MyBookManager : MonoBehaviour
         // 만약 플레이어가 책상 가까이 가면(거리 1정도)
         if (Vector3.Distance(player.transform.position, myDesk.transform.position) < distance)
         {
-            //ShowClickHereCurrBook();
             ShowMyBookList();
         }
         else
@@ -63,7 +59,6 @@ public class MyBookManager : MonoBehaviour
         // 만약 플레이어가 책장 가까이 가면
         if(Vector3.Distance(player.transform.position, myBookshelf.transform.position) < distance)
         {
-            //ShowClickHerePastBook();
             ShowBookIsDoneT();
         }
         else
@@ -243,7 +238,7 @@ public class MyBookManager : MonoBehaviour
                             pastBook.bookIsbn = wm.myAllBookListNet[i].bookISBN;
                             pastBook.bookRating = wm.myAllBookListNet[i].rating;
                             pastBook.bookReview = wm.myAllBookListNet[i].review;
-                            //pastBook.isDone = wm.myAllBookListNet[i].isDone;
+                            pastBook.isDone = true;
 
                             // index 인 i 값도 넘겨줘야할듯
                             pastBook.idx = i;

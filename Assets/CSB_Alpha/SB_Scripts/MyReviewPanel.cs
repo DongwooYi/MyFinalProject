@@ -9,8 +9,6 @@ using Newtonsoft.Json.Linq;
 public class MyReviewPanel : MonoBehaviour
 {
     GameObject worldManager;
-    //List<_MyPastBookInfo> myPastBookInfoList = new List<_MyPastBookInfo>();
-    //public List<_MyPastBookInfo> myPastBookListNet = new List<_MyPastBookInfo>();
 
     public Text title;
     public Text author;
@@ -34,8 +32,6 @@ public class MyReviewPanel : MonoBehaviour
     void Start()
     {
         worldManager = GameObject.Find("WorldManager");
-        //myPastBookInfoList = worldManager.GetComponent<WorldManager2D>().myPastBookList;
-        //myPastBookListNet = worldManager.GetComponent<WorldManager2D>().myPastBookListNet;
 
         // 이게 맞나..........
         bestBookContent = GameObject.Find("Canvas").transform.Find("BestBookPanel").Find("Scroll View_BestBook").Find("Viewport").Find("Content_Best");

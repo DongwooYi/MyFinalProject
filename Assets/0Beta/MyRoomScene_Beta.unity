@@ -18252,9 +18252,9 @@ Transform:
   - {fileID: 1099060396}
   - {fileID: 1983759098}
   - {fileID: 1272095433}
+  - {fileID: 5185504831353462778}
   - {fileID: 544869621}
   - {fileID: 206053621}
-  - {fileID: 5185504831353462778}
   - {fileID: 7706257361789890428}
   - {fileID: 1662625552745607854}
   - {fileID: 9051042781580491933}
@@ -19543,7 +19543,6 @@ MonoBehaviour:
   loadGallery: {fileID: 0}
   mapThumbs:
   - {fileID: 1588106119}
-  setRoomTitle: {fileID: 332886587}
   setRoom: {fileID: 171738764}
   setRoomlist: {fileID: 218841929}
   FailCreateaRoom: {fileID: 535375117}
@@ -26925,7 +26924,7 @@ Transform:
   m_Children:
   - {fileID: 1886780098}
   m_Father: {fileID: 1748143588}
-  m_RootOrder: 30
+  m_RootOrder: 28
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -90}
 --- !u!4 &5199189613161684377
 Transform:

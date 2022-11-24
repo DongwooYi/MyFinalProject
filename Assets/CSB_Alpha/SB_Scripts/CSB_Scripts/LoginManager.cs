@@ -32,7 +32,8 @@ public class LoginManager : MonoBehaviourPunCallbacks
 
         ///post/1, GET, 완료되었을 때 호출되는 함수
         //requester.url = "http://192.168.0.11:8080/v1/auths/login";
-        requester.url = "http://15.165.28.206:8080/v1/auths/login";
+        //requester.url = "http://15.165.28.206:8080/v1/auths/login";
+        requester.url = "http://15.165.28.206:80/v1/auths/login";
         //requester.url = "http://192.168.0.45:8080/v1/auths/login";
 
         LoginData ldata = new()

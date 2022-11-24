@@ -41,7 +41,7 @@ public class SearchResult : MonoBehaviour
         imageData = TexToTex2D(aa).EncodeToJPG();
         StartCoroutine(SendBookData());
 
-        _MyBookInfo myBookInfo = new _MyBookInfo();
+/*        _MyBookInfo myBookInfo = new _MyBookInfo();
 
         myBookInfo.bookName = bookTitle.text;
         myBookInfo.bookAuthor = author.text;
@@ -50,7 +50,7 @@ public class SearchResult : MonoBehaviour
         myBookInfo.thumbnail = thumbnail;
         myBookInfo.isDone = false;
 
-        wm.myAllBookListNet.Add(myBookInfo);   // 월드의 myAllBookList 에 추가
+        wm.myAllBookListNet.Add(myBookInfo);   // 월드의 myAllBookList 에 추가*/
 
         // <등록 되었습니다>
         Transform canvas = GameObject.Find("Canvas").transform;
@@ -156,7 +156,7 @@ public class SearchResult : MonoBehaviour
     // 그 클래스를 MyBookList 에 추가
     public void OnClickAddCurrBook()
     {
-        _MyBookInfo myBookInfo = new _MyBookInfo();
+/*        _MyBookInfo myBookInfo = new _MyBookInfo();
 
         myBookInfo.bookName = bookTitle.text;
         myBookInfo.bookAuthor = author.text;
@@ -166,7 +166,7 @@ public class SearchResult : MonoBehaviour
         myBookInfo.isDone = false;
 
         // MyBookList 에 추가
-        myBookInfoList.Add(myBookInfo);
+        myBookInfoList.Add(myBookInfo);*/
 
         // Http 통신 함수 추가 (POST)
         //HttpPostCurrBookInfo();

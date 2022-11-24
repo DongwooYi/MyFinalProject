@@ -117,7 +117,7 @@ public class CurrBookInfoPanel : MonoBehaviour
             wm.myAllBookListNet[idx].review = inputFieldReview.text;
 
             // 1. WorldManager 의 myDoneBookList 에 추가
-            _MyBookInfo myBookInfo = new _MyBookInfo();
+/*            _MyBookInfo myBookInfo = new _MyBookInfo();
 
             myBookInfo.bookName = title.text;
             myBookInfo.bookAuthor = author.text;
@@ -129,7 +129,7 @@ public class CurrBookInfoPanel : MonoBehaviour
             myBookInfo.review = inputFieldReview.text;
 
             wm.myDoneBookList.Add(myBookInfo);
-
+*/
             // POSt 로 보내기
         }
         else

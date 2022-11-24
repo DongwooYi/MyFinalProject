@@ -37,11 +37,12 @@ public class MyBook : MonoBehaviour
     public void OnClickBookInfo()
     {
         GameObject go = Instantiate(bookInfoPanelFactory, canvas);
+
         go.GetComponent<CurrBookInfoPanel>().SetTitle(bookTitle);
         go.GetComponent<CurrBookInfoPanel>().SetAuthor(bookAuthor);
         go.GetComponent<CurrBookInfoPanel>().SetIsbn(bookIsbn);
         go.GetComponent<CurrBookInfoPanel>().SetPublishInfo(bookInfo);
-        //go.GetComponent<CurrBookInfoPanel>().SetRating(bookRating);
+        go.GetComponent<CurrBookInfoPanel>().SetRating(bookRating);
         go.GetComponent<CurrBookInfoPanel>().SetReview(bookReview);
         go.GetComponent<CurrBookInfoPanel>().SetThumbnail(thumbnail.texture);
 
@@ -50,19 +51,20 @@ public class MyBook : MonoBehaviour
 
     }
 
-    // isDone == true 인 도서
+    // isDone == true 인 도서 -> isDone == true 면 toggle 을 isOn 상태로
     // 나를 클릭하면 canvas
     public void OnClickDoneBookInfo()
     {
         GameObject go = Instantiate(doneBookInfoPanelFactory, canvas);
+
         go.GetComponent<PastBookInfoPanel>().SetTitle(bookTitle);
         go.GetComponent<PastBookInfoPanel>().SetAuthor(bookAuthor);
         go.GetComponent<PastBookInfoPanel>().SetIsbn(bookIsbn);
         go.GetComponent<PastBookInfoPanel>().SetInfo(bookInfo);
-        go.GetComponent<PastBookInfoPanel>().SetRating(bookReview);
+        go.GetComponent<PastBookInfoPanel>().SetRating(bookRating);
         go.GetComponent<PastBookInfoPanel>().SetReview(bookReview);
         go.GetComponent<PastBookInfoPanel>().SetThumbnail(thumbnail.texture);
-        //go.GetComponent<PastBookInfoPanel>().SetBestBook(isBest);
+        go.GetComponent<PastBookInfoPanel>().SetBestBook(isBest);
     }
 
     // 인생책 선정 관련

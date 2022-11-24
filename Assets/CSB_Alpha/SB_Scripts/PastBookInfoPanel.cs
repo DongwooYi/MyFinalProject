@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class PastBookInfoPanel : MonoBehaviour
 {
     public RawImage thumbnail;
+    public Texture texture;
 
     public Text bookTitle;
     public Text bookAuthor;
@@ -14,7 +15,7 @@ public class PastBookInfoPanel : MonoBehaviour
     public Text bookRating;
     public Text bookReview;
 
-    bool isBest;
+    public bool isBest;
 
     public void OnClickExit()
     {
@@ -56,8 +57,8 @@ public class PastBookInfoPanel : MonoBehaviour
         thumbnail.texture = texture;
     }
 
-/*    public void SetBestBook(bool best)
+    public void SetBestBook(bool best)
     {
         isBest = best;
-    }*/
+    }
 }

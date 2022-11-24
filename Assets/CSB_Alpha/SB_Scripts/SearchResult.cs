@@ -99,6 +99,7 @@ public class SearchResult : MonoBehaviour
         www.AddField("bookName", bookTitle.text);
         www.AddField("bookISBN", isbn.text);
         www.AddField("bookPublishInfo", publishInfo.text);
+        www.AddField("bookAuthor", author.text);
         
 
         UnityWebRequest webRequest = UnityWebRequest.Post("http://15.165.28.206:80/v1/records/contain", www);

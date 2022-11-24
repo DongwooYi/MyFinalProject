@@ -11,10 +11,10 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/0Beta/SB_Player_Photon.unity
     guid: 27cee20446ba7944388f35664575d29d
-  - enabled: 1
+  - enabled: 0
     path: Assets/0Beta/MyRoomScene_Beta.unity
-    guid: aa59453cb83605d4faf171269a3bb7fd
+    guid: 835c44fbf03dec54b8a2fd23875633a6
   - enabled: 1
-    path: Assets/0Beta/CamInteraction.unity
-    guid: d801c795a7f2b7944aea4a53198dae5d
+    path: Assets/CSB_Alpha/SB_Scenes/MyRoomScene_Beta 1.unity
+    guid: a753f41e1a2bde040a9639a7a2bcf2fb
   m_configObjects: {}

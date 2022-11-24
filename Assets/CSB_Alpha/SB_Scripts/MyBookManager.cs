@@ -94,17 +94,17 @@ public class MyBookManager : MonoBehaviour
                 if (hitInfo.transform.gameObject.tag == "ClickHere" || hitInfo.transform.gameObject.name == "MyDesk")
                 {
                     // 네트워크에서 받아온 정보 저장할 리스트
-                    titleListNet.Clear();
-                    authorListNet.Clear();
-                    publishInfoListNet.Clear();
-                    thumbnailLinkListNet.Clear();
-                    isbnListNet.Clear();
-                    ratingListNet.Clear();
-                    reviewListNet.Clear();
-                    isDoneListNet.Clear();
-                    isBestsListNet.Clear();
+                    wm.titleListNet.Clear();
+                    wm.authorListNet.Clear();
+                    wm.publishInfoListNet.Clear();
+                    wm.thumbnailLinkListNet.Clear();
+                    wm.isbnListNet.Clear();
+                    wm.ratingListNet.Clear();
+                    wm.reviewListNet.Clear();
+                    wm.isDoneListNet.Clear();
+                    wm.isBestsListNet.Clear();
 
-                    thumbnailImgListNet.Clear();
+                    wm.thumbnailImgListNet.Clear();
 
                     wm.myAllBookListNet.Clear();  // 담은도서 리스트 초기화
                     HttpGetMyBookData();
@@ -156,10 +156,10 @@ public class MyBookManager : MonoBehaviour
                 print("여기 들어오니2");
                 GameObject go = Instantiate(bookFactory, bookContentIsDoneT);
                 // 얘의 RawImage 의 Texture 를 리스트 순서대로
-                go.GetComponent<RawImage>().texture = wm.thumbnailImgListNet[i];
+                go.GetComponent<RawImage>().texture = wm.myAllBookListNet[i].texture;
                 MyBook myBook = go.GetComponent<MyBook>();
 
-                myBook.thumbnail.texture = wm.thumbnailImgListNet[i];
+                myBook.thumbnail.texture = wm.myAllBookListNet[i].texture;
                 myBook.bookTitle = wm.myAllBookListNet[i].bookName;
                 myBook.bookAuthor = wm.myAllBookListNet[i].bookAuthor;
                 myBook.bookInfo = wm.myAllBookListNet[i].bookPublishInfo;
@@ -178,10 +178,10 @@ public class MyBookManager : MonoBehaviour
 
                 GameObject go = Instantiate(bookFactory, bookContent);
                 // 얘의 RawImage 의 Texture 를 리스트 순서대로
-                go.GetComponent<RawImage>().texture = wm.thumbnailImgListNet[i];
+                go.GetComponent<RawImage>().texture = wm.myAllBookListNet[i].texture;
                 MyBook myBook = go.GetComponent<MyBook>();
 
-                myBook.thumbnail.texture = wm.thumbnailImgListNet[i];
+                myBook.thumbnail.texture = wm.myAllBookListNet[i].texture;
                 myBook.bookTitle = wm.myAllBookListNet[i].bookName;
                 myBook.bookAuthor = wm.myAllBookListNet[i].bookAuthor;
                 myBook.bookInfo = wm.myAllBookListNet[i].bookPublishInfo;
@@ -486,7 +486,7 @@ public class MyBookManager : MonoBehaviour
         HttpRequester requester = new HttpRequester();
 
         // /posts/1. GET, 완료되었을 때 호출되는 함수
-        requester.url = "http://15.165.28.206:8080/v1/records/desk";
+        requester.url = "http://15.165.28.206:80/v1/records/desk";
         requester.requestType = RequestType.GET;
         requester.onComplete = OnCompleteGetMyBookData;
 
@@ -502,19 +502,6 @@ public class MyBookManager : MonoBehaviour
 
         if (type == 200)
         {
-            // 각 data 리스트들 초기화
-            wm.titleListNet.Clear();
-            wm.authorListNet.Clear();
-            wm.publishInfoListNet.Clear();
-            wm.thumbnailLinkListNet.Clear();
-            wm.thumbnailImgListNet.Clear();
-            wm.isbnListNet.Clear();
-            wm.ratingListNet.Clear();
-            wm.reviewListNet.Clear();
-            wm.isDoneListNet.Clear();
-            wm.isBestsListNet.Clear();
-
-
             print("통신성공. 모든도서.책상앞");
             string result_data = ParseJson("[" + handler.text + "]", "data");
 
@@ -528,58 +515,53 @@ public class MyBookManager : MonoBehaviour
             isDoneListNet = ParseMyBookData(result_data, "isDone");
             isBestsListNet = ParseMyBookData(result_data, "isBest");
 
-            // 담은도서 관리하는 List 초기화
-            //myBookListNet.Clear();
-            wm.myAllBookListNet.Clear();
-            for (int i = 0; i < thumbnailLinkListNet.Count; i++)
-            {
-                StartCoroutine(GetThumbnailImg(thumbnailLinkListNet[i]));   //, myBookInfo.thumbnail)
-            }
-            // 담은도서 관리하는 List에 넣어주기
-            for (int i = 0; i < titleListNet.Count; i++)
-            {
-/*                _MyBookInfo myBookInfo = new _MyBookInfo();
+            StartCoroutine(GetThumbnailImg(thumbnailLinkListNet.ToArray()));   //, myBookInfo.thumbnail)
 
-                myBookInfo.bookName = titleListNet[i];
-                myBookInfo.bookAuthor = authorListNet[i];
-                myBookInfo.bookPublishInfo = publishInfoListNet[i];
-                myBookInfo.thumbnailLink = thumbnailLinkListNet[i];
-                myBookInfo.bookISBN = isbnListNet[i];
-                myBookInfo.rating = ratingListNet[i];
-                myBookInfo.review = reviewListNet[i];
-                myBookInfo.isDoneString = isDoneListNet[i];
-                myBookInfo.isBestString = isBestsListNet[i];
-
-                //StartCoroutine(GetThumbnailImg(thumbnailLinkListNet[i]));   //, myBookInfo.thumbnail)
-                //myBookListNet.Add(myBookInfo);
-                wm.myAllBookListNet.Add(myBookInfo);*/
-            }
             print(jObject);
-            MakePrefab();
         }
     }
 
-    IEnumerator GetThumbnailImg(string url)
+    IEnumerator GetThumbnailImg(string[] url)
     {
-        UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
-        yield return www.SendWebRequest();
-        print(www.result);
+        for (int j = 0; j < url.Length; j++)
+        {
+            UnityWebRequest www = UnityWebRequestTexture.GetTexture(url[j]);
+            yield return www.SendWebRequest();
 
-        if (www.result != UnityWebRequest.Result.Success)
-        {
-            print("실패");
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                print("실패");
+                break;
+            }
+            else
+            {
+                Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+                thumbnailImgListNet.Add(myTexture);
+            }
+            yield return null;
         }
-        else
+        for (int i = 0; i < titleListNet.Count; i++)
         {
-            Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            //rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            thumbnailImgListNet.Add(myTexture);
-            //rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            //texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
-            //print(rawImage);
-            print(myTexture);
+
+            _MyBookInfo myBookInfo = new _MyBookInfo();
+
+            myBookInfo.bookName = titleListNet[i];
+            myBookInfo.bookAuthor = authorListNet[i];
+            myBookInfo.bookPublishInfo = publishInfoListNet[i];
+            myBookInfo.thumbnailLink = thumbnailLinkListNet[i];
+            myBookInfo.bookISBN = isbnListNet[i];
+            myBookInfo.rating = ratingListNet[i];
+            myBookInfo.review = reviewListNet[i];
+            myBookInfo.isDoneString = isDoneListNet[i];
+            myBookInfo.isBestString = isBestsListNet[i];
+
+            myBookInfo.texture = thumbnailImgListNet[i];
+
+            wm.myAllBookListNet.Add(myBookInfo);
         }
-        yield return null;
+        // 책상 앞 panel 세팅
+        MakePrefab();
     }
 
     // data parsing

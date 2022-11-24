@@ -253,27 +253,14 @@ public class WorldManager2D : MonoBehaviour
             isDoneListNet = ParseMyBookData(result_data, "isDone");
             isBestsListNet = ParseMyBookData(result_data, "isBest");
 
-            /*            for (int i = 0; i < titleListNet.Count; i++)
-                        {
-                            _MyBookInfo test = new _MyBookInfo(titleListNet[i], authorListNet[i],  publishInfoListNet[i], thumbnailLinkListNet[i], isbnListNet[i], isDoneListNet[i], isBestsListNet[i]);
-
-                        }*/
             GETThumbnailTexture();
-
-
-
-           
-            
         }
     }
 
-    public List<RawImage> rawImages = new List<RawImage>();
-    //public RawImage[] raws;
     public Text log;
     void GETThumbnailTexture()
     {
-            StartCoroutine(GetThumbnailImg(thumbnailLinkListNet.ToArray()));
-      
+        StartCoroutine(GetThumbnailImg(thumbnailLinkListNet.ToArray()));
     }
 
     IEnumerator GetThumbnailImg(string[] url)
@@ -298,7 +285,6 @@ public class WorldManager2D : MonoBehaviour
         }
         for (int i = 0; i < titleListNet.Count; i++)
         {
-           
             _MyBookInfo myBookInfo = new _MyBookInfo();
 
             myBookInfo.bookName = titleListNet[i];
@@ -313,7 +299,6 @@ public class WorldManager2D : MonoBehaviour
             //myBookInfo.thumbnail = rawImages[i];
             myBookInfo.texture = thumbnailImgListNet[i];
             myAllBookListNet.Add(myBookInfo);
-
         }
         SettingMyRoom();
     }
@@ -444,6 +429,7 @@ public class WorldManager2D : MonoBehaviour
         }
         else
         {
+            //Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             //Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
         }

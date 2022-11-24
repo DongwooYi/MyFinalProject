@@ -36,14 +36,14 @@ public class MyBook : MonoBehaviour
     // 나를 클릭하면 canvas 에 나의 정보 Panel 생성
     public void OnClickBookInfo()
     {
-            GameObject go = Instantiate(bookInfoPanelFactory, canvas);
-            go.GetComponent<CurrBookInfoPanel>().SetTitle(bookTitle);
-            go.GetComponent<CurrBookInfoPanel>().SetAuthor(bookAuthor);
-            go.GetComponent<CurrBookInfoPanel>().SetIsbn(bookIsbn);
-            go.GetComponent<CurrBookInfoPanel>().SetPublishInfo(bookInfo);
-            //go.GetComponent<CurrBookInfoPanel>().SetRating(bookRating);
-            go.GetComponent<CurrBookInfoPanel>().SetReview(bookReview);
-            go.GetComponent<CurrBookInfoPanel>().SetThumbnail(thumbnail.texture);
+        GameObject go = Instantiate(bookInfoPanelFactory, canvas);
+        go.GetComponent<CurrBookInfoPanel>().SetTitle(bookTitle);
+        go.GetComponent<CurrBookInfoPanel>().SetAuthor(bookAuthor);
+        go.GetComponent<CurrBookInfoPanel>().SetIsbn(bookIsbn);
+        go.GetComponent<CurrBookInfoPanel>().SetPublishInfo(bookInfo);
+        //go.GetComponent<CurrBookInfoPanel>().SetRating(bookRating);
+        go.GetComponent<CurrBookInfoPanel>().SetReview(bookReview);
+        go.GetComponent<CurrBookInfoPanel>().SetThumbnail(thumbnail.texture);
 
         go.GetComponent<CurrBookInfoPanel>().SetIndex(idx); // myAllBookList 의 인덱스 값과
         go.GetComponent<CurrBookInfoPanel>().SetIsDone(isDone); // isDone 여부 넘겨줌

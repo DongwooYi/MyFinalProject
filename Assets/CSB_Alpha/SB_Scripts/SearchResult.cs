@@ -16,8 +16,8 @@ public class SearchResult : MonoBehaviour
     public Text publishInfo;
     public Text isbn;
     public RawImage thumbnail;
-
-    public Texture aa;
+    public Texture thumbnailTexture;
+    //public Texture aa;
 
     public GameObject reviewPanelFactory;
     public GameObject alarmFactory;
@@ -38,7 +38,7 @@ public class SearchResult : MonoBehaviour
     public void OnClickAddBook()
     {
         //HttpPostMyBook();
-        imageData = TexToTex2D(aa).EncodeToJPG();
+        imageData = TexToTex2D(thumbnail.texture).EncodeToJPG();
         StartCoroutine(SendBookData());
 
 /*        _MyBookInfo myBookInfo = new _MyBookInfo();
@@ -78,19 +78,14 @@ public class SearchResult : MonoBehaviour
         isbn.text = s;
     }
 
-    public void SetImage(Texture texture)
+    public void SetImage(RawImage rawImage)
     {
-        thumbnail.texture = texture;
+        thumbnailTexture = rawImage.texture;
     }
     #endregion
 
     // (바뀐 버전) Http 통신 관련 -------------------
-    // 3. 도서 담을 때 호출하는 API
-    void HttpPostMyBook()
-    {
-        
-    }
-    
+    // 3. 도서 담을 때 호출하는 API    
     IEnumerator SendBookData()
     {
         BookInfo bookInfo = new BookInfo();
@@ -106,7 +101,7 @@ public class SearchResult : MonoBehaviour
         www.AddField("bookPublishInfo", publishInfo.text);
         
 
-        UnityWebRequest webRequest = UnityWebRequest.Post("http://15.165.28.206:8080/v1/records/contain", www);
+        UnityWebRequest webRequest = UnityWebRequest.Post("http://15.165.28.206:80/v1/records/contain", www);
         webRequest.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("jwt"));
         yield return webRequest.SendWebRequest();
         if (webRequest.result == UnityWebRequest.Result.Success)
@@ -118,6 +113,7 @@ public class SearchResult : MonoBehaviour
             Debug.Log(webRequest.error);
         }
     }
+
     public byte[] imageData;
     Texture2D TexToTex2D(Texture img)
     {
@@ -127,9 +123,7 @@ public class SearchResult : MonoBehaviour
         Graphics.Blit(img, rt);
 
         convertImg.ReadPixels(new Rect(0, 0, img.width, img.height), 0, 0);
-        //imageData = TexToTex2D(aa).EncodeToJPG();
         return convertImg;
-
     }
 
     void OnCompletePostMyBook(DownloadHandler handler)

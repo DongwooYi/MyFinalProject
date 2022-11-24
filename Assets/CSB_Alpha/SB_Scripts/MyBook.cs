@@ -34,16 +34,19 @@ public class MyBook : MonoBehaviour
         contentDoneBook = GameObject.Find("MyPastBookPanel/Scroll View_Done/Viewport/Content").transform;
         print(contentDoneBook.name);
         btnBestBook = GameObject.Find("MyPastBookPanel").transform.GetChild(3).gameObject.GetComponent<Button>();
-        btnBestBook.onClick.AddListener(OnClickBestBook);
+        print(btnBestBook.name);
         canvas = GameObject.Find("Canvas").transform;
         if(isBestStr == "Y")
         {
             isBest = true;
+            transform.GetChild(0).gameObject.GetComponent<Image>().sprite = checkMark;
         }
         else
         {
             isBest = false;
+            transform.GetChild(0).gameObject.GetComponent<Image>().sprite = checkMarkOutline;
         }
+       // btnBestBook.onClick.AddListener(OnClickSetBestBook);
     }
 
     void Update()
@@ -75,6 +78,7 @@ public class MyBook : MonoBehaviour
     // 나를 클릭하면 canvas
     public void OnClickDoneBookInfo()
     {
+        print("????");
         GameObject go = Instantiate(doneBookInfoPanelFactory, canvas);
 
         go.GetComponent<PastBookInfoPanel>().SetTitle(bookTitle);
@@ -96,11 +100,14 @@ public class MyBook : MonoBehaviour
     bool temp;
     public void OnClickBestBook()
     {
+        print(temp);
         temp = isBest;
+        print(temp);
         // bool 값 
         // 만약 bool 값이 false 면 true 로
         if (!isBest)
         {
+            print(temp);
             isBest = true;
             isBestStr = "Y";
             // 스프라이트 CheckMark 로 변경
@@ -108,6 +115,7 @@ public class MyBook : MonoBehaviour
         }
         else if (isBest)
         {
+            print(temp);
             isBest = false;
             isBestStr = "N";
             transform.GetChild(0).gameObject.GetComponent<Image>().sprite = checkMarkOutline;
@@ -133,7 +141,7 @@ public class MyBook : MonoBehaviour
                 bestBookList.Add(bestBook);
             }
         }
-        HttpPostMyBestBook();
+        //HttpPostMyBestBook();
     }
 
     // (바뀐 버전) Http 통신 관련 ----------------------------------

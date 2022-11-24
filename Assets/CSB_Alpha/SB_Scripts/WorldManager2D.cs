@@ -23,8 +23,6 @@ public class _MyBookInfo
     // 기록 관련
     public string rating;  // 평점
     public string review;   // 리뷰
-    //public string bookRating;  // 평점
-    //public string bookReview;   // 리뷰
 
     // 완독 여부
     public bool isDone;
@@ -35,12 +33,6 @@ public class _MyBookInfo
     public string isBestString;
 }
 
-[Serializable]
-public class _MyPastBookInfo : _MyBookInfo
-{
-    //public string rating;  // 평점
-    //public string review;   // 리뷰
-}
 
 public class WorldManager2D : MonoBehaviour
 {
@@ -48,7 +40,6 @@ public class WorldManager2D : MonoBehaviour
 
     public GameObject myPastBookPanel;    // 다읽은도서 목록
 
-    public int bookCurrCount;
     public int bookPastCount;   // 다읽은도서
 
     public InputField inputBookTitleName;   // 책 제목 입력 칸
@@ -72,20 +63,9 @@ public class WorldManager2D : MonoBehaviour
 
 
     // -------------------------------------------------------------------------------
-    public List<_MyBookInfo> myAllBookList = new List<_MyBookInfo>();   // 담은도서
     public List<_MyBookInfo> myAllBookListNet = new List<_MyBookInfo>();   // 담은도서
 
     public List<_MyBookInfo> myDoneBookList = new List<_MyBookInfo>();  // isDone == true 도서
-
-    // 지난 버전
-    // 나의 현재 책 목록
-    public List<_MyBookInfo> myBookList = new List<_MyBookInfo>();
-    public List<_MyBookInfo> myBookListNet = new List<_MyBookInfo>();
-
-    // 나의 지난 책 목록
-    public List<_MyPastBookInfo> myPastBookList = new List<_MyPastBookInfo>();
-    public List<_MyPastBookInfo> myPastBookListNet = new List<_MyPastBookInfo>();
-
     //  ------------------------------------------------------------------------------
 
     public Material matBook;    // 책의 Material
@@ -96,22 +76,21 @@ public class WorldManager2D : MonoBehaviour
         book = GameObject.Find("Book");
         bookBest = GameObject.Find("myroom/MyBestBookshelf");
 
-     //   HttpGetMyBookData();
+        HttpGetMyBookData();
 
         // 책 제목 입력
         inputBookTitleName.onValueChanged.AddListener(OnValueChanged);
         inputBookTitleName.onEndEdit.AddListener(OnEndEdit);
-
     }
 
     private void Update()
     {
-       SettingMyRoom();
+        // 내서재 셋팅
+        SettingMyRoom();
     }
 
     // 월드 입장 시 월드 세팅
     // 책장, 낮은 책장, 리워드
-
     void SettingMyRoom()
     {
         int bookIdx = 0;
@@ -128,25 +107,17 @@ public class WorldManager2D : MonoBehaviour
                 GameObject setBook = book.transform.GetChild(bookIdx).gameObject;
                 setBook.SetActive(true);
                 setBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnailImgListNet[i]);
-                print(i);
                 bookIdx++;
-
-
             }
             // 만약 isBestString == "Y" 면
             if (myAllBookListNet[i].isBestString == "Y")
             {
-                print("111");
-                print("bestBook1" + bestBookIdx);
                 // 낮은 책장에 책 생성
                 GameObject setBestBook = bookBest.transform.GetChild(bestBookIdx).gameObject;
-                print(setBestBook);
                 setBestBook.SetActive(true);
                 setBestBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnailImgListNet[i]);
                 bestBookIdx++;
-                print("bestBook2" + bestBookIdx);
             }
-
         }
 
         // 리워드 관련
@@ -170,12 +141,6 @@ public class WorldManager2D : MonoBehaviour
     public void OnClickSearchBookButton()
     {
         searchBookPanel.SetActive(true);
-    }
-
-    // <다읽은 도서 목록> 버튼 관련
-    public void OnClickMyPastBookPanelButton()
-    {
-        myPastBookPanel.SetActive(true);
     }
 
     // 뒤로 버튼 관련
@@ -219,7 +184,7 @@ public class WorldManager2D : MonoBehaviour
         HttpRequester requester = new HttpRequester();
 
         // /posts/1. GET, 완료되었을 때 호출되는 함수
-        requester.url = "http://192.168.0.45:8080/v1/records/myroom";
+        requester.url = "http://15.165.28.206:8080/v1/records/myroom";
         requester.requestType = RequestType.GET;
         requester.onComplete = OnCompleteGetMyBookData;
 
@@ -235,7 +200,20 @@ public class WorldManager2D : MonoBehaviour
 
         if(type == 200)
         {
-            print("통신성공. 모든도서");
+            // 각 data 리스트들 초기화
+            titleListNet.Clear();
+            authorListNet.Clear();
+            publishInfoListNet.Clear();
+            thumbnailLinkListNet.Clear();
+            thumbnailImgListNet.Clear();
+            isbnListNet.Clear();
+            ratingListNet.Clear();
+            reviewListNet.Clear();
+            isDoneListNet.Clear();
+            isBestsListNet.Clear();
+
+            myAllBookListNet.Clear();
+            print("통신성공. 모든도서.서재입장");
             string result_data = ParseGETJson("[" + handler.text + "]", "data");
 
             titleListNet = ParseMyBookData(result_data, "bookName");
@@ -248,7 +226,8 @@ public class WorldManager2D : MonoBehaviour
             isDoneListNet = ParseMyBookData(result_data, "isDone");
             isBestsListNet = ParseMyBookData(result_data, "isBest");
 
-            myAllBookListNet.Clear();
+
+            GETThumbnailTexture();
 
             // 담은도서 관리하는 List에 넣어주기
             for (int i = 0; i < titleListNet.Count; i++)
@@ -264,30 +243,22 @@ public class WorldManager2D : MonoBehaviour
                 myBookInfo.review = reviewListNet[i];
                 myBookInfo.isDoneString = isDoneListNet[i];
                 myBookInfo.isBestString = isBestsListNet[i];
-                //myBookInfo.thumbnail;
-                
+                //myBookInfo.texture = thumbnailImgListNet[i];
 
-                StartCoroutine(GetThumbnailImg(thumbnailLinkListNet[i]));   //, myBookInfo.thumbnail)
+                //StartCoroutine(GetThumbnailImg(thumbnailLinkListNet[i]));   //, myBookInfo.thumbnail)
                 myAllBookListNet.Add(myBookInfo);
             }
-            
-
-            // 각 data 리스트들 초기화
-            titleListNet.Clear();
-            authorListNet.Clear();
-            publishInfoListNet.Clear();
-            thumbnailLinkListNet.Clear();
-            isbnListNet.Clear();
-            ratingListNet.Clear();
-            reviewListNet.Clear();
-            isDoneListNet.Clear();
-            isBestsListNet.Clear();
-            //thumbnailImgListNet.Clear();
-
+            //myAllBookListNet
             print(jObject);
+        }
+    }
 
-            // 내서재 셋팅
-            //SettingMyRoom();
+    void GETThumbnailTexture()
+    {
+        for (int i = 0; i < thumbnailLinkListNet.Count; i++)
+        {
+            StartCoroutine(GetThumbnailImg(thumbnailLinkListNet[i]));
+
         }
     }
 
@@ -295,7 +266,7 @@ public class WorldManager2D : MonoBehaviour
     {
         UnityWebRequest www = UnityWebRequestTexture.GetTexture(url);
         yield return www.SendWebRequest();
-        print(www.result);
+        print(url);
 
         if (www.result != UnityWebRequest.Result.Success)
         {
@@ -309,7 +280,6 @@ public class WorldManager2D : MonoBehaviour
             //rawImage.texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             //texture = ((DownloadHandlerTexture)www.downloadHandler).texture;
             //print(rawImage);
-            print(myTexture);
         }
         yield return null;
 
@@ -339,10 +309,8 @@ public class WorldManager2D : MonoBehaviour
         {
             result.Add(obj.GetValue(key).ToString());
         }
-
         return result;
     }
-
 
     #region 도서 API 받아오기 관련
     // 검색 버튼 관련 (돋보기 버튼)

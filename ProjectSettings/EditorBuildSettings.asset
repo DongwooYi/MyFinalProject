@@ -9,12 +9,9 @@ EditorBuildSettings:
     path: Assets/0Beta/LoginandRegister_YDW.unity
     guid: 778886b6811be3749a7c92ca27958cd2
   - enabled: 1
-    path: Assets/0Beta/MyRoomScene_Beta.unity
-    guid: aa59453cb83605d4faf171269a3bb7fd
-  - enabled: 1
     path: Assets/0Beta/SB_Player_Photon.unity
     guid: 27cee20446ba7944388f35664575d29d
   - enabled: 1
-    path: Assets/0Beta/CamInteraction.unity
-    guid: d801c795a7f2b7944aea4a53198dae5d
+    path: Assets/0Beta/MyRoomScene_Beta.unity
+    guid: 835c44fbf03dec54b8a2fd23875633a6
   m_configObjects: {}

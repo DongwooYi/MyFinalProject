@@ -96,8 +96,8 @@ public class HttpManager : MonoBehaviour
                 }
                 else
                 {
-                    requester.onFailed();
                     print("통신 실패");
+                    requester.onFailed();
                 }
                 break;
            

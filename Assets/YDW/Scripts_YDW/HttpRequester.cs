@@ -212,6 +212,36 @@ public class RoomData
 
 }
 #endregion
+#region 독서메이트
+[System.Serializable]
+
+public class MemeberDataDetail
+{
+    public int status;
+    public string message;
+    public List<MemeberDataDetail2nd> data;
+}
+
+[System.Serializable]
+public class MemeberDataDetail3rd
+{
+    public int recordCode;
+    public string bookName;
+    public string bookAuthor;
+    public string bookPublishInfo;
+    public string thumnailLink;
+    public string bookISBM;
+}
+[System.Serializable]
+
+public class MemeberDataDetail2nd
+{
+    public int memberCode;
+    public string memberId;
+    public string name;
+    public List<MemeberDataDetail3rd> records;
+}
+#endregion
 public enum RequestType
 {
     LOGIN,

@@ -45,11 +45,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public LoadGallery loadGallery;
 
-    //map Thumbnail
-    public GameObject[] mapThumbs;
-
     [Header("방만들기 및 방 리스트")]
-   
     public GameObject setRoom;
     public GameObject setRoomlist;
     public GameObject FailCreateaRoom;
@@ -67,6 +63,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public byte[] img;
     public WorldManager2D worldManager2D;
+
+
+    public GameObject readerMate;
+    public GameObject readerMateImage;
+
     #region 요일 선택
     [Header("요일 선택")]
     public Toggle toggleMon;
@@ -95,6 +96,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     void Start()
     {
         welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
+        textPayernameinreafermatePannel.text = PhotonNetwork.LocalPlayer.NickName + "님의\r\n독서 메이트는?";
         dropdown.onValueChanged.AddListener(delegate { HandleInputData(dropdown.value); });
         // 방이름(InputField)이 변경될때 호출되는 함수 등록
         inputRoomName.onValueChanged.AddListener(OnRoomNameValueChanged);
@@ -122,7 +124,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
         if (Input.GetKeyDown(KeyCode.F10))
         {
-            setRoom.SetActive(false);
+            setRoomlist.SetActive(true);
         }
         if (Input.GetKeyDown(KeyCode.F11))
         {
@@ -182,22 +184,21 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
 
         hash["desc"] = $"회의 요일: {monText}{tueText}{wedText}{thuText}{friText}{sunText}{sunText}\r\n방 설명: {inputFieldRoomDescription.text}";
-        hash["map_id"] = UnityEngine.Random.Range(0,mapThumbs.Length);
+        hash["map_id"] = img;
         hash["room_name"] = inputRoomName.text;
-        hash["password"] = inputPassword.text;
         hash["date"] = textCalendar.text;
         hash["descShortForm"] = inputFieldRoomDescriptionShortForm.text;
         hash["DDay"] = startDate;
 
-
         roomOptions.CustomRoomProperties = hash;
         // custom 정보를 공개하는 설정
         roomOptions.CustomRoomPropertiesForLobby = new string[] {
-            "desc", "map_id", "room_name", "password", "date", "descShortForm", "DDay"
+            "desc", "map_id", "room_name", "date", "descShortForm", "DDay"
         };
 
+        print("img배열의" + img.Length);
         // 방 생성 요청 (해당 옵션을 이용해서)
-        PhotonNetwork.CreateRoom(inputRoomName.text + inputPassword.text, roomOptions);
+        PhotonNetwork.CreateRoom(inputRoomName.text, roomOptions);
     }
 
     //방이 생성되면 호출 되는 함수
@@ -316,39 +317,72 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             //};
 
             string desc = (string)info.CustomProperties["desc"];
-          //  string descShortForm = (string)info.CustomProperties["descShortForm"];
-            int map_id = (int)info.CustomProperties["map_id"];
-            print(desc + ", " + map_id);
+            print(desc);
         }
     }
     //이전 Thumbnail id
     int prevMapId = -1;
-    void SetRoomName(string room, int map_id)
+    void SetRoomName(string room)
     {
         //룸이름 설정
         inputRoomName.text = room;
+    }
+    #region 독서메이트 setactive
 
-        //만약에 이전 맵 Thumbnail이 활성화가 되어있다면
-        if (prevMapId > -1)
+    [Header("독서메이트 추천")]
+    public Text textPayernameinreafermatePannel;
+    public Transform transformInReadermateImg;
+    public void OnclickOpenReaderMatePannel()
+    {
+        readerMate.SetActive(true);
+    }
+    public void ReaderRecommendation()
+    {
+        HttpRequester requester = new HttpRequester();
+        requester.url = "http://15.165.28.206:80/v1/friends";
+        requester.requestType = RequestType.GET;
+        requester.onComplete = OnCompleteGetPostAll;
+
+        //HttpManager에게 요청
+        Debug.Log("Get 실행");
+        HttpManager.instance.SendRequest(requester, "application/json");
+
+    }
+    public void OnCompleteGetPostAll(DownloadHandler downloadHandler)
+    {
+
+        //List<>
+        MemeberDataDetail array = JsonUtility.FromJson<MemeberDataDetail>(downloadHandler.text);
+        int okay = array.status;
+        if (okay == 200)
         {
-            //이전 맵 Thumbnail을 비활성화
-            mapThumbs[prevMapId].SetActive(false);
+            readerMate.SetActive(false);
+            readerMateImage.SetActive(true);
+            for (int i = 0; i < 4; i++)
+            {
+                transformInReadermateImg.transform.GetChild(i).GetComponent<Text>().text = $"{array.data[i].name}\r\n{array.data[i].records[i].bookName}";
+                print(array.data[i].name + "\n" + array.data[i].records[i].bookName);
+
+            }
+
         }
 
-        //맵 Thumbnail 설정
-        mapThumbs[map_id].SetActive(true);
-
-        //이전 맵 id 저장
-        prevMapId = map_id;
+        print("조회 완료");
     }
+    public void GoBacktoMainWorld()
+    {
+        setRoomlist.SetActive(false);
+        CreateChatroom();
+    }
+    #endregion
     #region 날짜
     DateTime dt;
     public void OnClick_GetDate()
     {
         dt = unityCalendar.GetDate();
-        if(dt >= dateTime)
+        if (dt >= dateTime)
         {
-        textCalendar.text = startDate + "~" + dt.ToString("yyyy-MM-dd");
+            textCalendar.text = startDate + "~" + dt.ToString("yyyy-MM-dd");
         }
         else
         {
@@ -370,7 +404,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
 
             dateTime1 = dateTime.AddHours(24);
-             startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
+            startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
             recruitDate = dateTime.ToString("yyyy-MM-ddTHH:mm");
             Debug.Log("1일:" + startDate);
 
@@ -393,7 +427,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             startDate = $"{dateTime1.Year}-{dateTime1.Month}-{dateTime1.Day}";
             recruitDate = dateTime.ToString("yyyy-MM-ddTHH:mm");
             print("168");
-            Debug.Log("7일"+startDate);
+            Debug.Log("7일" + startDate);
 
         }
     }
@@ -520,13 +554,13 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         Texture2D tex = new Texture2D(0, 0);
         tex.LoadImage(temp);
         image.texture = tex;
-        mapThumbs[0].gameObject.GetComponent<RawImage>().texture = image.texture;
+
     }
     #endregion
     #region Http Web
     public void SendRoomData()
     {
-        StartCoroutine("SendRoomDataCoroutine");  
+        StartCoroutine("SendRoomDataCoroutine");
     }
 
     IEnumerator SendRoomDataCoroutine()
@@ -541,12 +575,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         form.AddField("startDate", recruitDate);
         form.AddField("endDate", dt.ToString("yyyy-MM-ddTHH:mm"));
         print("recruitStartDate" + DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm") + "\r\n" + "startDate" + startDate + "\r\n" + dt.ToString("yyyy-MM-ddTHH:mm"));
-       
+
         form.AddField("dayOfWeeks", $"{monText}{tueText}{wedText}{thuText}{friText}{satText}{sunText}");
         form.AddBinaryData("imgFile", img);
 
-       // UnityWebRequest www = UnityWebRequest.Post("http://192.168.0.11:8080/v1/clubs", form);
-        UnityWebRequest www = UnityWebRequest.Post("http://15.165.28.206:8080/v1/clubs", form);
+        // UnityWebRequest www = UnityWebRequest.Post("http://192.168.0.11:8080/v1/clubs", form);
+        UnityWebRequest www = UnityWebRequest.Post("http://15.165.28.206:80/v1/clubs", form);
         www.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("jwt"));
         yield return www.SendWebRequest();
         if (www.result != UnityWebRequest.Result.Success)
@@ -568,20 +602,20 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     }
     #endregion
     #region HTTP Json
-    public void  SendRoomDataFunction()
+    public void SendRoomDataFunction()
     {
 
-         RoomData roomData = new RoomData();
-          roomData.clubName = inputRoomName.text;
-           roomData.bookName = "이동우";
-           roomData.clubIntro = inputFieldRoomDescription.text;
-           roomData.numberOfMember = inputMaxPlayer.text;
-           roomData.recruitStartDate = DateTime.Now.ToString();
-           roomData.recruitEndDate = startDate;
-           roomData.startDate = startDate;
-           roomData.endDate = dt.ToString("yyyy-MM-dd");
-           roomData.dayOfWeeks = $"{monText}{tueText}{wedText}{thuText}{friText}{satText}{sunText}";
-           roomData.imgFile = img;
+        RoomData roomData = new RoomData();
+        roomData.clubName = inputRoomName.text;
+        roomData.bookName = "이동우";
+        roomData.clubIntro = inputFieldRoomDescription.text;
+        roomData.numberOfMember = inputMaxPlayer.text;
+        roomData.recruitStartDate = DateTime.Now.ToString();
+        roomData.recruitEndDate = startDate;
+        roomData.startDate = startDate;
+        roomData.endDate = dt.ToString("yyyy-MM-dd");
+        roomData.dayOfWeeks = $"{monText}{tueText}{wedText}{thuText}{friText}{satText}{sunText}";
+        roomData.imgFile = img;
 
         /*roomData.clubName = "클럽이름";
         roomData.bookName = "책이름";
@@ -595,14 +629,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         roomData.imgFile = img;*/
 
 
-         HttpRequester requester = new HttpRequester();
-         requester.url = "http://192.168.0.11:8080/v1/clubs";
-         requester.requestType = RequestType.POST;
-         requester.body = JsonUtility.ToJson(roomData, true);
+        HttpRequester requester = new HttpRequester();
+        requester.url = "http://192.168.0.11:8080/v1/clubs";
+        requester.requestType = RequestType.POST;
+        requester.body = JsonUtility.ToJson(roomData, true);
         requester.onComplete = OnCompletePostRoomData;
 
         //HttpManager에게 요청
-         HttpManager.instance.SendRequest(requester, "application/json");
+        HttpManager.instance.SendRequest(requester, "application/json");
         //HttpManager.instance.SendRequest(www, "application/x-www-form-urlencoded");
 
     }
@@ -615,16 +649,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             Debug.Log("성공");
             Debug.Log(downloadHandler.text);
-            
+
         }
     }
     #endregion
     #region 참여중인 방 
     public void MyRoomJoinedList()
     {
-        StartCoroutine(GetRequest("http://192.168.0.11:8080/v1/clubs?option=1"));
+        StartCoroutine(GetRequest("http://192.168.0.11:80/v1/clubs?option=1"));
     }
-    
+
     IEnumerator GetRequest(string URL)
     {
         using (UnityWebRequest webRequest = UnityWebRequest.Get(URL))
@@ -643,6 +677,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
     #endregion
+  
 }
 
 

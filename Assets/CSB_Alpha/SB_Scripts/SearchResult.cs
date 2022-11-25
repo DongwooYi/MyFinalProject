@@ -10,7 +10,7 @@ public class SearchResult : MonoBehaviour
 {
     GameObject worldManager;
     List<_MyBookInfo> myBookInfoList = new List<_MyBookInfo>();
-
+    //dlrj
     public Text bookTitle;
     public Text author;
     public Text publishInfo;

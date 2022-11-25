@@ -5,10 +5,9 @@ using UnityEngine;
 using TMPro;
 
 // 리뷰 배너 관련
+// 월드 입장하면 바로 생성
 public class ReviewManager : MonoBehaviour
 {
-
-
     public TextMeshPro title;
     public TextMeshPro nickname;
     public TextMeshPro oneLineReview;

@@ -31,20 +31,24 @@ public class MyBook : MonoBehaviour
     public Button btnBestBook;
     void Start()
     {
-        contentDoneBook = GameObject.Find("MyPastBookPanel/Scroll View_Done/Viewport/Content").transform;
-        print(contentDoneBook.name);
-        btnBestBook = GameObject.Find("MyPastBookPanel").transform.GetChild(3).gameObject.GetComponent<Button>();
-        print(btnBestBook.name);
         canvas = GameObject.Find("Canvas").transform;
-        if(isBestStr == "Y")
+
+        if (gameObject.name.Contains("PastBook"))
         {
-            isBest = true;
-            transform.GetChild(0).gameObject.GetComponent<Image>().sprite = checkMark;
-        }
-        else
-        {
-            isBest = false;
-            transform.GetChild(0).gameObject.GetComponent<Image>().sprite = checkMarkOutline;
+            contentDoneBook = GameObject.Find("MyPastBookPanel/Scroll View_Done/Viewport/Content").transform;
+            print(contentDoneBook.name);
+            btnBestBook = GameObject.Find("MyPastBookPanel").transform.GetChild(3).gameObject.GetComponent<Button>();
+            print(btnBestBook.name);
+            if (isBestStr == "Y")
+            {
+                isBest = true;
+                transform.GetChild(0).gameObject.GetComponent<Image>().sprite = checkMark;
+            }
+            else
+            {
+                isBest = false;
+                transform.GetChild(0).gameObject.GetComponent<Image>().sprite = checkMarkOutline;
+            }
         }
        // btnBestBook.onClick.AddListener(OnClickSetBestBook);
     }

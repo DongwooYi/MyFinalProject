@@ -220,7 +220,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 374, y: -621}
+  m_AnchoredPosition: {x: 340, y: -770}
   m_SizeDelta: {x: 400, y: 80}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &3051059288498579056
@@ -2749,8 +2749,8 @@ MonoBehaviour:
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uC800\uC790"
 --- !u!1 &8267027178616931365
@@ -3312,8 +3312,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 1}
   m_AnchorMax: {x: 0.5, y: 1}
-  m_AnchoredPosition: {x: 139, y: -390}
-  m_SizeDelta: {x: 500, y: 100}
+  m_AnchoredPosition: {x: 189.5, y: -390}
+  m_SizeDelta: {x: 601, y: 100}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &8267027179277764710
 CanvasRenderer:
@@ -3353,8 +3353,8 @@ MonoBehaviour:
     m_Alignment: 3
     m_AlignByGeometry: 0
     m_RichText: 1
-    m_HorizontalOverflow: 1
-    m_VerticalOverflow: 0
+    m_HorizontalOverflow: 0
+    m_VerticalOverflow: 1
     m_LineSpacing: 1
   m_Text: "\uCC45 \uC81C\uBAA900000000000000"
 --- !u!1 &8267027179380222971
@@ -3464,13 +3464,17 @@ MonoBehaviour:
   author: {fileID: 8267027178540918671}
   publishInfo: {fileID: 8267027179237463507}
   isbn: {fileID: 7407802000960353064}
-  review: {fileID: 8267027179699988871}
+  rating: {fileID: 0}
+  reviewTMP: {fileID: 0}
   thumbnail: {fileID: 8267027179056432244}
+  texture: {fileID: 0}
+  idx: 0
   dropdown: {fileID: 3111908624268775433}
-  inputFieldReview: {fileID: 8267027179699988871}
+  inputFieldReview: {fileID: 0}
   btnEnter: {fileID: 8267027179038700454}
   player: {fileID: 0}
   showBook: {fileID: 0}
+  myAllBookListToArray: []
   alarmFactory: {fileID: 8270181874862600635, guid: 4ee3d44cd7a38a64684b034223261f45, type: 3}
   headBook: {fileID: 9171950763518429126}
   checkIsDone: {fileID: 8267027180305579795}

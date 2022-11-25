@@ -85,7 +85,7 @@ public class BannerManager : MonoBehaviour
     {
         HttpRequester requester = new HttpRequester();
 
-        requester.url = "http://15.165.28.206:8080//v1/records/all";
+        requester.url = "http://15.165.28.206:80//v1/records/all";
         requester.requestType = RequestType.GET;
         requester.onComplete = OnCompleteGetAllBookReview;
 

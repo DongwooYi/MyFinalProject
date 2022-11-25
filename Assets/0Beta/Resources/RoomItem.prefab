@@ -157,6 +157,7 @@ MonoBehaviour:
   roomDesc: {fileID: 4292325944879569026}
   ChallengePeriod: {fileID: 8871439524121708639}
   textTimer: {fileID: 5967557941154348983}
+  rawImage: {fileID: 957338406749890764}
   time: 
   isTimerOn: 0
 --- !u!1 &356185164004795040
@@ -469,7 +470,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 3
     m_MaxSize: 40
-    m_Alignment: 5
+    m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1

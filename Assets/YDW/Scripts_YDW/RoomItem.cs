@@ -15,15 +15,16 @@ public class RoomItem : MonoBehaviour
     public Text roomDesc;
     public Text ChallengePeriod;
     public Text textTimer;
+    public RawImage rawImage;
     //맵 id
-    int map_id;
+    byte[] map_id;
 
    [Header("타이머")]
     public string time;
     public bool isTimerOn;
 
     //클릭이 되었을 때 호출되는 함수를 가지고있는 변수
-    public System.Action<string, int> onClickAction;
+    public System.Action<string> onClickAction;
     private void Update()
     {
         if (isTimerOn)
@@ -44,10 +45,18 @@ public class RoomItem : MonoBehaviour
         //desc 설정
         roomDesc.text = (string)info.CustomProperties["descShortForm"];
         ChallengePeriod.text = ((string)info.CustomProperties["date"]);
-        textTimer.text = ((string)info.CustomProperties["DDay"]);
+        time = ((string)info.CustomProperties["DDay"]);
         isTimerOn = true;   
         //map id 설정
-        map_id = (int)info.CustomProperties["map_id"];
+        map_id = (byte[])info.CustomProperties["map_id"];
+        print("mapID 배열"+ map_id.Length);
+        Texture2D tex = new Texture2D(16, 16, TextureFormat.RGBA32, false);
+        bool canLoad = tex.LoadImage(map_id);
+        if(canLoad)
+        {
+            rawImage.color = Color.white;
+        }
+        rawImage.texture = (Texture)tex;
     }
 
 
@@ -58,7 +67,7 @@ public class RoomItem : MonoBehaviour
         if (onClickAction != null)
         {
             //onClickAction 실행
-            onClickAction(name, map_id);
+            onClickAction(name);
         }
 
         ////1. InputRoomName 게임오브젝 찾자
@@ -77,10 +86,6 @@ public class RoomItem : MonoBehaviour
     {
         DateTime expiringTime = DateTime.Parse(time);
         TimeSpan remainingTime = expiringTime - DateTime.Now;
-        string timeLeft = remainingTime.ToString(@"dd'일 'hh'시간 'mm'분 'ss'초'");
-        print("타임레프트" + timeLeft);
-        
-        
-        //textTimer.text = $"D-{remainingTime.Days}";       
+        textTimer.text = $"D-{remainingTime.Days}";    
     }
 }

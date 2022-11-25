@@ -122,7 +122,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
         if (Input.GetKeyDown(KeyCode.F10))
         {
-            setRoom.SetActive(false);
+            setRoomlist.SetActive(true);
         }
         if (Input.GetKeyDown(KeyCode.F11))
         {
@@ -182,22 +182,21 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
 
         hash["desc"] = $"회의 요일: {monText}{tueText}{wedText}{thuText}{friText}{sunText}{sunText}\r\n방 설명: {inputFieldRoomDescription.text}";
-        hash["map_id"] = UnityEngine.Random.Range(0,mapThumbs.Length);
+        hash["map_id"] = img;
         hash["room_name"] = inputRoomName.text;
-        hash["password"] = inputPassword.text;
         hash["date"] = textCalendar.text;
         hash["descShortForm"] = inputFieldRoomDescriptionShortForm.text;
         hash["DDay"] = startDate;
-        hash["img"] = img;
 
         roomOptions.CustomRoomProperties = hash;
         // custom 정보를 공개하는 설정
         roomOptions.CustomRoomPropertiesForLobby = new string[] {
-            "desc", "map_id", "room_name", "password", "date", "descShortForm", "DDay","img"
+            "desc", "map_id", "room_name", "date", "descShortForm", "DDay"
         };
 
+        print("img배열의"+ img.Length);
         // 방 생성 요청 (해당 옵션을 이용해서)
-        PhotonNetwork.CreateRoom(inputRoomName.text + inputPassword.text, roomOptions);
+        PhotonNetwork.CreateRoom(inputRoomName.text, roomOptions);
     }
 
     //방이 생성되면 호출 되는 함수
@@ -316,30 +315,34 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             //};
 
             string desc = (string)info.CustomProperties["desc"];
-          //  string descShortForm = (string)info.CustomProperties["descShortForm"];
-            int map_id = (int)info.CustomProperties["map_id"];
-            print(desc + ", " + map_id);
+            print(desc);
         }
     }
     //이전 Thumbnail id
+    public RawImage rawImage;
     int prevMapId = -1;
-    void SetRoomName(string room, int map_id)
-    {
+    void SetRoomName(string room) { 
         //룸이름 설정
         inputRoomName.text = room;
 
-        //만약에 이전 맵 Thumbnail이 활성화가 되어있다면
-        if (prevMapId > -1)
-        {
-            //이전 맵 Thumbnail을 비활성화
-            mapThumbs[prevMapId].SetActive(false);
-        }
+       /* Texture2D tex = new Texture2D(16, 16, TextureFormat.PVRTC_RGB4, false);
+        byte[] bytes = map_id;
+        print("MapID바이트배열"+map_id.Length);
+        tex.LoadRawTextureData(bytes);
+        tex.Apply();
+        rawImage.GetComponent<Renderer>().material.mainTexture = tex;*/
+        /* //만약에 이전 맵 Thumbnail이 활성화가 되어있다면
+         if (prevMapId > -1)
+         {
+             //이전 맵 Thumbnail을 비활성화
+             mapThumbs[prevMapId].SetActive(false);
+         }
 
-        //맵 Thumbnail 설정
-        mapThumbs[map_id].SetActive(true);
+         //맵 Thumbnail 설정
+         mapThumbs[map_id].SetActive(true);
 
-        //이전 맵 id 저장
-        prevMapId = map_id;
+         //이전 맵 id 저장
+         prevMapId = map_id;*/
     }
     #region 날짜
     DateTime dt;
@@ -520,7 +523,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         Texture2D tex = new Texture2D(0, 0);
         tex.LoadImage(temp);
         image.texture = tex;
-        mapThumbs[0].gameObject.GetComponent<RawImage>().texture = image.texture;
+
     }
     #endregion
     #region Http Web

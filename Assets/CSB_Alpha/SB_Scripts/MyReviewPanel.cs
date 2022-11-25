@@ -31,9 +31,7 @@ public class MyReviewPanel : MonoBehaviour
 
     GameObject book;
 
-    [Header("스타 버튼")]
-    public Button[] starButton;
-    public Button acceptButton;
+   
     void Start()
     {
         worldManager = GameObject.Find("WorldManager");
@@ -149,7 +147,7 @@ public class MyReviewPanel : MonoBehaviour
         //HttpRequester를 생성
         HttpRequester requester = new HttpRequester();
 
-        requester.url = "http://15.165.28.206:8080/v1/records/write";
+        requester.url = "http://15.165.28.206:80/v1/records/write";
         requester.requestType = RequestType.POST;
 
         PastBookdata pastBookdata = new PastBookdata();
@@ -180,6 +178,9 @@ public class MyReviewPanel : MonoBehaviour
     }
 
 
+    [Header("스타 버튼")]
+    public Button[] starButton;
+    public Button acceptButton;
     [HideInInspector] public int ratedApp;
     public void RateApplication(int rate)
     {

@@ -50,7 +50,7 @@ public class RoomItem : MonoBehaviour
         //map id 설정
         map_id = (byte[])info.CustomProperties["map_id"];
         print("mapID 배열"+ map_id.Length);
-        Texture2D tex = new Texture2D(16, 16, TextureFormat.RGBA32, false);
+        Texture2D tex = new Texture2D((int)rawImage.rectTransform.rect.width, (int)rawImage.rectTransform.rect.height, TextureFormat.RGBA32, false);
         bool canLoad = tex.LoadImage(map_id);
         if(canLoad)
         {

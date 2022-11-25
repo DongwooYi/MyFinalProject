@@ -45,11 +45,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public LoadGallery loadGallery;
 
-    //map Thumbnail
-    public GameObject[] mapThumbs;
-
     [Header("방만들기 및 방 리스트")]
-   
     public GameObject setRoom;
     public GameObject setRoomlist;
     public GameObject FailCreateaRoom;
@@ -319,31 +315,37 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
     //이전 Thumbnail id
-    public RawImage rawImage;
     int prevMapId = -1;
     void SetRoomName(string room) { 
         //룸이름 설정
         inputRoomName.text = room;
-
-       /* Texture2D tex = new Texture2D(16, 16, TextureFormat.PVRTC_RGB4, false);
-        byte[] bytes = map_id;
-        print("MapID바이트배열"+map_id.Length);
-        tex.LoadRawTextureData(bytes);
-        tex.Apply();
-        rawImage.GetComponent<Renderer>().material.mainTexture = tex;*/
-        /* //만약에 이전 맵 Thumbnail이 활성화가 되어있다면
-         if (prevMapId > -1)
-         {
-             //이전 맵 Thumbnail을 비활성화
-             mapThumbs[prevMapId].SetActive(false);
-         }
-
-         //맵 Thumbnail 설정
-         mapThumbs[map_id].SetActive(true);
-
-         //이전 맵 id 저장
-         prevMapId = map_id;*/
     }
+    #region 독서메이트 setactive
+    public void ReaderRecommendation()
+    {
+        HttpRequester requester = new HttpRequester();
+        requester.url = "http://15.165.28.206:80/v1/friends";
+        requester.requestType = RequestType.GET;
+        requester.onComplete = OnCompleteGetPostAll;
+
+        //HttpManager에게 요청
+        Debug.Log("Get 실행");
+        HttpManager.instance.SendRequest(requester, "application/json");
+        
+    }
+    public void OnCompleteGetPostAll(DownloadHandler downloadHandler)
+    {
+        //List<>
+        MemeberDataDetail array = JsonUtility.FromJson<MemeberDataDetail>(downloadHandler.text);
+        for (int i = 0; i < array.data.Count; i++)
+        {
+            print(array.data[i].name + "\n" + array.data[i].records[i].bookName);
+        }
+
+        print("조회 완료");
+    }
+
+    #endregion
     #region 날짜
     DateTime dt;
     public void OnClick_GetDate()
@@ -549,7 +551,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         form.AddBinaryData("imgFile", img);
 
        // UnityWebRequest www = UnityWebRequest.Post("http://192.168.0.11:8080/v1/clubs", form);
-        UnityWebRequest www = UnityWebRequest.Post("http://15.165.28.206:8080/v1/clubs", form);
+        UnityWebRequest www = UnityWebRequest.Post("http://15.165.28.206:80/v1/clubs", form);
         www.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("jwt"));
         yield return www.SendWebRequest();
         if (www.result != UnityWebRequest.Result.Success)
@@ -625,7 +627,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     #region 참여중인 방 
     public void MyRoomJoinedList()
     {
-        StartCoroutine(GetRequest("http://192.168.0.11:8080/v1/clubs?option=1"));
+        StartCoroutine(GetRequest("http://192.168.0.11:80/v1/clubs?option=1"));
     }
     
     IEnumerator GetRequest(string URL)

@@ -101,7 +101,7 @@ public class LoginManager : MonoBehaviourPunCallbacks
     {
         base.OnJoinedLobby();
         print(System.Reflection.MethodBase.GetCurrentMethod().Name);
-        PhotonNetwork.LoadLevel("MyRoomScene_Beta");
+        PhotonNetwork.LoadLevel("MyRoomScene_Beta_CSB");
     }
     #endregion
 

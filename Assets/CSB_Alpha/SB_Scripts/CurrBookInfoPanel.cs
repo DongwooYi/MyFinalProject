@@ -4,7 +4,10 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using Newtonsoft.Json.Linq;
+using TMPro;
 
+
+// 책상 앞에 가서 뜬 담은도서 중 
 public class CurrBookInfoPanel : MonoBehaviour
 {
     public GameObject bookFactory;  // 담은도서 목록 공장
@@ -15,21 +18,25 @@ public class CurrBookInfoPanel : MonoBehaviour
     public Text author;
     public Text publishInfo;
     public Text isbn;
-    //public Text rating;
-    public InputField review;
+    public Text rating;
+    //public InputField review;
+    public TMP_InputField reviewTMP;
     public RawImage thumbnail;
+    public Texture texture;
 
     bool isDone;
     string isDoneString;
-    int idx;
+    public int idx;
 
     public Dropdown dropdown;
 
-    public InputField inputFieldReview; // 리뷰 입력 칸
+    public TMP_InputField inputFieldReview; // 리뷰 입력 칸
     public Button btnEnter; // 등록하기 버튼
 
     public GameObject player;   // 플레이어
     public GameObject showBook;
+
+    public _MyBookInfo[] myAllBookListToArray;
 
     GameObject book;
 
@@ -58,31 +65,25 @@ public class CurrBookInfoPanel : MonoBehaviour
     void Start()
     {
         player = GameObject.Find("Character");
-
         showBook = GameObject.Find("ShowBook");
 
         worldManager = GameObject.Find("WorldManager");
         wm = worldManager.GetComponent<WorldManager2D>();
-        //myPastBookInfoList = wm.myPastBookList;
-        //myPastBookListNet = worldManager.GetComponent<WorldManager2D>().myPastBookList;
 
-        //myBookInfoList = worldManager.GetComponent<WorldManager2D>().myBookList;
-        //myBookListNet = worldManager.GetComponent<WorldManager2D>().myBookList;
-
+        myAllBookListToArray = wm.myAllBookListNet.ToArray();
         book = GameObject.Find("Book");
 
         myCurrBookPanel = GameObject.Find("MyCurrBookPanel");
         bookManager = GameObject.Find("MyBookManager").GetComponent<MyBookManager>();
 
         inputFieldReview.onValueChanged.AddListener(OnValueChanged);
+        checkIsDone.onValueChanged.AddListener(OnisDoneToggleClicked);
     }
 
     void OnValueChanged(string s)
     {
         btnEnter.interactable = s.Length > 0;  // 등록 버튼 활성화
     }
-
-    // isDone 확인 토글 관련
 
 
     // 등록 버튼
@@ -97,110 +98,42 @@ public class CurrBookInfoPanel : MonoBehaviour
 
         if (isDone)
         {
-            // 
             isDoneString = "Y";
             // 0. WorldManager 의 myAllBookList 업데이트
             // isDone = true 포함
-            wm.myAllBookListNet[idx].bookName = title.text;
-            wm.myAllBookListNet[idx].bookAuthor = author.text;
-            wm.myAllBookListNet[idx].bookPublishInfo = publishInfo.text;
-            wm.myAllBookListNet[idx].bookISBN = isbn.text;
-            wm.myAllBookListNet[idx].thumbnail = thumbnail;
-            wm.myAllBookListNet[idx].isDone = true;
-            wm.myAllBookListNet[idx].rating = dropdown.captionText.text;
-            wm.myAllBookListNet[idx].review = inputFieldReview.text;
+            myAllBookListToArray[idx].bookName = title.text;
+            myAllBookListToArray[idx].bookAuthor = author.text;
+            myAllBookListToArray[idx].bookISBN = isbn.text;
+            myAllBookListToArray[idx].bookPublishInfo = publishInfo.text;
+            myAllBookListToArray[idx].isDone = true;
+            myAllBookListToArray[idx].isDoneString = "Y";
+            myAllBookListToArray[idx].rating = dropdown.captionText.text;
+            myAllBookListToArray[idx].review = inputFieldReview.text;
 
-            // 1. WorldManager 의 myDoneBookList 에 추가
-/*            _MyBookInfo myBookInfo = new _MyBookInfo();
-
-            myBookInfo.bookName = title.text;
-            myBookInfo.bookAuthor = author.text;
-            myBookInfo.bookPublishInfo = publishInfo.text;
-            myBookInfo.bookISBN = isbn.text;
-            myBookInfo.thumbnail = thumbnail;
-            myBookInfo.isDone = true;
-            myBookInfo.rating = dropdown.captionText.text;
-            myBookInfo.review = inputFieldReview.text;
-
-            wm.myDoneBookList.Add(myBookInfo);
-*/
             // POSt 로 보내기
+            HttpPostMyBookDataD();
         }
         else
         {
-            // 0. WorldManager 의 myAllBookList review 업데이트
-            // 1. WorldManager 전체 업데이트
-            wm.myAllBookListNet[idx].bookName = title.text;
-            wm.myAllBookListNet[idx].bookAuthor = author.text;
-            wm.myAllBookListNet[idx].bookPublishInfo = publishInfo.text;
-            wm.myAllBookListNet[idx].bookISBN = isbn.text;
-            wm.myAllBookListNet[idx].thumbnail = thumbnail;
-            wm.myAllBookListNet[idx].isDone = false;
-            wm.myAllBookListNet[idx].rating = dropdown.captionText.text;
-            wm.myAllBookListNet[idx].review = inputFieldReview.text;
+            isDoneString = "N";
+            myAllBookListToArray[idx].bookName = title.text;
+            myAllBookListToArray[idx].bookAuthor = author.text;
+            myAllBookListToArray[idx].bookISBN = isbn.text;
+            myAllBookListToArray[idx].bookPublishInfo = publishInfo.text;
+            myAllBookListToArray[idx].isDone = false;
+            myAllBookListToArray[idx].isDoneString = "N";
+            myAllBookListToArray[idx].rating = dropdown.captionText.text;
+            myAllBookListToArray[idx].review = inputFieldReview.text;
+
+            // POST 로 보내기
+            HttpPostMyBookData();
         }
 
-        bookManager.ShowAllBookList();
-        print("111111111");
-    }
-
-
-    #region 지난 버전
-    // ===============================================================
-    // 등록 버튼 (누르면 <다읽은 책목록>에 추가)
-/*    public void OnClickAddPastBook()
-    {
-        wm.bookPastCount++;
-
-        _MyPastBookInfo myPastBookInfo = new _MyPastBookInfo();
-
-        myPastBookInfo.bookName = title.text;
-        myPastBookInfo.bookAuthor = author.text;
-        myPastBookInfo.bookPublishInfo = publishInfo.text;
-        myPastBookInfo.bookISBN = isbn.text;
-        myPastBookInfo.thumbnail = thumbnail;
-        myPastBookInfo.isDone = true;
-        myPastBookInfo.rating = dropdown.captionText.text;
-        myPastBookInfo.review = inputFieldReview.text;
-
-        // <다읽은책목록> 에 추가
-        myPastBookInfoList.Add(myPastBookInfo);
-        //myPastBookListNet.Add(myPastBookInfo);
-
-        // texture 다 뺴기
-        for (int i = 0; i < 6; i++)
-        {
-            myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = null;
-        }
-
-        // 업데이트 된 <현재 도서 목록> 에서 받아와서 뿌리기
-        int destroyBookIdx = bookManager.idx;
-        myBookInfoList.RemoveAt(destroyBookIdx);
-        //myBookListNet.RemoveAt(destroyBookIdx);
-
-        // MyCurrBookPanel 의 자식의 인덱스와 myCurrBookList 의 인덱스 맞춰서 넣어줌
-        for (int i = 0; i < myBookInfoList.Count; i++)
-        {
-            myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = myBookInfoList[i].thumbnail.texture;
-        }
-
-
-        //HttpPostPastBookInfo();
-
-        // 책장에 넣기
-        // <다읽은책목록>의 마지막 인덱스 
-        int idx = myPastBookInfoList.Count - 1;
-        //int idx = myPastBookListNet.Count - 1;
-
-        GameObject setBook = book.transform.GetChild(idx).gameObject;
-        setBook.SetActive(true);
-        setBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
 
         // <등록 되었습니다>
         GameObject go = Instantiate(alarmFactory, gameObject.transform);    // 나의 자식으로 생성
-
-    }*/
-    #endregion
+        //bookManager.ShowAllBookList();
+    }
 
     // 나가기 버튼 (누르면 저장되지 않음)
     public void OnClickExit()
@@ -236,52 +169,89 @@ public class CurrBookInfoPanel : MonoBehaviour
         thumbnail.texture = texture;
     }
 
-/*    public void SetRating(string s)
+    public void SetRating(string s)
     {
         rating.text = s;
-    }*/
+    }
 
     public void SetReview(string s)
     {
-        review.text = s;
+        reviewTMP.text = s;
     }
 
     public void SetIndex(int num)
     {
-        idx = num; ;
+        idx = num;
     }
 
     public void SetIsDone(bool done)
     {
         isDone = done;
+        // 토글에 체크 표시
+        checkIsDone.isOn = done;
+        print("check : " + checkIsDone.isOn);
     }
+
     #endregion
+    public void OnisDoneToggleClicked(bool isDone)
+    {
+        print(isDone);
+    }
 
     // (바뀐 버전) Http 통신 관련 ---------------------------------------------
     // 4. 독서 기록 쓰기
     // 비고) 이미 담는 과정에서 이미지 파일은 업로드 했기 때문에, 이미지 파일 제외하고 보내주세요
     // 비고) 호출 후 1번 다시 호출해줘야 함
-    void HttpPostMyBookData()
+    void HttpPostMyBookDataD()
     {
+        print("000");
         //서버에 게시물 조회 요청
         //HttpRequester를 생성
         HttpRequester requester = new HttpRequester();
 
-        requester.url = "http://15.165.28.206:8080/v1/records/write";
+        requester.url = "http://15.165.28.206:80/v1/records/write";
         requester.requestType = RequestType.POST;
 
-        BookData bookData = new BookData();
-
-        bookData.bookName = title.text;
-        bookData.bookAuthor = author.text;
-        bookData.bookPublishInfo = publishInfo.text;
-        bookData.bookISBN = isbn.text;
-        //bookData.thumbnail = thumbnail;
-        bookData.rating = rateNumber;
-        bookData.bookReview = inputFieldReview.text;
-        //bookData.isDone = inputFieldReview.text;
+        BookData bookData = new()
+        {
+            bookName = title.text,
+            bookAuthor = author.text,
+            bookPublishInfo = publishInfo.text,
+            bookISBN = isbn.text,
+            rating = dropdown.captionText.text,
+            bookReview = inputFieldReview.text,
+            isDone = "Y",
+        };
 
         requester.body = JsonUtility.ToJson(bookData, true);
+        requester.onComplete = OnCompletePostMyBookData;
+
+        //HttpManager에게 요청
+        HttpManager.instance.SendRequest(requester, "application/json");
+    }
+
+    void HttpPostMyBookData()
+    {
+        print("111");
+        //서버에 게시물 조회 요청
+        //HttpRequester를 생성
+        HttpRequester requester = new HttpRequester();
+
+        requester.url = "http://15.165.28.206:80/v1/records/write";
+        requester.requestType = RequestType.POST;
+
+        BookData bookData = new()
+        {
+            bookName = title.text,
+            bookAuthor = author.text,
+            bookPublishInfo = publishInfo.text,
+            bookISBN = isbn.text,
+            rating = dropdown.captionText.text,
+            bookReview = inputFieldReview.text,
+        };
+
+        requester.body = JsonUtility.ToJson(bookData, true);
+        print(requester.body);
         requester.onComplete = OnCompletePostMyBookData;
 
         //HttpManager에게 요청
@@ -294,51 +264,135 @@ public class CurrBookInfoPanel : MonoBehaviour
 
         int type = (int)jObject["status"];
 
-        if(type == 200)
+        if (type == 200)
         {
-
+            print("되나?");
+            wm.myAllBookListNet.Clear();
         }
     }
 
-    #region 지난 버전 통신
-    // (지난 버전) Http 통신 관련 -------------------------------------
-    /*    public void HttpPostPastBookInfo()
+    // 1. 월드 입장시 요청할 API : 읽은 책(책장), 인생책 (낮은 책장) 정보 보내주기
+    public void HttpGetMyBookData()
+    {            // 각 data 리스트들 초기화
+        wm.titleListNet.Clear();
+        wm.authorListNet.Clear();
+        wm.publishInfoListNet.Clear();
+        wm.thumbnailLinkListNet.Clear();
+        wm.thumbnailImgListNet.Clear();
+        wm.isbnListNet.Clear();
+        wm.ratingListNet.Clear();
+        wm.reviewListNet.Clear();
+        wm.isDoneListNet.Clear();
+        wm.isBestsListNet.Clear();
+
+        wm.myAllBookListNet.Clear();
+        print("요청11");
+        HttpRequester requester = new HttpRequester();
+
+        // /posts/1. GET, 완료되었을 때 호출되는 함수
+        requester.url = "http://15.165.28.206:80/v1/records/myroom";
+        requester.requestType = RequestType.GET;
+        requester.onComplete = OnCompleteGetMyBookData;
+
+        // HttpManager 에게 요청
+        HttpManager.instance.SendRequest(requester, "");
+    }
+
+    public void OnCompleteGetMyBookData(DownloadHandler handler)
+    {
+        // 데이터 처리
+        JObject jObject = JObject.Parse(handler.text);
+        int type = (int)jObject["status"];
+
+        if (type == 200)
         {
-            //서버에 게시물 조회 요청
-            //HttpRequester를 생성
-            HttpRequester requester = new HttpRequester();
+            print("통신성공. 모든도서.서재입장");
+            string result_data = ParseGETJson("[" + handler.text + "]", "data");
 
-            requester.url = "http://15.165.28.206:8080/v1/records/write";
-            requester.requestType = RequestType.POST;
+            wm.titleListNet = ParseMyBookData(result_data, "bookName");
+            wm.authorListNet = ParseMyBookData(result_data, "bookAuthor");
+            wm.publishInfoListNet = ParseMyBookData(result_data, "bookPublishInfo");
+            wm.thumbnailLinkListNet = ParseMyBookData(result_data, "thumbnailLink");
+            wm.isbnListNet = ParseMyBookData(result_data, "bookISBN");
+            wm.ratingListNet = ParseMyBookData(result_data, "rating");
+            wm.reviewListNet = ParseMyBookData(result_data, "bookReview");
+            wm.isDoneListNet = ParseMyBookData(result_data, "isDone");
+            wm.isBestsListNet = ParseMyBookData(result_data, "isBest");
 
-            PastBookdata pastBookdata = new PastBookdata();
+            GETThumbnailTexture();
+        }
+    }
 
-            pastBookdata.bookName = title.text;
-            pastBookdata.bookAuthor = author.text;
-            pastBookdata.bookPublishInfo = publishInfo.text;
-            pastBookdata.bookISBN = isbn.text;
-            pastBookdata.thumbnail = thumbnail;
-            pastBookdata.rating = dropdown.captionText.text;
-            pastBookdata.bookReview = inputFieldReview.text;
+    public void GETThumbnailTexture()
+    {
+        StartCoroutine(GetThumbnailImg(wm.thumbnailLinkListNet.ToArray()));
+    }
 
-            requester.body = JsonUtility.ToJson(pastBookdata, true);
-            requester.onComplete = OnCompletePostMyPastBook;
+    public IEnumerator GetThumbnailImg(string[] url)
+    {
+        for (int j = 0; j < url.Length; j++)
+        {
+            UnityWebRequest www = UnityWebRequestTexture.GetTexture(url[j]);
+            yield return www.SendWebRequest();
 
-            //HttpManager에게 요청
-            HttpManager.instance.SendRequest(requester, "application/json");
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                print("실패");
+                break;
+            }
+            else
+            {
+                Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+                wm.thumbnailImgListNet.Add(myTexture);
+            }
+            yield return null;
+        }
+        for (int i = 0; i < wm.titleListNet.Count; i++)
+        {
+            _MyBookInfo myBookInfo = new _MyBookInfo();
+
+            myBookInfo.bookName = wm.titleListNet[i];
+            myBookInfo.bookAuthor = wm.authorListNet[i];
+            myBookInfo.bookPublishInfo = wm.publishInfoListNet[i];
+            myBookInfo.thumbnailLink = wm.thumbnailLinkListNet[i];
+            myBookInfo.bookISBN = wm.isbnListNet[i];
+            myBookInfo.rating = wm.ratingListNet[i];
+            myBookInfo.review = wm.reviewListNet[i];
+            myBookInfo.isDoneString = wm.isDoneListNet[i];
+            myBookInfo.isBestString = wm.isBestsListNet[i];
+            //myBookInfo.thumbnail = rawImages[i];
+            myBookInfo.texture = wm.thumbnailImgListNet[i];
+            wm.myAllBookListNet.Add(myBookInfo);
+        }
+        wm.SettingMyRoom();
+    }
+    public string ParseGETJson(string jsonText, string key)
+    {
+        JArray parseData = JArray.Parse(jsonText);
+        string result = "";
+
+        foreach (JObject obj in parseData.Children())
+        {
+            result = obj.GetValue(key).ToString();
         }
 
-        public void OnCompletePostMyPastBook(DownloadHandler handler)
-        {
-            JObject jObject = JObject.Parse(handler.text);
+        return result;
+    }
 
-            //print(jObject + "jobj");
-            int type = (int)jObject["status"];
-            // UserData user = (UserData)jObject["results"]["data"]["user"];
-            // string token = (string)jObject["results"]["data"]["token"];
-        }*/
-    #endregion
-    #region 평점 버튼
+    // data 에서 key 별로 parsing
+    public List<string> ParseMyBookData(string jsonText, string key)
+    {
+        JArray parseData = JArray.Parse(jsonText);
+        List<string> result = new List<string>();
+
+        foreach (JObject obj in parseData.Children())
+        {
+            result.Add(obj.GetValue(key).ToString());
+        }
+        return result;
+    }
+
     [Header("평점 버튼")]
     public Button[] starButton;
     public Button acceptButton;
@@ -372,5 +426,4 @@ public class CurrBookInfoPanel : MonoBehaviour
         rateNumber = rate.ToString();
     }
     string rateNumber;
-    #endregion
 }

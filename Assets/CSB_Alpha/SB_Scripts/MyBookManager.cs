@@ -33,18 +33,15 @@ public class MyBookManager : MonoBehaviour
 
     public WorldManager2D wm;
 
-    //List<_MyBookInfo> myBookList = new List<_MyBookInfo>(); // 담은책
     public List<_MyBookInfo> myBookListNet = new List<_MyBookInfo>();  // 담은책 네트워크
 
     List<_MyBookInfo> myCurrBookList = new List<_MyBookInfo>(); // 현재 도서
-    //public List<_MyBookInfo> myBookListNet = new List<_MyBookInfo>();
 
     public float distance = 1.5f;   // 플레이어와 물체의 거리
 
     void Start()
     {
         player = GameObject.Find("Character");
-        //myBookListNet = wm.myAllBookListNet;
     }
 
     void Update()
@@ -52,7 +49,6 @@ public class MyBookManager : MonoBehaviour
         // 만약 플레이어가 책상 가까이 가면(거리 1정도)
         if (Vector3.Distance(player.transform.position, myDesk.transform.position) < distance)
         {
-            //ShowClickHereCurrBook();
             ShowMyBookList();
         }
         else
@@ -63,7 +59,6 @@ public class MyBookManager : MonoBehaviour
         // 만약 플레이어가 책장 가까이 가면
         if(Vector3.Distance(player.transform.position, myBookshelf.transform.position) < distance)
         {
-            //ShowClickHerePastBook();
             ShowBookIsDoneT();
         }
         else
@@ -196,74 +191,6 @@ public class MyBookManager : MonoBehaviour
         }
     }
 
-    // 서평 작성 후 재정렬
-    public void ShowAllBookList()
-    {
-        // 자식이 있다면 삭제
-        Transform[] childList = bookContent.GetComponentsInChildren<Transform>();
-        if (childList != null)
-        {
-            for (int i = 1; i < childList.Length; i++)
-            {
-                Destroy(childList[i].gameObject);
-            }
-        }
-
-        // 자식이 있다면 삭제
-        Transform[] childList1 = bookContentIsDoneT.GetComponentsInChildren<Transform>();
-        if (childList1 != null)
-        {
-            for (int i = 1; i < childList1.Length; i++)
-            {
-                Destroy(childList1[i].gameObject);
-            }
-        }
-
-        // 담은도서의 수만큼 프리펩 생성
-        for (int i = 0; i < wm.myAllBookListNet.Count; i++)
-        {
-            // 만약 isDone 이 true 면 다읽음 목록에 보여줌
-            if (wm.myAllBookListNet[i].isDone)
-            {
-                GameObject go = Instantiate(bookFactory, bookContentIsDoneT);
-                // 얘의 RawImage 의 Texture 를 리스트 순서대로
-                go.GetComponent<RawImage>().texture = wm.myAllBookListNet[i].thumbnail.texture;
-                MyBook myBook = go.GetComponent<MyBook>();
-
-                myBook.thumbnail.texture = wm.myAllBookListNet[i].thumbnail.texture;
-                myBook.bookTitle = wm.myAllBookListNet[i].bookName;
-                myBook.bookAuthor = wm.myAllBookListNet[i].bookAuthor;
-                myBook.bookInfo = wm.myAllBookListNet[i].bookPublishInfo;
-                myBook.bookIsbn = wm.myAllBookListNet[i].bookISBN;
-                myBook.bookRating = wm.myAllBookListNet[i].rating;
-                myBook.bookReview = wm.myAllBookListNet[i].review;
-                myBook.isDone = wm.myAllBookListNet[i].isDone;
-                // index 인 i 값도 넘겨줘야할듯
-                myBook.idx = i;
-            }
-            else
-            {
-                GameObject go = Instantiate(bookFactory, bookContent);
-                // 얘의 RawImage 의 Texture 를 리스트 순서대로
-                go.GetComponent<RawImage>().texture = wm.myAllBookListNet[i].thumbnail.texture;
-                MyBook myBook = go.GetComponent<MyBook>();
-
-                myBook.thumbnail.texture = wm.myAllBookListNet[i].thumbnail.texture;
-                myBook.bookTitle = wm.myAllBookListNet[i].bookName;
-                myBook.bookAuthor = wm.myAllBookListNet[i].bookAuthor;
-                myBook.bookInfo = wm.myAllBookListNet[i].bookPublishInfo;
-                myBook.bookIsbn = wm.myAllBookListNet[i].bookISBN;
-                myBook.bookRating = wm.myAllBookListNet[i].rating;
-                myBook.bookReview = wm.myAllBookListNet[i].review;
-                myBook.isDone = wm.myAllBookListNet[i].isDone;
-
-                // index 인 i 값도 넘겨줘야할듯
-                myBook.idx = i;
-            }
-
-        }
-    }
-
     /* 책장 앞에서 isDone == true 인 책 보기 관련 */
     public void ShowBookIsDoneT()
     {
@@ -282,7 +209,6 @@ public class MyBookManager : MonoBehaviour
                 print(hitInfo.transform.name);
                 if (hitInfo.transform.gameObject.tag == "ClickHere" || hitInfo.transform.gameObject.name == "MyBookshelf")
                 {
-                    //HttpGetPastBook();  // 네트워크 통신 -> 함수 만들어줘야함
                     print("완독도서 목록 출력");
 
                     // 자식이 있다면 삭제
@@ -298,21 +224,22 @@ public class MyBookManager : MonoBehaviour
                     // WorldManager 의 myAllBookList 의 중 isDone == true 인 것들 프리펩 생성
                     for (int i = 0; i < wm.myAllBookListNet.Count; i++)
                     {
-                        if (wm.myAllBookListNet[i].isDone)
+                        if (wm.myAllBookListNet[i].isDoneString == "Y")
                         {
                             // 프리펩 생성
                             GameObject go = Instantiate(pastBookFactory, content);
-                            go.GetComponent<RawImage>().texture = wm.myAllBookListNet[i].thumbnail.texture;
+                            go.GetComponent<RawImage>().texture = wm.myAllBookListNet[i].texture;
                             MyBook pastBook = go.GetComponent<MyBook>();
 
-                            pastBook.thumbnail.texture = wm.myAllBookListNet[i].thumbnail.texture;
+                            pastBook.thumbnail.texture = wm.myAllBookListNet[i].texture;
                             pastBook.bookTitle = wm.myAllBookListNet[i].bookName;
                             pastBook.bookAuthor = wm.myAllBookListNet[i].bookAuthor;
                             pastBook.bookInfo = wm.myAllBookListNet[i].bookPublishInfo;
                             pastBook.bookIsbn = wm.myAllBookListNet[i].bookISBN;
                             pastBook.bookRating = wm.myAllBookListNet[i].rating;
                             pastBook.bookReview = wm.myAllBookListNet[i].review;
-                            pastBook.isDone = wm.myAllBookListNet[i].isDone;
+                            pastBook.isDone = true;
+                            pastBook.isBestStr = wm.myAllBookListNet[i].isBestString;
 
                             // index 인 i 값도 넘겨줘야할듯
                             pastBook.idx = i;
@@ -327,105 +254,6 @@ public class MyBookManager : MonoBehaviour
             }
         }
     }
-
-    #region (지난 버전) 책 관리 
-    /* 현재도서 목록 관련 */
-    public void ShowClickHereCurrBook()
-    {
-        // 손가락 쿼드를 띄워준다
-        myDesk.transform.GetChild(0).gameObject.SetActive(true);
-        // 손가락 쿼드 항상 카메라 방향
-        myDesk.transform.GetChild(0).forward = Camera.main.transform.forward;
-
-        //myCurrBookList = wm.myBookList;
-        //myBookListNet = worldManager.myBookListNet;
-
-        // MyCurrBookPanel 의 자식의 인덱스와 myCurrBookList 의 인덱스 맞춰서 넣어줌
-        for (int i = 0; i < myCurrBookList.Count; i++)
-        {
-            myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = myCurrBookList[i].thumbnail.texture;
-            //myCurrBookPanel.transform.GetChild(i).GetComponent<RawImage>().texture = myBookListNet[i].thumbnail.texture;
-
-        }
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hitInfo;
-
-            if (Physics.Raycast(ray, out hitInfo))
-            {
-                if (hitInfo.transform.gameObject.tag == "ClickHere")
-                {
-                    //HttpGetCurrBook();  // 네트워크 통신
-                    print("이번엔 한번만 들어오겠지");
-                    myCurrBookPanel.SetActive(true);
-                    myDesk.transform.GetChild(0).gameObject.SetActive(false);
-                    return;
-                }
-            }
-        }
-    }
-
-    /* 다읽은도서 목록 관련 */
-/*    public void ShowClickHerePastBook()
-    {
-        // 손가락 쿼드를 띄워준다
-        myBookshelf.transform.GetChild(0).gameObject.SetActive(true);
-        // 손가락 쿼드의 앞방향을 항상 카메라
-        myBookshelf.transform.GetChild(0).forward = Camera.main.transform.forward;
-
-        //myPastBookList = wm.myPastBookList;
-        //myBookListNet = worldManager.myBookListNet;
-
-        if (Input.GetMouseButtonDown(0))
-        {
-            Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-            RaycastHit hitInfo;
-
-            if (Physics.Raycast(ray, out hitInfo))
-            {
-                print(hitInfo.transform.name);
-                if (hitInfo.transform.gameObject.tag == "ClickHere" || hitInfo.transform.gameObject.name == "MyBookshelf")
-                {
-                    //HttpGetPastBook();  // 네트워크 통신 -> 함수 만들어줘야함
-                    print("완독도서 목록 출력");
-
-                    // 자식이 있다면 삭제
-                    Transform[] childList = content.GetComponentsInChildren<Transform>();
-                    if(childList != null)
-                    {
-                        for(int i = 1; i < childList.Length; i++)
-                        {
-                            Destroy(childList[i].gameObject);
-                        }
-                    }
-
-
-                    // myPastBookList 의 크기만큼 프리펩 생성
-                    for (int i = 0; i < myPastBookList.Count; i++)
-                    {
-                        GameObject go = Instantiate(pastBookFactory, content);
-                        // 얘의 RawImage 의 Texture 를 리스트 순서대로
-                        go.GetComponent<RawImage>().texture = myPastBookList[i].thumbnail.texture;
-                        MyBook pastBook = go.GetComponent<MyBook>();
-
-                        pastBook.thumbnail.texture = myPastBookList[i].thumbnail.texture;
-                        pastBook.bookTitle = myPastBookList[i].bookName;
-                        pastBook.bookAuthor = myPastBookList[i].bookAuthor;
-                        pastBook.bookInfo = myPastBookList[i].bookPublishInfo;
-                        pastBook.bookIsbn = myPastBookList[i].bookISBN;
-                        pastBook.bookRating = myPastBookList[i].rating;
-                        pastBook.bookReview = myPastBookList[i].review;
-                    }
-                    myPastBookPanel.SetActive(true);
-                    myBookshelf.transform.GetChild(0).gameObject.SetActive(false);
-                    return;
-                }
-            }
-        }
-    }*/
-    #endregion
 
     public GameObject me;
     public int idx;
@@ -591,125 +419,4 @@ public class MyBookManager : MonoBehaviour
 
         return result;
     }
-
-
-    // (지난 버전) 통신 관련 -------------------------
-    #region 현재도서
-    /*    void HttpGetCurrBook()
-        {
-            // 서버에 게시물 조회 요청(/post/1, GET)
-            // HttpRequester를 생성
-            HttpRequester requester = new HttpRequester();
-
-            // /posts/1. GET, 완료되었을 때 호출되는 함수
-            requester.url = "http://15.165.28.206:8080/v1/records/reading";
-            requester.requestType = RequestType.GET;
-            requester.onComplete = OnComplteGetMyCurrBook;
-
-            // HttpManager 에게 요청
-            HttpManager.instance.SendRequest(requester, "");
-        }
-
-
-        public void OnComplteGetMyCurrBook(DownloadHandler handler)
-        {
-
-            JObject jObject = JObject.Parse(handler.text);
-            int type = (int)jObject["status"];
-            //string type = (int)jObject["data"]["recordCode"];
-
-            //string result_data = ParseJson("[" + handler.text + "]", "data");
-
-            // 통신 성공
-            if (type == 200)
-            {
-                print("통신성공.현재도서");
-                // 1. PlayerPref에 key는 jwt, value는 token
-
-                string result_data = ParseJson("[" + handler.text + "]", "data");
-
-                titleListNet = ParseCurrBookList(result_data, "bookName");
-                authorListNet = ParseCurrBookList(result_data, "bookAuthor");
-                publishInfoListNet = ParseCurrBookList(result_data, "bookPublishInfo");
-                //pubdateList = ParseCurrBookList(result_data, "pubdate");
-                isbnListNet = ParseCurrBookList(result_data, "bookISBN");
-                imageListNet = ParseCurrBookList(result_data, "thumbnailLink");
-
-
-                for(int i = 0; i < titleListNet.Count; i++)
-                {
-                    _MyBookInfo myCurrBookInfo = new _MyBookInfo();
-
-                    myCurrBookInfo.bookName = titleListNet[i];
-                    myCurrBookInfo.bookAuthor = authorListNet[i];
-                    myCurrBookInfo.bookPublishInfo = publishInfoListNet[i];
-                    myCurrBookInfo.bookISBN = isbnListNet[i];
-                    //myCurrBookInfo.thumbnail = imageListNet[i];
-
-                    //myBookListNet.Add(myCurrBookInfo);
-                }
-
-                print(jObject);
-                //PhotonNetwork.ConnectUsingSettings();
-            }
-        }
-
-        // data parsing
-        string ParseJson(string jsonText, string key)
-        {
-            JArray parseData = JArray.Parse(jsonText);
-            string result = "";
-
-            foreach (JObject obj in parseData.Children())
-            {
-                result = obj.GetValue(key).ToString();
-            }
-
-            return result;
-        }
-
-        List<string> ParseCurrBookList(string jsonText, string key)
-        {
-            JArray parseData = JArray.Parse(jsonText);
-            List<string> result = new List<string>();
-
-            foreach (JObject obj in parseData.Children())
-            {
-                result.Add(obj.GetValue(key).ToString());
-            }
-
-            return result;
-        }*/
-    #endregion
-
-    #region 다읽은도서
-    /*    void HttpGetPastBookList()
-        {
-            HttpRequester requester = new HttpRequester();
-
-            // /posts/1. GET, 완료되었을 때 호출되는 함수
-            requester.url = "http://15.165.28.206:8080/v1/records/count";
-            requester.requestType = RequestType.GET;
-            requester.onComplete = OnComplteGetMyPastBookList;
-
-            // HttpManager 에게 요청
-            HttpManager.instance.SendRequest(requester, "");
-        }
-
-        public void OnComplteGetMyPastBookList(DownloadHandler handler)
-        {
-            JObject jObject = JObject.Parse(handler.text);
-            int type = (int)jObject["status"];
-            //string type = (int)jObject["data"]["recordCode"];
-
-            // 통신 성공
-            if (type == 200)
-            {
-                print("통신성공.읽은도서 모두");
-                // 1. PlayerPref에 key는 jwt, value는 token
-                print(jObject);
-                //PhotonNetwork.ConnectUsingSettings();
-            }
-        }*/
-    #endregion
 }

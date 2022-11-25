@@ -13,7 +13,10 @@ public class MyBook : MonoBehaviour
     public string bookIsbn;
     public string bookInfo;
     public string bookRating;
+    public string isBestStr;
+
     public bool isDone;
+    public bool isBest;
 
     public int idx;
 
@@ -22,9 +25,28 @@ public class MyBook : MonoBehaviour
     public GameObject bookInfoPanelFactory;
     public GameObject doneBookInfoPanelFactory;
     Transform canvas;
+
+    Transform contentDoneBook;
+
+    public Button btnBestBook;
     void Start()
     {
+        contentDoneBook = GameObject.Find("MyPastBookPanel/Scroll View_Done/Viewport/Content").transform;
+        print(contentDoneBook.name);
+        btnBestBook = GameObject.Find("MyPastBookPanel").transform.GetChild(3).gameObject.GetComponent<Button>();
+        print(btnBestBook.name);
         canvas = GameObject.Find("Canvas").transform;
+        if(isBestStr == "Y")
+        {
+            isBest = true;
+            transform.GetChild(0).gameObject.GetComponent<Image>().sprite = checkMark;
+        }
+        else
+        {
+            isBest = false;
+            transform.GetChild(0).gameObject.GetComponent<Image>().sprite = checkMarkOutline;
+        }
+       // btnBestBook.onClick.AddListener(OnClickSetBestBook);
     }
 
     void Update()
@@ -51,10 +73,12 @@ public class MyBook : MonoBehaviour
 
     }
 
+    // ----------------------------------------------------------------------
     // isDone == true 인 도서 -> isDone == true 면 toggle 을 isOn 상태로
     // 나를 클릭하면 canvas
     public void OnClickDoneBookInfo()
     {
+        print("????");
         GameObject go = Instantiate(doneBookInfoPanelFactory, canvas);
 
         go.GetComponent<PastBookInfoPanel>().SetTitle(bookTitle);
@@ -69,34 +93,55 @@ public class MyBook : MonoBehaviour
 
     // 인생책 선정 관련
     // 만약 나의 이름이 PastBook 일 때
-    public bool isBest = false;
+
     public Sprite checkMark;
     public Sprite checkMarkOutline;
 
+    bool temp;
     public void OnClickBestBook()
     {
+        print(temp);
+        temp = isBest;
+        print(temp);
         // bool 값 
         // 만약 bool 값이 false 면 true 로
         if (!isBest)
         {
+            print(temp);
             isBest = true;
+            isBestStr = "Y";
             // 스프라이트 CheckMark 로 변경
             transform.GetChild(0).gameObject.GetComponent<Image>().sprite = checkMark;
         }
         else if (isBest)
         {
+            print(temp);
             isBest = false;
+            isBestStr = "N";
             transform.GetChild(0).gameObject.GetComponent<Image>().sprite = checkMarkOutline;
 
         }
 
     }
 
-    // 인생책 저장
+    public List<BestBook> bestBookList = new List<BestBook>();
+    // 인생책 저장(<인생책 등록>버튼 클릭)
     public void OnClickSetBestBook()
     {
-        // 인생책으로 <등록> 클릭하면 
-        // 
+        print("들어와?");
+        // content의 자식 중 temp 와 값이 달라진 애들 전송
+        for (int i = 0; i < contentDoneBook.childCount; i++)
+        {
+            if(temp != isBest)
+            {
+                BestBook bestBook = new BestBook();
+                bestBook.bookISBN = bookIsbn;
+                bestBook.isBest = isBestStr;
+
+                bestBookList.Add(bestBook);
+            }
+        }
+        //HttpPostMyBestBook();
     }
 
     // (바뀐 버전) Http 통신 관련 ----------------------------------
@@ -108,20 +153,15 @@ public class MyBook : MonoBehaviour
         //HttpRequester를 생성
         HttpRequester requester = new HttpRequester();
 
-        requester.url = "http://15.165.28.206:8080/v1/records/best";
+        requester.url = "http://15.165.28.206:80/v1/records/best";
         requester.requestType = RequestType.POST;
 
-        PastBookdata pastBookdata = new PastBookdata();
-
-/*        pastBookdata.bookName = title.text;
-        pastBookdata.bookAuthor = author.text;
-        pastBookdata.bookPublishInfo = publishInfo.text;
-        pastBookdata.bookISBN = isbn.text;
-        pastBookdata.thumbnail = thumbnail;
-        pastBookdata.rating = dropdown.captionText.text;
-        pastBookdata.bookReview = inputFieldReview.text;*/
-
-        requester.body = JsonUtility.ToJson(pastBookdata, true);
+        BestBookData bookData = new()
+        {
+            recordDTOList = bestBookList,
+        };
+        print(bookData);
+        requester.body = JsonUtility.ToJson(bookData, true);
         requester.onComplete = OnCompletePostMyBestBook;
 
         //HttpManager에게 요청
@@ -130,7 +170,14 @@ public class MyBook : MonoBehaviour
 
     void OnCompletePostMyBestBook(DownloadHandler handler)
     {
+        JObject jObject = JObject.Parse(handler.text);
 
+        int type = (int)jObject["status"];
+
+        if (type == 200)
+        {
+            print("인생책 통신 되나?");
+        }
     }
 
 }

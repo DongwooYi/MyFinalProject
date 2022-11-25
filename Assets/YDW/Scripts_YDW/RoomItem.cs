@@ -76,9 +76,11 @@ public class RoomItem : MonoBehaviour
    void CountDownTimer()
     {
         DateTime expiringTime = DateTime.Parse(time);
-        print(time + "카운트다운");
         TimeSpan remainingTime = expiringTime - DateTime.Now;
-        //textTimer.text = $"챌린지 시작까지: {remainingTime.ToString(@"dd'일 'hh'시간 'mm'분 'ss'초'")} 남음";       
-        textTimer.text = $"D-{remainingTime.ToString(@"DD")}";       
+        string timeLeft = remainingTime.ToString(@"dd'일 'hh'시간 'mm'분 'ss'초'");
+        print("타임레프트" + timeLeft);
+        
+        
+        //textTimer.text = $"D-{remainingTime.Days}";       
     }
 }

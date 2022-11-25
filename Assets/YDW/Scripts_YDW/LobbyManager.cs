@@ -188,12 +188,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         hash["date"] = textCalendar.text;
         hash["descShortForm"] = inputFieldRoomDescriptionShortForm.text;
         hash["DDay"] = startDate;
-
+        hash["img"] = img;
 
         roomOptions.CustomRoomProperties = hash;
         // custom 정보를 공개하는 설정
         roomOptions.CustomRoomPropertiesForLobby = new string[] {
-            "desc", "map_id", "room_name", "password", "date", "descShortForm", "DDay"
+            "desc", "map_id", "room_name", "password", "date", "descShortForm", "DDay","img"
         };
 
         // 방 생성 요청 (해당 옵션을 이용해서)

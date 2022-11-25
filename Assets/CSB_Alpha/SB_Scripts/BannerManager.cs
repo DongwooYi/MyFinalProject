@@ -14,7 +14,7 @@ public class BannerManager : MonoBehaviour
     // 이 친구 생성은 어디서 하지
     // 일단은 myPastBookInfo 리스트의 인덱스 젤 마지막 친구를 데려옴
     // 싱글톤으로 올리면 안되낭..
-    GameObject worldManager;
+    //GameObject worldManager;
    // List<_MyPastBookInfo> myPastBookInfoList = new List<_MyPastBookInfo>();
 
     public GameObject bannerFactory;
@@ -30,11 +30,11 @@ public class BannerManager : MonoBehaviour
 
     void Start()
     {
-       // HttpGetAllBookReview();
+        HttpGetGetOneLineReview();
         // AI 에서 받아오기 전 임시로
         // 내가 다 읽은 책 list 받아옴 -> 여기서 (랜덤으로) 일정 시간마다 생성
         // 만약 리스트가 비어있으면 안됨
-        worldManager = GameObject.Find("WorldManager");
+        //worldManager = GameObject.Find("WorldManager");
        // myPastBookInfoList = worldManager.GetComponent<WorldManager2D>().myPastBookList;
 
         //banneritem = GameObject.FindGameObjectWithTag("BannerItem");
@@ -42,16 +42,16 @@ public class BannerManager : MonoBehaviour
 
     void Update()
     {
-/*        if(myPastBookInfoList.Count <= 0)
+        if (myAllBookListNet.Count <= 0)
         {
             return;
         }
 
         currTime += Time.deltaTime;
-        if(currTime > bannerTime)
+        if (currTime > bannerTime)
         {
             // 랜덤 인덱스 하나 뽑기
-            idx = Random.Range(0, myPastBookInfoList.Count);
+            idx = Random.Range(0, myAllBookListNet.Count);
 
             if (banneritem != null)
             {
@@ -67,45 +67,137 @@ public class BannerManager : MonoBehaviour
             }
             MakeBanner(banneritem);
             currTime = 0;
-        }*/
+        }
     }
 
     public void MakeBanner(GameObject bannerItem)
     {
-/*        ReviewManager reviewManager = bannerItem.GetComponent<ReviewManager>();
+        ReviewManager reviewManager = bannerItem.GetComponent<ReviewManager>();
 
-        reviewManager.SetTitle(myPastBookInfoList[idx].bookName);
-        reviewManager.SetReview(myPastBookInfoList[idx].review);
+        reviewManager.SetTitle(myAllBookListNet[idx].bookName);
+        reviewManager.SetReview(myAllBookListNet[idx].review);
         reviewManager.SetNickname("Nickname");
-        reviewManager.SetThumbnail(myPastBookInfoList[idx].thumbnail.texture);*/
+        reviewManager.SetThumbnail(myAllBookListNet[idx].texture);
     }
 
-    // Http 통신 관련 -----------------------------------------------
-    public void HttpGetAllBookReview()
-    {
+    public List<_MyBookInfo> myAllBookListNet = new List<_MyBookInfo>();   // 담은도서
+
+
+    // 네트워크에서 받아온 정보 저장할 리스트
+    public List<string> titleListNet = new List<string>();
+    public List<string> thumbnailLinkListNet = new List<string>();
+    public List<string> reviewListNet = new List<string>();
+    public List<string> nicknameList = new List<string>();
+    public List<Texture> thumbnailImgListNet = new List<Texture>();
+
+    // (바뀐 버전) Http 통신 관련 -------------------------------------------------------
+    // 1. 월드 입장시 요청할 API : 읽은 책(책장), 인생책 (낮은 책장) 정보 보내주기
+    public void HttpGetGetOneLineReview()
+    {            // 각 data 리스트들 초기화
+        titleListNet.Clear();
+        thumbnailLinkListNet.Clear();
+        thumbnailImgListNet.Clear();
+        reviewListNet.Clear();
+        nicknameList.Clear();
+
+        myAllBookListNet.Clear();
+        print("요청");
         HttpRequester requester = new HttpRequester();
 
-        requester.url = "http://15.165.28.206:80//v1/records/all";
+        // /posts/1. GET, 완료되었을 때 호출되는 함수
+        requester.url = "http://15.165.28.206:80/v1/records/myroom";
         requester.requestType = RequestType.GET;
-        requester.onComplete = OnCompleteGetAllBookReview;
+        requester.onComplete = OnCompleteGetOneLineReview;
 
         // HttpManager 에게 요청
         HttpManager.instance.SendRequest(requester, "");
     }
 
-    public void OnCompleteGetAllBookReview(DownloadHandler handler)
+    public void OnCompleteGetOneLineReview(DownloadHandler handler)
     {
+        // 데이터 처리
         JObject jObject = JObject.Parse(handler.text);
         int type = (int)jObject["status"];
 
-        // 통신 성공
         if (type == 200)
         {
-            print("통신성공.한줄리뷰");
-            // 1. PlayerPref에 key는 jwt, value는 token
-            print(jObject);
-            //PhotonNetwork.ConnectUsingSettings();
+            print("통신성공. 모든도서.서재입장");
+            string result_data = ParseGETJson("[" + handler.text + "]", "data");
+
+            titleListNet = ParseMyBookData(result_data, "bookName");
+            nicknameList = ParseMyBookData(result_data, "name");
+            //publishInfoListNet = ParseMyBookData(result_data, "bookPublishInfo");
+            thumbnailLinkListNet = ParseMyBookData(result_data, "thumbnailLink");
+            reviewListNet = ParseMyBookData(result_data, "oneLineReview");
+
+
+            GETThumbnailTexture();
         }
     }
 
+    public void GETThumbnailTexture()
+    {
+        StartCoroutine(GetThumbnailImg(thumbnailLinkListNet.ToArray()));
+    }
+
+    public IEnumerator GetThumbnailImg(string[] url)
+    {
+        for (int j = 0; j < url.Length; j++)
+        {
+            UnityWebRequest www = UnityWebRequestTexture.GetTexture(url[j]);
+            yield return www.SendWebRequest();
+
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                print("실패");
+                break;
+            }
+            else
+            {
+                Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+                thumbnailImgListNet.Add(myTexture);
+            }
+            yield return null;
+        }
+        for (int i = 0; i < titleListNet.Count; i++)
+        {
+            _MyBookInfo myBookInfo = new _MyBookInfo();
+
+            myBookInfo.bookName = titleListNet[i];
+            myBookInfo.thumbnailLink = thumbnailLinkListNet[i];
+            myBookInfo.review = reviewListNet[i];
+            myBookInfo.nickname = nicknameList[i];
+
+            myBookInfo.texture = thumbnailImgListNet[i];
+            myAllBookListNet.Add(myBookInfo);
+        }
+    }
+
+    // data parsing
+    public string ParseGETJson(string jsonText, string key)
+    {
+        JArray parseData = JArray.Parse(jsonText);
+        string result = "";
+
+        foreach (JObject obj in parseData.Children())
+        {
+            result = obj.GetValue(key).ToString();
+        }
+
+        return result;
+    }
+
+    // data 에서 key 별로 parsing
+    public List<string> ParseMyBookData(string jsonText, string key)
+    {
+        JArray parseData = JArray.Parse(jsonText);
+        List<string> result = new List<string>();
+
+        foreach (JObject obj in parseData.Children())
+        {
+            result.Add(obj.GetValue(key).ToString());
+        }
+        return result;
+    }
 }

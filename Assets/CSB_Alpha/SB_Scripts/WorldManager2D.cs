@@ -30,6 +30,9 @@ public class _MyBookInfo
     // 인생책 여부
     public bool isBest;
     public string isBestString;
+
+    // 한줄
+    public string nickname;
 }
 
 

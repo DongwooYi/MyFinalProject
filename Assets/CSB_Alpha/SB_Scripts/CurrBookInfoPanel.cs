@@ -14,6 +14,8 @@ public class CurrBookInfoPanel : MonoBehaviour
 
     GameObject worldManager;
 
+    public string rateNumber;
+
     public Text title;
     public Text author;
     public Text publishInfo;
@@ -107,7 +109,7 @@ public class CurrBookInfoPanel : MonoBehaviour
             myAllBookListToArray[idx].bookPublishInfo = publishInfo.text;
             myAllBookListToArray[idx].isDone = true;
             myAllBookListToArray[idx].isDoneString = "Y";
-            myAllBookListToArray[idx].rating = dropdown.captionText.text;
+            myAllBookListToArray[idx].rating = rateNumber;
             myAllBookListToArray[idx].review = inputFieldReview.text;
 
             // POSt 로 보내기
@@ -122,7 +124,7 @@ public class CurrBookInfoPanel : MonoBehaviour
             myAllBookListToArray[idx].bookPublishInfo = publishInfo.text;
             myAllBookListToArray[idx].isDone = false;
             myAllBookListToArray[idx].isDoneString = "N";
-            myAllBookListToArray[idx].rating = dropdown.captionText.text;
+            myAllBookListToArray[idx].rating = rateNumber;
             myAllBookListToArray[idx].review = inputFieldReview.text;
 
             // POST 로 보내기
@@ -218,7 +220,7 @@ public class CurrBookInfoPanel : MonoBehaviour
             bookAuthor = author.text,
             bookPublishInfo = publishInfo.text,
             bookISBN = isbn.text,
-            rating = dropdown.captionText.text,
+            rating = rateNumber,
             bookReview = inputFieldReview.text,
             isDone = "Y",
         };
@@ -246,7 +248,7 @@ public class CurrBookInfoPanel : MonoBehaviour
             bookAuthor = author.text,
             bookPublishInfo = publishInfo.text,
             bookISBN = isbn.text,
-            rating = dropdown.captionText.text,
+            rating = rateNumber,
             bookReview = inputFieldReview.text,
         };
 
@@ -425,5 +427,5 @@ public class CurrBookInfoPanel : MonoBehaviour
         }
         rateNumber = rate.ToString();
     }
-    string rateNumber;
+
 }

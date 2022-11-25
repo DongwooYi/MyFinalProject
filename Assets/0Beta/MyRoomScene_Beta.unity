@@ -27776,7 +27776,7 @@ GameObject:
   - component: {fileID: 6876879182857851262}
   - component: {fileID: 9105887944642455343}
   m_Layer: 0
-  m_Name: "BestBook\uCC45 \uC120\uBC18"
+  m_Name: MyBestBookShelf
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

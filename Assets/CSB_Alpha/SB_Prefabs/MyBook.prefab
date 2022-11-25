@@ -94,7 +94,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 2446095364022220283}
         m_TargetAssemblyTypeName: MyBook, Assembly-CSharp
-        m_MethodName: OnClickDoneBookInfo
+        m_MethodName: OnClickBookInfo
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

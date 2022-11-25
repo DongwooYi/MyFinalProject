@@ -36,7 +36,7 @@ public class YDW_CharacterController : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (sceneName.name != "MyRoomScene_Beta_CSB")
+        if (sceneName.name != "MyRoomScene_Beta")
         {
             myself.SetActive(false);
         }

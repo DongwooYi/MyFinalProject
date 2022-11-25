@@ -72,13 +72,18 @@ public class MyBookManager : MonoBehaviour
         }
 
     }
-    int testCnt = 0;
+
     /* 담은도서 목록 관련 */
     // <책상> 앞에 가면 담은도서들 보여줌 (isDone == true / false 구분)
     // isDoneString 값 "Y" / "N" 에 따라 뿌려지는 곳이 다름
+    int rayCount = 0;
+
     public void ShowMyBookList()
     {
-      
+        if (rayCount > 0)
+        {
+            return;
+        }
 
         // 손가락 쿼드를 띄워준다
         myDesk.transform.GetChild(0).gameObject.SetActive(true);
@@ -120,7 +125,7 @@ public class MyBookManager : MonoBehaviour
                     myBookPanel.SetActive(true);
                     myDesk.transform.GetChild(0).gameObject.SetActive(false);
 
-                    
+                    rayCount++;
                     return;
                 }
             }
@@ -152,12 +157,9 @@ public class MyBookManager : MonoBehaviour
         #endregion
         for (int i = 0; i < wm.myAllBookListNet.Count; i++)
         {
-            print("여기 들어오니1");
-
             // 만약 isDoneString 이 "Y" 면 담은도서(done) 목록에 보여줌
             if (wm.myAllBookListNet[i].isDoneString == "Y")
             {
-                print("여기 들어오니2");
                 GameObject go = Instantiate(bookFactory, bookContentIsDoneT);
                 // 얘의 RawImage 의 Texture 를 리스트 순서대로
                 go.GetComponent<RawImage>().texture = wm.myAllBookListNet[i].texture;
@@ -178,8 +180,6 @@ public class MyBookManager : MonoBehaviour
             // 만약 isDoneString 이 "N" 이면 담은도서(ing) 목록
             else if (wm.myAllBookListNet[i].isDoneString == "N")
             {
-                print("여기 들어오니3");
-
                 GameObject go = Instantiate(bookFactory, bookContent);
                 // 얘의 RawImage 의 Texture 를 리스트 순서대로
                 go.GetComponent<RawImage>().texture = wm.myAllBookListNet[i].texture;
@@ -200,9 +200,10 @@ public class MyBookManager : MonoBehaviour
         }
     }
     /* <책장 앞>에서 isDone == true 인 책 보기 관련 */
+    int doneBookCount = 0;
     public void ShowBookIsDoneT()
     {
-        if (testCnt > 0)
+        if (doneBookCount > 0)
         {
             return;
         }
@@ -234,7 +235,7 @@ public class MyBookManager : MonoBehaviour
                             Destroy(childList[i].gameObject);
                         }
                     }
-                    print("몇 개일까? " + wm.myAllBookListNet.Count);
+
                     // WorldManager 의 myAllBookList 의 중 isDone == true 인 것들 프리펩 생성
                     for (int i = 0; i < wm.myAllBookListNet.Count; i++)
                     {
@@ -263,8 +264,8 @@ public class MyBookManager : MonoBehaviour
 
                     myPastBookPanel.SetActive(true);
                     myBookshelf.transform.GetChild(0).gameObject.SetActive(false);
-                   
-                    testCnt++;
+
+                    doneBookCount++;
                     return;
                 }
             }
@@ -303,10 +304,12 @@ public class MyBookManager : MonoBehaviour
     // 뒤로 가기 버튼
     public void OnClickExitCurr()
     {
+        rayCount = 0;
         myCurrBookPanel.SetActive(false);
     }
     public void OnClickExitPast()
     {
+        doneBookCount = 0;
         myPastBookPanel.SetActive(false);
     }
 

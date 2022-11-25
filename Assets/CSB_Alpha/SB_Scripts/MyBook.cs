@@ -82,7 +82,6 @@ public class MyBook : MonoBehaviour
     // 나를 클릭하면 canvas
     public void OnClickDoneBookInfo()
     {
-        print("????");
         GameObject go = Instantiate(doneBookInfoPanelFactory, canvas);
 
         go.GetComponent<PastBookInfoPanel>().SetTitle(bookTitle);

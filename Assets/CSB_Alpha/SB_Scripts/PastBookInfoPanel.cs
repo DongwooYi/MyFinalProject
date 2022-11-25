@@ -5,6 +5,8 @@ using UnityEngine.UI;
 
 public class PastBookInfoPanel : MonoBehaviour
 {
+    public int myIndex;
+
     public RawImage thumbnail;
     public Texture texture;
 
@@ -15,46 +17,56 @@ public class PastBookInfoPanel : MonoBehaviour
     public Text bookRating;
     public Text bookReview;
 
-    public bool isBest;
+    public bool isBest; // 내가 인생책인가
+
+    public void OnCheck(bool checkBool)
+    {
+        isBest = checkBool;
+    }
+
+    // 등록 버튼
+    public void OnClickSetBestBook()
+    {
+        // 버튼 클릭하면 
+    }
 
     public void OnClickExit()
     {
         Destroy(gameObject);
     }
 
+    public void SetMyIndex(int num)
+    {
+        myIndex = num;  // 다시 값을 넘겨주기 위함
+    }
+
     public void SetTitle(string s)
     {
-        print(s);
         bookTitle.text = s;
     }
 
     public void SetAuthor(string s)
     {
-        print(s);
         bookAuthor.text = s;
     }
 
     public void SetIsbn(string s)
     {
-        print(s);
         bookIsbn.text = s;
     }
 
     public void SetInfo(string s)
     {
-        print(s);
         bookInfo.text = s;
     }
 
     public void SetRating(string s)
     {
-        print(s);
         bookRating.text = s;
     }
 
     public void SetReview(string s)
     {
-        print(s);
         bookReview.text = s;
     }
 
@@ -65,7 +77,6 @@ public class PastBookInfoPanel : MonoBehaviour
 
     public void SetBestBook(bool best)
     {
-        print(best);
         isBest = best;
     }
 }

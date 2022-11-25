@@ -82,7 +82,14 @@ public class MyBook : MonoBehaviour
     // 나를 클릭하면 canvas
     public void OnClickDoneBookInfo()
     {
+        // 나의 인덱스 찾기
+        int idxDone = contentDoneBook.GetSiblingIndex();
+        print("담은도서 인덱스: " + idx);
+
         GameObject go = Instantiate(doneBookInfoPanelFactory, canvas);
+
+        // 나의 인덱스 넘기기
+        go.GetComponent<PastBookInfoPanel>().SetMyIndex(idxDone);
 
         go.GetComponent<PastBookInfoPanel>().SetTitle(bookTitle);
         go.GetComponent<PastBookInfoPanel>().SetAuthor(bookAuthor);
@@ -92,6 +99,7 @@ public class MyBook : MonoBehaviour
         go.GetComponent<PastBookInfoPanel>().SetReview(bookReview);
         go.GetComponent<PastBookInfoPanel>().SetThumbnail(thumbnail.texture);
         go.GetComponent<PastBookInfoPanel>().SetBestBook(isBest);
+
     }
 
     // 인생책 선정 관련

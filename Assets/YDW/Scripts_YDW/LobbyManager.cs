@@ -20,6 +20,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [Header("포톤 방 생성 필요 목록")]
     //방설명 InputField
     public InputField inputFieldRoomDescription;
+
+    //간단한 방설명
+    public InputField inputFieldRoomDescriptionShortForm;
     //방이름 InputField
     public InputField inputRoomName;
     //비밀번호 InputField
@@ -46,7 +49,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject[] mapThumbs;
 
     [Header("방만들기 및 방 리스트")]
-    public GameObject setRoomTitle;
+   
     public GameObject setRoom;
     public GameObject setRoomlist;
     public GameObject FailCreateaRoom;
@@ -105,7 +108,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         dateTime = DateTime.Now;
         if (NPC.isTiggerEnter)
         {
-            setRoomTitle.SetActive(true);
             setRoom.SetActive(true);
         }
         if (doorCheck.GotoMainWorld == true)
@@ -133,6 +135,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         ToggleCheck();
     }
 
+    public void SetactiveRoomCreatationPannel()
+    {
+        setRoom.SetActive(true);
+    }
     public void OnRoomNameValueChanged(string s)
     {
         //참가
@@ -180,13 +186,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         hash["room_name"] = inputRoomName.text;
         hash["password"] = inputPassword.text;
         hash["date"] = textCalendar.text;
-        hash["TimerData"] = startDate;
+        hash["descShortForm"] = inputFieldRoomDescriptionShortForm.text;
+        hash["DDay"] = startDate;
 
 
         roomOptions.CustomRoomProperties = hash;
         // custom 정보를 공개하는 설정
         roomOptions.CustomRoomPropertiesForLobby = new string[] {
-            "desc", "map_id", "room_name", "password", "date", "TimerData"
+            "desc", "map_id", "room_name", "password", "date", "descShortForm", "DDay"
         };
 
         // 방 생성 요청 (해당 옵션을 이용해서)
@@ -309,6 +316,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             //};
 
             string desc = (string)info.CustomProperties["desc"];
+          //  string descShortForm = (string)info.CustomProperties["descShortForm"];
             int map_id = (int)info.CustomProperties["map_id"];
             print(desc + ", " + map_id);
         }

@@ -392,4 +392,38 @@ public class CurrBookInfoPanel : MonoBehaviour
         }
         return result;
     }
+
+    [Header("평점 버튼")]
+    public Button[] starButton;
+    public Button acceptButton;
+    [HideInInspector] public int ratedApp;
+    public void RateApplication(int rate)
+    {
+        ratedApp = rate;
+
+        // active rate button if use click some stars
+        if (rate > 0)
+            acceptButton.GetComponent<Button>().interactable = true;
+
+        // enable stars equal than user rated
+        for (int i = 0; i < rate; i++)
+        {
+            foreach (Transform t in starButton[i].transform)
+            {
+                t.gameObject.SetActive(true);
+            }
+        }
+
+        // enable stars greater than user rated
+        for (int i = rate; i < starButton.Length; i++)
+        {
+            foreach (Transform t in starButton[i].transform)
+            {
+                t.gameObject.SetActive(false);
+            }
+
+        }
+        rateNumber = rate.ToString();
+    }
+    string rateNumber;
 }

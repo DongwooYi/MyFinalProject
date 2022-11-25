@@ -14,7 +14,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/CSB_Alpha/SB_Scenes/MyRoomScene_Beta 1.unity
     guid: a753f41e1a2bde040a9639a7a2bcf2fb
-  - enabled: 0
+  - enabled: 1
     path: Assets/CSB_Alpha/SB_Scenes/MyRoomScene_Beta_CSB.unity
     guid: c39cf4f9fbfdf4946876f00344e71223
   - enabled: 1

@@ -37,8 +37,8 @@ public class MyBook : MonoBehaviour
         {
             contentDoneBook = GameObject.Find("MyPastBookPanel/Scroll View_Done/Viewport/Content").transform;
             print(contentDoneBook.name);
-            btnBestBook = GameObject.Find("MyPastBookPanel").transform.GetChild(3).gameObject.GetComponent<Button>();
-            print(btnBestBook.name);
+            // btnBestBook = GameObject.Find("MyPastBookPanel").transform.GetChild(3).gameObject.GetComponent<Button>();
+            //print(btnBestBook.name);
             if (isBestStr == "Y")
             {
                 isBest = true;
@@ -50,7 +50,7 @@ public class MyBook : MonoBehaviour
                 transform.GetChild(0).gameObject.GetComponent<Image>().sprite = checkMarkOutline;
             }
         }
-       // btnBestBook.onClick.AddListener(OnClickSetBestBook);
+        //  btnBestBook.onClick.AddListener(OnClickSetBestBook);
     }
 
     void Update()
@@ -130,7 +130,7 @@ public class MyBook : MonoBehaviour
 
     public List<BestBook> bestBookList = new List<BestBook>();
     // 인생책 저장(<인생책 등록>버튼 클릭)
-    public void OnClickSetBestBook()
+/*    public void OnClickSetBestBook()
     {
         print("들어와?");
         // content의 자식 중 temp 와 값이 달라진 애들 전송
@@ -141,12 +141,12 @@ public class MyBook : MonoBehaviour
                 BestBook bestBook = new BestBook();
                 bestBook.bookISBN = bookIsbn;
                 bestBook.isBest = isBestStr;
-
+                print(bestBook.bookISBN + bestBook.isBest);
                 bestBookList.Add(bestBook);
             }
         }
         //HttpPostMyBestBook();
-    }
+    }*/
 
     // (바뀐 버전) Http 통신 관련 ----------------------------------
     // 5. 책장 -> Post요청 (체크에 변화가 있는 것들의 값을 보내면 될 것 같습니다.)

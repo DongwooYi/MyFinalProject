@@ -38,6 +38,8 @@ public class MyBookManager : MonoBehaviour
     List<_MyBookInfo> myCurrBookList = new List<_MyBookInfo>(); // 현재 도서
 
     public float distance = 1.5f;   // 플레이어와 물체의 거리
+    public float test;   // 플레이어와 물체의 거리
+    public float test1;   // 플레이어와 물체의 거리
 
     void Start()
     {
@@ -46,6 +48,8 @@ public class MyBookManager : MonoBehaviour
 
     void Update()
     {
+        test = Vector3.Distance(player.transform.position, myDesk.transform.position);
+        test1 = Vector3.Distance(player.transform.position, myBookshelf.transform.position);
         // 만약 플레이어가 책상 가까이 가면(거리 1정도)
         if (Vector3.Distance(player.transform.position, myDesk.transform.position) < distance)
         {
@@ -57,22 +61,25 @@ public class MyBookManager : MonoBehaviour
         }
 
         // 만약 플레이어가 책장 가까이 가면
-        if(Vector3.Distance(player.transform.position, myBookshelf.transform.position) < distance)
+        if(Vector3.Distance(player.transform.position, myBookshelf.transform.position) < 3.5f)
         {
+            //print("11");
             ShowBookIsDoneT();
         }
         else
         {
-            myBookshelf.transform.GetChild(0).gameObject.SetActive(true);
+            myBookshelf.transform.GetChild(0).gameObject.SetActive(false);
         }
 
     }
-
+    int testCnt = 0;
     /* 담은도서 목록 관련 */
     // <책상> 앞에 가면 담은도서들 보여줌 (isDone == true / false 구분)
     // isDoneString 값 "Y" / "N" 에 따라 뿌려지는 곳이 다름
     public void ShowMyBookList()
     {
+      
+
         // 손가락 쿼드를 띄워준다
         myDesk.transform.GetChild(0).gameObject.SetActive(true);
         // 손가락 쿼드 항상 카메라 방향
@@ -111,7 +118,9 @@ public class MyBookManager : MonoBehaviour
 
                     //MakePrefab();
                     myBookPanel.SetActive(true);
-                    myBookshelf.transform.GetChild(0).gameObject.SetActive(false);
+                    myDesk.transform.GetChild(0).gameObject.SetActive(false);
+
+                    
                     return;
                 }
             }
@@ -190,24 +199,29 @@ public class MyBookManager : MonoBehaviour
             }
         }
     }
-
-    /* 책장 앞에서 isDone == true 인 책 보기 관련 */
+    /* <책장 앞>에서 isDone == true 인 책 보기 관련 */
     public void ShowBookIsDoneT()
     {
+        if (testCnt > 0)
+        {
+            return;
+        }
+
+        print("들어오니 책장");
         // 손가락 쿼드를 띄워준다
-        myDesk.transform.GetChild(0).gameObject.SetActive(true);
+        myBookshelf.transform.GetChild(0).gameObject.SetActive(true);
         // 손가락 쿼드 항상 카메라 방향
-        myDesk.transform.GetChild(0).forward = Camera.main.transform.forward;
+        myBookshelf.transform.GetChild(0).forward = Camera.main.transform.forward;
 
         if (Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
-
+            print("클릭했니?");
             if (Physics.Raycast(ray, out hitInfo))
             {
                 print(hitInfo.transform.name);
-                if (hitInfo.transform.gameObject.tag == "ClickHere" || hitInfo.transform.gameObject.name == "MyBookshelf")
+                if (hitInfo.transform.gameObject.tag == "ClickHere" || hitInfo.transform.gameObject.name.Contains("MyBookshelf"))
                 {
                     print("완독도서 목록 출력");
 
@@ -220,7 +234,7 @@ public class MyBookManager : MonoBehaviour
                             Destroy(childList[i].gameObject);
                         }
                     }
-
+                    print("몇 개일까? " + wm.myAllBookListNet.Count);
                     // WorldManager 의 myAllBookList 의 중 isDone == true 인 것들 프리펩 생성
                     for (int i = 0; i < wm.myAllBookListNet.Count; i++)
                     {
@@ -249,6 +263,8 @@ public class MyBookManager : MonoBehaviour
 
                     myPastBookPanel.SetActive(true);
                     myBookshelf.transform.GetChild(0).gameObject.SetActive(false);
+                   
+                    testCnt++;
                     return;
                 }
             }

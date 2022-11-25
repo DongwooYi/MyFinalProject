@@ -108,13 +108,18 @@ public class SearchResult : MonoBehaviour
         if (webRequest.result == UnityWebRequest.Result.Success)
         {
             print("¼º°ø");
+
         }
         else
         {
             Debug.Log(webRequest.error);
         }
     }
-
+    public void Oncompeleted()
+    {
+        UnityWebRequest www = UnityWebRequest.Get("http://15.165.28.206:80/v1/records/contain");
+        
+    }
     public byte[] imageData;
     Texture2D TexToTex2D(Texture img)
     {

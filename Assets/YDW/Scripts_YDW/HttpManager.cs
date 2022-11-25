@@ -44,6 +44,7 @@ public class HttpManager : MonoBehaviour
             case RequestType.LOGIN:
                 webRequest = UnityWebRequest.Post(requester.url, requester.body);
                 byte[] data = Encoding.UTF8.GetBytes(requester.body);
+                webRequest.uploadHandler.Dispose();
                 webRequest.uploadHandler = new UploadHandlerRaw(data);
                 webRequest.SetRequestHeader("Content-Type", contentType);
                 //webRequest.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("jwt"));
@@ -64,6 +65,7 @@ public class HttpManager : MonoBehaviour
             case RequestType.POST:
                 webRequest = UnityWebRequest.Post(requester.url, requester.body);
                 data = Encoding.UTF8.GetBytes(requester.body);
+                webRequest.uploadHandler.Dispose();
                 webRequest.uploadHandler = new UploadHandlerRaw(data);
                 webRequest.SetRequestHeader("Content-Type", contentType);
                 webRequest.SetRequestHeader("Authorization", "Bearer " + PlayerPrefs.GetString("jwt"));

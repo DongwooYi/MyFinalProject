@@ -24,31 +24,37 @@ public class PastBookInfoPanel : MonoBehaviour
 
     public void SetTitle(string s)
     {
+        print(s);
         bookTitle.text = s;
     }
 
     public void SetAuthor(string s)
     {
+        print(s);
         bookAuthor.text = s;
     }
 
     public void SetIsbn(string s)
     {
+        print(s);
         bookIsbn.text = s;
     }
 
     public void SetInfo(string s)
     {
+        print(s);
         bookInfo.text = s;
     }
 
     public void SetRating(string s)
     {
+        print(s);
         bookRating.text = s;
     }
 
     public void SetReview(string s)
     {
+        print(s);
         bookReview.text = s;
     }
 
@@ -59,6 +65,7 @@ public class PastBookInfoPanel : MonoBehaviour
 
     public void SetBestBook(bool best)
     {
+        print(best);
         isBest = best;
     }
 }

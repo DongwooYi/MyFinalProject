@@ -73,7 +73,8 @@ public class WorldManager2D : MonoBehaviour
     void Start()
     {
         book = GameObject.Find("Book");
-        bookBest = GameObject.Find("myroom/MyBestBookshelf");
+        bookBest = GameObject.Find("myroom/MyBestBookShelf");
+        print(bookBest.name);
 
         HttpGetMyBookData();
        
@@ -102,7 +103,6 @@ public class WorldManager2D : MonoBehaviour
                 setBook.SetActive(true);
                 
                 setBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnailImgListNet[i] );
-                //log.text = $" ÀÌ¸§ : {book.transform.GetChild(i).gameObject.name}, ½æ³×ÀÏ: {thumbnailImgListNet[i].name}";
                 bookIdx++;
             }
 

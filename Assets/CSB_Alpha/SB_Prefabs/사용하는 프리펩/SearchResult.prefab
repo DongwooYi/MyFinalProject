@@ -73,7 +73,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 0
     m_MaxSize: 70
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
@@ -185,8 +185,10 @@ MonoBehaviour:
   thumbnail: {fileID: 5227978238119400292}
   thumbnailTexture: {fileID: 0}
   reviewPanelFactory: {fileID: 619597165726824052, guid: 1213c436b6a8feb468ab7f54d5666ce6, type: 3}
-  alarmFactory: {fileID: 8270181874862600635, guid: 4ee3d44cd7a38a64684b034223261f45, type: 3}
+  doneConfirmFactory: {fileID: 845764957497615288, guid: f6e53b0aefd9a5743a799096648f6ae7, type: 3}
+  errorFactory: {fileID: 2760973702688542027, guid: 10a6119d438070c418bd75f6378c9cf2, type: 3}
   myDesk: {fileID: 0}
+  canvas: {fileID: 0}
   wm: {fileID: 0}
   imageData: 
 --- !u!1 &318626365412915695
@@ -262,7 +264,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1
@@ -342,7 +344,7 @@ MonoBehaviour:
     m_BestFit: 0
     m_MinSize: 1
     m_MaxSize: 40
-    m_Alignment: 3
+    m_Alignment: 0
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 1

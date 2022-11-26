@@ -7,12 +7,23 @@ using Newtonsoft.Json.Linq;
 using TMPro;
 
 
-// 책상 앞에 가서 뜬 담은도서 중 
+// 책상 앞에 가서 뜬 <담은도서> 중 
+// 
 public class CurrBookInfoPanel : MonoBehaviour
 {
+    Transform canvas;
     public GameObject bookFactory;  // 담은도서 목록 공장
+    public GameObject alarmFactory;     // 등록됨 안내 메시지 띄우기
+    public GameObject headConfirm; // <대표책이 설정되었습니다> 안내
+    public GameObject doneBookConfirm;  // <읽은책 설정되었습니다> 안내
 
     GameObject worldManager;
+    GameObject myBookManager;
+
+    public Transform myBookPanel;
+    public Transform contentBook;
+    public Transform contentDoneBook;
+
 
     public string rateNumber;
 
@@ -28,6 +39,8 @@ public class CurrBookInfoPanel : MonoBehaviour
 
     bool isDone;
     string isDoneString;
+    public Toggle checkIsDone;  // 
+
     public int idx;
 
     public Dropdown dropdown;
@@ -43,18 +56,14 @@ public class CurrBookInfoPanel : MonoBehaviour
 
     GameObject book;
 
-    // 등록됨 안내 메시지 띄우기
-    public GameObject alarmFactory;
 
-    public Toggle headBook;
-    public Toggle checkIsDone;
+    public Toggle headBook; // 머리책(대표) 
+    public string isOverHeadString;
+    public bool isOverHead;
 
-    MyBookManager bookManager;
     WorldManager2D wm;
 
-    GameObject myCurrBookPanel;
-
-    public void ToggleHead(Toggle headBook)
+/*    public void ToggleHead(Toggle headBook)
     {
         print("토글");
         if (headBook.isOn)
@@ -63,10 +72,16 @@ public class CurrBookInfoPanel : MonoBehaviour
             showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
             //player.transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
         }
-    }
+    }*/
 
     void Start()
     {
+        myBookPanel = GameObject.Find("MyBookPanel").transform;
+        contentBook = GameObject.Find("Scroll View_Book/Viewport/Content").transform;
+        contentDoneBook = GameObject.Find("Scroll View_Done/Viewport/Content").transform;
+
+        canvas = GameObject.Find("Canvas").transform;
+
         player = GameObject.Find("Character");
         showBook = GameObject.Find("ShowBook");
 
@@ -76,18 +91,15 @@ public class CurrBookInfoPanel : MonoBehaviour
         myAllBookListToArray = wm.myAllBookListNet.ToArray();
         book = GameObject.Find("Book");
 
-        myCurrBookPanel = GameObject.Find("MyCurrBookPanel");
-        bookManager = GameObject.Find("MyBookManager").GetComponent<MyBookManager>();
-
         review.onValueChanged.AddListener(OnValueChanged);
         checkIsDone.onValueChanged.AddListener(OnisDoneToggleClicked);
+        headBook.onValueChanged.AddListener(OnOverHeadToggle);
     }
 
     void OnValueChanged(string s)
     {
         btnEnter.interactable = s.Length > 0;  // 등록 버튼 활성화
     }
-
 
     // 등록 버튼
     // isDone == true 면 WorldManager 의 myDoneBookList 에
@@ -112,6 +124,8 @@ public class CurrBookInfoPanel : MonoBehaviour
             myAllBookListToArray[idx].isDoneString = "Y";
             myAllBookListToArray[idx].rating = rateNumber;
             myAllBookListToArray[idx].review = review.text;
+            myAllBookListToArray[idx].isOverHead = isOverHead;
+            myAllBookListToArray[idx].isOverHeadString = isOverHeadString;
 
             // POSt 로 보내기
             HttpPostMyBookDataD();
@@ -127,6 +141,8 @@ public class CurrBookInfoPanel : MonoBehaviour
             myAllBookListToArray[idx].isDoneString = "N";
             myAllBookListToArray[idx].rating = rateNumber;
             myAllBookListToArray[idx].review = review.text;
+            myAllBookListToArray[idx].isOverHead = isOverHead;
+            myAllBookListToArray[idx].isOverHeadString = isOverHeadString;
 
             // POST 로 보내기
             HttpPostMyBookData();
@@ -135,7 +151,6 @@ public class CurrBookInfoPanel : MonoBehaviour
 
         // <등록 되었습니다>
         GameObject go = Instantiate(alarmFactory, gameObject.transform);    // 나의 자식으로 생성
-        //bookManager.ShowAllBookList();
     }
 
     // 나가기 버튼 (누르면 저장되지 않음)
@@ -186,6 +201,59 @@ public class CurrBookInfoPanel : MonoBehaviour
     {
         idx = num;
     }
+    
+    public void SetOverHeadBook(bool overHead)
+    {
+        isOverHead = overHead;
+        // 토글에 표시
+        headBook.isOn = overHead;
+        print("대표책 : " + isOverHead + "토글 : " + headBook.isOn);
+    }
+
+    public void OnOverHeadToggle(bool isOverHead)
+    {
+        print("토글 리스너: " + isOverHead);
+        if(isOverHead)
+        {
+            GameObject go = Instantiate(headConfirm, canvas);
+        }
+        //showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
+    }
+
+    // 닫기 버튼 누리면 대표책 등록 완료
+    public void OnClickHeadBookConfirmBook()
+    {
+        // 다른 책들 isOverHead = false & isOverHeadString = "N" 로 
+        if (isDone) // 만약 내가 다읽은도서라면
+        {
+            for (int i = 0; i < contentBook.childCount; i++)
+            {
+                contentBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHead = false;
+                contentBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHeadString = "N";
+            }
+            for (int i = 0; i < contentDoneBook.childCount; i++)
+            {
+                if (i == idx) continue;
+                contentDoneBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHead = false;
+                contentDoneBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHeadString = "N";
+            }
+        }
+        else if (!isDone)
+        {
+            for (int i = 0; i < contentBook.childCount; i++)
+            {
+                if (i == idx) continue;
+                contentBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHead = false;
+                contentBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHeadString = "N";
+            }
+            for (int i = 0; i < contentDoneBook.childCount; i++)
+            {
+                contentDoneBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHead = false;
+                contentDoneBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHeadString = "N";
+            }
+        }
+        showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
+    }
 
     public void SetIsDone(bool done)
     {
@@ -194,12 +262,12 @@ public class CurrBookInfoPanel : MonoBehaviour
         checkIsDone.isOn = done;
         print("check : " + checkIsDone.isOn);
     }
-
-    #endregion
     public void OnisDoneToggleClicked(bool isDone)
     {
         print(isDone);
     }
+    #endregion
+
 
     // (바뀐 버전) Http 통신 관련 ---------------------------------------------
     // 4. 독서 기록 쓰기
@@ -224,6 +292,7 @@ public class CurrBookInfoPanel : MonoBehaviour
             rating = rateNumber,
             bookReview = review.text,
             isDone = "Y",
+            isOverHead = isOverHeadString,
         };
 
         requester.body = JsonUtility.ToJson(bookData, true);
@@ -250,6 +319,7 @@ public class CurrBookInfoPanel : MonoBehaviour
             bookISBN = isbn.text,
             rating = rateNumber,
             bookReview = review.text,
+            isOverHead = isOverHeadString,
         };
 
         requester.body = JsonUtility.ToJson(bookData, true);

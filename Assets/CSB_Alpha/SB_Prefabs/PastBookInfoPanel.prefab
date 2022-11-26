@@ -188,7 +188,12 @@ MonoBehaviour:
   bookInfo: {fileID: 6900764856676372195}
   bookRating: {fileID: 7583618085159055830}
   bookReview: {fileID: 418574882710545321}
+  isBestToggle: {fileID: 532261150435082524}
   isBest: 0
+  myPastBookPanel: {fileID: 0}
+  contentDoneBook: {fileID: 0}
+  myBookManager: {fileID: 0}
+  BestBookList: []
 --- !u!1 &684594418887358501
 GameObject:
   m_ObjectHideFlags: 0
@@ -202,7 +207,7 @@ GameObject:
   - component: {fileID: 1237674003328367255}
   - component: {fileID: 7009618906771676185}
   m_Layer: 5
-  m_Name: Btn_BestBook
+  m_Name: "Btn_\uD655\uC778"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -310,7 +315,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1237674003328367255}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5035028379923786698}
+        m_TargetAssemblyTypeName: PastBookInfoPanel, Assembly-CSharp
+        m_MethodName: OnClickSetBook
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &769344984433446685
 GameObject:
   m_ObjectHideFlags: 0
@@ -628,7 +645,19 @@ MonoBehaviour:
   m_Group: {fileID: 0}
   onValueChanged:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 5035028379923786698}
+        m_TargetAssemblyTypeName: PastBookInfoPanel, Assembly-CSharp
+        m_MethodName: OnCheck
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
   m_IsOn: 1
 --- !u!1 &7060251155700578772
 GameObject:

@@ -11,7 +11,7 @@ EditorBuildSettings:
   - enabled: 0
     path: Assets/0Beta/SB_Player_Photon.unity
     guid: 27cee20446ba7944388f35664575d29d
-  - enabled: 1
+  - enabled: 0
     path: Assets/CSB_Alpha/SB_Scenes/MyRoomScene_Beta_CSB.unity
     guid: c39cf4f9fbfdf4946876f00344e71223
   - enabled: 1

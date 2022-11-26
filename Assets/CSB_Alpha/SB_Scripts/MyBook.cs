@@ -17,6 +17,7 @@ public class MyBook : MonoBehaviour
 
     public bool isDone;
     public bool isBest;
+    public bool isBestTemp; // 인생책 여부 이전 값 저장
 
     public int idx;
 
@@ -155,40 +156,6 @@ public class MyBook : MonoBehaviour
         //HttpPostMyBestBook();
     }*/
 
-    // (바뀐 버전) Http 통신 관련 ----------------------------------
-    // 5. 책장 -> Post요청 (체크에 변화가 있는 것들의 값을 보내면 될 것 같습니다.)
-    // 비고) 호출 완료 후 1번 호출 다시 해줘야 함.
-    void HttpPostMyBestBook()
-    {
-        //서버에 게시물 조회 요청
-        //HttpRequester를 생성
-        HttpRequester requester = new HttpRequester();
 
-        requester.url = "http://15.165.28.206:80/v1/records/best";
-        requester.requestType = RequestType.POST;
-
-        BestBookData bookData = new()
-        {
-            recordDTOList = bestBookList,
-        };
-        print(bookData);
-        requester.body = JsonUtility.ToJson(bookData, true);
-        requester.onComplete = OnCompletePostMyBestBook;
-
-        //HttpManager에게 요청
-        HttpManager.instance.SendRequest(requester, "application/json");
-    }
-
-    void OnCompletePostMyBestBook(DownloadHandler handler)
-    {
-        JObject jObject = JObject.Parse(handler.text);
-
-        int type = (int)jObject["status"];
-
-        if (type == 200)
-        {
-            print("인생책 통신 되나?");
-        }
-    }
 
 }

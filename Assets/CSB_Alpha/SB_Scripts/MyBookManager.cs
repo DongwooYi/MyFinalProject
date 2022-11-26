@@ -11,6 +11,7 @@ using Newtonsoft.Json.Linq;
 // 플레이어가 책상 가까이 가면 현재 읽고 있는 책 UI 가 뜬다
 public class MyBookManager : MonoBehaviour
 {
+    public List<GameObject> bestBookList = new List<GameObject>();
     public GameObject player;   // 플레이어
     public GameObject myDesk;   // 책상
     public GameObject myCurrBookPanel;  // 현재 읽고 있는 책 목록 UI

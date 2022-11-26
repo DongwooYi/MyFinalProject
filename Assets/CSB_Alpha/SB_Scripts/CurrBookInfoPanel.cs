@@ -234,7 +234,6 @@ public class CurrBookInfoPanel : MonoBehaviour
 
     void HttpPostMyBookData()
     {
-        print("111");
         //서버에 게시물 조회 요청
         //HttpRequester를 생성
         HttpRequester requester = new HttpRequester();

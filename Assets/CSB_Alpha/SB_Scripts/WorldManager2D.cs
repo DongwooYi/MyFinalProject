@@ -33,6 +33,10 @@ public class _MyBookInfo
 
     // 한줄
     public string nickname;
+
+    // 대표책
+    public bool isOverHead;
+    public string isOverHeadString;
 }
 
 
@@ -47,6 +51,7 @@ public class WorldManager2D : MonoBehaviour
     public InputField inputBookTitleName;   // 책 제목 입력 칸
     public Button btnSearch;    // 검색(돋보기) 버튼
 
+    // 도서 API 관련
     public APIManager manager;
 
     public List<string> titleList = new List<string>();
@@ -67,8 +72,6 @@ public class WorldManager2D : MonoBehaviour
     // -------------------------------------------------------------------------------
     [Header("담은도서 리스트")]
     public List<_MyBookInfo> myAllBookListNet = new List<_MyBookInfo>();   // 담은도서
-
-    public List<_MyBookInfo> myDoneBookList = new List<_MyBookInfo>();  // isDone == true 도서
     //  ------------------------------------------------------------------------------
 
     public Material matBook;    // 책의 Material
@@ -86,7 +89,7 @@ public class WorldManager2D : MonoBehaviour
         inputBookTitleName.onEndEdit.AddListener(OnEndEdit);
     }
 
-
+    #region 월드 세팅
     // 월드 입장 시 월드 세팅
     // 책장, 낮은 책장, 리워드
     public void SettingMyRoom()
@@ -118,15 +121,39 @@ public class WorldManager2D : MonoBehaviour
                 setBestBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnailImgListNet[i]);
                 bestBookIdx++;
             }
-        }
 
-        // 리워드 관련
-        if(bookCount > 2)
+            // 만약 isOverHead == "Y" 면
+            if(myAllBookListNet[i].isOverHeadString == "Y")
+            {
+                // 머리에 띄우기
+                showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnailImgListNet[i]);
+            }
+
+        }
+        #region 리워드(색상) 관련
+        if (bookCount < 10)
+        {
+            showBook.GetComponent<Outline>().OutlineColor = Color.red;
+        }
+        else if (bookCount < 20)
         {
             showBook.GetComponent<Outline>().OutlineColor = Color.yellow;
         }
+        else if(bookCount < 30)
+        {
+            showBook.GetComponent<Outline>().OutlineColor = Color.green;
+        }
+        else if(bookCount < 40)
+        {
+            showBook.GetComponent<Outline>().OutlineColor = Color.blue;
+        }
+        else if(bookCount < 50)
+        {
+            showBook.GetComponent<Outline>().OutlineColor = Color.cyan;
+        }
+        #endregion
     }
-
+    #endregion
     void OnValueChanged(string s)
     {
         btnSearch.interactable = s.Length > 0;  // 검색 버튼 활성화
@@ -176,11 +203,14 @@ public class WorldManager2D : MonoBehaviour
     public List<string> isDoneListNet = new List<string>();
     public List<string> isBestsListNet = new List<string>();
     public List<Texture> thumbnailImgListNet = new List<Texture>();
+    public List<string> isOverHeadListNet = new List<string>();
 
+    #region HTTP 통신 관련
     // (바뀐 버전) Http 통신 관련 -------------------------------------------------------
     // 1. 월드 입장시 요청할 API : 읽은 책(책장), 인생책 (낮은 책장) 정보 보내주기
     public void HttpGetMyBookData()
-    {            // 각 data 리스트들 초기화
+    {            
+        // 각 data 리스트들 초기화
         titleListNet.Clear();
         authorListNet.Clear();
         publishInfoListNet.Clear();
@@ -191,6 +221,7 @@ public class WorldManager2D : MonoBehaviour
         reviewListNet.Clear();
         isDoneListNet.Clear();
         isBestsListNet.Clear();
+        isOverHeadListNet.Clear();
 
         myAllBookListNet.Clear();
         print("요청");
@@ -225,6 +256,7 @@ public class WorldManager2D : MonoBehaviour
             reviewListNet = ParseMyBookData(result_data, "bookReview");
             isDoneListNet = ParseMyBookData(result_data, "isDone");
             isBestsListNet = ParseMyBookData(result_data, "isBest");
+            isOverHeadListNet = ParseMyBookData(result_data, "isOverHead");
 
             GETThumbnailTexture();
         }
@@ -305,9 +337,11 @@ public class WorldManager2D : MonoBehaviour
 
     #region 도서 API 받아오기 관련
     // 검색 버튼 관련 (돋보기 버튼)
+    public GameObject mask; // 뒤 이미지 가리는 용도
     public void OnClickSearchBook()
     {
         // 검색 버튼을 클릭하면 
+        mask.SetActive(true);
 
         // 생성되어 있는 검색 결과 삭제
         Transform[] childList = content.GetComponentsInChildren<Transform>();
@@ -358,36 +392,6 @@ public class WorldManager2D : MonoBehaviour
     }
     #endregion
 
-    // 검색 버튼 관련 (돋보기 버튼)
-    public void OnClickSearchBookGroup()
-    {
-        // 검색 버튼을 클릭하면 
-
-        // 생성되어 있는 검색 결과 삭제
-        Transform[] childList = content.GetComponentsInChildren<Transform>();
-        if (childList != null)
-        {
-            for (int i = 1; i < childList.Length; i++)
-            {
-                Destroy(childList[i].gameObject);
-            }
-        }
-
-        APIRequester requester = new APIRequester();
-
-        requester.onComplete = OnCompleteBook;
-
-        manager.SendRequest(requester);
-    }
-
-    public Text textBookName;
-    public void OnCompleteBook(DownloadHandler handler)
-    {
-        string result_items = ParseJson("[" + handler.text + "]", "items");
-
-        titleList = ParseJsonList(result_items, "title");
-        textBookName.text= result_items;
-    }
 
     IEnumerator GetThumbnail(string url, RawImage rawImage)
     {
@@ -462,5 +466,5 @@ public class WorldManager2D : MonoBehaviour
 
         return result;
     }
-   
+    #endregion
 }

@@ -14,7 +14,6 @@ public class MyBookManager : MonoBehaviour
     public List<GameObject> bestBookList = new List<GameObject>();
     public GameObject player;   // 플레이어
     public GameObject myDesk;   // 책상
-    public GameObject myCurrBookPanel;  // 현재 읽고 있는 책 목록 UI
 
     public GameObject myBookshelf;    // 책장
     public GameObject myPastBookPanel;  // 다읽은 책 목록 UI
@@ -76,8 +75,8 @@ public class MyBookManager : MonoBehaviour
     /* 담은도서 목록 관련 */
     // <책상> 앞에 가면 담은도서들 보여줌 (isDone == true / false 구분)
     // isDoneString 값 "Y" / "N" 에 따라 뿌려지는 곳이 다름
-    int rayCount = 0;
 
+    int rayCount = 0;
     public void ShowMyBookList()
     {
         if (rayCount > 0)
@@ -110,6 +109,7 @@ public class MyBookManager : MonoBehaviour
                     wm.reviewListNet.Clear();
                     wm.isDoneListNet.Clear();
                     wm.isBestsListNet.Clear();
+                    wm.isOverHeadListNet.Clear();
 
                     wm.thumbnailImgListNet.Clear();
 
@@ -119,9 +119,6 @@ public class MyBookManager : MonoBehaviour
                     // 담은도서 리스트인 wm.myAllBookListNet 에 담은도서들 들어있음
                     print("책상 앞 담은도서 전체 스크롤뷰에 배치");
 
-                    // 담은도서의 수만큼 프리펩 생성
-
-                    //MakePrefab();
                     myBookPanel.SetActive(true);
                     myDesk.transform.GetChild(0).gameObject.SetActive(false);
 
@@ -132,6 +129,9 @@ public class MyBookManager : MonoBehaviour
         }
     }
 
+    // 책들 스크롤뷰에 뜨도록 처리
+    // 부모의 몇번째 자식인지 
+    public int myIndex;
     public void MakePrefab()
     {
         #region 자식 삭제 (프리펩)
@@ -173,6 +173,10 @@ public class MyBookManager : MonoBehaviour
                 myBook.bookRating = wm.myAllBookListNet[i].rating;
                 myBook.bookReview = wm.myAllBookListNet[i].review;
                 myBook.isDone = true;
+                myBook.isOverHeadString = wm.myAllBookListNet[i].isOverHeadString;
+
+                if (wm.myAllBookListNet[i].isOverHeadString == "Y") myBook.isOverHead = true;
+                else myBook.isOverHead = false;
 
                 // index 인 i 값도 넘겨줘야할듯
                 myBook.idx = i;
@@ -193,12 +197,17 @@ public class MyBookManager : MonoBehaviour
                 myBook.bookRating = wm.myAllBookListNet[i].rating;
                 myBook.bookReview = wm.myAllBookListNet[i].review;
                 myBook.isDone = false;
+                myBook.isOverHeadString = wm.myAllBookListNet[i].isOverHeadString;
+
+                if (wm.myAllBookListNet[i].isOverHeadString == "Y") myBook.isOverHead = true;
+                else myBook.isOverHead = false;
 
                 // index 인 i 값도 넘겨줘야할듯
                 myBook.idx = i;
             }
         }
     }
+    
     /* <책장 앞>에서 isDone == true 인 책 보기 관련 */
     int doneBookCount = 0;
     public void ShowBookIsDoneT()
@@ -255,6 +264,10 @@ public class MyBookManager : MonoBehaviour
                             pastBook.bookReview = wm.myAllBookListNet[i].review;
                             pastBook.isDone = true;
                             pastBook.isBestStr = wm.myAllBookListNet[i].isBestString;
+                            pastBook.isOverHeadString = wm.myAllBookListNet[i].isOverHeadString;
+
+                            if (wm.myAllBookListNet[i].isOverHeadString == "Y") pastBook.isOverHead = true;
+                            else pastBook.isOverHead = false;
 
                             // index 인 i 값도 넘겨줘야할듯
                             pastBook.idx = i;
@@ -301,17 +314,6 @@ public class MyBookManager : MonoBehaviour
                 currBookInfoPanel.SetImage(myBookListNet[idx].thumbnail.texture);*/
     }
 
-    // 뒤로 가기 버튼
-    public void OnClickExitCurr()
-    {
-        rayCount = 0;
-        myCurrBookPanel.SetActive(false);
-    }
-    public void OnClickExitPast()
-    {
-        doneBookCount = 0;
-        myPastBookPanel.SetActive(false);
-    }
 
     // 네트워크에서 받아온 정보 저장할 리스트
     public List<string> titleListNet = new List<string>();
@@ -324,7 +326,7 @@ public class MyBookManager : MonoBehaviour
     public List<string> isDoneListNet = new List<string>();
     public List<string> isBestsListNet = new List<string>();
     public List<Texture> thumbnailImgListNet = new List<Texture>();
-
+    public List<string> isOverHeadListNet = new List<string>();
 
     // (바뀐 버전) Http 통신 관련 ------------------------
     // 2. 책상 앞으로 갔을 때 호출할 API : 담은 책 + 읽은 책 가져오기 (모든 책 정보 다 보내줌)
@@ -361,6 +363,8 @@ public class MyBookManager : MonoBehaviour
             reviewListNet = ParseMyBookData(result_data, "bookReview");
             isDoneListNet = ParseMyBookData(result_data, "isDone");
             isBestsListNet = ParseMyBookData(result_data, "isBest");
+            isOverHeadListNet = ParseMyBookData(result_data, "isOverHead");
+
 
             StartCoroutine(GetThumbnailImg(thumbnailLinkListNet.ToArray()));   //, myBookInfo.thumbnail)
 
@@ -402,6 +406,7 @@ public class MyBookManager : MonoBehaviour
             myBookInfo.review = reviewListNet[i];
             myBookInfo.isDoneString = isDoneListNet[i];
             myBookInfo.isBestString = isBestsListNet[i];
+            myBookInfo.isOverHeadString = isOverHeadListNet[i];
 
             myBookInfo.texture = thumbnailImgListNet[i];
 

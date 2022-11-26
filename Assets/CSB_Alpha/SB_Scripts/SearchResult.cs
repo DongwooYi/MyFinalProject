@@ -41,17 +41,6 @@ public class SearchResult : MonoBehaviour
         imageData = TexToTex2D(thumbnail.texture).EncodeToJPG();
         StartCoroutine(SendBookData());
 
-/*        _MyBookInfo myBookInfo = new _MyBookInfo();
-
-        myBookInfo.bookName = bookTitle.text;
-        myBookInfo.bookAuthor = author.text;
-        myBookInfo.bookPublishInfo = publishInfo.text;
-        myBookInfo.bookISBN = isbn.text;
-        myBookInfo.thumbnail = thumbnail;
-        myBookInfo.isDone = false;
-
-        wm.myAllBookListNet.Add(myBookInfo);   // 월드의 myAllBookList 에 추가*/
-
         // <등록 되었습니다>
         Transform canvas = GameObject.Find("Canvas").transform;
         GameObject go = Instantiate(alarmFactory, canvas);
@@ -108,11 +97,17 @@ public class SearchResult : MonoBehaviour
         if (webRequest.result == UnityWebRequest.Result.Success)
         {
             print("성공");
-
+            print(webRequest.result);
         }
         else
         {
+            if(webRequest.error == "HTTP/1.1 409 Conflict")
+            {
+                // 여기서 에러 처리ㄴ
+                print("에러");
+            }
             Debug.Log(webRequest.error);
+
         }
     }
     public void Oncompeleted()

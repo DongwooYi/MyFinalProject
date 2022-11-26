@@ -32,7 +32,8 @@ public class CurrBookInfoPanel : MonoBehaviour
 
     public Dropdown dropdown;
 
-    public TMP_InputField inputFieldReview; // 리뷰 입력 칸
+    //public TMP_InputField inputFieldReview; // 리뷰 입력 칸
+    public InputField review;
     public Button btnEnter; // 등록하기 버튼
 
     public GameObject player;   // 플레이어
@@ -78,7 +79,7 @@ public class CurrBookInfoPanel : MonoBehaviour
         myCurrBookPanel = GameObject.Find("MyCurrBookPanel");
         bookManager = GameObject.Find("MyBookManager").GetComponent<MyBookManager>();
 
-        inputFieldReview.onValueChanged.AddListener(OnValueChanged);
+        review.onValueChanged.AddListener(OnValueChanged);
         checkIsDone.onValueChanged.AddListener(OnisDoneToggleClicked);
     }
 
@@ -110,7 +111,7 @@ public class CurrBookInfoPanel : MonoBehaviour
             myAllBookListToArray[idx].isDone = true;
             myAllBookListToArray[idx].isDoneString = "Y";
             myAllBookListToArray[idx].rating = rateNumber;
-            myAllBookListToArray[idx].review = inputFieldReview.text;
+            myAllBookListToArray[idx].review = review.text;
 
             // POSt 로 보내기
             HttpPostMyBookDataD();
@@ -125,7 +126,7 @@ public class CurrBookInfoPanel : MonoBehaviour
             myAllBookListToArray[idx].isDone = false;
             myAllBookListToArray[idx].isDoneString = "N";
             myAllBookListToArray[idx].rating = rateNumber;
-            myAllBookListToArray[idx].review = inputFieldReview.text;
+            myAllBookListToArray[idx].review = review.text;
 
             // POST 로 보내기
             HttpPostMyBookData();
@@ -221,7 +222,7 @@ public class CurrBookInfoPanel : MonoBehaviour
             bookPublishInfo = publishInfo.text,
             bookISBN = isbn.text,
             rating = rateNumber,
-            bookReview = inputFieldReview.text,
+            bookReview = review.text,
             isDone = "Y",
         };
 
@@ -234,7 +235,6 @@ public class CurrBookInfoPanel : MonoBehaviour
 
     void HttpPostMyBookData()
     {
-        print("111");
         //서버에 게시물 조회 요청
         //HttpRequester를 생성
         HttpRequester requester = new HttpRequester();
@@ -249,7 +249,7 @@ public class CurrBookInfoPanel : MonoBehaviour
             bookPublishInfo = publishInfo.text,
             bookISBN = isbn.text,
             rating = rateNumber,
-            bookReview = inputFieldReview.text,
+            bookReview = review.text,
         };
 
         requester.body = JsonUtility.ToJson(bookData, true);

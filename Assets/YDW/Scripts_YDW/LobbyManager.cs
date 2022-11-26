@@ -186,7 +186,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         // custom 정보를 셋팅
         ExitGames.Client.Photon.Hashtable hash = new ExitGames.Client.Photon.Hashtable();
 
-        hash["desc"] = $"회의 요일: {monText}{tueText}{wedText}{thuText}{friText}{sunText}{sunText}\r\n방 설명: {inputFieldRoomDescription.text}";
+        hash["desc"] = inputFieldRoomDescription.text;
         hash["map_id"] = img;
         hash["room_name"] = inputRoomName.text;
         hash["date"] = textCalendar.text;
@@ -195,11 +195,12 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         hash["book_Name"] = inputBookName.text;
         hash["roomHost_Name"] = PhotonNetwork.LocalPlayer.NickName;
         hash["meetingTime"] = textTimeforMeeting.text;
-        hash["descRoomDetail"] = roomDetailDesc;
+        hash["dayOfWeeks"] = $"회의 요일: {monText}{tueText}{wedText}{thuText}{friText}{sunText}{sunText}";
         roomOptions.CustomRoomProperties = hash;
+
         // custom 정보를 공개하는 설정
         roomOptions.CustomRoomPropertiesForLobby = new string[] {
-            "desc", "map_id", "room_name", "date", "descShortForm", "DDay", "book_Name", "meetingTime", "descRoomDetail"
+            "desc", "map_id", "room_name", "date", "descShortForm", "DDay", "book_Name", "meetingTime", "dayOfWeeks"
         };
 
         print("img배열의" + img.Length);
@@ -236,6 +237,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public override void OnJoinedRoom()
     {
         base.OnJoinedRoom();
+        GameObject game = GameObject.FindWithTag("RoomDesc");
+        DestroyImmediate(game);
         print("OnJoinedRoom");
         var currentRoomname = PhotonNetwork.CurrentRoom.Name;
         print(currentRoomname);
@@ -327,7 +330,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             //};
 
             string desc = (string)info.CustomProperties["desc"];
-            GameObject gameObject = (GameObject)info.CustomProperties["descRoomDetail"];
             print(desc);
         }
     }

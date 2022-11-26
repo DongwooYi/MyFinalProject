@@ -155,13 +155,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   roomInfo: {fileID: 356185164004795042}
   roomPlayerInfo: {fileID: 3449961200759544608}
-  roomDesc: {fileID: 4292325944879569026}
+  roomShortDesc: {fileID: 4292325944879569026}
   bookNameDesc: {fileID: 7533251058913497785}
   ChallengePeriod: {fileID: 8871439524121708639}
   textTimer: {fileID: 5967557941154348983}
   rawImage: {fileID: 957338406749890764}
   time: 
   isTimerOn: 0
+  gameObjectForRoomDetailDesc: {fileID: 5995187514758812440, guid: 8d2f26b7317ea4848a1074c5ac0d1ef6, type: 3}
 --- !u!1 &356185164004795040
 GameObject:
   m_ObjectHideFlags: 0

@@ -12,7 +12,7 @@ public class RoomItem : MonoBehaviour
     public Text roomPlayerInfo;
 
     //설명
-    public Text roomDesc;
+    public Text roomShortDesc;
     public Text bookNameDesc;
     public Text ChallengePeriod;
     public Text textTimer;
@@ -39,15 +39,20 @@ public class RoomItem : MonoBehaviour
         roomInfo.text = roomName; // + " (" + currPlayer + " / " + maxPlayer + ")"; 
         roomPlayerInfo.text = currPlayer + " / " + maxPlayer + "명";
     }
+    string MeetingDayofweeks, meetingTime, hostName, roomDesc;
     public void SetInfo(RoomInfo info)
     {
         SetInfo((string)info.CustomProperties["room_name"], info.PlayerCount, info.MaxPlayers);
 
         //desc 설정
-        roomDesc.text = (string)info.CustomProperties["descShortForm"];
+        roomShortDesc.text = (string)info.CustomProperties["descShortForm"];
         bookNameDesc.text = "대상 도서  "+(string)info.CustomProperties["book_Name"];
         ChallengePeriod.text = ((string)info.CustomProperties["date"]);
         time = ((string)info.CustomProperties["DDay"]);
+        MeetingDayofweeks =(string)info.CustomProperties["dayOfWeeks"];
+        meetingTime = (string)info.CustomProperties["meetingTime"];
+        hostName = (string)info.CustomProperties["roomHost_Name"];
+        roomDesc = (string)info.CustomProperties["desc"];
         isTimerOn = true;   
 
         //map id 설정
@@ -62,7 +67,7 @@ public class RoomItem : MonoBehaviour
         rawImage.texture = (Texture)tex;
     }
 
-
+    public GameObject gameObjectForRoomDetailDesc;
 
     public void OnClick()
     {
@@ -71,14 +76,9 @@ public class RoomItem : MonoBehaviour
         {
             //onClickAction 실행
             onClickAction(name);
+        GameObject go = Instantiate(gameObjectForRoomDetailDesc);
+     
         }
-
-        ////1. InputRoomName 게임오브젝 찾자
-        //GameObject go = GameObject.Find("InputRoomName");
-        ////2. InputField 컴포넌트 가져오자
-        //InputField inputField = go.GetComponent<InputField>();
-        ////3. text에 roomName 넣자.
-        //inputField.text = name;
     }
    /* IEnumerator GetImageData()
     {

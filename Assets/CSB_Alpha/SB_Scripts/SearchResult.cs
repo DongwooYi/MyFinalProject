@@ -20,14 +20,17 @@ public class SearchResult : MonoBehaviour
     //public Texture aa;
 
     public GameObject reviewPanelFactory;
-    public GameObject alarmFactory;
+    public GameObject doneConfirmFactory;
+    public GameObject errorFactory;
 
     public Transform myDesk;
+    public Transform canvas;
 
     public WorldManager2D wm;
 
     private void Start()
     {
+        canvas = GameObject.Find("Canvas").transform;
         worldManager = GameObject.Find("WorldManager");
         wm = worldManager.GetComponent<WorldManager2D>();
         
@@ -42,8 +45,7 @@ public class SearchResult : MonoBehaviour
         StartCoroutine(SendBookData());
 
         // <등록 되었습니다>
-        Transform canvas = GameObject.Find("Canvas").transform;
-        GameObject go = Instantiate(alarmFactory, canvas);
+        GameObject go = Instantiate(doneConfirmFactory, canvas);
     }
 
     #region Text Setting
@@ -105,9 +107,9 @@ public class SearchResult : MonoBehaviour
             {
                 // 여기서 에러 처리ㄴ
                 print("에러");
+                // <담겨있는 책입니다>
+                GameObject go = Instantiate(errorFactory, canvas);
             }
-            Debug.Log(webRequest.error);
-
         }
     }
     public void Oncompeleted()
@@ -126,22 +128,4 @@ public class SearchResult : MonoBehaviour
         convertImg.ReadPixels(new Rect(0, 0, img.width, img.height), 0, 0);
         return convertImg;
     }
-
-    void OnCompletePostMyBook(DownloadHandler handler)
-    {
-        // 처리
-        JObject jObject = JObject.Parse(handler.text);
-        int type = (int)jObject["status"];
-
-        if (type == 200)
-        {
-            print("통신 성공. 책 담기");
-            //wm.myAllBookListNet.Add();
-        }
-        else if(type == 409)
-        {
-            // <담겨있는 책입니다>
-        }
-    }
-
 }

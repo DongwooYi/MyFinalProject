@@ -17,33 +17,6 @@ public class chatData
     }
 }
 #endregion
-#region 현재 책/과거 책
-[System.Serializable]
-public class CurrBookdata
-{
-    // 도서 정보
-    public string bookName;
-    public string bookAuthor;
-    public string bookPublishInfo;
-    public string bookISBN;
-    public RawImage thumbnail;
-}
-
-[System.Serializable]
-public class PastBookdata
-{
-    // 도서 정보
-    public string bookName;
-    public string bookAuthor;
-    public string bookPublishInfo;
-    public string bookISBN;
-    public RawImage thumbnail;
-
-    public string rating;
-    public string bookReview;
-
-}
-#endregion
 
 [System.Serializable]
 public class BookData
@@ -52,18 +25,11 @@ public class BookData
     public string bookName;
     public string bookAuthor;
     public string bookPublishInfo;
-    public string thumbnailLink;
     public string bookISBN;
     public string rating;
-    public string pageSource;
     public string bookReview;
-    public string oneLineReview;
     public string isDone;
-/*    public string isActivated;
-    public string startDate;
-    public string endDate;
-    public string reportDate;
-    public string memberCode;*/
+    public string isOverHead;
 }
 
 [System.Serializable]

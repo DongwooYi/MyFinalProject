@@ -377,7 +377,7 @@ GameObject:
   - component: {fileID: 11926081}
   - component: {fileID: 11926080}
   m_Layer: 5
-  m_Name: "Scroll View_\uB2F4\uC740\uCC45"
+  m_Name: Scroll View_Book
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4555,7 +4555,6 @@ MonoBehaviour:
   book: {fileID: 0}
   bookBest: {fileID: 0}
   myAllBookListNet: []
-  myDoneBookList: []
   matBook: {fileID: 2100000, guid: b075668e458718049a46cbbe7780bfc6, type: 2}
   titleListNet: []
   authorListNet: []
@@ -4567,8 +4566,9 @@ MonoBehaviour:
   isDoneListNet: []
   isBestsListNet: []
   thumbnailImgListNet: []
+  isOverHeadListNet: []
   log: {fileID: 1455214751}
-  textBookName: {fileID: 0}
+  mask: {fileID: 676515576}
 --- !u!114 &359941975
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9620,7 +9620,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 0}
+  m_Sprite: {fileID: 21300000, guid: 85fce4dad9c8ab7408f90297762ed7f2, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -12261,7 +12261,7 @@ GameObject:
   - component: {fileID: 929699617}
   - component: {fileID: 929699616}
   m_Layer: 5
-  m_Name: "Scroll View_\uB2E4\uC77D\uC74C"
+  m_Name: Scroll View_Done
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -25554,7 +25554,6 @@ MonoBehaviour:
   bestBookList: []
   player: {fileID: 0}
   myDesk: {fileID: 7652074178039953364}
-  myCurrBookPanel: {fileID: 0}
   myBookshelf: {fileID: 919132147750414424}
   myPastBookPanel: {fileID: 1813356536}
   myBookPanel: {fileID: 1523634683}
@@ -25570,6 +25569,7 @@ MonoBehaviour:
   distance: 1.5
   test: 0
   test1: 0
+  myIndex: 0
   me: {fileID: 0}
   idx: 0
   titleListNet: []
@@ -25582,6 +25582,7 @@ MonoBehaviour:
   isDoneListNet: []
   isBestsListNet: []
   thumbnailImgListNet: []
+  isOverHeadListNet: []
 --- !u!4 &1857761108
 Transform:
   m_ObjectHideFlags: 0

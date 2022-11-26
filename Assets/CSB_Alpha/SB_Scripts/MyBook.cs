@@ -15,11 +15,14 @@ public class MyBook : MonoBehaviour
     public string bookRating;
     public string isBestStr;
 
-    public bool isDone;
+    public bool isDone; // 완독 여부
     public bool isBest;
     public bool isBestTemp; // 인생책 여부 이전 값 저장
+    public bool isOverHead;   // 대표책
+    public string isOverHeadString;
 
-    public int idx;
+    public int idx; // 나의 인덱스 (부모 기준)
+    public int myIndex;
 
     public RawImage thumbnail;
 
@@ -29,7 +32,6 @@ public class MyBook : MonoBehaviour
 
     Transform contentDoneBook;
 
-    public Button btnBestBook;
     void Start()
     {
         canvas = GameObject.Find("Canvas").transform;
@@ -72,7 +74,7 @@ public class MyBook : MonoBehaviour
 
         go.GetComponent<CurrBookInfoPanel>().SetIndex(idx); // myAllBookList 의 인덱스 값과
         go.GetComponent<CurrBookInfoPanel>().SetIsDone(isDone); // isDone 여부 넘겨줌
-
+        go.GetComponent<CurrBookInfoPanel>().SetOverHeadBook(isOverHead);
     }
 
     // ----------------------------------------------------------------------

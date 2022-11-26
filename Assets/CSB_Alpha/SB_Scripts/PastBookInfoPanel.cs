@@ -18,16 +18,40 @@ public class PastBookInfoPanel : MonoBehaviour
     public Text bookReview;
 
     public bool isBest; // 내가 인생책인가
+    bool temp;
 
+    Transform contentDoneBook;
+
+    private void Start()
+    {
+        contentDoneBook = GameObject.Find("MyPastBookPanel/Scroll View_Done/Viewport/Content").transform;
+    }
     public void OnCheck(bool checkBool)
     {
-        isBest = checkBool;
+        temp = isBest;  // 이전 값 저장
+        isBest = checkBool; // 변한 값
     }
 
     // 등록 버튼
+    List<_MyBookInfo> bookChanged = new List<_MyBookInfo>();
     public void OnClickSetBestBook()
     {
-        // 버튼 클릭하면 
+        // 버튼 클릭하면 인생책 여부
+        // 받은 인덱스에 해당하는 책의 isBest 바꾸고
+        contentDoneBook.transform.GetChild(myIndex).gameObject.GetComponent<MyBook>().isBest = isBest;
+        // 만약
+        for (int i = 0; i < contentDoneBook.childCount; i++)
+        {
+            int count = 0;
+            if (contentDoneBook.GetChild(i).gameObject.GetComponent<MyBook>().isBest)
+            {
+                count++;
+            }
+        }
+        // MyPastBookPanel 에서 저장되어 있는 인생책 수 받아와서 
+        // 만약 3개면 0번 인덱스 지우고
+        // 추가
+        // MyPastBookPanel 에서 인생책 개수 넘겨줌
     }
 
     public void OnClickExit()

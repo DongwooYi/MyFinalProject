@@ -63,7 +63,6 @@ public class MyBookManager : MonoBehaviour
         // 만약 플레이어가 책장 가까이 가면
         if(Vector3.Distance(player.transform.position, myBookshelf.transform.position) < 3.5f)
         {
-            //print("11");
             ShowBookIsDoneT();
         }
         else

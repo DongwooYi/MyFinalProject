@@ -33,13 +33,11 @@ public class MyBook : MonoBehaviour
     void Start()
     {
         canvas = GameObject.Find("Canvas").transform;
+        contentDoneBook = GameObject.Find("MyPastBookPanel/Scroll View_Done/Viewport/Content").transform;
 
-        if (gameObject.name.Contains("PastBook"))
+
+/*        if (gameObject.name.Contains("PastBook"))
         {
-            contentDoneBook = GameObject.Find("MyPastBookPanel/Scroll View_Done/Viewport/Content").transform;
-            print(contentDoneBook.name);
-            // btnBestBook = GameObject.Find("MyPastBookPanel").transform.GetChild(3).gameObject.GetComponent<Button>();
-            //print(btnBestBook.name);
             if (isBestStr == "Y")
             {
                 isBest = true;
@@ -50,8 +48,7 @@ public class MyBook : MonoBehaviour
                 isBest = false;
                 transform.GetChild(0).gameObject.GetComponent<Image>().sprite = checkMarkOutline;
             }
-        }
-        //  btnBestBook.onClick.AddListener(OnClickSetBestBook);
+        }*/
     }
 
     void Update()
@@ -105,7 +102,7 @@ public class MyBook : MonoBehaviour
 
     // 인생책 선정 관련
     // 만약 나의 이름이 PastBook 일 때
-
+/*
     public Sprite checkMark;
     public Sprite checkMarkOutline;
 
@@ -134,7 +131,7 @@ public class MyBook : MonoBehaviour
 
         }
 
-    }
+    }*/
 
     public List<BestBook> bestBookList = new List<BestBook>();
     // 인생책 저장(<인생책 등록>버튼 클릭)

@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using Newtonsoft.Json.Linq;
 using UnityEngine.UI;
+using TMPro;
 
 public class PastBookInfoPanel : MonoBehaviour
 {
@@ -13,6 +14,8 @@ public class PastBookInfoPanel : MonoBehaviour
     public Texture texture;
 
     public Text bookTitle;
+    public TMP_Text title;
+
     public Text bookAuthor;
     public Text bookIsbn;
     public Text bookInfo;
@@ -170,7 +173,7 @@ public class PastBookInfoPanel : MonoBehaviour
 
     public void SetReview(string s)
     {
-        bookReview.text = s;
+        title.text = s;
     }
 
     public void SetThumbnail(Texture texture)

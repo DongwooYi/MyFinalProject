@@ -41,17 +41,6 @@ public class SearchResult : MonoBehaviour
         imageData = TexToTex2D(thumbnail.texture).EncodeToJPG();
         StartCoroutine(SendBookData());
 
-/*        _MyBookInfo myBookInfo = new _MyBookInfo();
-
-        myBookInfo.bookName = bookTitle.text;
-        myBookInfo.bookAuthor = author.text;
-        myBookInfo.bookPublishInfo = publishInfo.text;
-        myBookInfo.bookISBN = isbn.text;
-        myBookInfo.thumbnail = thumbnail;
-        myBookInfo.isDone = false;
-
-        wm.myAllBookListNet.Add(myBookInfo);   // 월드의 myAllBookList 에 추가*/
-
         // <등록 되었습니다>
         Transform canvas = GameObject.Find("Canvas").transform;
         GameObject go = Instantiate(alarmFactory, canvas);

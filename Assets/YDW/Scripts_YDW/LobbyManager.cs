@@ -26,7 +26,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     //방이름 InputField
     public InputField inputRoomName;
     //비밀번호 InputField
-    public InputField inputPassword;
+    public InputField inputBookName;
     //총인원 InputField
     public InputField inputMaxPlayer;
     //방참가 Button
@@ -42,8 +42,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [Header("룸 리스트")]
     public GameObject roomItemFactory;
     public Transform trListContent;
-
-    public LoadGallery loadGallery;
 
     [Header("방만들기 및 방 리스트")]
     public GameObject setRoom;
@@ -68,6 +66,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject readerMate;
     public GameObject readerMateImage;
 
+    public GameObject roomDetailDesc;
     #region 요일 선택
     [Header("요일 선택")]
     public Toggle toggleMon;
@@ -95,6 +94,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        timeSelectionPannel.SetActive(false);
         welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
         textPayernameinreafermatePannel.text = PhotonNetwork.LocalPlayer.NickName + "님의\r\n독서 메이트는?";
         dropdown.onValueChanged.AddListener(delegate { HandleInputData(dropdown.value); });
@@ -102,8 +102,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         inputRoomName.onValueChanged.AddListener(OnRoomNameValueChanged);
         // 총인원(InputField)이 변경될때 호출되는 함수 등록
         inputMaxPlayer.onValueChanged.AddListener(OnMaxPlayerValueChanged);
+        CreateRoomFunctionOkayPannel.SetActive(false);
         string[] s = Microphone.devices;
         Debug.Log(Application.persistentDataPath);
+        AMPM.onValueChanged.AddListener(delegate { AMPMToggleCheck(AMPM); });
     }
     private void Update()
     {
@@ -135,6 +137,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             CreateChatroom();
         }
         ToggleCheck();
+     
     }
 
     public void SetactiveRoomCreatationPannel()
@@ -189,21 +192,28 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         hash["date"] = textCalendar.text;
         hash["descShortForm"] = inputFieldRoomDescriptionShortForm.text;
         hash["DDay"] = startDate;
-
+        hash["book_Name"] = inputBookName.text;
+        hash["roomHost_Name"] = PhotonNetwork.LocalPlayer.NickName;
+        hash["meetingTime"] = textTimeforMeeting.text;
+        hash["descRoomDetail"] = roomDetailDesc;
         roomOptions.CustomRoomProperties = hash;
         // custom 정보를 공개하는 설정
         roomOptions.CustomRoomPropertiesForLobby = new string[] {
-            "desc", "map_id", "room_name", "date", "descShortForm", "DDay"
+            "desc", "map_id", "room_name", "date", "descShortForm", "DDay", "book_Name", "meetingTime", "descRoomDetail"
         };
 
         print("img배열의" + img.Length);
         // 방 생성 요청 (해당 옵션을 이용해서)
         PhotonNetwork.CreateRoom(inputRoomName.text, roomOptions);
     }
+    public GameObject CreateRoomFunctionOkayPannel;
+
+
 
     //방이 생성되면 호출 되는 함수
     public override void OnCreatedRoom()
     {
+        CreateRoomFunctionOkayPannel.SetActive(true);
         base.OnCreatedRoom();
 
         print("OnCreatedRoom");
@@ -219,7 +229,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     //방 참가 요청
     public void JoinRoom()
     {
-        PhotonNetwork.JoinRoom(inputRoomName.text + inputPassword.text);
+        PhotonNetwork.JoinRoom(inputRoomName.text);
     }
 
     //방 참가가 완료 되었을 때 호출 되는 함수
@@ -317,11 +327,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             //};
 
             string desc = (string)info.CustomProperties["desc"];
+            GameObject gameObject = (GameObject)info.CustomProperties["descRoomDetail"];
             print(desc);
         }
     }
-    //이전 Thumbnail id
-    int prevMapId = -1;
     void SetRoomName(string room)
     {
         //룸이름 설정
@@ -331,7 +340,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     [Header("독서메이트 추천")]
     public Text textPayernameinreafermatePannel;
-    public Transform transformInReadermateImg;
+
     public void OnclickOpenReaderMatePannel()
     {
         readerMate.SetActive(true);
@@ -348,6 +357,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         HttpManager.instance.SendRequest(requester, "application/json");
 
     }
+    public List<GameObject> remate;
     public void OnCompleteGetPostAll(DownloadHandler downloadHandler)
     {
 
@@ -358,9 +368,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             readerMate.SetActive(false);
             readerMateImage.SetActive(true);
-            for (int i = 0; i < 4; i++)
+            for (int i = 0; i < remate.Count; i++)
             {
-                transformInReadermateImg.transform.GetChild(i).GetComponent<Text>().text = $"{array.data[i].name}\r\n{array.data[i].records[i].bookName}";
+
+                remate[i].GetComponentInChildren<Text>().text = $"{array.data[i].name}\r\n'{array.data[i].records[i].bookName}'를 읽는 중";
                 print(array.data[i].name + "\n" + array.data[i].records[i].bookName);
 
             }
@@ -567,7 +578,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         WWWForm form = new WWWForm();
         form.AddField("clubName", inputRoomName.text);
-        form.AddField("bookName", "이동우");
+        form.AddField("bookName", inputBookName.text);
         form.AddField("clubIntro", inputFieldRoomDescription.text);
         form.AddField("numberOfMember", inputMaxPlayer.text);
         form.AddField("recruitStartDate", DateTime.UtcNow.ToString("yyyy-MM-ddTHH:mm"));
@@ -677,8 +688,389 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
     }
     #endregion
-  
+    #region 챌린지 미팅 시간
+    [Header("챌린지 미팅 시간")]
+    public GameObject timeSelectionPannel;
+    public Button[] buttonforSelcetedime;
+    public Button[] buttonforSelcetedEndTime;
+    public Button[] buttoonforSelectedMin;
+    public Button[] buttoonforSelectedEndMin;
+    public Toggle AMPM;
+    public void OnClickEventTImeSelection()
+    {
+        timeSelectionPannel.SetActive(true);
+        AMPM.isOn = false;
+        time();
+    }
+    int indexstartHour = 1;
+    int indexstartMin = 0;
+    int indexendMin = 0;
+    void time()
+    {
+        indexstartHour = 1;
+        indexstartMin = 0;
+        indexendMin = 0;
+        for (int i = 0; i < buttonforSelcetedime.Length; i++)
+        {
+
+            buttonforSelcetedime[i].GetComponentInChildren<Text>().text = indexstartHour + "시";
+            int index = i;
+            buttonforSelcetedime[index].onClick.AddListener(() => TaskOnClickstartHour(index));
+            indexstartHour++;
+        }
+        for (int i = 0; i < buttoonforSelectedMin.Length; i++)
+        {
+            buttoonforSelectedMin[i].GetComponentInChildren<Text>().text = indexstartMin + "분";
+            int index = i;
+            buttoonforSelectedMin[index].onClick.AddListener(() => TaskOnClickstartMin(index));
+            indexstartMin += 15;
+        }
+        for (int i = 0; i < buttoonforSelectedEndMin.Length; i++)
+        {
+            buttoonforSelectedEndMin[i].GetComponentInChildren<Text>().text = indexendMin + "분";
+            int index = i;
+            buttoonforSelectedEndMin[index].onClick.AddListener(() => TaskOnClickMinEnd(index));
+            indexendMin += 15;
+        }
+
+    }
+    public string startHour, startMin, endHour, endMin, AMPMCheckString;
+    int startHourint, endHourint, startMinInt, endMinInt;
+    public void TaskOnClickstartHour(int buttonIndex)
+    {
+        startHour = buttonforSelcetedime[buttonIndex].GetComponentInChildren<Text>().text + "시";
+        startHourint = buttonIndex + 1;
+        if (startHourint == 10)
+        {
+            buttonforSelcetedEndTime[0].GetComponentInChildren<Text>().text = $"{11}";
+            buttonforSelcetedEndTime[1].GetComponentInChildren<Text>().text = $"{12}";
+            buttonforSelcetedEndTime[2].GetComponentInChildren<Text>().text = $"{1}";
+        }
+        else if (startHourint == 11)
+        {
+            buttonforSelcetedEndTime[0].GetComponentInChildren<Text>().text = $"{12}";
+            buttonforSelcetedEndTime[1].GetComponentInChildren<Text>().text = $"{1}";
+            buttonforSelcetedEndTime[2].GetComponentInChildren<Text>().text = $"{2}";
+        }
+        else if (startHourint == 12)
+        {
+            buttonforSelcetedEndTime[0].GetComponentInChildren<Text>().text = $"{1}";
+            buttonforSelcetedEndTime[1].GetComponentInChildren<Text>().text = $"{2}";
+            buttonforSelcetedEndTime[2].GetComponentInChildren<Text>().text = $"{3}";
+        }
+        else
+        {
+            buttonforSelcetedEndTime[0].GetComponentInChildren<Text>().text = $"{startHourint + 1}";
+            buttonforSelcetedEndTime[1].GetComponentInChildren<Text>().text = $"{startHourint + 2}";
+            buttonforSelcetedEndTime[2].GetComponentInChildren<Text>().text = $"{startHourint + 3}";
+        }
+        for (int i = 0; i < buttonforSelcetedEndTime.Length; i++)
+        {
+            int index = i;
+            buttonforSelcetedEndTime[index].onClick.AddListener(() => TaskOnClickHourEnd(index));
+        }
+    }
+    public void TaskOnClickstartMin(int buttonIndex)
+    {
+        indexendMin = 0;
+        startMin = buttoonforSelectedMin[buttonIndex].GetComponentInChildren<Text>().text;
+        startMinInt = buttonIndex * 15;
+
+        if (ButtonforTaskOnClickHourEnd == 2)
+        {
+            if (startMinInt == 0)
+            {
+                buttoonforSelectedEndMin[0].GetComponentInChildren<Text>().text = "0분";
+                buttoonforSelectedEndMin[1].GetComponentInChildren<Text>().text = $"--";
+                buttoonforSelectedEndMin[2].GetComponentInChildren<Text>().text = $"--";
+                buttoonforSelectedEndMin[3].GetComponentInChildren<Text>().text = $"--";
+
+            }
+            else if (startMinInt == 15)
+            {
+                buttoonforSelectedEndMin[0].GetComponentInChildren<Text>().text = "00분";
+                buttoonforSelectedEndMin[1].GetComponentInChildren<Text>().text = "15분";
+                buttoonforSelectedEndMin[2].GetComponentInChildren<Text>().text = $"--";
+                buttoonforSelectedEndMin[3].GetComponentInChildren<Text>().text = $"--";
+            }
+            else if (startMinInt == 30)
+            {
+                buttoonforSelectedEndMin[0].GetComponentInChildren<Text>().text = "00분";
+                buttoonforSelectedEndMin[1].GetComponentInChildren<Text>().text = "15분";
+                buttoonforSelectedEndMin[2].GetComponentInChildren<Text>().text = "30분";
+                buttoonforSelectedEndMin[3].GetComponentInChildren<Text>().text = $"--";
+            }
+            else if (startMinInt == 45)
+            {
+                buttoonforSelectedEndMin[0].GetComponentInChildren<Text>().text = "00분";
+                buttoonforSelectedEndMin[1].GetComponentInChildren<Text>().text = "15분";
+                buttoonforSelectedEndMin[2].GetComponentInChildren<Text>().text = "30분";
+                buttoonforSelectedEndMin[3].GetComponentInChildren<Text>().text = "45분";
+            }
+        }
+    }
+    int ButtonforTaskOnClickHourEnd;
+    public void TaskOnClickHourEnd(int buttonIndex)
+    {
+        indexendMin = 0;
+        ButtonforTaskOnClickHourEnd = buttonIndex;
+        endHour = buttonforSelcetedEndTime[buttonIndex].GetComponentInChildren<Text>().text;
+        endHourint = int.Parse(endHour);
+        print(ButtonforTaskOnClickHourEnd);
+        if (buttonIndex == 2)
+        {
+            if (startMinInt == 0)
+            {
+                buttoonforSelectedEndMin[0].GetComponentInChildren<Text>().text = "0분";
+                buttoonforSelectedEndMin[1].GetComponentInChildren<Text>().text = $"--";
+                buttoonforSelectedEndMin[2].GetComponentInChildren<Text>().text = $"--";
+                buttoonforSelectedEndMin[3].GetComponentInChildren<Text>().text = $"--";
+
+            }
+            else if (startMinInt == 15)
+            {
+                buttoonforSelectedEndMin[0].GetComponentInChildren<Text>().text = "00분";
+                buttoonforSelectedEndMin[1].GetComponentInChildren<Text>().text = "15분";
+                buttoonforSelectedEndMin[2].GetComponentInChildren<Text>().text = $"--";
+                buttoonforSelectedEndMin[3].GetComponentInChildren<Text>().text = $"--";
+            }
+            else if (startMinInt == 30)
+            {
+                buttoonforSelectedEndMin[0].GetComponentInChildren<Text>().text = "00분";
+                buttoonforSelectedEndMin[1].GetComponentInChildren<Text>().text = "15분";
+                buttoonforSelectedEndMin[2].GetComponentInChildren<Text>().text = "30분";
+                buttoonforSelectedEndMin[3].GetComponentInChildren<Text>().text = $"--";
+            }
+            else if (startMinInt == 45)
+            {
+                buttoonforSelectedEndMin[0].GetComponentInChildren<Text>().text = "00분";
+                buttoonforSelectedEndMin[1].GetComponentInChildren<Text>().text = "15분";
+                buttoonforSelectedEndMin[2].GetComponentInChildren<Text>().text = "30분";
+                buttoonforSelectedEndMin[3].GetComponentInChildren<Text>().text = "45분";
+            }
+        }
+        else
+        {
+            for (int i = 0; i < buttoonforSelectedEndMin.Length; i++)
+            {
+                buttoonforSelectedEndMin[i].GetComponentInChildren<Text>().text = indexendMin + "분";
+                int index = i;
+                buttoonforSelectedEndMin[index].onClick.AddListener(() => TaskOnClickMinEnd(index));
+                indexendMin += 15;
+            }
+        }
+    }
+    public void TaskOnClickMinEnd(int buttonIndex)
+    {
+        endMin = buttoonforSelectedEndMin[buttonIndex].GetComponentInChildren<Text>().text;
+        endMinInt = buttonIndex * 15;
+        print(endMin);
+    }
+    public void AMPMToggleCheck(Toggle toggle)
+    {
+        if (toggle.isOn)
+        {
+            AMPMCheckString = "AM";
+        }
+        else
+        {
+            AMPMCheckString = "PM";
+        }
+        print(AMPMCheckString);
+    }
+    public Text textTimeforMeeting;
+    public void GetTime()
+    {
+        timeSelectionPannel.SetActive(false);
+        if(endMin =="--")
+        {
+            textTimeforMeeting.text = "3시간을 초과된 시간입니다.\r\n다시 시간을 지정해주세요.";
+        }
+      else if (AMPM.isOn)
+        {
+            if (startMinInt == 0)
+            {
+                if (endMinInt == 0)
+                {
+                    if (startHourint == 10)
+                    {
+                        textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:0{startMinInt}~PM{endHourint}:0{endMinInt}";
+                    }
+                    else if (startHourint == 11)
+                    {
+                        textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:0{startMinInt}~PM{endHourint}:0{endMinInt}";
+                    }
+                    else if (startHourint == 12)
+                    {
+                        textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:0{startMinInt}~PM{endHourint}:0{endMinInt}";
+                    }
+                    else
+                    {
+                        textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:0{startMinInt}~{AMPMCheckString}{endHourint}:0{endMinInt}";
+                    }
+                }
+                else
+                {
+
+                    if (startHourint == 10)
+                    {
+                        textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:0{startMinInt}~PM{endHourint}:{endMinInt}";
+                    }
+                    else if (startHourint == 11)
+                    {
+                        textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:0{startMinInt}~PM{endHourint}:{endMinInt}";
+                    }
+                    else if (startHourint == 12)
+                    {
+                        textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:0{startMinInt}~PM{endHourint}:{endMinInt}";
+                    }
+                    else
+                    {
+                        textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:0{startMinInt}~{AMPMCheckString}{endHourint}:{endMinInt}";
+                    }
+                }
+            }
+            else if (startMinInt != 0 && endMinInt == 0)
+            {
+                if (startHourint == 10)
+                {
+                    textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:{startMinInt}~PM{endHourint}:0{endMinInt}";
+                }
+                else if (startHourint == 11)
+                {
+                    textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:{startMinInt}~PM{endHourint}:0{endMinInt}";
+                }
+                else if (startHourint == 12)
+                {
+                    textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:{startMinInt}~PM{endHourint}:0{endMinInt}";
+                }
+                else
+                {
+                    textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:{startMinInt}~{AMPMCheckString}{endHourint}:0{endMinInt}";
+                }
+            }
+            else
+            {
+                if (startHourint == 10)
+                {
+                    textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:{startMinInt}~PM{endHourint}:{endMinInt}";
+                }
+                else if (startHourint == 11)
+                {
+                    textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:{startMinInt}~PM{endHourint}:{endMinInt}";
+                }
+                else if (startHourint == 12)
+                {
+                    textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:{startMinInt}~PM{endHourint}:{endMinInt}";
+                }
+                else
+                {
+                    textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:{startMinInt}~{AMPMCheckString}{endHourint}:{endMinInt}";
+                }
+            }
+        }
+        else
+        {
+            if (startMinInt == 0)
+            {
+                if (endMinInt == 0)
+                {
+                    if (startHourint == 10)
+                    {
+                        textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:0{startMinInt}~AM{endHourint}:0{endMinInt}";
+                    }
+                    else if (startHourint == 11)
+                    {
+                        textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:0{startMinInt}~AM{endHourint}:0{endMinInt}";
+                    }
+                    else if (startHourint == 12)
+                    {
+                        textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:0{startMinInt}~AM{endHourint}:0{endMinInt}";
+                    }
+                    else
+                    {
+                        textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:0{startMinInt}~{AMPMCheckString}{endHourint}:0{endMinInt}";
+                    }
+                }
+                else
+                {
+
+                    if (startHourint == 10)
+                    {
+                        textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:0{startMinInt}~AM{endHourint}:{endMinInt}";
+                    }
+                    else if (startHourint == 11)
+                    {
+                        textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:0{startMinInt}~AM{endHourint}:{endMinInt}";
+                    }
+                    else if (startHourint == 12)
+                    {
+                        textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:0{startMinInt}~AM{endHourint}:{endMinInt}";
+                    }
+                    else
+                    {
+                        textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:0{startMinInt}~{AMPMCheckString}{endHourint}:{endMinInt}";
+                    }
+                }
+            }
+            else if (startMinInt != 0 && endMinInt == 0)
+            {
+                if (startHourint == 10)
+                {
+                    textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:{startMinInt}~AM{endHourint}:0{endMinInt}";
+                }
+                else if (startHourint == 11)
+                {
+                    textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:{startMinInt}~AM{endHourint}:0{endMinInt}";
+                }
+                else if (startHourint == 12)
+                {
+                    textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:{startMinInt}~AM{endHourint}:0{endMinInt}";
+                }
+                else
+                {
+                    textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:{startMinInt}~{AMPMCheckString}{endHourint}:0{endMinInt}";
+                }
+            }
+            else
+            {
+                if (startHourint == 10)
+                {
+                    textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:{startMinInt}~AM{endHourint}:{endMinInt}";
+                }
+                else if (startHourint == 11)
+                {
+                    textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:{startMinInt}~AM{endHourint}:{endMinInt}";
+                }
+                else if (startHourint == 12)
+                {
+                    textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:{startMinInt}~AM{endHourint}:{endMinInt}";
+                }
+                else
+                {
+                    textTimeforMeeting.text = $"{AMPMCheckString}{startHourint}:{startMinInt}~{AMPMCheckString}{endHourint}:{endMinInt}";
+                }
+            }
+            Debug.Log("토글 AM/PM : " + AMPM.isOn + textTimeforMeeting.text);
+
+        }
+    }
+    IEnumerator BlinkToggle()
+    {
+        int count = 0;
+        while (count < 3)
+        {
+            AMPM.gameObject.SetActive(false);
+            yield return new WaitForSeconds(0.5f);
+            AMPM.gameObject.SetActive(true);
+            yield return new WaitForSeconds(0.5f);
+            count++;
+        }
+    }
+    #endregion
 }
+
+
 
 
 

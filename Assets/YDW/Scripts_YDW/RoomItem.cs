@@ -13,6 +13,7 @@ public class RoomItem : MonoBehaviour
 
     //설명
     public Text roomDesc;
+    public Text bookNameDesc;
     public Text ChallengePeriod;
     public Text textTimer;
     public RawImage rawImage;
@@ -44,9 +45,11 @@ public class RoomItem : MonoBehaviour
 
         //desc 설정
         roomDesc.text = (string)info.CustomProperties["descShortForm"];
+        bookNameDesc.text = "대상 도서  "+(string)info.CustomProperties["book_Name"];
         ChallengePeriod.text = ((string)info.CustomProperties["date"]);
         time = ((string)info.CustomProperties["DDay"]);
         isTimerOn = true;   
+
         //map id 설정
         map_id = (byte[])info.CustomProperties["map_id"];
         print("mapID 배열"+ map_id.Length);
@@ -86,6 +89,6 @@ public class RoomItem : MonoBehaviour
     {
         DateTime expiringTime = DateTime.Parse(time);
         TimeSpan remainingTime = expiringTime - DateTime.Now;
-        textTimer.text = $"D-{remainingTime.Days}";    
+        textTimer.text = $"D-{remainingTime.Days+1}";    
     }
 }

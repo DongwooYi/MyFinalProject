@@ -20,4 +20,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/0Beta/MyRoomScene_Beta.unity
     guid: 835c44fbf03dec54b8a2fd23875633a6
+  - enabled: 1
+    path: Assets/CSB_Alpha/SB_Scenes/MyRoomScene_Beta 1.unity
+    guid: e96f9bf5b9a734d48a652c5a57f1da26
   m_configObjects: {}

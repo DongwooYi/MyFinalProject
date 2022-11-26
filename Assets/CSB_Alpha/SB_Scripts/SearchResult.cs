@@ -108,11 +108,17 @@ public class SearchResult : MonoBehaviour
         if (webRequest.result == UnityWebRequest.Result.Success)
         {
             print("성공");
-
+            print(webRequest.result);
         }
         else
         {
+            if(webRequest.error == "HTTP/1.1 409 Conflict")
+            {
+                // 여기서 에러 처리ㄴ
+                print("에러");
+            }
             Debug.Log(webRequest.error);
+
         }
     }
     public void Oncompeleted()

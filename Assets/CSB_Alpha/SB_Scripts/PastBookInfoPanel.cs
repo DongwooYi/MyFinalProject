@@ -70,7 +70,8 @@ public class PastBookInfoPanel : MonoBehaviour
                 }
                 // 리스트에 추가
                 BestBookList.Add(contentDoneBook.GetChild(i).gameObject);
-                // BsetBookList 의 도서들
+                // 인생책으로 등록되었습니다 UI 띄우기
+                // 
             }
         }
 

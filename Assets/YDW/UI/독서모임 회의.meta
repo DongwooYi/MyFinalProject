@@ -1,7 +1,12 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/YDW/UI/독서모임 회의.meta
 guid: 07504fdf1b9cc1145a5725f89dc5bb8e
 folderAsset: yes
 DefaultImporter:
+========
+guid: fa26e880ea000164393f65ed9fd91a5d
+PrefabImporter:
+>>>>>>>> main:Assets/CSB_Alpha/SB_Prefabs/Review.prefab.meta
   externalObjects: {}
   userData: 
   assetBundleName: 

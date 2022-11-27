@@ -273,6 +273,7 @@ public class CurrBookInfoPanel : MonoBehaviour
     public void OnisDoneToggleClicked(bool isDone)
     {
         print(isDone);
+        print("¿Ö ¾È¹Ù²¸");
     }
     #endregion
 

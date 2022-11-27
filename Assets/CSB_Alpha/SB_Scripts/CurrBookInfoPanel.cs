@@ -13,9 +13,8 @@ public class CurrBookInfoPanel : MonoBehaviour
 {
     Transform canvas;
     public GameObject bookFactory;  // 담은도서 목록 공장
-    public GameObject alarmFactory;     // 등록됨 안내 메시지 띄우기
     public GameObject headConfirm; // <대표책이 설정되었습니다> 안내
-    public GameObject doneBookConfirm;  // <읽은책 설정되었습니다> 안내
+    public GameObject doneBookConfirm;  // <나의 서재에 담겼습니다> 설정되었습니다> 안내
 
     GameObject worldManager;
     GameObject myBookManager;
@@ -63,19 +62,21 @@ public class CurrBookInfoPanel : MonoBehaviour
 
     WorldManager2D wm;
 
-/*    public void ToggleHead(Toggle headBook)
-    {
-        print("토글");
-        if (headBook.isOn)
+    /*    public void ToggleHead(Toggle headBook)
         {
-            print("토글" + headBook.isOn);
-            showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
-            //player.transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
-        }
-    }*/
+            print("토글");
+            if (headBook.isOn)
+            {
+                print("토글" + headBook.isOn);
+                showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
+                //player.transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
+            }
+        }*/
 
+    HttpManager httpManager;
     void Start()
     {
+       
         myBookPanel = GameObject.Find("MyBookPanel").transform;
         contentBook = GameObject.Find("Scroll View_Book/Viewport/Content").transform;
         contentDoneBook = GameObject.Find("Scroll View_Done/Viewport/Content").transform;
@@ -150,15 +151,20 @@ public class CurrBookInfoPanel : MonoBehaviour
 
 
         // <등록 되었습니다>
-        GameObject go = Instantiate(alarmFactory, gameObject.transform);    // 나의 자식으로 생성
+        GameObject go = Instantiate(doneBookConfirm, gameObject.transform);    // 나의 자식으로 생성
     }
 
     // 나가기 버튼 (누르면 저장되지 않음)
     public void OnClickExit()
     {
-        // 작성한 리뷰와 평점 초기화... 할 필요가 없네
-        // 나 자신 초기화
         Destroy(gameObject);
+    }
+
+    // <등록되었습니다> 닫기 버튼
+    public void OnClickConfirmMyBook()
+    {
+        Destroy(gameObject);
+
     }
 
     #region 텍스트 세팅 관련
@@ -194,7 +200,7 @@ public class CurrBookInfoPanel : MonoBehaviour
 
     public void SetReview(string s)
     {
-        reviewTMP.text = s;
+        review.text = s;
     }
 
     public void SetIndex(int num)
@@ -220,7 +226,7 @@ public class CurrBookInfoPanel : MonoBehaviour
         //showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
     }
 
-    // 닫기 버튼 누리면 대표책 등록 완료
+    // 대표책 설정완료 안내 이후, 닫기 버튼 누르면 대표책 등록 완료
     public void OnClickHeadBookConfirmBook()
     {
         // 다른 책들 isOverHead = false & isOverHeadString = "N" 로 
@@ -253,6 +259,8 @@ public class CurrBookInfoPanel : MonoBehaviour
             }
         }
         showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
+
+        Destroy(gameObject);
     }
 
     public void SetIsDone(bool done)
@@ -260,7 +268,7 @@ public class CurrBookInfoPanel : MonoBehaviour
         isDone = done;
         // 토글에 체크 표시
         checkIsDone.isOn = done;
-        print("check : " + checkIsDone.isOn);
+        print("체크 : " + checkIsDone.isOn);
     }
     public void OnisDoneToggleClicked(bool isDone)
     {

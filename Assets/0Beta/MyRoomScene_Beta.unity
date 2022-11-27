@@ -3006,7 +3006,7 @@ RectTransform:
   - {fileID: 1168913741}
   - {fileID: 26195897}
   m_Father: {fileID: 1754603825}
-  m_RootOrder: 3
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -7464,6 +7464,37 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!1 &508086621
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 508086622}
+  m_Layer: 0
+  m_Name: DataManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &508086622
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 508086621}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 10
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &508408920
 GameObject:
   m_ObjectHideFlags: 0
@@ -7828,7 +7859,7 @@ RectTransform:
   - {fileID: 171738765}
   - {fileID: 332886588}
   m_Father: {fileID: 1754603825}
-  m_RootOrder: 4
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -24050,7 +24081,7 @@ RectTransform:
   m_Children:
   - {fileID: 1934907844}
   m_Father: {fileID: 1754603825}
-  m_RootOrder: 6
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -27160,7 +27191,7 @@ RectTransform:
   - {fileID: 28381238}
   - {fileID: 414476963}
   m_Father: {fileID: 1754603825}
-  m_RootOrder: 5
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -28412,15 +28443,15 @@ RectTransform:
   - {fileID: 1311056387}
   - {fileID: 1842758846}
   - {fileID: 880593632}
+  - {fileID: 4340402152867210949}
+  - {fileID: 4500040090322683734}
+  - {fileID: 2429078624622366754}
   - {fileID: 218841930}
   - {fileID: 521006723}
   - {fileID: 1706632773}
   - {fileID: 1516213964}
   - {fileID: 2139409202}
   - {fileID: 3377152240945097700}
-  - {fileID: 4340402152867210949}
-  - {fileID: 4500040090322683734}
-  - {fileID: 2429078624622366754}
   m_Father: {fileID: 0}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -35918,7 +35949,7 @@ RectTransform:
   - {fileID: 1553253611}
   - {fileID: 1146331529}
   m_Father: {fileID: 1754603825}
-  m_RootOrder: 7
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -38357,7 +38388,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 31.644, y: -144}
+  m_AnchoredPosition: {x: 5, y: -164}
   m_SizeDelta: {x: 120, y: 120}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2429078624538452794
@@ -38404,7 +38435,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 359941974}
         m_TargetAssemblyTypeName: WorldManager2D, Assembly-CSharp
         m_MethodName: OnClickGoBack
         m_Mode: 1
@@ -38490,7 +38521,7 @@ RectTransform:
   - {fileID: 2429078624538452793}
   - {fileID: 2429078625135157493}
   m_Father: {fileID: 1754603825}
-  m_RootOrder: 11
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -38573,8 +38604,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 169.67831, y: -292}
-  m_SizeDelta: {x: 720, y: 120}
+  m_AnchoredPosition: {x: 209, y: -318.04}
+  m_SizeDelta: {x: 776.0149, y: 120}
   m_Pivot: {x: 0, y: 1}
 --- !u!114 &2429078625043597464
 MonoBehaviour:
@@ -38826,7 +38857,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -808.61, y: -312}
+  m_AnchoredPosition: {x: -897.5, y: -328.04}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 1, y: 1}
 --- !u!114 &2429078625236085834
@@ -38873,7 +38904,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 359941974}
         m_TargetAssemblyTypeName: WorldManager2D, Assembly-CSharp
         m_MethodName: OnClickSearchBook
         m_Mode: 1
@@ -40943,7 +40974,7 @@ RectTransform:
   - {fileID: 3377152240065075823}
   - {fileID: 3377152240000166573}
   m_Father: {fileID: 1754603825}
-  m_RootOrder: 8
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -42645,7 +42676,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -643.9641}
+  m_AnchoredPosition: {x: 0, y: -707}
   m_SizeDelta: {x: 937.2426, y: 706.8564}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4340402151294984231
@@ -42925,9 +42956,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MyCurrBookPanel, Assembly-CSharp
-        m_MethodName: OnClickExitPast
+      - m_Target: {fileID: 1857761107}
+        m_TargetAssemblyTypeName: MyBookManager, Assembly-CSharp
+        m_MethodName: OnClickExitMyBookPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -42962,7 +42993,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 20, y: -155}
+  m_AnchoredPosition: {x: 0, y: -179}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &4340402151772329775
@@ -43306,7 +43337,7 @@ RectTransform:
   - {fileID: 4340402151294984230}
   - {fileID: 4340402151772329774}
   m_Father: {fileID: 1754603825}
-  m_RootOrder: 9
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -43497,7 +43528,7 @@ RectTransform:
   - {fileID: 4500040091219529245}
   - {fileID: 4500040090870256515}
   m_Father: {fileID: 1754603825}
-  m_RootOrder: 10
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
@@ -43604,9 +43635,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: MyCurrBookPanel, Assembly-CSharp
-        m_MethodName: OnClickExitPast
+      - m_Target: {fileID: 1857761107}
+        m_TargetAssemblyTypeName: MyBookManager, Assembly-CSharp
+        m_MethodName: OnClickExitMyPastBookPanel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -43633,7 +43664,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 2, y: -143}
+  m_AnchoredPosition: {x: 0, y: -176}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0, y: 1}
 --- !u!1 &4500040090870256516

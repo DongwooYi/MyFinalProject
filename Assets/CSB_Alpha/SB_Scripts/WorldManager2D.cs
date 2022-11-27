@@ -76,8 +76,12 @@ public class WorldManager2D : MonoBehaviour
 
     public Material matBook;    // 책의 Material
 
+        HttpManager httpManager;
     void Start()
     {
+        
+        showBook = GameObject.Find("ShowBook");
+
         book = GameObject.Find("Book");
         bookBest = GameObject.Find("myroom/MyBestBookShelf");
         print(bookBest.name);
@@ -171,7 +175,7 @@ public class WorldManager2D : MonoBehaviour
         searchBookPanel.SetActive(true);
     }
 
-    // 뒤로 버튼 관련
+    // <책검색> 뒤로 버튼 관련
     public void OnClickGoBack()
     {
         // 초기화

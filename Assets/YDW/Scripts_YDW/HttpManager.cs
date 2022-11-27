@@ -6,6 +6,8 @@ using UnityEngine.Networking;
 
 public class HttpManager : MonoBehaviour
 {
+    public Texture showBookTex;
+
     public static HttpManager instance;
     public string nickName = "";
     

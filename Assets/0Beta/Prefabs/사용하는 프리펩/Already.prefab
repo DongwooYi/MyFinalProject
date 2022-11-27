@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 2760973701468999313}
   - component: {fileID: 2760973701468999314}
   m_Layer: 5
-  m_Name: Btn.Exit
+  m_Name: Btn_Exit
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -120,7 +120,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 2760973701468999313}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1933684705519239020}
+        m_TargetAssemblyTypeName: OkayButton, Assembly-CSharp
+        m_MethodName: OnClickOk
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!1 &2760973702688542027
 GameObject:
   m_ObjectHideFlags: 0
@@ -132,8 +144,9 @@ GameObject:
   - component: {fileID: 2760973702688542026}
   - component: {fileID: 2760973702688542024}
   - component: {fileID: 2760973702688542025}
+  - component: {fileID: 1933684705519239020}
   m_Layer: 5
-  m_Name: "\uC774\uBBF8\uB2F4\uAE34\uCC45\uC548\uB0B4"
+  m_Name: Already
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -198,3 +211,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &1933684705519239020
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2760973702688542027}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8265b36cf7c5284ab76dee747c3825e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

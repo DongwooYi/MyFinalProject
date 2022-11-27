@@ -151,8 +151,10 @@ public class CurrBookInfoPanel : MonoBehaviour
 
 
         // <등록 되었습니다>
-        GameObject go = Instantiate(doneBookConfirm, gameObject.transform);    // 나의 자식으로 생성
+        confirmMsg = Instantiate(doneBookConfirm, gameObject.transform);    // 나의 자식으로 생성
     }
+
+    GameObject confirmMsg;
 
     // 나가기 버튼 (누르면 저장되지 않음)
     public void OnClickExit()
@@ -160,10 +162,10 @@ public class CurrBookInfoPanel : MonoBehaviour
         Destroy(gameObject);
     }
 
-    // <등록되었습니다> 닫기 버튼
+    // <나의 서재에 담겼었습니다> 닫기 버튼
     public void OnClickConfirmMyBook()
     {
-        Destroy(gameObject);
+        Destroy(confirmMsg);
 
     }
 
@@ -349,12 +351,14 @@ public class CurrBookInfoPanel : MonoBehaviour
         {
             print("되나?");
             wm.myAllBookListNet.Clear();
+            HttpGetMyBookData();
         }
     }
 
     // 1. 월드 입장시 요청할 API : 읽은 책(책장), 인생책 (낮은 책장) 정보 보내주기
     public void HttpGetMyBookData()
-    {            // 각 data 리스트들 초기화
+    {            
+        // 각 data 리스트들 초기화
         wm.titleListNet.Clear();
         wm.authorListNet.Clear();
         wm.publishInfoListNet.Clear();

@@ -4,20 +4,12 @@ using UnityEngine;
 
 public class OkayButton : MonoBehaviour
 {
-    void Start()
-    {
-        
-    }
-
-    void Update()
-    {
-        
-    }
 
     public void OnClickOk()
     {
         Destroy(gameObject);
-        Destroy(GameObject.Find("MyReviewPanel(Clone)"));
-        Destroy(GameObject.Find("CurrBookInfoPanel(Clone)"));
+        Destroy(GameObject.Find("ConfirmMyBook(Clone)"));
+        Destroy(GameObject.Find("Already(Clone)"));
     }
+
 }

@@ -58,6 +58,7 @@ public class ChatManager : MonoBehaviourPun
     public GameObject player;
     Scene sceneName;
 
+    HttpManager httpManager;
     void Start()
     {
         sceneName = SceneManager.GetActiveScene();
@@ -136,8 +137,8 @@ public class ChatManager : MonoBehaviourPun
     public RectTransform AIScrollView;
 
     string jsonData;
-
-    string j;
+    string j; 
+    GameObject item;
     [PunRPC]
     void RpcAddChat(string nick, string chatText)
     {
@@ -155,12 +156,19 @@ public class ChatManager : MonoBehaviourPun
         StopAllCoroutines();
         StartCoroutine("ChattingSpeech");
         }
-        
+        if(httpManager.nickName == nick)
+        {
+       item= Instantiate(chatItemFactory, trContent);
+       
+        }
+        else
+        {
+
+        }
         //0. 바뀌기 전의 Content H값을 넣자
         prevContentH = trContent.sizeDelta.y;
 
         //1. ChatItem을 만든다(부모를 Scorllview의 Content)
-        GameObject item = Instantiate(chatItemFactory, trContent);
 
         //2.만든 ChatItem에서 ChatItem 컴포넌트 가져온다
         ChatItem chat = item.GetComponent<ChatItem>();

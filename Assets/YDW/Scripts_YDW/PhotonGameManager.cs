@@ -10,6 +10,7 @@ public class PhotonGameManager : MonoBehaviourPunCallbacks
     {
         instance = this;
     }
+    public GameObject playerPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -17,10 +18,10 @@ public class PhotonGameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.SerializationRate = 60;
         //Rpc »£√‚ ∫Ûµµ
         PhotonNetwork.SendRate = 60;
-        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
-
+        PhotonNetwork.Instantiate(playerPrefab.name, Vector3.zero, Quaternion.identity);
+    //playerPrefab.GetComponentInChildren<MeshRenderer>().material.mainTexture= 
     }
-
+  
     private void Update()
     {
         if(NPC.isTiggerEnter || NPC.isTriggershowRoomList)

@@ -137,13 +137,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             CreateChatroom();
         }
         ToggleCheck();
-     
+
     }
-    public void SetactiveRoomCreatationPannel()
-    {
-        
-        setRoom.SetActive(true);
-    }
+
+    #region Photon 방만들기
     public void OnRoomNameValueChanged(string s)
     {
         //참가
@@ -207,14 +204,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         // 방 생성 요청 (해당 옵션을 이용해서)
         PhotonNetwork.CreateRoom(inputRoomName.text, roomOptions);
     }
-    public GameObject CreateRoomFunctionOkayPannel;
-
-
 
     //방이 생성되면 호출 되는 함수
     public override void OnCreatedRoom()
     {
-        CreateRoomFunctionOkayPannel.SetActive(true);
         base.OnCreatedRoom();
 
         print("OnCreatedRoom");
@@ -322,7 +315,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             RoomItem item = go.GetComponent<RoomItem>();
             item.SetInfo(info);
 
-            
+
             //roomItem 버튼이 클릭되면 호출되는 함수 등록
             item.onClickAction = SetRoomName;
             //람다식
@@ -339,6 +332,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         //룸이름 설정
         inputRoomName.text = room;
     }
+    #endregion
     #region 독서메이트 setactive
 
     [Header("독서메이트 추천")]
@@ -387,11 +381,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
         print("조회 완료");
     }
-    public void GoBacktoMainWorld()
-    {
-        setRoomlist.SetActive(false);
-        CreateChatroom();
-    }
+
     #endregion
     #region 날짜
     DateTime dt;
@@ -609,9 +599,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         else
         {
             print("Post성공");
-            CreateRoom();
+            CreateRoomFunctionOkayPannel.SetActive(true);
         }
     }
+
+
     IEnumerator SetactiveRoomCreation()
     {
         FailCreateaRoom.SetActive(true);
@@ -889,11 +881,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void GetTime()
     {
         timeSelectionPannel.SetActive(false);
-        if(endMin =="--")
+        if (endMin == "--")
         {
             textTimeforMeeting.text = "3시간을 초과된 시간입니다.\r\n다시 시간을 지정해주세요.";
         }
-      else if (AMPM.isOn)
+        else if (AMPM.isOn)
         {
             if (startMinInt == 0)
             {
@@ -1073,6 +1065,42 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             yield return new WaitForSeconds(0.5f);
             count++;
         }
+    }
+    #endregion
+    #region 이벤트 함수
+    [Header("모임 생성 취소 판넬")]
+    public GameObject CancelPannel;
+    public GameObject CreateRoomFunctionOkayPannel;
+    public GameObject readerMatePannel;
+    public void OnclickCancelRoomCreation()
+    {
+        CancelPannel.SetActive(true);
+    }
+    public void OnClickGoBacktoCreation()
+    {
+        CancelPannel.SetActive(false);
+    }
+    public void GoBacktoMainWorld()
+    {
+        setRoomlist.SetActive(false);
+        CreateChatroom();
+    }
+    public void SetactiveRoomCreatationPannel()
+    {
+
+        setRoom.SetActive(true);
+    }
+
+    public void SetDeactiveRoomCreationPannel()
+    {
+        setRoom.SetActive(false);
+        CancelPannel.SetActive(false);
+        setRoomlist.SetActive(true);
+    }
+    public void BacktoRoomList()
+    {
+        readerMatePannel.SetActive(false);
+        setRoomlist.SetActive(true);
     }
     #endregion
 }

@@ -175,7 +175,7 @@ public class WorldManager2D : MonoBehaviour
         searchBookPanel.SetActive(true);
     }
 
-    // 뒤로 버튼 관련
+    // <책검색> 뒤로 버튼 관련
     public void OnClickGoBack()
     {
         // 초기화

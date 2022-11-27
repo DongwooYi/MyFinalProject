@@ -285,6 +285,16 @@ public class MyBookManager : MonoBehaviour
         }
     }
 
+    public void OnClickExitMyBookPanel()
+    {
+        myBookPanel.SetActive(false);
+    }
+    
+    public void OnClickExitMyPastBookPanel()
+    {
+        myPastBookPanel.SetActive(false);
+    }
+
     public GameObject me;
     public int idx;
 

@@ -134,12 +134,17 @@ public class PastBookInfoPanel : MonoBehaviour
             print("인생책 통신 됨?");
         }
     }
-
-    #region 텍스트 세팅 관련
     public void OnClickExit()
     {
         Destroy(gameObject);
     }
+
+    public void OnClickConfirmBestBook()
+    {
+        Destroy(gameObject);
+    }
+
+    #region 텍스트 세팅 관련
 
     public void SetMyIndex(int num)
     {

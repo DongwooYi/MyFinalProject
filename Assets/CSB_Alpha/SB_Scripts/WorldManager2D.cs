@@ -262,7 +262,7 @@ public class WorldManager2D : MonoBehaviour
         }
     }
 
-    public Text log;
+    //public Text log;
     public void GETThumbnailTexture()
     {
         StartCoroutine(GetThumbnailImg(thumbnailLinkListNet.ToArray()));

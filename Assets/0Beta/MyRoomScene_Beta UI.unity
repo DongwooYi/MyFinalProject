@@ -25385,14 +25385,13 @@ MonoBehaviour:
   inputFieldRoomDescription: {fileID: 1125811429}
   inputFieldRoomDescriptionShortForm: {fileID: 1976743590}
   inputRoomName: {fileID: 1862854607}
-  inputPassword: {fileID: 433402523}
+  inputBookName: {fileID: 0}
   inputMaxPlayer: {fileID: 1185149743}
   btnJoin: {fileID: 1377652916}
   btnCreate: {fileID: 980820284}
   doorCheck: {fileID: 9096773608882701692}
   roomItemFactory: {fileID: 356185162197043259, guid: 15a15981542e4e948906f696a2171cd0, type: 3}
   trListContent: {fileID: 178871613}
-  loadGallery: {fileID: 0}
   setRoom: {fileID: 521006722}
   setRoomlist: {fileID: 218841929}
   FailCreateaRoom: {fileID: 535375117}
@@ -25404,6 +25403,7 @@ MonoBehaviour:
   worldManager2D: {fileID: 359941974}
   readerMate: {fileID: 1168913740}
   readerMateImage: {fileID: 26195896}
+  roomDetailDesc: {fileID: 0}
   toggleMon: {fileID: 563416980}
   toggleTue: {fileID: 2872580}
   toggleWed: {fileID: 401771608}
@@ -25426,10 +25426,25 @@ MonoBehaviour:
   satText: 
   sunText: 
   textPayernameinreafermatePannel: {fileID: 1723924947}
-  transformInReadermateImg: {fileID: 26195897}
+  remate: []
   recruitDate: 
   lobbyManager: {fileID: 1851127533}
   image: {fileID: 1012059851}
+  timeSelectionPannel: {fileID: 0}
+  buttonforSelcetedime: []
+  buttonforSelcetedEndTime: []
+  buttoonforSelectedMin: []
+  buttoonforSelectedEndMin: []
+  AMPM: {fileID: 0}
+  startHour: 
+  startMin: 
+  endHour: 
+  endMin: 
+  AMPMCheckString: 
+  textTimeforMeeting: {fileID: 0}
+  CancelPannel: {fileID: 0}
+  CreateRoomFunctionOkayPannel: {fileID: 0}
+  readerMatePannel: {fileID: 0}
 --- !u!4 &1851127535
 Transform:
   m_ObjectHideFlags: 0

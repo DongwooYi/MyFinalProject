@@ -6,7 +6,7 @@ using UnityEngine.Android;
 using Agora.Rtc;
 using Photon.Pun;
 
-public class NewBehaviourScript : MonoBehaviour
+public class OnlineMeeting : MonoBehaviour
 {
     private ArrayList permissionList = new ArrayList() { Permission.Camera, Permission.Microphone };
 
@@ -73,8 +73,8 @@ public class NewBehaviourScript : MonoBehaviour
     internal class UserEventHandler : IRtcEngineEventHandler
     {
 
-        private readonly NewBehaviourScript _videoSample;
-        internal UserEventHandler(NewBehaviourScript videoSample)
+        private readonly OnlineMeeting _videoSample;
+        internal UserEventHandler(OnlineMeeting videoSample)
         {
             _videoSample = videoSample;
         }

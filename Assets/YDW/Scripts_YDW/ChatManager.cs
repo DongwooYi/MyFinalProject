@@ -51,7 +51,8 @@ public class ChatManager : MonoBehaviourPun
     [Header("채팅창")]
     public GameObject ChattingPannel;
 
-    public Toggle toggleChatting;
+    public Button btnChattingOn;
+    public Button btnChattingOff;
     //내 아이디 색
     Color nickColor;
 
@@ -59,8 +60,12 @@ public class ChatManager : MonoBehaviourPun
     Scene sceneName;
 
     HttpManager httpManager;
+    public Animator anim;
+    Scene scene;
     void Start()
     {
+        scene = SceneManager.GetActiveScene();
+        ChattingPannel.SetActive(false);
         sceneName = SceneManager.GetActiveScene();
         //InputField에서 엔터를 쳤을 때 호출되는 함수 등록
         inputChat.onSubmit.AddListener( OnSubmit);
@@ -68,20 +73,22 @@ public class ChatManager : MonoBehaviourPun
             Random.Range(0.0f, 1.0f),
             Random.Range(0.0f, 1.0f),
             Random.Range(0.0f, 1.0f));
+        if(scene.name == "SB_Player_Photon")
+        {
+        btnChattingOn.onClick.AddListener(ChattingPannelON);
+        btnChattingOff.onClick.AddListener(ChattingPannelOff);
+        }
     }
-
-    void Update()
+    public void ChattingPannelON()
     {
-        if (toggleChatting.isOn)
-        {
-            ChattingPannel.SetActive(true);
-        }
-        else
-        {
-            ChattingPannel.SetActive(false);
-        }
+        ChattingPannel.SetActive(true);
+        anim.SetBool("IsOpen", true);
     }
-
+    public void ChattingPannelOff()
+    {
+        ChattingPannel.SetActive(false);
+        anim.SetBool("IsOpen", false);
+    }
     string findPlayer()
     {
         string s = "";
@@ -156,15 +163,10 @@ public class ChatManager : MonoBehaviourPun
         StopAllCoroutines();
         StartCoroutine("ChattingSpeech");
         }
-        if(httpManager.nickName == nick)
-        {
+                
        item= Instantiate(chatItemFactory, trContent);
-       
-        }
-        else
-        {
 
-        }
+        
         //0. 바뀌기 전의 Content H값을 넣자
         prevContentH = trContent.sizeDelta.y;
 

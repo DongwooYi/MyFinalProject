@@ -163,6 +163,8 @@ MonoBehaviour:
   time: 
   isTimerOn: 0
   gameObjectForRoomDetailDesc: {fileID: 5995187514758812440, guid: 8d2f26b7317ea4848a1074c5ac0d1ef6, type: 3}
+  textRoomName: {fileID: 7758574586092662800, guid: 684915b8046b133419e4d62cc6f80475, type: 3}
+  rect: {fileID: 0}
 --- !u!1 &356185164004795040
 GameObject:
   m_ObjectHideFlags: 0

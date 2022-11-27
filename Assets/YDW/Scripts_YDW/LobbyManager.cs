@@ -139,9 +139,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         ToggleCheck();
      
     }
-
     public void SetactiveRoomCreatationPannel()
     {
+        
         setRoom.SetActive(true);
     }
     public void OnRoomNameValueChanged(string s)
@@ -192,15 +192,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         hash["date"] = textCalendar.text;
         hash["descShortForm"] = inputFieldRoomDescriptionShortForm.text;
         hash["DDay"] = startDate;
-        hash["book_Name"] = inputBookName.text;
         hash["roomHost_Name"] = PhotonNetwork.LocalPlayer.NickName;
+        hash["book_Name"] = inputBookName.text;
         hash["meetingTime"] = textTimeforMeeting.text;
         hash["dayOfWeeks"] = $"회의 요일: {monText}{tueText}{wedText}{thuText}{friText}{sunText}{sunText}";
         roomOptions.CustomRoomProperties = hash;
 
         // custom 정보를 공개하는 설정
         roomOptions.CustomRoomPropertiesForLobby = new string[] {
-            "desc", "map_id", "room_name", "date", "descShortForm", "DDay", "book_Name", "meetingTime", "dayOfWeeks"
+            "desc", "map_id", "room_name", "date", "descShortForm", "DDay","roomHost_Name", "book_Name", "meetingTime", "dayOfWeeks"
         };
 
         print("img배열의" + img.Length);
@@ -322,6 +322,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
             RoomItem item = go.GetComponent<RoomItem>();
             item.SetInfo(info);
 
+            
             //roomItem 버튼이 클릭되면 호출되는 함수 등록
             item.onClickAction = SetRoomName;
             //람다식
@@ -346,6 +347,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public void OnclickOpenReaderMatePannel()
     {
         readerMate.SetActive(true);
+    }
+    public void OnclickOpenReaderMatePannelBack()
+    {
+        readerMate.SetActive(false);
     }
     public void ReaderRecommendation()
     {

@@ -23,13 +23,13 @@ public class RoomDetailSetUP : MonoBehaviour
     {
         lobbyManager = GameObject.FindObjectOfType<LobbyManager>();
         onClickJoin.onClick.AddListener(delegate { lobbyManager.JoinRoom(); });
-        
+
     }
 
-
-    // Update is called once per frame
-    void Update()
+    public void OnClickBack()
     {
-        
+        DestroyImmediate(this.gameObject);
+
     }
 }
+

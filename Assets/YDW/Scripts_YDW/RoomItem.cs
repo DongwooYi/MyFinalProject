@@ -46,7 +46,7 @@ public class RoomItem : MonoBehaviour
 
         //desc 설정
         roomShortDesc.text = (string)info.CustomProperties["descShortForm"];
-        bookNameDesc.text = "대상 도서  "+(string)info.CustomProperties["book_Name"];
+        bookNameDesc.text = (string)info.CustomProperties["book_Name"];
         ChallengePeriod.text = ((string)info.CustomProperties["date"]);
         time = ((string)info.CustomProperties["DDay"]);
         MeetingDayofweeks =(string)info.CustomProperties["dayOfWeeks"];
@@ -68,7 +68,6 @@ public class RoomItem : MonoBehaviour
     }
 
     public GameObject gameObjectForRoomDetailDesc;
-
     public void OnClick()
     {
         //만약에 onClickAction 가 null이 아니라면
@@ -77,7 +76,20 @@ public class RoomItem : MonoBehaviour
             //onClickAction 실행
             onClickAction(name);
         GameObject go = Instantiate(gameObjectForRoomDetailDesc);
-     
+            go.GetComponentInChildren<RoomDetailSetUP>().roomName.text = roomInfo.text;
+            go.GetComponentInChildren<RoomDetailSetUP>().bookName.text = bookNameDesc.text;
+            go.GetComponentInChildren<RoomDetailSetUP>().challengeDay.text = ChallengePeriod.text;
+            go.GetComponentInChildren<RoomDetailSetUP>().MeetingDayofweeks.text = MeetingDayofweeks;
+            go.GetComponentInChildren<RoomDetailSetUP>().meetingTime.text = meetingTime;
+            go.GetComponentInChildren<RoomDetailSetUP>().hostName.text = hostName;
+            go.GetComponentInChildren<RoomDetailSetUP>().roomPlayerInfo.text = roomPlayerInfo.text;
+            go.GetComponentInChildren<RoomDetailSetUP>().roomShortDesc.text = roomShortDesc.text;
+            go.GetComponentInChildren<RoomDetailSetUP>().roomDesc.text = roomDesc;
+            go.GetComponentInChildren<RoomDetailSetUP>().RawImage.texture = rawImage.texture;
+
+
+
+
         }
     }
    /* IEnumerator GetImageData()

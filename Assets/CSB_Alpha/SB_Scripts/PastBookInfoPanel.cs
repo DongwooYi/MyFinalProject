@@ -30,14 +30,27 @@ public class PastBookInfoPanel : MonoBehaviour
     public Transform contentDoneBook;
 
     public GameObject myBookManager;
+    public GameObject confirmFactory;
+    
+    Transform canvas;
 
     private void Start()
     {
+        canvas = GameObject.Find("Canvas").transform;
         myBookManager = GameObject.Find("MyBookManager");
         myPastBookPanel = GameObject.Find("MyPastBookPanel").transform;///Scroll View_Done/Viewport/Content").transform;
         contentDoneBook = GameObject.Find("Scroll View_Done/Viewport/Content").transform;//")//.transform;///MyPastBookPanel/Scroll View_Done/Viewport/Content").transform;
         isBestToggle.isOn = isBest;
         isBestToggle.onValueChanged.AddListener(OnCheck);
+
+        // BestBookList 에 한번 추가
+        for (int i = 0; i < contentDoneBook.childCount; i++)
+        {
+            if (contentDoneBook.GetChild(i).gameObject.GetComponent<MyBook>().isBest)
+            {
+                BestBookList.Add(contentDoneBook.GetChild(i).gameObject);   // 인생도서 리스트에 추가
+            }
+        }
 
     }
 
@@ -48,20 +61,37 @@ public class PastBookInfoPanel : MonoBehaviour
         temp = isBest;  // 이전 값 저장
         isBest = checkBool; // 변한 값
         // 받은 인덱스에 해당하는 책의 isBest 바꾸고
-        tempMyBook = contentDoneBook.transform.GetChild(myIndex).gameObject.GetComponent<MyBook>().isBestTemp;
-        isBestMyBook = contentDoneBook.transform.GetChild(myIndex).gameObject.GetComponent<MyBook>().isBest;
-        tempMyBook = temp;
-        isBestMyBook = isBest;
+        //tempMyBook = contentDoneBook.transform.GetChild(myIndex).gameObject.GetComponent<MyBook>().isBestTemp;
+        //isBestMyBook = contentDoneBook.transform.GetChild(myIndex).gameObject.GetComponent<MyBook>().isBest;
+        contentDoneBook.transform.GetChild(myIndex).gameObject.GetComponent<MyBook>().isBestTemp = temp;
+        contentDoneBook.transform.GetChild(myIndex).gameObject.GetComponent<MyBook>().isBest = isBest;
+        //tempMyBook = temp;
+        //isBestMyBook = isBest;
+        print(temp);
+        print(checkBool);
+        print(isBest);
+    
+            OnClickSetBook();
+       
     }
 
     public List<GameObject> BestBookList = new List<GameObject>();
     public List<BestBook> httpList = new List<BestBook>();
-    // 패널의 <확인> 버튼
+
+    string isBestStr;
     public void OnClickSetBook()
     {
-        // 만약
+        // 만
+        // isBest == true 면 BestBookList 에 추가
+        // BestBookList.Count > 3 이면 리스트 맨 앞 값 삭제
 
-        for (int i = 0; i < contentDoneBook.childCount; i++)
+        if (isBest)
+        {
+            BestBookList.Add(contentDoneBook.GetChild(myIndex).gameObject);
+            if (BestBookList.Count > 3) BestBookList.RemoveAt(0);
+        }
+
+/*        for (int i = 0; i < contentDoneBook.childCount; i++)
         {
             // isBest == true 인 책은 리스트에 추가
             if (contentDoneBook.GetChild(i).gameObject.GetComponent<MyBook>().isBest)
@@ -73,16 +103,15 @@ public class PastBookInfoPanel : MonoBehaviour
                 }
                 // 리스트에 추가
                 BestBookList.Add(contentDoneBook.GetChild(i).gameObject);
-                // 인생책으로 등록되었습니다 UI 띄우기
-                // 
+
             }
-        }
+        }*/
+
 
 
         // 만약 temp 와 isBest 가 다르다면 전송할 리스트에 담기
-        if (temp = !isBest)
+        if (temp != isBest)
         {
-            string isBestStr;
             BestBook bestBook = new BestBook();
             bestBook.bookISBN = bookIsbn.text;
             if (isBest) isBestStr = "Y";
@@ -90,13 +119,22 @@ public class PastBookInfoPanel : MonoBehaviour
             bestBook.isBest = isBestStr;
 
             httpList.Add(bestBook);
-            print(bestBook);
+            print("인생책: " + bestBook);
             print(bestBook.bookISBN + bestBook.isBest);
+
+            HttpPostMyBestBook();
+
+            if (isBest)
+            {        
+                // 인생책으로 등록되었습니다 UI 띄우기
+                GameObject go = Instantiate(confirmFactory, canvas);
+            }
         }
-        HttpPostMyBestBook();
+
+
         // MyBookManager.cs 의 bestBookList 에 값 담아줌
         myBookManager.GetComponent<MyBookManager>().bestBookList = BestBookList;
-        Destroy(gameObject);
+        //Destroy(gameObject);
     }
 
     // (바뀐 버전) Http 통신 관련 ----------------------------------
@@ -117,6 +155,7 @@ public class PastBookInfoPanel : MonoBehaviour
         };
         print(bookData);
         requester.body = JsonUtility.ToJson(bookData, true);
+        print(requester.body);
         requester.onComplete = OnCompletePostMyBestBook;
 
         //HttpManager에게 요청
@@ -131,7 +170,7 @@ public class PastBookInfoPanel : MonoBehaviour
 
         if (type == 200)
         {
-            print("인생책 통신 됨?");
+            print("인생책 통신 완료");
         }
     }
     public void OnClickExit()

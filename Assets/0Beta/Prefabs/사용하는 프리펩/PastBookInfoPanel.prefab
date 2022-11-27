@@ -463,11 +463,12 @@ MonoBehaviour:
   bookInfo: {fileID: 1865940985967529170}
   bookRating: {fileID: 426013270857968981}
   bookReview: {fileID: 418574882710545321}
-  isBestToggle: {fileID: 0}
+  isBestToggle: {fileID: 2658595725013857861}
   isBest: 0
   myPastBookPanel: {fileID: 0}
   contentDoneBook: {fileID: 0}
   myBookManager: {fileID: 0}
+  confirmFactory: {fileID: 3096857833418741885, guid: 3f8f1a9bb7723b4478a3970b2be22a6c, type: 3}
   tempMyBook: 0
   isBestMyBook: 0
   BestBookList: []

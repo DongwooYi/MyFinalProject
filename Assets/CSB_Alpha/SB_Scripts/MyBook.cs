@@ -32,11 +32,16 @@ public class MyBook : MonoBehaviour
 
     Transform contentDoneBook;
 
+    Transform myPastBookPanel;
+    Transform scroll;
+
+
     void Start()
     {
         canvas = GameObject.Find("Canvas").transform;
-        contentDoneBook = GameObject.Find("MyPastBookPanel/Scroll View_Done/Viewport/Content").transform;
-
+        myPastBookPanel = canvas.Find("MyPastBookPanel").transform;
+        scroll = myPastBookPanel.Find("Scroll View_Done").transform;
+        contentDoneBook = scroll.Find("Viewport/Content").transform;
 
 /*        if (gameObject.name.Contains("PastBook"))
         {

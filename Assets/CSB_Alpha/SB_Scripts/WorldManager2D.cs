@@ -76,8 +76,12 @@ public class WorldManager2D : MonoBehaviour
 
     public Material matBook;    // Ã¥ÀÇ Material
 
+        HttpManager httpManager;
     void Start()
     {
+        
+        showBook = GameObject.Find("ShowBook");
+
         book = GameObject.Find("Book");
         bookBest = GameObject.Find("myroom/MyBestBookShelf");
         print(bookBest.name);

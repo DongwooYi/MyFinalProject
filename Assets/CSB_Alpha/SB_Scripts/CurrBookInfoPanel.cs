@@ -63,19 +63,21 @@ public class CurrBookInfoPanel : MonoBehaviour
 
     WorldManager2D wm;
 
-/*    public void ToggleHead(Toggle headBook)
-    {
-        print("토글");
-        if (headBook.isOn)
+    /*    public void ToggleHead(Toggle headBook)
         {
-            print("토글" + headBook.isOn);
-            showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
-            //player.transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
-        }
-    }*/
+            print("토글");
+            if (headBook.isOn)
+            {
+                print("토글" + headBook.isOn);
+                showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
+                //player.transform.GetChild(1).gameObject.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
+            }
+        }*/
 
+    HttpManager httpManager;
     void Start()
     {
+       
         myBookPanel = GameObject.Find("MyBookPanel").transform;
         contentBook = GameObject.Find("Scroll View_Book/Viewport/Content").transform;
         contentDoneBook = GameObject.Find("Scroll View_Done/Viewport/Content").transform;
@@ -194,7 +196,7 @@ public class CurrBookInfoPanel : MonoBehaviour
 
     public void SetReview(string s)
     {
-        reviewTMP.text = s;
+        review.text = s;
     }
 
     public void SetIndex(int num)
@@ -220,7 +222,7 @@ public class CurrBookInfoPanel : MonoBehaviour
         //showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
     }
 
-    // 닫기 버튼 누리면 대표책 등록 완료
+    // 대표책 설정완료 안내 이후, 닫기 버튼 누리면 대표책 등록 완료
     public void OnClickHeadBookConfirmBook()
     {
         // 다른 책들 isOverHead = false & isOverHeadString = "N" 로 
@@ -253,6 +255,7 @@ public class CurrBookInfoPanel : MonoBehaviour
             }
         }
         showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
+
     }
 
     public void SetIsDone(bool done)

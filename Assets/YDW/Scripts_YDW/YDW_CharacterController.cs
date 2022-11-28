@@ -48,11 +48,7 @@ public class YDW_CharacterController : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false) ;
-        {
-
         GetTouchInput();
-        }
         CollisionCheck();
     }
     public void Move(Vector2 vector2)

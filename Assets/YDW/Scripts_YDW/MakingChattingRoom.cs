@@ -4,16 +4,14 @@ using UnityEngine;
 
 public class MakingChattingRoom : MonoBehaviour
 {
-    public bool GotoMainWorld;
-    private void Start()
-    {
-        GotoMainWorld = false;
-    }
+    
+    public Animator anim;
+
     private void OnTriggerEnter(Collider other)
     {
         if (other.tag == "Character")
-        {           
-            GotoMainWorld = true;
-                   }
+        {
+            anim.SetTrigger("DoorOpen");
+        }
     }
 }

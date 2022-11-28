@@ -244,7 +244,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         DestroyImmediate(game);
         var currentRoomname = PhotonNetwork.CurrentRoom.Name;
         print(currentRoomname);
-        if (currentRoomname.Contains("Room"))
+        if (currentRoomname=="Room")
         {
             PhotonNetwork.LoadLevel("SB_Player_Photon");
         }
@@ -252,7 +252,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LoadLevel("CamInteraction");
         }
-       
         else
         {
             PhotonNetwork.LoadLevel("CamInteraction");

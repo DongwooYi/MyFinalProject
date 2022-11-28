@@ -26,25 +26,28 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
     internal VideoSurface RemoteViewOne;
     internal VideoSurface RemoteViewTwo;
     internal IRtcEngine RtcEngine;
-    public GameObject X;
+    public GameObject btnJoin;
     [Header(" È­»óÄ· À§Ä¡ È¦¼ö&Â¦¼ö °æ¿ì")]
     public Transform[] transformCamPostioneven;
     public Transform[] transformCamPostionoddNum;
 
-    public Toggle toggleCamOnOff;
-    public Toggle toggleMicOnOff;
     public Text textRoomName;
     // Start is called before the first frame update
     void Start()
     {
         textRoomName.text = $"{PhotonNetwork.CurrentRoom.Name}";
-        X = GameObject.Find("ButtonJoin");
-        toggleCamOnOff.onValueChanged.AddListener(delegate { BtnCamOnOFfToggleValueChanged(toggleCamOnOff); });
-        toggleMicOnOff.onValueChanged.AddListener(delegate { BtnCamOnOFfToggleValueChanged(toggleMicOnOff); });
+        btnJoin.SetActive(true);
         SetupVideoSDKEngine();
         InitEventHandler();
         SetupUI();
-        X.SetActive(true);
+        buttonCamON.onClick.AddListener(BtnCamOn);
+        buttonCamOff.onClick.AddListener(BtnCamOff);
+        buttonMicON.onClick.AddListener(BtnMicOn);
+        buttonMicOff.onClick.AddListener(BtnMicOff);
+        buttonCamOff.gameObject.SetActive(true);
+        buttonMicOff.gameObject.SetActive(true);
+        buttonMicON.gameObject.SetActive(false);
+        buttonCamON.gameObject.SetActive(false);
     }
 
     // Update is called once per frame
@@ -125,14 +128,14 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
         RemoteViewTwo = remoteView2nd.AddComponent<VideoSurface>();
         RemoteViewTwo.transform.Rotate(0.0f, 0.0f, -180);
 
-        X.GetComponent<Button>().onClick.AddListener(Join);
+        btnJoin.GetComponent<Button>().onClick.AddListener(Join);
     }
 
 
 
     public void Join()
     {
-        X.SetActive(false);
+        btnJoin.SetActive(false);
         // Enable the video module.
         RtcEngine.EnableVideo();
         // Set the user role as broadcaster.
@@ -191,37 +194,45 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
             RtcEngine = null;
         }
     }
-    public void BtnCamOnOFfToggleValueChanged(Toggle change)
-    {
-        if (!toggleCamOnOff.isOn)
-        {
-            RtcEngine.DisableVideo();
-            LocalView.SetEnable(false);
-            myView.SetActive(false);
 
-        }
-        else
-        {
-            RtcEngine.EnableVideo();
-            LocalView.SetEnable(true);
-            myView.SetActive(true);
-        }
+
+    public Button buttonCamON;
+    public Button buttonCamOff;
+    public Button buttonMicON;
+    public Button buttonMicOff;
+    public void BtnCamOn()
+    {
+        RtcEngine.EnableVideo();
+        LocalView.SetEnable(true);
+        myView.SetActive(true);
+        buttonCamON.gameObject.SetActive(false);
+        buttonCamOff.gameObject.SetActive(true);
+    }
+    public void BtnCamOff()
+    {
+        RtcEngine.DisableVideo();
+        LocalView.SetEnable(false);
+        myView.SetActive(false);
+        buttonCamON.gameObject.SetActive(true);
+        buttonCamOff.gameObject.SetActive(false);
+
     }
     public Recorder recorder;
-    public void BtnMicOnOFfToggleValueChanged(Toggle change)
+    public void BtnMicOn()
     {
-        if (photonView.IsMine)
-        {
-            if (!toggleCamOnOff.isOn)
-            {
-                recorder.TransmitEnabled = true;
-            }
-            else
-            {
-                recorder.TransmitEnabled = false;
+        
+            recorder.TransmitEnabled = true;
+            buttonMicON.gameObject.SetActive(false);
+            buttonMicOff.gameObject.SetActive(true);
+        
 
-            }
-        }
-
+    }
+    public void BtnMicOff()
+    {
+       
+            recorder.TransmitEnabled = false;
+            buttonMicON.gameObject.SetActive(true);
+            buttonMicOff .gameObject.SetActive(false);        
+        
     }
 }

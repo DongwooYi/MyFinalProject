@@ -94,6 +94,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        doneCreateRoomCount = 0;
         timeSelectionPannel.SetActive(false);
         welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
         textPayernameinreafermatePannel.text = PhotonNetwork.LocalPlayer.NickName + "님의\r\n독서 메이트는?";
@@ -118,7 +119,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             CreateChatroom();
             doorCheck.GotoMainWorld = false;
-            Debug.Log("CreateChatroom");
         }
         if (Input.GetKeyDown(KeyCode.F9))
         {
@@ -131,10 +131,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (Input.GetKeyDown(KeyCode.F11))
         {
             setRoomlist.SetActive(true);
-        }
-        if (Input.GetKeyDown(KeyCode.Alpha9))
-        {
-            CreateChatroom();
         }
         ToggleCheck();
 
@@ -232,7 +228,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         base.OnJoinedRoom();
         GameObject game = GameObject.FindWithTag("RoomDesc");
         DestroyImmediate(game);
-        print("OnJoinedRoom");
         var currentRoomname = PhotonNetwork.CurrentRoom.Name;
         print(currentRoomname);
         if (currentRoomname.Contains("Room"))
@@ -338,14 +333,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [Header("독서메이트 추천")]
     public Text textPayernameinreafermatePannel;
 
-    public void OnclickOpenReaderMatePannel()
-    {
-        readerMate.SetActive(true);
-    }
-    public void OnclickOpenReaderMatePannelBack()
-    {
-        readerMate.SetActive(false);
-    }
+   
     public void ReaderRecommendation()
     {
         HttpRequester requester = new HttpRequester();
@@ -1080,10 +1068,17 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         CancelPannel.SetActive(false);
     }
+
+    int doneCreateRoomCount = 0;
     public void GoBacktoMainWorld()
     {
+        if(doneCreateRoomCount>0)
+        {
+            return;
+        }
         setRoomlist.SetActive(false);
         CreateChatroom();
+        doneCreateRoomCount++;
     }
     public void SetactiveRoomCreatationPannel()
     {
@@ -1101,6 +1096,14 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     {
         readerMatePannel.SetActive(false);
         setRoomlist.SetActive(true);
+    }
+    public void OnclickOpenReaderMatePannel()
+    {
+        readerMate.SetActive(true);
+    }
+    public void OnclickOpenReaderMatePannelBack()
+    {
+        readerMate.SetActive(false);
     }
     #endregion
 }

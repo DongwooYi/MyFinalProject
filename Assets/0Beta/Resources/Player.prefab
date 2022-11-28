@@ -2518,7 +2518,6 @@ MonoBehaviour:
   speecgBubbleGameObj: {fileID: 7906358165277930735}
   speechBubble: {fileID: 5864828173881389570}
   chatManager: {fileID: 0}
-  meshRenderer: {fileID: 1498915834382177799}
 --- !u!114 &4790080679825001151
 MonoBehaviour:
   m_ObjectHideFlags: 0

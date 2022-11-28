@@ -95,7 +95,7 @@ public class WorldManager2D : MonoBehaviour
 
     #region 월드 세팅
     // 월드 입장 시 월드 세팅
-    // 책장, 낮은 책장, 리워드
+    // 책장, 낮은 책장, 리워드, 머리에 대표책
     public void SettingMyRoom()
     {
         int bookIdx = 0;
@@ -103,7 +103,7 @@ public class WorldManager2D : MonoBehaviour
         int bookCount = 0;
         for (int i = 0; i < myAllBookListNet.Count; i++)
         {
-            // 만약 isDoneString == "Y" 면
+            // (다읽은책) 만약 isDoneString == "Y" 면
             // 책장 세팅 & 개수 세기
             if (myAllBookListNet[i].isDoneString == "Y")
             {
@@ -116,7 +116,7 @@ public class WorldManager2D : MonoBehaviour
                 bookIdx++;
             }
 
-            // 만약 isBestString == "Y" 면
+            // (인생책) 만약 isBestString == "Y" 면
             if (myAllBookListNet[i].isBestString == "Y")
             {
                 // 낮은 책장에 책 생성
@@ -126,7 +126,7 @@ public class WorldManager2D : MonoBehaviour
                 bestBookIdx++;
             }
 
-            // 만약 isOverHead == "Y" 면
+            // (대표책) 만약 isOverHead == "Y" 면
             if(myAllBookListNet[i].isOverHeadString == "Y")
             {
                 // 머리에 띄우기
@@ -305,6 +305,7 @@ public class WorldManager2D : MonoBehaviour
             myBookInfo.review = reviewListNet[i];
             myBookInfo.isDoneString = isDoneListNet[i];
             myBookInfo.isBestString = isBestsListNet[i];
+            myBookInfo.isOverHeadString = isOverHeadListNet[i];
             //myBookInfo.thumbnail = rawImages[i];
             myBookInfo.texture = thumbnailImgListNet[i];
             myAllBookListNet.Add(myBookInfo);

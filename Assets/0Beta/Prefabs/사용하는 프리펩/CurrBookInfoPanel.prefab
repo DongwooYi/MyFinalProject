@@ -3298,7 +3298,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bookFactory: {fileID: 0}
-  headConfirm: {fileID: 3096857833418741885, guid: 3f8f1a9bb7723b4478a3970b2be22a6c, type: 3}
+  headConfirm: {fileID: 845764957497615288, guid: f5222cd74f8c44841a4259cf15c08939, type: 3}
   doneBookConfirm: {fileID: 2760973702688542027, guid: d12ba6a376e1e8b4e883f0e4b84ea925, type: 3}
   myBookPanel: {fileID: 0}
   contentBook: {fileID: 0}

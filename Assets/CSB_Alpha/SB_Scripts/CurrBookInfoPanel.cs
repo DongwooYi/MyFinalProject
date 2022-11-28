@@ -218,51 +218,71 @@ public class CurrBookInfoPanel : MonoBehaviour
         print("대표책 : " + isOverHead + "토글 : " + headBook.isOn);
     }
 
+    GameObject headBookInfo;
     public void OnOverHeadToggle(bool isOverHead)
     {
         print("토글 리스너: " + isOverHead);
         if(isOverHead)
         {
-            GameObject go = Instantiate(headConfirm, canvas);
+            isOverHeadString = "Y";
+            headBookInfo = Instantiate(headConfirm, canvas);
+            // 다른 책들 isOverHead = false & isOverHeadString = "N" 로 
+            if (isDone) // 만약 내가 다읽은도서라면
+            {
+                for (int i = 0; i < contentBook.childCount; i++)    // 담은도서는 모두 N 으로
+                {
+                    contentBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHead = false;
+                    contentBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHeadString = "N";
+                }
+                for (int i = 0; i < contentDoneBook.childCount; i++)    // 다읽은도서는 나 제외 N 으로
+                {
+                    if (i == idx)
+                    {
+                        contentDoneBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHead = true;
+                        contentDoneBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHeadString = "Y";
+                    }
+                    else
+                    {
+                        contentDoneBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHead = false;
+                        contentDoneBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHeadString = "N";
+                    }
+
+                }
+            }
+            else if (!isDone)   // 만약 담은도서라면 
+            {
+                for (int i = 0; i < contentBook.childCount; i++)
+                {
+                    if (i == idx)
+                    {
+                        contentBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHead = true;
+                        contentBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHeadString = "Y";
+                    }
+                    else
+                    {
+                        contentBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHead = false;
+                        contentBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHeadString = "N";
+                    }
+
+                }
+                for (int i = 0; i < contentDoneBook.childCount; i++)
+                {
+                    contentDoneBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHead = false;
+                    contentDoneBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHeadString = "N";
+                }
+            }
+            showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
         }
-        //showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
+        else
+        {
+            isOverHeadString = "N";
+        }
     }
 
     // 대표책 설정완료 안내 이후, 닫기 버튼 누르면 대표책 등록 완료
     public void OnClickHeadBookConfirmBook()
     {
-        // 다른 책들 isOverHead = false & isOverHeadString = "N" 로 
-        if (isDone) // 만약 내가 다읽은도서라면
-        {
-            for (int i = 0; i < contentBook.childCount; i++)
-            {
-                contentBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHead = false;
-                contentBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHeadString = "N";
-            }
-            for (int i = 0; i < contentDoneBook.childCount; i++)
-            {
-                if (i == idx) continue;
-                contentDoneBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHead = false;
-                contentDoneBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHeadString = "N";
-            }
-        }
-        else if (!isDone)
-        {
-            for (int i = 0; i < contentBook.childCount; i++)
-            {
-                if (i == idx) continue;
-                contentBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHead = false;
-                contentBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHeadString = "N";
-            }
-            for (int i = 0; i < contentDoneBook.childCount; i++)
-            {
-                contentDoneBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHead = false;
-                contentDoneBook.GetChild(i).gameObject.GetComponent<MyBook>().isOverHeadString = "N";
-            }
-        }
-        showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
-
-        Destroy(gameObject);
+        Destroy(headBookInfo);
     }
 
     public void SetIsDone(bool done)

@@ -121,9 +121,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6794827996967532750, guid: ac93ff256d890ee4989ddf0e8e78fc14, type: 3}
-        m_TargetAssemblyTypeName: CurrBookInfoPanel, Assembly-CSharp
-        m_MethodName: OnClickHeadBookConfirmBook
+      - m_Target: {fileID: 2398879843977140850}
+        m_TargetAssemblyTypeName: OkayButton, Assembly-CSharp
+        m_MethodName: OnClickOk
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -144,8 +144,9 @@ GameObject:
   - component: {fileID: 845764957497615289}
   - component: {fileID: 845764957497615291}
   - component: {fileID: 845764957497615290}
+  - component: {fileID: 2398879843977140850}
   m_Layer: 5
-  m_Name: "\uB300\uD45C\uCC45 \uC124\uC815 \uC644\uB8CC"
+  m_Name: OverHeadBookInfo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -210,3 +211,15 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &2398879843977140850
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 845764957497615288}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f8265b36cf7c5284ab76dee747c3825e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

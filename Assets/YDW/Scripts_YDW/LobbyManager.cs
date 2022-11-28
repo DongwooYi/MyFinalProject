@@ -67,6 +67,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject readerMateImage;
 
     public GameObject roomDetailDesc;
+    int roomInt =0;
     #region 요일 선택
     [Header("요일 선택")]
     public Toggle toggleMon;
@@ -94,6 +95,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     void Start()
     {
+        roomInt = 0;
         timeSelectionPannel.SetActive(false);
         welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
         textPayernameinreafermatePannel.text = PhotonNetwork.LocalPlayer.NickName + "님의\r\n독서 메이트는?";
@@ -157,6 +159,10 @@ public class LobbyManager : MonoBehaviourPunCallbacks
 
     public void CreateChatroom()
     {
+        if(roomInt >0)
+        {
+            return;
+        }
         //mapThumbs.texture = loadGallery.gameObject.GetComponent<RawImage>().texture;
         // 방 옵션을 설정
         RoomOptions roomOptions = new RoomOptions();
@@ -166,7 +172,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         roomOptions.IsVisible = false;
 
         PhotonNetwork.JoinOrCreateRoom("Room", roomOptions, null);
-
+        roomInt++;
     }
 
     //방 생성

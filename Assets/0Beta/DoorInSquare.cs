@@ -10,7 +10,7 @@ public class DoorInSquare : MonoBehaviourPunCallbacks
     {
         if(other.tag == "Player")
         {
-            PhotonNetwork.LeaveLobby();
+            PhotonNetwork.LeaveRoom();
         }
     }
     

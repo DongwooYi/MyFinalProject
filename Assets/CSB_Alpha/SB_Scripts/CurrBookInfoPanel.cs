@@ -99,7 +99,7 @@ public class CurrBookInfoPanel : MonoBehaviour
 
     void OnValueChanged(string s)
     {
-        btnEnter.interactable = s.Length > 0;  // 등록 버튼 활성화
+       btnEnter.interactable = s.Length >= 0;  // 등록 버튼 활성화
     }
 
     // 등록 버튼
@@ -152,6 +152,7 @@ public class CurrBookInfoPanel : MonoBehaviour
 
         // <등록 되었습니다>
         confirmMsg = Instantiate(doneBookConfirm, gameObject.transform);    // 나의 자식으로 생성
+       // myBookManager.SetActive(false);
     }
 
     GameObject confirmMsg;
@@ -160,14 +161,16 @@ public class CurrBookInfoPanel : MonoBehaviour
     public void OnClickExit()
     {
         Destroy(gameObject);
-    }
-
-    // <나의 서재에 담겼었습니다> 닫기 버튼
-    public void OnClickConfirmMyBook()
-    {
-        Destroy(confirmMsg);
+       // HttpGetMyBookData();
 
     }
+    /*
+        // <나의 서재에 담겼었습니다> 닫기 버튼
+        public void OnClickConfirmMyBook()
+        {
+            Destroy(gameObject);
+
+        }*/
 
     #region 텍스트 세팅 관련
     public void SetTitle(string s)
@@ -371,7 +374,7 @@ public class CurrBookInfoPanel : MonoBehaviour
         {
             print("되나?");
             wm.myAllBookListNet.Clear();
-            HttpGetMyBookData();
+            //HttpGetMyBookData();
         }
     }
 
@@ -471,6 +474,7 @@ public class CurrBookInfoPanel : MonoBehaviour
             wm.myAllBookListNet.Add(myBookInfo);
         }
         wm.SettingMyRoom();
+        myBookManager.GetComponent<MyBookManager>().MakePrefab();
     }
     public string ParseGETJson(string jsonText, string key)
     {

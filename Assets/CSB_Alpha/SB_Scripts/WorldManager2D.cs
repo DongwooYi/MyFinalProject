@@ -5,7 +5,6 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using Newtonsoft.Json.Linq;
-using System.IO;
 
 // 책 검색, 책 등록 관리
 [Serializable]
@@ -43,6 +42,7 @@ public class _MyBookInfo
 
 public class WorldManager2D : MonoBehaviour
 {
+    public GameObject loading;
     public GameObject searchBookPanel;  // 책검색
 
     public GameObject myPastBookPanel;    // 다읽은도서 목록
@@ -76,6 +76,8 @@ public class WorldManager2D : MonoBehaviour
     //  ------------------------------------------------------------------------------
 
     public Material matBook;    // 책의 Material
+
+        HttpManager httpManager;
     void Start()
     {
         
@@ -90,6 +92,19 @@ public class WorldManager2D : MonoBehaviour
         // 책 제목 입력
         inputBookTitleName.onValueChanged.AddListener(OnValueChanged);
         inputBookTitleName.onEndEdit.AddListener(OnEndEdit);
+    }
+
+    float loadTime = 3f;
+    float currentTime = 0f;
+    private void Update()
+    {
+        currentTime += Time.deltaTime;
+        if(currentTime > loadTime)
+        {
+            loading.SetActive(false);
+            currentTime = 0;
+        }
+
     }
 
     #region 월드 세팅
@@ -131,8 +146,6 @@ public class WorldManager2D : MonoBehaviour
                 // 머리에 띄우기
                 showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnailImgListNet[i]);
                 HttpManager.instance.TextureShowBook.texture = showBook.GetComponent<MeshRenderer>().material.mainTexture;
-
-              
             }
 
         }
@@ -145,22 +158,28 @@ public class WorldManager2D : MonoBehaviour
         {
             showBook.GetComponent<Outline>().OutlineColor = Color.yellow;
         }
-        else if(bookCount < 30)
+        else if (bookCount < 30)
         {
             showBook.GetComponent<Outline>().OutlineColor = Color.green;
         }
-        else if(bookCount < 40)
+        else if (bookCount < 40)
         {
             showBook.GetComponent<Outline>().OutlineColor = Color.blue;
         }
-        else if(bookCount < 50)
+        else if (bookCount < 50)
         {
             showBook.GetComponent<Outline>().OutlineColor = Color.cyan;
         }
+        else 
+        {
+            ColorUtility.TryParseHtmlString("#8B80F8", out color);
+            showBook.GetComponent<Outline>().OutlineColor = color;
+             }
 
         HttpManager.instance.outlineShowBook = showBook.GetComponent<Outline>().OutlineColor;
         #endregion
     }
+    Color color;
     #endregion
     void OnValueChanged(string s)
     {

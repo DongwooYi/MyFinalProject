@@ -35,7 +35,7 @@ public class BookData
 [System.Serializable]
 public class BestBookData
 {
-    public List<BestBook> recordDTOList;
+    public List<BestBook> recordList;
 }
 
 [System.Serializable]

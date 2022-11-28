@@ -83,7 +83,7 @@ public class HttpManager : MonoBehaviour
                 }
                 else
                 {
-                    print("통신 실패");
+                    print("통신 실패"+webRequest.error);
                     requester.onFailed();
 
                 }

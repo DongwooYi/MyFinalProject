@@ -42,6 +42,7 @@ public class _MyBookInfo
 
 public class WorldManager2D : MonoBehaviour
 {
+    public GameObject loading;
     public GameObject searchBookPanel;  // 책검색
 
     public GameObject myPastBookPanel;    // 다읽은도서 목록
@@ -91,6 +92,19 @@ public class WorldManager2D : MonoBehaviour
         // 책 제목 입력
         inputBookTitleName.onValueChanged.AddListener(OnValueChanged);
         inputBookTitleName.onEndEdit.AddListener(OnEndEdit);
+    }
+
+    float loadTime = 3f;
+    float currentTime = 0f;
+    private void Update()
+    {
+        currentTime += Time.deltaTime;
+        if(currentTime > loadTime)
+        {
+            loading.SetActive(false);
+            currentTime = 0;
+        }
+
     }
 
     #region 월드 세팅
@@ -156,11 +170,16 @@ public class WorldManager2D : MonoBehaviour
         {
             showBook.GetComponent<Outline>().OutlineColor = Color.cyan;
         }
-        else { showBook.GetComponent<Outline>().OutlineColor = Color.magenta; }
+        else 
+        {
+            ColorUtility.TryParseHtmlString("#8B80F8", out color);
+            showBook.GetComponent<Outline>().OutlineColor = color;
+             }
 
         HttpManager.instance.outlineShowBook = showBook.GetComponent<Outline>().OutlineColor;
         #endregion
     }
+    Color color;
     #endregion
     void OnValueChanged(string s)
     {

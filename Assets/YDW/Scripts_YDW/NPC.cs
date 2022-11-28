@@ -29,6 +29,7 @@ public class NPC : MonoBehaviour
 
     private void Start()
     {
+        joyStickMove = GameObject.FindGameObjectWithTag("Player");
         pannelforNPC.SetActive(false);
     }
     private void OnTriggerEnter(Collider other)

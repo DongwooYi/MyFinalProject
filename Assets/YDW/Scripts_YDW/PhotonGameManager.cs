@@ -25,10 +25,10 @@ public class PhotonGameManager : MonoBehaviourPunCallbacks
   
     private void Update()
     {
-        if(NPC.isTiggerEnter || NPC.isTriggershowRoomList)
+        /*if(NPC.isTiggerEnter || NPC.isTriggershowRoomList)
         {
             LeaveRoom();
-        }
+        }*/
     }
     public void LeaveRoom()
     {

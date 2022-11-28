@@ -58,6 +58,7 @@ public class MyBookManager : MonoBehaviour
         else
         {
             myDesk.transform.GetChild(0).gameObject.SetActive(false);
+            rayCount = 0;
         }
 
         // 만약 플레이어가 책장 가까이 가면
@@ -68,6 +69,7 @@ public class MyBookManager : MonoBehaviour
         else
         {
             myBookshelf.transform.GetChild(0).gameObject.SetActive(false);
+            doneBookCount = 0;
         }
 
     }

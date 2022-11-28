@@ -19,7 +19,7 @@ public class PastBookInfoPanel : MonoBehaviour
     public Text bookAuthor;
     public Text bookIsbn;
     public Text bookInfo;
-    public Text bookRating;
+   // public Text bookRating;
     public Text bookReview;
 
     public Toggle isBestToggle;
@@ -31,11 +31,16 @@ public class PastBookInfoPanel : MonoBehaviour
 
     public GameObject myBookManager;
     public GameObject confirmFactory;
-    
+
+    GameObject worldManager;
     Transform canvas;
+    WorldManager2D wm;
 
     private void Start()
     {
+        worldManager = GameObject.Find("WorldManager");
+        wm = worldManager.GetComponent<WorldManager2D>();
+
         canvas = GameObject.Find("Canvas").transform;
         myBookManager = GameObject.Find("MyBookManager");
         myPastBookPanel = GameObject.Find("MyPastBookPanel").transform;///Scroll View_Done/Viewport/Content").transform;
@@ -114,7 +119,11 @@ public class PastBookInfoPanel : MonoBehaviour
         {
             BestBook bestBook = new BestBook();
             bestBook.bookISBN = bookIsbn.text;
-            if (isBest) isBestStr = "Y";
+            if (isBest) 
+            { 
+                isBestStr = "Y";
+                
+            }
             else isBestStr = "N";
             bestBook.isBest = isBestStr;
 
@@ -171,14 +180,135 @@ public class PastBookInfoPanel : MonoBehaviour
         if (type == 200)
         {
             print("인생책 통신 완료");
+           // wm.myAllBookListNet.Clear();
+            HttpGetMyBookData();
         }
     }
-    public void OnClickExit()
+
+    // 1. 월드 입장시 요청할 API : 읽은 책(책장), 인생책 (낮은 책장) 정보 보내주기
+    public void HttpGetMyBookData()
     {
-        Destroy(gameObject);
+        // 각 data 리스트들 초기화
+        wm.titleListNet.Clear();
+        wm.authorListNet.Clear();
+        wm.publishInfoListNet.Clear();
+        wm.thumbnailLinkListNet.Clear();
+        wm.thumbnailImgListNet.Clear();
+        wm.isbnListNet.Clear();
+        wm.ratingListNet.Clear();
+        wm.reviewListNet.Clear();
+        wm.isDoneListNet.Clear();
+        wm.isBestsListNet.Clear();
+
+        wm.myAllBookListNet.Clear();
+        print("요청11");
+        HttpRequester requester = new HttpRequester();
+
+        // /posts/1. GET, 완료되었을 때 호출되는 함수
+        requester.url = "http://15.165.28.206:80/v1/records/myroom";
+        requester.requestType = RequestType.GET;
+        requester.onComplete = OnCompleteGetMyBookData;
+
+        // HttpManager 에게 요청
+        HttpManager.instance.SendRequest(requester, "");
     }
 
-    public void OnClickConfirmBestBook()
+    public void OnCompleteGetMyBookData(DownloadHandler handler)
+    {
+        // 데이터 처리
+        JObject jObject = JObject.Parse(handler.text);
+        int type = (int)jObject["status"];
+
+        if (type == 200)
+        {
+            print("통신성공. 모든도서.서재입장");
+            string result_data = ParseGETJson("[" + handler.text + "]", "data");
+
+            wm.titleListNet = ParseMyBookData(result_data, "bookName");
+            wm.authorListNet = ParseMyBookData(result_data, "bookAuthor");
+            wm.publishInfoListNet = ParseMyBookData(result_data, "bookPublishInfo");
+            wm.thumbnailLinkListNet = ParseMyBookData(result_data, "thumbnailLink");
+            wm.isbnListNet = ParseMyBookData(result_data, "bookISBN");
+            wm.ratingListNet = ParseMyBookData(result_data, "rating");
+            wm.reviewListNet = ParseMyBookData(result_data, "bookReview");
+            wm.isDoneListNet = ParseMyBookData(result_data, "isDone");
+            wm.isBestsListNet = ParseMyBookData(result_data, "isBest");
+
+            GETThumbnailTexture();
+        }
+    }
+
+    public void GETThumbnailTexture()
+    {
+        StartCoroutine(GetThumbnailImg(wm.thumbnailLinkListNet.ToArray()));
+    }
+
+    public IEnumerator GetThumbnailImg(string[] url)
+    {
+        for (int j = 0; j < url.Length; j++)
+        {
+            UnityWebRequest www = UnityWebRequestTexture.GetTexture(url[j]);
+            yield return www.SendWebRequest();
+
+
+            if (www.result != UnityWebRequest.Result.Success)
+            {
+                print("실패");
+                break;
+            }
+            else
+            {
+                Texture myTexture = ((DownloadHandlerTexture)www.downloadHandler).texture;
+                wm.thumbnailImgListNet.Add(myTexture);
+            }
+            yield return null;
+        }
+        for (int i = 0; i < wm.titleListNet.Count; i++)
+        {
+            _MyBookInfo myBookInfo = new _MyBookInfo();
+
+            myBookInfo.bookName = wm.titleListNet[i];
+            myBookInfo.bookAuthor = wm.authorListNet[i];
+            myBookInfo.bookPublishInfo = wm.publishInfoListNet[i];
+            myBookInfo.thumbnailLink = wm.thumbnailLinkListNet[i];
+            myBookInfo.bookISBN = wm.isbnListNet[i];
+            myBookInfo.rating = wm.ratingListNet[i];
+            myBookInfo.review = wm.reviewListNet[i];
+            myBookInfo.isDoneString = wm.isDoneListNet[i];
+            myBookInfo.isBestString = wm.isBestsListNet[i];
+            //myBookInfo.thumbnail = rawImages[i];
+            myBookInfo.texture = wm.thumbnailImgListNet[i];
+            wm.myAllBookListNet.Add(myBookInfo);
+        }
+        wm.SettingMyRoom();
+        print("월드세팅");
+    }
+    public string ParseGETJson(string jsonText, string key)
+    {
+        JArray parseData = JArray.Parse(jsonText);
+        string result = "";
+
+        foreach (JObject obj in parseData.Children())
+        {
+            result = obj.GetValue(key).ToString();
+        }
+
+        return result;
+    }
+
+    // data 에서 key 별로 parsing
+    public List<string> ParseMyBookData(string jsonText, string key)
+    {
+        JArray parseData = JArray.Parse(jsonText);
+        List<string> result = new List<string>();
+
+        foreach (JObject obj in parseData.Children())
+        {
+            result.Add(obj.GetValue(key).ToString());
+        }
+        return result;
+    }
+    public void OnClickExit()
     {
         Destroy(gameObject);
     }
@@ -209,10 +339,22 @@ public class PastBookInfoPanel : MonoBehaviour
     {
         bookInfo.text = s;
     }
-
+    [Header("평점 버튼")]
+    public Button[] starButton;
+    public Button acceptButton;
+    [HideInInspector] public int ratedApp;
     public void SetRating(string s)
     {
-        bookRating.text = s;
+        // bookRating.text = s;
+        int rate = int.Parse(s);
+        for (int i = 0; i < rate; i++)
+        {
+            foreach(Transform t in starButton[i].transform)
+            {
+                t.gameObject.SetActive(true);
+            }
+        }
+
     }
 
     public void SetReview(string s)

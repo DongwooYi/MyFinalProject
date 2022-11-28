@@ -121,9 +121,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 6794827996967532750, guid: ac93ff256d890ee4989ddf0e8e78fc14, type: 3}
-        m_TargetAssemblyTypeName: CurrBookInfoPanel, Assembly-CSharp
-        m_MethodName: OnClickConfirmMyBook
+      - m_Target: {fileID: 1306163338132104995}
+        m_TargetAssemblyTypeName: OkayButton, Assembly-CSharp
+        m_MethodName: OnClickDoneButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -223,3 +223,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f8265b36cf7c5284ab76dee747c3825e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  panel: {fileID: 0}

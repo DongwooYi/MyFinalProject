@@ -143,18 +143,19 @@ public class WorldManager2D : MonoBehaviour
         {
             showBook.GetComponent<Outline>().OutlineColor = Color.yellow;
         }
-        else if(bookCount < 30)
+        else if (bookCount < 30)
         {
             showBook.GetComponent<Outline>().OutlineColor = Color.green;
         }
-        else if(bookCount < 40)
+        else if (bookCount < 40)
         {
             showBook.GetComponent<Outline>().OutlineColor = Color.blue;
         }
-        else if(bookCount < 50)
+        else if (bookCount < 50)
         {
             showBook.GetComponent<Outline>().OutlineColor = Color.cyan;
         }
+        else showBook.GetComponent<Outline>().OutlineColor = Color.magenta;
         #endregion
     }
     #endregion

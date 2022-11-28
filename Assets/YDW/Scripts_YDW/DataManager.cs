@@ -26,7 +26,10 @@ public class DataManager : MonoBehaviour
         {
             SetActiveMakingRoom = true;
         }
-        else if(nPC.isTriggershowRoomList)
+        else if(nPC.
+  
+    
+    )
         {
             ShowRoomlist = true;
     }

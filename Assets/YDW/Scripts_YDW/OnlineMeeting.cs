@@ -16,9 +16,9 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
     // Fill in your app ID.
     private string _appID = "851fe70440134a8d9fc8b79026988088";
     // Fill in your channel name.
-    private string _channelName = "Test";
+    private string _channelName = "A";
     // Fill in the temporary token you obtained from Agora Console.
-    private string _token = "007eJxTYPjdfiCG9/22LTbOOqKlSQyzMkpWdgrMrOC+tLxaZf+c9L0KDBamhmmp5gYmJgaGxiaJFimWackWSeaWBkZmlhYWBhYWv2eXJDcEMjK8L17LwsgAgSA+C0NIanEJAwMAFCUe/Q==/EWWx2nu+TUlq0+BwcLUMC3V3MDExMDQ2CTRIsUyLdkiydzSwMjM0sLCwMIiuK0kuSGQkeFBUxkzIwMEgvicDCEZqQoeiUmZJQwMALtMHVs=";
+    private string _token = "007eJxTYMiVbk+Ra/suLt/y8u8htWfLzk3Z+ujMvgiF8tbbXyf8bj+qwGBhapiWam5gYmJgaGySaJFimZZskWRuaWBkZmlhYWBhsaisJbkhkJHhbXQtEyMDBIL4jAyODAwAqyogmw==";
     // A variable to save the remote user uid.
     private uint remoteUid;
     internal VideoSurface LocalView;
@@ -26,6 +26,7 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
     internal VideoSurface RemoteViewOne;
     internal VideoSurface RemoteViewTwo;
     internal IRtcEngine RtcEngine;
+    public GameObject X;
     [Header(" È­»óÄ· À§Ä¡ È¦¼ö&Â¦¼ö °æ¿ì")]
     public Transform[] transformCamPostioneven;
     public Transform[] transformCamPostionoddNum;
@@ -35,11 +36,13 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        X = GameObject.Find("ButtonJoin");
         toggleCamOnOff.onValueChanged.AddListener(delegate { BtnCamOnOFfToggleValueChanged(toggleCamOnOff); });
         toggleMicOnOff.onValueChanged.AddListener(delegate { BtnCamOnOFfToggleValueChanged(toggleMicOnOff); });
         SetupVideoSDKEngine();
         InitEventHandler();
         SetupUI();
+        X.SetActive(true);
     }
 
     // Update is called once per frame
@@ -102,26 +105,28 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
             _videoSample.RemoteView.SetEnable(false);
         }
     }
+    public GameObject myView; //= GameObject.Find("MyView");
+    public GameObject remoteView; //= GameObject.Find("RemoteView");
 
     private void SetupUI()
     {
-        GameObject go = GameObject.Find("MyView");
-        LocalView = go.AddComponent<VideoSurface>();
-        go.transform.Rotate(0.0f, 0.0f, 90.0f);
-        go = GameObject.Find("RemoteView");
-        RemoteView = go.AddComponent<VideoSurface>();
-        go.transform.Rotate(0.0f, 0.0f, 90.0f);
+        LocalView = myView.AddComponent<VideoSurface>();
+       
+        myView.transform.Rotate(0.0f, 0.0f, -180);
+        RemoteView = remoteView.AddComponent<VideoSurface>();
+        
+        RemoteView.transform.Rotate(0.0f, 0.0f, -180);
         if (PhotonNetwork.CurrentRoom.PlayerCount == 3)
         {
-            go = GameObject.Find("RemoteView2");
+          GameObject  go = GameObject.Find("RemoteView2");
             go.SetActive(true);
             RemoteViewOne = go.AddComponent<VideoSurface>();
             go.transform.position = transformCamPostionoddNum[0].position;
-            go.transform.Rotate(0.0f, 0.0f, 90.0f);
+        //    go.transform.Rotate(0.0f, 0.0f, 90.0f);
         }
         if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
         {
-            go = GameObject.Find("RemoteView2");
+           GameObject go = GameObject.Find("RemoteView2");
             go.SetActive(true);
             RemoteViewOne = go.AddComponent<VideoSurface>();
             go.transform.position = transformCamPostioneven[0].position;
@@ -130,15 +135,18 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
             go.SetActive(true);
             RemoteViewTwo = go.AddComponent<VideoSurface>();
             go.transform.position = transformCamPostioneven[1].position;
-            go.transform.Rotate(0.0f, 0.0f, 90.0f);
+          //  go.transform.Rotate(0.0f, 0.0f, 90.0f);
         }
-        go = GameObject.Find("ButtonLeave");
-        go.GetComponent<Button>().onClick.AddListener(Leave);
-        go = GameObject.Find("ButtonJoin");
-        go.GetComponent<Button>().onClick.AddListener(Join);
+       // go = GameObject.Find("ButtonLeave");
+        //go.GetComponent<Button>().onClick.AddListener(Leave);
+        X.GetComponent<Button>().onClick.AddListener(Join);
     }
+
+
+
     public void Join()
     {
+        X.SetActive(false);
         // Enable the video module.
         RtcEngine.EnableVideo();
         // Set the user role as broadcaster.
@@ -149,11 +157,13 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
         LocalView.SetEnable(true);
         // Join a channel.
         RtcEngine.JoinChannel(_token, _channelName);
+        myView.SetActive(true);
+        remoteView.SetActive(true);
     }
 
 
-    
 
+   
     public void Leave()
     {
         // Leaves the channel.

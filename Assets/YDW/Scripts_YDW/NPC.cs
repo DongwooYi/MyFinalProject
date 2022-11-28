@@ -10,7 +10,7 @@ public class NPC : MonoBehaviour
     [Header("NPC 채팅")]
     public Text textNPC;
     public TextMeshProUGUI textNPCSpeechBUbble;
-    public GameObject NPCSpeaking;
+    public GameObject NPCSpeechBubble;
 
     [Header("조이스틱")]
     public GameObject joyStickMove;
@@ -31,13 +31,15 @@ public class NPC : MonoBehaviour
     {
         joyStickMove = GameObject.FindGameObjectWithTag("Player");
         pannelforNPC.SetActive(false);
+        NPCSpeechBubble.SetActive(false);
     }
     private void OnTriggerEnter(Collider other)
     {       
          if (other.tag == "Player")
             {
             Debug.Log("Hit");
-  //          textNPC.text = "챌린지 만들어 보지 않을래?";
+            NPCSpeechBubble.SetActive(true);
+            pannelforNPC.SetActive(true);
             StartCoroutine(TextPannel());
         }
         
@@ -45,31 +47,30 @@ public class NPC : MonoBehaviour
     IEnumerator TextPannel()
     {
         textNPCSpeechBUbble.text = "안녕!";
-        yield return new WaitForSeconds(3.0f);
+        yield return new WaitForSeconds(5.0f);
         textNPCSpeechBUbble.text = "독서 모임하고싶지 않아?";
-        yield return new WaitForSeconds(3.0f);
-        textNPC.text = "독서 모임하고싶지 않아?";
-        pannelforNPC.SetActive(true);
+        yield return new WaitForSeconds(5.0f);
+        textNPC.text = "";
     }
     private void OnTriggerExit(Collider other)
     {
-        NPCSpeaking.SetActive(false);
+        NPCSpeechBubble.SetActive(false);
         joyStickMove.SetActive(true);
     }
     public void OnClickMakingRoom()
     {
-        NPCSpeaking.SetActive(false);
+        NPCSpeechBubble.SetActive(false);
         isTiggerEnter = true;
     }
     public void onClickShowRoomList()
     {
-        NPCSpeaking.SetActive(false);
+        NPCSpeechBubble.SetActive(false);
         isTriggershowRoomList = true;
     }
 
     public void OnClickNottoMakeaRoom()
     {
-        textNPC.text = "그러면 너가 원하는 챌린지 볼래?";
+        textNPCSpeechBUbble.text = "그러면 너가 원하는 챌린지 볼래?";
         btnCraeteRoom.SetActive(false);
         btnNo.SetActive(false);
         btnOnlist.SetActive(true);
@@ -77,12 +78,12 @@ public class NPC : MonoBehaviour
     }
     public void OnClickBack()
     {
-        textNPC.text = "...알겠어... 다음에 또와";
+        textNPCSpeechBUbble.text = "...알겠어... 다음에 또와";
         Invoke("EndNPCSpeaking", 1.0f);
     }
     public void EndNPCSpeaking()
     {
-        NPCSpeaking.SetActive(false);
+        NPCSpeechBubble.SetActive(false);
         joyStickMove.SetActive(true);
     }
 

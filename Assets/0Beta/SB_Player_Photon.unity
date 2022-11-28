@@ -155,7 +155,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &42036074
 MonoBehaviour:
@@ -602,96 +602,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 256599701}
   m_Mesh: {fileID: -7444259324989267807, guid: 003b6f4dc97c33a438dfe0d0db83090e, type: 3}
---- !u!1 &359941972
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 359941973}
-  - component: {fileID: 359941974}
-  - component: {fileID: 359941975}
-  m_Layer: 0
-  m_Name: WorldManager
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &359941973
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359941972}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_ConstrainProportionsScale: 0
-  m_Children: []
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &359941974
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359941972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 55e2569b79f7f4849a2c755189a674cf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  loading: {fileID: 0}
-  searchBookPanel: {fileID: 0}
-  myPastBookPanel: {fileID: 0}
-  bookPastCount: 0
-  inputBookTitleName: {fileID: 0}
-  btnSearch: {fileID: 0}
-  manager: {fileID: 359941975}
-  titleList: []
-  authorList: []
-  publisherList: []
-  pubdateList: []
-  isbnList: []
-  imageList: []
-  content: {fileID: 0}
-  resultFactory: {fileID: 318626364981816602, guid: d6147a7b136793b45a66ee1aa5f3dddd, type: 3}
-  showBook: {fileID: 0}
-  book: {fileID: 0}
-  bookBest: {fileID: 0}
-  myAllBookListNet: []
-  matBook: {fileID: 0}
-  titleListNet: []
-  authorListNet: []
-  publishInfoListNet: []
-  thumbnailLinkListNet: []
-  isbnListNet: []
-  ratingListNet: []
-  reviewListNet: []
-  isDoneListNet: []
-  isBestsListNet: []
-  thumbnailImgListNet: []
-  isOverHeadListNet: []
-  mask: {fileID: 0}
---- !u!114 &359941975
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 359941972}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: aa5a4625092bea242820144a6b711e52, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  worldManager: {fileID: 359941974}
 --- !u!1 &424449383
 GameObject:
   m_ObjectHideFlags: 0
@@ -2096,7 +2006,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1095647356
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2693,7 +2603,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1393168702
 GameObject:
@@ -3019,7 +2929,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1574811190
 GameObject:
@@ -3636,7 +3546,7 @@ Transform:
   - {fileID: 2071946391}
   - {fileID: 1574811191}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1795484238
 GameObject:
@@ -3775,13 +3685,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1853578883}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1853578887
 MonoBehaviour:
@@ -7066,6 +6976,7 @@ GameObject:
   - component: {fileID: 4710608822219960298}
   - component: {fileID: 7187089091285160887}
   - component: {fileID: 7187089091285160886}
+  - component: {fileID: 7187089091285160888}
   m_Layer: 0
   m_Name: "NPC\uD14C\uC774\uBE14"
   m_TagString: Untagged
@@ -7935,7 +7846,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7112268471743161766}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -9.939, y: 0.67, z: 4.089}
+  m_LocalPosition: {x: -9.939, y: 0.67, z: 0.61}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -13585,7 +13496,7 @@ Transform:
   - {fileID: 1106703107}
   - {fileID: 1305203083}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3219369011946332629
 GameObject:
@@ -17870,7 +17781,7 @@ GameObject:
   - component: {fileID: 5558985806314664910}
   - component: {fileID: 745699456296192840}
   m_Layer: 12
-  m_Name: floor_4.135 (12)
+  m_Name: "\uBCA0\uB108\uC774\uAC78\uB85C"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -20743,7 +20654,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &4604288345929951909
 GameObject:
   m_ObjectHideFlags: 0
@@ -27282,6 +27193,7 @@ GameObject:
   - component: {fileID: 4072288043345443023}
   - component: {fileID: 3941442037620808625}
   - component: {fileID: 7112268471743161767}
+  - component: {fileID: 7112268471743161768}
   m_Layer: 0
   m_Name: Door
   m_TagString: Untagged
@@ -27300,8 +27212,20 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.39424977, y: 2.5601823, z: 1.1169573}
-  m_Center: {x: 0.08628614, y: -0.5054991, z: 0.5584801}
+  m_Size: {x: 0.37192142, y: 2.5601823, z: 1.4161932}
+  m_Center: {x: 0.07512194, y: -0.5054991, z: 0.408862}
+--- !u!114 &7112268471743161768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7112268471743161766}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 67265e6e94147cd4ba7053e0f143bd64, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!23 &7123791441351850778
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -27470,7 +27394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textNPC: {fileID: 8221367594744028053}
   textNPCSpeechBUbble: {fileID: 869978203}
-  NPCSpeaking: {fileID: 1095647355}
+  NPCSpeechBubble: {fileID: 1095647355}
   joyStickMove: {fileID: 0}
   pannelforNPC: {fileID: 8221367594930178881}
   btnCraeteRoom: {fileID: 8221367594183331805}
@@ -27490,6 +27414,22 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 4.214759, y: 1.4854095, z: 2.591589}
   m_Center: {x: -0.008409977, y: 0.068549395, z: 0.19253445}
+--- !u!54 &7187089091285160888
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1012497222380943851}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 0
+  m_IsKinematic: 1
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
 --- !u!4 &7190676237601154181
 Transform:
   m_ObjectHideFlags: 0
@@ -28285,7 +28225,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &7244995689193114253
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -28825,7 +28765,7 @@ GameObject:
   - component: {fileID: 5899711233555043093}
   - component: {fileID: 7449511178480280451}
   m_Layer: 0
-  m_Name: floor_2.121 (1)
+  m_Name: "\uBCA0\uB108"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -31442,7 +31382,7 @@ RectTransform:
   - {fileID: 8221367593813590593}
   - {fileID: 8221367594930178880}
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -32196,7 +32136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!95 &8221367594757015538
 Animator:
   serializedVersion: 4
@@ -32687,7 +32627,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
+      - m_Target: {fileID: 42036075}
         m_TargetAssemblyTypeName: ChatManager, Assembly-CSharp
         m_MethodName: ChattingPannelOff
         m_Mode: 1

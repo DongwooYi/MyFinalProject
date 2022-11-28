@@ -14,31 +14,36 @@ public class PhotonGameManager : MonoBehaviourPunCallbacks
     // Start is called before the first frame update
     void Start()
     {
+        i = 0;
         //OnPhotonSerializeView »£√‚ ∫Ûµµ
         PhotonNetwork.SerializationRate = 60;
         //Rpc »£√‚ ∫Ûµµ
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
-        
-    //playerPrefab.GetComponentInChildren<MeshRenderer>().material.mainTexture= 
     }
   
     private void Update()
     {
-        /*if(NPC.isTiggerEnter || NPC.isTriggershowRoomList)
+        if(NPC.isTiggerEnter || NPC.isTriggershowRoomList)
         {
             LeaveRoom();
-        }*/
+        }
     }
+    int i = 0;
     public void LeaveRoom()
     {
+        if(i>0)
+        {
+            return;
+        }
         PhotonNetwork.LeaveRoom(true);
+        i ++;
     }
     public override void OnLeftRoom()
     {
+        PhotonNetwork.LoadLevel("MyRoomScene_Beta");
         base.OnLeftRoom();
         print(System.Reflection.MethodBase.GetCurrentMethod().Name);
-        PhotonNetwork.LoadLevel("MyRoomScene_Beta 1");
     }
     
 }

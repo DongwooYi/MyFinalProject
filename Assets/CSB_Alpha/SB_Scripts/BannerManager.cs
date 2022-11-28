@@ -40,6 +40,7 @@ public class BannerManager : MonoBehaviour
         //banneritem = GameObject.FindGameObjectWithTag("BannerItem");
     }
 
+    public Transform transformBanner;
     void Update()
     {
         if (myAllBookListNet.Count <= 0)
@@ -60,10 +61,12 @@ public class BannerManager : MonoBehaviour
 
                 // 새로운거 생성
                 banneritem = Instantiate(bannerFactory);
+                banneritem.transform.position = transformBanner.transform.position;
             }
-            else
+          else
             {
                 banneritem = Instantiate(bannerFactory);
+                banneritem.transform.position = transformBanner.transform.position;
             }
             MakeBanner(banneritem);
             currTime = 0;
@@ -105,7 +108,7 @@ public class BannerManager : MonoBehaviour
         HttpRequester requester = new HttpRequester();
 
         // /posts/1. GET, 완료되었을 때 호출되는 함수
-        requester.url = "http://15.165.28.206:80/v1/records/myroom";
+        requester.url = "http://15.165.28.206:80/v1/records/all";
         requester.requestType = RequestType.GET;
         requester.onComplete = OnCompleteGetOneLineReview;
 
@@ -121,14 +124,15 @@ public class BannerManager : MonoBehaviour
 
         if (type == 200)
         {
-            print("통신성공. 모든도서.서재입장");
+            print("통신성공. 배너");
             string result_data = ParseGETJson("[" + handler.text + "]", "data");
-
+          
             titleListNet = ParseMyBookData(result_data, "bookName");
             nicknameList = ParseMyBookData(result_data, "name");
-            //publishInfoListNet = ParseMyBookData(result_data, "bookPublishInfo");
-            thumbnailLinkListNet = ParseMyBookData(result_data, "thumbnailLink");
             reviewListNet = ParseMyBookData(result_data, "oneLineReview");
+            thumbnailLinkListNet = ParseMyBookData(result_data, "thumbnailLink");
+                
+            
 
 
             GETThumbnailTexture();
@@ -142,7 +146,7 @@ public class BannerManager : MonoBehaviour
 
     public IEnumerator GetThumbnailImg(string[] url)
     {
-        for (int j = 0; j < url.Length; j++)
+        for (int j = 0; j < 40; j++)
         {
             UnityWebRequest www = UnityWebRequestTexture.GetTexture(url[j]);
             yield return www.SendWebRequest();
@@ -160,7 +164,7 @@ public class BannerManager : MonoBehaviour
             }
             yield return null;
         }
-        for (int i = 0; i < titleListNet.Count; i++)
+        for (int i = 0; i < thumbnailImgListNet.Count; i++)
         {
             _MyBookInfo myBookInfo = new _MyBookInfo();
 

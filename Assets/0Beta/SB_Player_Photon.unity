@@ -1675,9 +1675,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037abdb68413f144d8bface8348bc410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bannerFactory: {fileID: 4889056022409588485, guid: 24e59f5e4e4e7344faabbd3f694d339c, type: 3}
+  bannerFactory: {fileID: 8139976283741529435, guid: 290c87d1250b727498636b3bef866cc8, type: 3}
   bannerTime: 5
   idx: 0
+  transformBanner: {fileID: 6619871228000665053}
   myAllBookListNet: []
   titleListNet: []
   thumbnailLinkListNet: []
@@ -13090,7 +13091,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3219369011946332629}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -28633,7 +28634,7 @@ GameObject:
   - component: {fileID: 1559889079100174169}
   - component: {fileID: 5899711232321527884}
   m_Layer: 0
-  m_Name: floor_2.121
+  m_Name: "\uBCA0\uB108\uC0DD\uC131\uACF5\uAC04"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

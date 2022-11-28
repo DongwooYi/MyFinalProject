@@ -1140,7 +1140,7 @@ GameObject:
   - component: {fileID: 7545513710778336080}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1180,7 +1180,7 @@ MonoBehaviour:
   mainbody: {fileID: 3174551214221561295}
   characterBody: {fileID: 7598963781987066659}
   cameraArm: {fileID: 3174551215563961669}
-  animator: {fileID: 0}
+  animator: {fileID: 576164493385616985}
   rayDistance: 1
   rotSpeed: 5
   zoomIn: 0.479
@@ -1188,7 +1188,7 @@ MonoBehaviour:
   speechBubbleBack: {fileID: 156133695136065371}
   speechBubbleFront: {fileID: 527929341692673050}
   chatManager: {fileID: 0}
-  showBook: {fileID: 721146549546692481}
+  PlayerAnimationState: {fileID: 8139926456129348369}
 --- !u!114 &1240587893731532774
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1225,7 +1225,6 @@ MonoBehaviour:
   observableSearch: 2
   ObservedComponents:
   - {fileID: 1240587893731532774}
-  - {fileID: 8775153502213689238}
   - {fileID: 9123376728505493767}
   sceneViewId: 0
   InstantiationId: 0
@@ -2304,10 +2303,10 @@ GameObject:
   - component: {fileID: 7598963781987066659}
   - component: {fileID: 576164493385616985}
   - component: {fileID: 6858886113700024625}
-  - component: {fileID: 8775153502213689238}
+  - component: {fileID: 8139926456129348369}
   m_Layer: 0
   m_Name: Girl
-  m_TagString: Player
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2339,10 +2338,10 @@ Animator:
   m_GameObject: {fileID: 6858886113700024624}
   m_Enabled: 1
   m_Avatar: {fileID: 9000000, guid: 1b7b61f47a25486408a9ef0e3eafc9d2, type: 3}
-  m_Controller: {fileID: 9100000, guid: 802af59947bdada4298b42e8a266e150, type: 2}
+  m_Controller: {fileID: 9100000, guid: 975bda2c8309706428c85d39413cd1e0, type: 2}
   m_CullingMode: 1
   m_UpdateMode: 0
-  m_ApplyRootMotion: 1
+  m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_StabilizeFeet: 0
   m_WarningMessage: 
@@ -2363,7 +2362,7 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
---- !u!114 &8775153502213689238
+--- !u!114 &8139926456129348369
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -2372,18 +2371,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 6858886113700024624}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Script: {fileID: 11500000, guid: 24079c7708704ee4586bf601f8ef57ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  ShowLayerWeightsInspector: 1
-  ShowParameterInspector: 1
-  m_SynchronizeParameters:
-  - Type: 4
-    SynchronizeType: 2
-    Name: isMove
-  m_SynchronizeLayers:
-  - SynchronizeType: 0
-    LayerIndex: 0
+  currState: 0
+  anim: {fileID: 576164493385616985}
 --- !u!1 &6920093962230794561
 GameObject:
   m_ObjectHideFlags: 0

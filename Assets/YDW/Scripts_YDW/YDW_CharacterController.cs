@@ -51,7 +51,7 @@ public class YDW_CharacterController : MonoBehaviour
         GetTouchInput();
         CollisionCheck();
     }
-    public void Move(Vector2 vector2, bool isMove)
+    public void Move(Vector2 vector2)
     {
         // 이동 방향 구하기 1
         //Debug.DrawRay(cameraArm.position, cameraArm.forward, Color.red);
@@ -63,10 +63,10 @@ public class YDW_CharacterController : MonoBehaviour
         //Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
         Vector2 moveInput = vector2;
         // 이동 방향키 입력 판정 : 이동 방향 벡터가 0보다 크면 입력이 발생하고 있는 중
-        //bool isMove = moveInput.magnitude != 0;
+        bool isMove = moveInput.magnitude != 0;
         //bool isMove = joystick2DLobby.isInput;
         // 입력이 발생하는 중이라면 이동 애니메이션 재생
-        animator.SetBool("isMove", isMove);
+        animator.SetBool("IsMove", isMove);
         if (isMove)
         {
             // 카메라가 바라보는 방향

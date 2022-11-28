@@ -37,9 +37,10 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
     public GameObject speecgBubbleGameObj;
     public Text speechBubbleBack;
     public Text speechBubbleFront;
-    public ChatManager chatManager;
 
-    public PlayerAnimation PlayerAnimationState;
+    public ChatManager chatManager;
+    [Header("머리위 책")]
+    public GameObject showBook;
 
     // Start is called before the first frame update
     void Start()
@@ -54,6 +55,8 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
             cameraArm.gameObject.SetActive(true);
             mainbody.gameObject.tag = "Player";
             characterBody.gameObject.tag = "Player";
+           // showBook.gameObject.GetComponent<MeshRenderer>().material.mainTexture = HttpManager.instance.TextureShowBook.texture;
+            showBook.gameObject.GetComponent<Outline>().OutlineColor = HttpManager.instance.outlineShowBook;
         }
         sceneName = SceneManager.GetActiveScene();
         animator = characterBody.GetComponent<Animator>();
@@ -63,19 +66,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
     {
         GetTouchInput();
         CollisionCheck();
-        if (moveInput.magnitude != 0)
-        {
-            //상태를 Move로
-            PlayerAnimationState.ChangeState(PlayerAnimation.State.MOVE);
-        }
-        //그렇지 않다면
-        else
-        {
-            //상태를 Idle로
-            PlayerAnimationState.ChangeState(PlayerAnimation.State.IDLE);
-        }
     }
-    Vector2 moveInput;
     public void Move(Vector2 vector2)
     {
         // 이동 방향 구하기 1
@@ -86,12 +77,17 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
 
         // 이동 방향키 입력 값 가져오기
         //Vector2 moveInput = new Vector2(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"));
-        moveInput = vector2;
+        Vector2 moveInput = vector2;
         // 이동 방향키 입력 판정 : 이동 방향 벡터가 0보다 크면 입력이 발생하고 있는 중
+        bool isMove = moveInput.magnitude != 0;
 
         // 입력이 발생하는 중이라면 이동 애니메이션 재생
- 
-        
+        if(photonView.IsMine)
+        {
+        animator.SetBool("isMove", isMove);
+        }
+        if (isMove)
+        {
             // 카메라가 바라보는 방향
             Vector3 lookForward = new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized;
             // 카메라의 오른쪽 방향
@@ -103,11 +99,10 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
             //characterBody.forward = lookForward;
             // 이동할 때 이동 방향 바라보기
             characterBody.forward = moveDir;
-
-        // 이동
-        if (!isCollisionCheck)
+            // 이동
+            if (!isCollisionCheck)
                 transform.position += moveDir * Time.deltaTime * 6f;
-        
+        }
     }
     void CollisionCheck()
     {

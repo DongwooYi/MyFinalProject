@@ -25,7 +25,6 @@ public class PhotonGameManager : MonoBehaviourPunCallbacks
         go = GameObject.FindWithTag("ShowBook");
         go.GetComponent<MeshRenderer>().material.mainTexture = HttpManager.instance.TextureShowBook.texture;
         go.GetComponent<Outline>().OutlineColor = HttpManager.instance.outlineShowBook;
-        go.AddComponent<PhotonTransformView>();
         go.transform.GetChild(0).GetComponent<MeshRenderer>().material.mainTexture = HttpManager.instance.TextureShowBook.texture;
         go.transform.GetChild(0).GetComponent<Outline>().OutlineColor = HttpManager.instance.outlineShowBook;
     }

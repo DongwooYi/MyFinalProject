@@ -80,6 +80,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
         Vector2 moveInput = vector2;
         // 이동 방향키 입력 판정 : 이동 방향 벡터가 0보다 크면 입력이 발생하고 있는 중
         bool isMove = moveInput.magnitude != 0;
+
         // 입력이 발생하는 중이라면 이동 애니메이션 재생
         if(photonView.IsMine)
         {
@@ -100,7 +101,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
             characterBody.forward = moveDir;
             // 이동
             if (!isCollisionCheck)
-                transform.position += moveDir * Time.deltaTime * 3f;
+                transform.position += moveDir * Time.deltaTime * 6f;
         }
     }
     void CollisionCheck()

@@ -50,6 +50,8 @@ public class CurrBookInfoPanel : MonoBehaviour
 
     public GameObject player;   // 플레이어
     public GameObject showBook;
+    public GameObject showBookJr;
+
 
     public _MyBookInfo[] myAllBookListToArray;
 
@@ -85,6 +87,7 @@ public class CurrBookInfoPanel : MonoBehaviour
 
         player = GameObject.Find("Character");
         showBook = GameObject.Find("ShowBook");
+        showBookJr = GameObject.Find("Quad");
 
         worldManager = GameObject.Find("WorldManager");
         wm = worldManager.GetComponent<WorldManager2D>();
@@ -150,12 +153,10 @@ public class CurrBookInfoPanel : MonoBehaviour
             HttpPostMyBookData();
         }
 
-        if(isDoneString == "N")
-        {
             // <등록 되었습니다>
             confirmMsg = Instantiate(doneBookConfirm, gameObject.transform);    // 나의 자식으로 생성
                                                                                 // myBookManager.SetActive(false);
-        }
+
 
     }
 
@@ -230,7 +231,7 @@ public class CurrBookInfoPanel : MonoBehaviour
     public void OnOverHeadToggle(bool isOverHead)
     {
         print("토글 리스너: " + isOverHead);
-        if(isOverHead)
+        if (isOverHead)
         {
             isOverHeadString = "Y";
             headBookInfo = Instantiate(headConfirm, canvas);
@@ -280,6 +281,7 @@ public class CurrBookInfoPanel : MonoBehaviour
                 }
             }
             showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
+            showBookJr.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnail.texture);
         }
         else
         {

@@ -197,11 +197,14 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
         {
             RtcEngine.DisableVideo();
             LocalView.SetEnable(false);
+            myView.SetActive(false);
+
         }
         else
         {
             RtcEngine.EnableVideo();
             LocalView.SetEnable(true);
+            myView.SetActive(true);
         }
     }
     public Recorder recorder;

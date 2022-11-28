@@ -455,6 +455,7 @@ GameObject:
   - component: {fileID: 8855822967692982379}
   - component: {fileID: 3583132228759486401}
   - component: {fileID: 6195693746431322838}
+  - component: {fileID: 137531847736257141}
   m_Layer: 0
   m_Name: Review
   m_TagString: Untagged
@@ -545,6 +546,22 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+--- !u!114 &137531847736257141
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8139976283741529435}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 796d3c2abecf6ba4d9e4daedb5972f37, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  title: {fileID: 4463732303296618750}
+  nickname: {fileID: 2151182402808768754}
+  oneLineReview: {fileID: 3076601913976589749}
+  thumbnail: {fileID: 2512192043895808695}
 --- !u!1 &9215480335538307892
 GameObject:
   m_ObjectHideFlags: 0

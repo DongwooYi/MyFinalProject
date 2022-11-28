@@ -84,7 +84,6 @@ public class WorldManager2D : MonoBehaviour
 
         book = GameObject.Find("Book");
         bookBest = GameObject.Find("myroom/MyBestBookShelf");
-        print(bookBest.name);
 
         HttpGetMyBookData();
        

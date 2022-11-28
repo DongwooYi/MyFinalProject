@@ -81,12 +81,12 @@ public class ChatManager : MonoBehaviourPun
     }
     public void ChattingPannelON()
     {
-        ChattingPannel.SetActive(true);
+       //ChattingPannel.SetActive(true);
         anim.SetBool("IsOpen", true);
     }
     public void ChattingPannelOff()
     {
-        ChattingPannel.SetActive(false);
+       // ChattingPannel.SetActive(false);
         anim.SetBool("IsOpen", false);
     }
     string findPlayer()

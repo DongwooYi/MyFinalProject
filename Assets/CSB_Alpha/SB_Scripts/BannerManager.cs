@@ -105,7 +105,7 @@ public class BannerManager : MonoBehaviour
         HttpRequester requester = new HttpRequester();
 
         // /posts/1. GET, 완료되었을 때 호출되는 함수
-        requester.url = "http://15.165.28.206:80/v1/records/myroom";
+        requester.url = "http://15.165.28.206:80/v1/records/all";
         requester.requestType = RequestType.GET;
         requester.onComplete = OnCompleteGetOneLineReview;
 

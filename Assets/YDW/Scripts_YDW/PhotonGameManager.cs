@@ -10,6 +10,10 @@ public class PhotonGameManager : MonoBehaviourPunCallbacks
     {
         instance = this;
     }
+<<<<<<< HEAD
+=======
+   
+>>>>>>> main
     // Start is called before the first frame update
     void Start()
     {

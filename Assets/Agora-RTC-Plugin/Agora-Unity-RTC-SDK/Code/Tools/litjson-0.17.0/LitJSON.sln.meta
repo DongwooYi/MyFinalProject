@@ -1,5 +1,9 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Agora-RTC-Plugin/Agora-Unity-RTC-SDK/Code/Tools/litjson-0.17.0/LitJSON.sln.meta
 guid: a918bee8350084e9eae3af0e9abd1404
+========
+guid: e2d2f0fe6906a4127a57b25797946a4c
+>>>>>>>> main:Assets/Agora-RTC-Plugin/Agora-Unity-RTC-SDK/Code/Tools/litjson-0.17.0/src/LitJson/LitJSON.csproj.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

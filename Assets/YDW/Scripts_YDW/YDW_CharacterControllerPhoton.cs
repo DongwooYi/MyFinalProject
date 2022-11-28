@@ -35,9 +35,12 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
     Scene sceneName;
 
     public GameObject speecgBubbleGameObj;
-    public Text speechBubble;
+    public Text speechBubbleBack;
+    public Text speechBubbleFront;
 
     public ChatManager chatManager;
+    [Header("머리위 책")]
+    public GameObject showBook;
 
     // Start is called before the first frame update
     void Start()
@@ -47,6 +50,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
         if(chatManager)
         {
             chatManager.player = gameObject;
+            
         }
 
 
@@ -54,6 +58,8 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
         {
             cameraArm.gameObject.SetActive(true);
             mainbody.gameObject.tag = "Player";
+            showBook.gameObject.GetComponent<MeshRenderer>().material.mainTexture = HttpManager.instance.TextureShowBook.texture;
+            showBook.gameObject.GetComponent<Outline>().OutlineColor = HttpManager.instance.outlineShowBook;
         }
         sceneName = SceneManager.GetActiveScene();
         animator = characterBody.GetComponent<Animator>();

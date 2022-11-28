@@ -455,7 +455,11 @@ GameObject:
   - component: {fileID: 8855822967692982379}
   - component: {fileID: 3583132228759486401}
   - component: {fileID: 6195693746431322838}
+<<<<<<< HEAD
   - component: {fileID: 137531847736257141}
+=======
+  - component: {fileID: 436552919902787320}
+>>>>>>> main
   m_Layer: 0
   m_Name: Review
   m_TagString: Untagged
@@ -546,7 +550,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 10210, guid: 0000000000000000e000000000000000, type: 0}
+<<<<<<< HEAD
 --- !u!114 &137531847736257141
+=======
+--- !u!114 &436552919902787320
+>>>>>>> main
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}

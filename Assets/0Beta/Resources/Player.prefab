@@ -1136,7 +1136,6 @@ GameObject:
   m_Component:
   - component: {fileID: 3174551214221561288}
   - component: {fileID: 4703666634603315397}
-  - component: {fileID: 1240587893731532774}
   - component: {fileID: 7545513710778336080}
   m_Layer: 0
   m_Name: Player
@@ -1189,22 +1188,6 @@ MonoBehaviour:
   speechBubbleFront: {fileID: 527929341692673050}
   chatManager: {fileID: 0}
   showBook: {fileID: 721146549546692481}
---- !u!114 &1240587893731532774
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3174551214221561295}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
-  m_UseLocal: 1
 --- !u!114 &7545513710778336080
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1224,8 +1207,8 @@ MonoBehaviour:
   OwnershipTransfer: 0
   observableSearch: 2
   ObservedComponents:
-  - {fileID: 1240587893731532774}
   - {fileID: 8775153502213689238}
+  - {fileID: 1154147978850972743}
   - {fileID: 9123376728505493767}
   sceneViewId: 0
   InstantiationId: 0
@@ -2305,6 +2288,7 @@ GameObject:
   - component: {fileID: 576164493385616985}
   - component: {fileID: 6858886113700024625}
   - component: {fileID: 8775153502213689238}
+  - component: {fileID: 1154147978850972743}
   m_Layer: 0
   m_Name: Girl
   m_TagString: Player
@@ -2379,11 +2363,27 @@ MonoBehaviour:
   ShowParameterInspector: 1
   m_SynchronizeParameters:
   - Type: 4
-    SynchronizeType: 2
+    SynchronizeType: 1
     Name: isMove
   m_SynchronizeLayers:
   - SynchronizeType: 0
     LayerIndex: 0
+--- !u!114 &1154147978850972743
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6858886113700024624}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
+  m_UseLocal: 1
 --- !u!1 &6920093962230794561
 GameObject:
   m_ObjectHideFlags: 0

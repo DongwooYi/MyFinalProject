@@ -27,8 +27,9 @@ public class PhotonGameManager : MonoBehaviourPunCallbacks
         go.GetComponent<Outline>().OutlineColor = HttpManager.instance.outlineShowBook;
         go.transform.GetChild(0).GetComponent<MeshRenderer>().material.mainTexture = HttpManager.instance.TextureShowBook.texture;
         go.transform.GetChild(0).GetComponent<Outline>().OutlineColor = HttpManager.instance.outlineShowBook;
+        buttonGoback.onClick.AddListener(LeaveRoom);
     }
-
+    public Button buttonGoback;
     public Recorder recorder;
     public Button buttonMicOn;
     public Button buttonMicOff;

@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 
 
-public class Joystick2DLobby : MonoBehaviourPun//, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField]
     private RectTransform innerCircle;  // Inspector 창에서 Drag 해서 넣어줌
@@ -141,7 +141,7 @@ public class Joystick2DLobby : MonoBehaviourPun//, IBeginDragHandler, IDragHandl
             case JoystickType.Move:
                 if (playerController)
                 {
-                    playerController.Move(inputVector, isInput);
+                    playerController.Move(inputVector);
                 }
                 break;
             case JoystickType.Rotate:

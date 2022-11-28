@@ -5,6 +5,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
 using Newtonsoft.Json.Linq;
+using System.IO;
 
 // 책 검색, 책 등록 관리
 [Serializable]
@@ -75,8 +76,6 @@ public class WorldManager2D : MonoBehaviour
     //  ------------------------------------------------------------------------------
 
     public Material matBook;    // 책의 Material
-
-        HttpManager httpManager;
     void Start()
     {
         
@@ -131,6 +130,9 @@ public class WorldManager2D : MonoBehaviour
             {
                 // 머리에 띄우기
                 showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnailImgListNet[i]);
+                HttpManager.instance.TextureShowBook.texture = showBook.GetComponent<MeshRenderer>().material.mainTexture;
+
+              
             }
 
         }
@@ -155,6 +157,8 @@ public class WorldManager2D : MonoBehaviour
         {
             showBook.GetComponent<Outline>().OutlineColor = Color.cyan;
         }
+
+        HttpManager.instance.outlineShowBook = showBook.GetComponent<Outline>().OutlineColor;
         #endregion
     }
     #endregion

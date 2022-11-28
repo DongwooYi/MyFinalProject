@@ -55,17 +55,16 @@ public class ChatManager : MonoBehaviourPun
     public Button btnChattingOff;
     //내 아이디 색
     Color nickColor;
-
+    
     public GameObject player;
     Scene sceneName;
 
-    HttpManager httpManager;
     public Animator anim;
     Scene scene;
     void Start()
     {
         scene = SceneManager.GetActiveScene();
-        ChattingPannel.SetActive(false);
+        //ChattingPannel.SetActive(false);
         sceneName = SceneManager.GetActiveScene();
         //InputField에서 엔터를 쳤을 때 호출되는 함수 등록
         inputChat.onSubmit.AddListener( OnSubmit);
@@ -81,13 +80,16 @@ public class ChatManager : MonoBehaviourPun
     }
     public void ChattingPannelON()
     {
-        ChattingPannel.SetActive(true);
+       // ChattingPannel.SetActive(true);
+        btnChattingOn.gameObject.SetActive(false);
         anim.SetBool("IsOpen", true);
     }
     public void ChattingPannelOff()
     {
-        ChattingPannel.SetActive(false);
+        //ChattingPannel.SetActive(false);
+        btnChattingOn.gameObject.SetActive(true);
         anim.SetBool("IsOpen", false);
+
     }
     string findPlayer()
     {
@@ -209,7 +211,8 @@ public class ChatManager : MonoBehaviourPun
     IEnumerator ChattingSpeech()
     {
         player.gameObject.GetComponent<YDW_CharacterControllerPhoton>().speecgBubbleGameObj.SetActive(true);
-        player.gameObject.GetComponent<YDW_CharacterControllerPhoton>().speechBubble.text = j;
+        player.gameObject.GetComponent<YDW_CharacterControllerPhoton>().speechBubbleBack.text = j;
+        player.gameObject.GetComponent<YDW_CharacterControllerPhoton>().speechBubbleFront.text = j;
         yield return new WaitForSeconds(5.0f);
         player.gameObject.GetComponent<YDW_CharacterControllerPhoton>().speecgBubbleGameObj.SetActive(false) ;
         yield break;

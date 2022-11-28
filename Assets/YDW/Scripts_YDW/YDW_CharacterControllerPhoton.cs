@@ -14,7 +14,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
     [Header("카메라")]
     public Transform cameraArm;
 
-    Animator animator;
+   public Animator animator;
 
     bool isCollisionCheck;
     [Range(1, 10)]

@@ -1,13 +1,13 @@
-using System.Collections.Generic;
-using UnityEngine;
+using Newtonsoft.Json.Linq;
 using Photon.Pun;
 using Photon.Realtime;
-using UnityEngine.UI;
-using System.Collections;
 using System;
-using UnityEngine.Networking;
-using Newtonsoft.Json.Linq;
+using System.Collections;
+using System.Collections.Generic;
 using System.IO;
+using UnityEngine;
+using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
@@ -34,7 +34,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     //방생성 Button
     public Button btnCreate;
 
-    public MakingChattingRoom doorCheck;
+    public GoToworld doorCheck;
     //방의 정보들   
     Dictionary<string, RoomInfo> roomCache = new Dictionary<string, RoomInfo>();
     //룸 리스트 Content
@@ -66,7 +66,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     public GameObject readerMate;
     public GameObject readerMateImage;
 
-    public GameObject roomDetailDesc;
+
     #region 요일 선택
     [Header("요일 선택")]
     public Toggle toggleMon;
@@ -111,9 +111,9 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     private void Update()
     {
         dateTime = DateTime.Now;
-        if (NPC.isTiggerEnter)
+        if (NPC.isShowRoomList)
         {
-            setRoom.SetActive(true);
+            setRoomlist.SetActive(true);
         }
         if (doorCheck.GotoMainWorld == true)
         {
@@ -333,7 +333,6 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     [Header("독서메이트 추천")]
     public Text textPayernameinreafermatePannel;
 
-   
     public void ReaderRecommendation()
     {
         HttpRequester requester = new HttpRequester();
@@ -1072,7 +1071,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
     int doneCreateRoomCount = 0;
     public void GoBacktoMainWorld()
     {
-        if(doneCreateRoomCount>0)
+        if (doneCreateRoomCount > 0)
         {
             return;
         }
@@ -1091,6 +1090,8 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         setRoom.SetActive(false);
         CancelPannel.SetActive(false);
         setRoomlist.SetActive(true);
+        setRoom.SetActive(false);
+
     }
     public void BacktoRoomList()
     {

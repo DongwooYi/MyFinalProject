@@ -46,14 +46,10 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
     void Start()
     {
         chatManager = FindObjectOfType<ChatManager>();
-
-        if(chatManager)
+        if (chatManager)
         {
             chatManager.player = gameObject;
-            
         }
-
-
         if (photonView.IsMine)
         {
             cameraArm.gameObject.SetActive(true);
@@ -68,11 +64,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
     }
     private void FixedUpdate()
     {
-        if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false) ;
-        {
-
-            GetTouchInput();
-        }
+        GetTouchInput();
         CollisionCheck();
     }
     public void Move(Vector2 vector2)
@@ -163,7 +155,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
                         {
                             touchOne = Input.GetTouch(1);
                             GetTouchZoomInOut();
-                        }                        
+                        }
                     }
                     break;
                 case TouchPhase.Stationary:

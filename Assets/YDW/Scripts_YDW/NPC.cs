@@ -8,7 +8,6 @@ using UnityEngine.SceneManagement;
 public class NPC : MonoBehaviour
 {
     [Header("NPC 채팅")]
-    public Text textNPC;
     public TextMeshProUGUI textNPCSpeechBUbble;
     public GameObject NPCSpeechBubble;
 
@@ -17,73 +16,66 @@ public class NPC : MonoBehaviour
 
     [Header("버튼")]
     public GameObject pannelforNPC;
-    public GameObject btnCraeteRoom;
-    public GameObject btnOnlist;
-    public GameObject btnNo;
-    public GameObject btnGoBack;
-
+    public Button btnNo;
+    public Button btnYes;
 
     [Header("로비씬 룸리스트및 방생성")]
-    public static bool isTriggershowRoomList;
-    public static bool isTiggerEnter;
+    public static bool isShowRoomList;
 
     private void Start()
     {
+        isShowRoomList = false;
         joyStickMove = GameObject.FindGameObjectWithTag("Player");
         pannelforNPC.SetActive(false);
         NPCSpeechBubble.SetActive(false);
+        btnNo.onClick.AddListener(OnClickNo);
+        btnYes.onClick.AddListener(OnClickOut);
     }
     private void OnTriggerEnter(Collider other)
     {       
+           if(i>0)
+            {
+            return;
+            }
+
          if (other.tag == "Player")
             {
             Debug.Log("Hit");
             NPCSpeechBubble.SetActive(true);
             pannelforNPC.SetActive(true);
             StartCoroutine(TextPannel());
+            i++;
         }
         
     }
+    int i =0;
     IEnumerator TextPannel()
     {
         textNPCSpeechBUbble.text = "안녕!";
         yield return new WaitForSeconds(5.0f);
         textNPCSpeechBUbble.text = "독서 모임하고싶지 않아?";
         yield return new WaitForSeconds(5.0f);
-        textNPC.text = "";
+        pannelforNPC.SetActive(false);
+
     }
     private void OnTriggerExit(Collider other)
     {
         NPCSpeechBubble.SetActive(false);
+        pannelforNPC.SetActive(false);
+        joyStickMove.SetActive(true);
+        i = 0;
+    }
+    void OnClickOut()
+    {
+        isShowRoomList = true;
+        NPCSpeechBubble.SetActive(false);
+        pannelforNPC.SetActive(false);
         joyStickMove.SetActive(true);
     }
-    public void OnClickMakingRoom()
+    void OnClickNo()
     {
         NPCSpeechBubble.SetActive(false);
-        isTiggerEnter = true;
-    }
-    public void onClickShowRoomList()
-    {
-        NPCSpeechBubble.SetActive(false);
-        isTriggershowRoomList = true;
-    }
-
-    public void OnClickNottoMakeaRoom()
-    {
-        textNPCSpeechBUbble.text = "그러면 너가 원하는 챌린지 볼래?";
-        btnCraeteRoom.SetActive(false);
-        btnNo.SetActive(false);
-        btnOnlist.SetActive(true);
-        btnGoBack.SetActive(true);
-    }
-    public void OnClickBack()
-    {
-        textNPCSpeechBUbble.text = "...알겠어... 다음에 또와";
-        Invoke("EndNPCSpeaking", 1.0f);
-    }
-    public void EndNPCSpeaking()
-    {
-        NPCSpeechBubble.SetActive(false);
+        pannelforNPC.SetActive(false);
         joyStickMove.SetActive(true);
     }
 

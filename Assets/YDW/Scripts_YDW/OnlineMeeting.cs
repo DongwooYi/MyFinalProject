@@ -33,9 +33,11 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
 
     public Toggle toggleCamOnOff;
     public Toggle toggleMicOnOff;
+    public Text textRoomName;
     // Start is called before the first frame update
     void Start()
     {
+        textRoomName.text = $"{PhotonNetwork.CurrentRoom.Name}";
         X = GameObject.Find("ButtonJoin");
         toggleCamOnOff.onValueChanged.AddListener(delegate { BtnCamOnOFfToggleValueChanged(toggleCamOnOff); });
         toggleMicOnOff.onValueChanged.AddListener(delegate { BtnCamOnOFfToggleValueChanged(toggleMicOnOff); });
@@ -107,38 +109,22 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
     }
     public GameObject myView; //= GameObject.Find("MyView");
     public GameObject remoteView; //= GameObject.Find("RemoteView");
-
+    public GameObject remoteView1st;
+    public GameObject remoteView2nd;
     private void SetupUI()
     {
         LocalView = myView.AddComponent<VideoSurface>();
-       
+
         myView.transform.Rotate(0.0f, 0.0f, -180);
         RemoteView = remoteView.AddComponent<VideoSurface>();
-        
+
         RemoteView.transform.Rotate(0.0f, 0.0f, -180);
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 3)
-        {
-          GameObject  go = GameObject.Find("RemoteView2");
-            go.SetActive(true);
-            RemoteViewOne = go.AddComponent<VideoSurface>();
-            go.transform.position = transformCamPostionoddNum[0].position;
-        //    go.transform.Rotate(0.0f, 0.0f, 90.0f);
-        }
-        if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
-        {
-           GameObject go = GameObject.Find("RemoteView2");
-            go.SetActive(true);
-            RemoteViewOne = go.AddComponent<VideoSurface>();
-            go.transform.position = transformCamPostioneven[0].position;
-            go.transform.Rotate(0.0f, 0.0f, 90.0f);
-            go = GameObject.Find("RemoteView3");
-            go.SetActive(true);
-            RemoteViewTwo = go.AddComponent<VideoSurface>();
-            go.transform.position = transformCamPostioneven[1].position;
-          //  go.transform.Rotate(0.0f, 0.0f, 90.0f);
-        }
-       // go = GameObject.Find("ButtonLeave");
-        //go.GetComponent<Button>().onClick.AddListener(Leave);
+        RemoteViewOne = remoteView1st.AddComponent<VideoSurface>();
+        RemoteViewOne.transform.Rotate(0.0f, 0.0f, -180);
+
+        RemoteViewTwo = remoteView2nd.AddComponent<VideoSurface>();
+        RemoteViewTwo.transform.Rotate(0.0f, 0.0f, -180);
+
         X.GetComponent<Button>().onClick.AddListener(Join);
     }
 
@@ -158,23 +144,38 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
         // Join a channel.
         RtcEngine.JoinChannel(_token, _channelName);
         myView.SetActive(true);
-        remoteView.SetActive(true);
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 2)
+        {
+
+            remoteView.SetActive(true);
+        }
+        if (PhotonNetwork.CurrentRoom.PlayerCount == 3)
+        {
+            remoteView1st.SetActive(true);
+
+        }
+        else if (PhotonNetwork.CurrentRoom.PlayerCount == 4)
+        {
+
+            remoteView2nd.SetActive(true);
+        }
+
     }
 
 
 
-   
+
     public void Leave()
     {
         // Leaves the channel.
         RtcEngine.LeaveChannel();
         PhotonNetwork.LeaveRoom();
         // Disable the video modules.
-      //  RtcEngine.DisableVideo();
+        //  RtcEngine.DisableVideo();
         // Stops rendering the remote video.
-      //  RemoteView.SetEnable(false);
+        //  RemoteView.SetEnable(false);
         // Stops rendering the local video.
-      //  LocalView.SetEnable(false);
+        //  LocalView.SetEnable(false);
     }
     public override void OnLeftRoom()
     {
@@ -192,7 +193,7 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
     }
     public void BtnCamOnOFfToggleValueChanged(Toggle change)
     {
-        if(!toggleCamOnOff.isOn)
+        if (!toggleCamOnOff.isOn)
         {
             RtcEngine.DisableVideo();
             LocalView.SetEnable(false);
@@ -206,8 +207,8 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
     public Recorder recorder;
     public void BtnMicOnOFfToggleValueChanged(Toggle change)
     {
-        if(photonView.IsMine)
-        {            
+        if (photonView.IsMine)
+        {
             if (!toggleCamOnOff.isOn)
             {
                 recorder.TransmitEnabled = true;
@@ -218,6 +219,6 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
 
             }
         }
-        
+
     }
 }

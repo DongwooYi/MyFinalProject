@@ -86,7 +86,7 @@ public class YDW_CharacterController : MonoBehaviour
         }
     }
 
-    public void Move(Vector2 vector2)
+    public void Moveto(Vector2 vector2)
     {
         // 이동 방향 구하기 1
         //Debug.DrawRay(cameraArm.position, cameraArm.forward, Color.red);
@@ -101,7 +101,7 @@ public class YDW_CharacterController : MonoBehaviour
         bool isMove = moveInput.magnitude != 0;
         //bool isMove = joystick2DLobby.isInput;
         // 입력이 발생하는 중이라면 이동 애니메이션 재생
-        animator.SetBool("isMove", isMove);
+        animator.SetBool("IsMove", isMove);
         if (isMove)
         {
             // 카메라가 바라보는 방향

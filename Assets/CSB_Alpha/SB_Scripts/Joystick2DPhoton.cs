@@ -67,6 +67,7 @@ public class Joystick2DPhoton : MonoBehaviourPun , IBeginDragHandler, IDragHandl
             }
             else if (touch.phase == TouchPhase.Ended)
             {
+         playerController.Move(Vector2.zero);
 
                 innerCircle.anchoredPosition = Vector2.zero;    // 원점으로 돌아옴
                 isInput = false;    // 입력 끝

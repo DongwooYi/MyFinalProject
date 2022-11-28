@@ -10,6 +10,7 @@ TagManager:
   - ClickHere
   - Character
   - RoomDesc
+  - ShowBook
   layers:
   - Default
   - TransparentFX

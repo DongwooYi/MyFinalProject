@@ -55,8 +55,8 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
             cameraArm.gameObject.SetActive(true);
             mainbody.gameObject.tag = "Player";
             characterBody.gameObject.tag = "Player";
-            showBook.gameObject.GetComponent<MeshRenderer>().material.mainTexture = HttpManager.instance.TextureShowBook.texture;
-            showBook.gameObject.GetComponent<Outline>().OutlineColor = HttpManager.instance.outlineShowBook;
+           // showBook.gameObject.GetComponent<MeshRenderer>().material.mainTexture = HttpManager.instance.TextureShowBook.texture;
+           // showBook.gameObject.GetComponent<Outline>().OutlineColor = HttpManager.instance.outlineShowBook;
         }
         sceneName = SceneManager.GetActiveScene();
         animator = characterBody.GetComponent<Animator>();
@@ -107,7 +107,6 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
     {
         Debug.DrawRay(transform.position, characterBody.forward * rayDistance, Color.black);
         isCollisionCheck = Physics.Raycast(transform.position, characterBody.forward, rayDistance, LayerMask.GetMask("CollisionCheck"));
-        Debug.Log(isCollisionCheck);
 
     }
     // 카메라 줌인 줌아웃 관련

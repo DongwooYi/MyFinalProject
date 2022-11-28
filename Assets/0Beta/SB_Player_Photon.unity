@@ -2717,7 +2717,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037abdb68413f144d8bface8348bc410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bannerFactory: {fileID: 8139976283741529435, guid: 290c87d1250b727498636b3bef866cc8, type: 3}
+  bannerFactory: {fileID: 5496654839492236068, guid: a2e74d1216b94414da433627c7722cb7, type: 3}
   bannerTime: 5
   idx: 0
   PannelSpinner: {fileID: 136784048146280527}

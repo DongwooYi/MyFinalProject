@@ -22,8 +22,11 @@ public class PhotonGameManager : MonoBehaviourPunCallbacks
         //Rpc »£√‚ ∫Ûµµ
         PhotonNetwork.SendRate = 60;
        GameObject go = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+        go = GameObject.FindWithTag("ShowBook");
         go.GetComponent<MeshRenderer>().material.mainTexture = HttpManager.instance.TextureShowBook.texture;
         go.GetComponent<Outline>().OutlineColor = HttpManager.instance.outlineShowBook;
+        go.transform.GetChild(0).GetComponent<MeshRenderer>().material.mainTexture = HttpManager.instance.TextureShowBook.texture;
+        go.transform.GetChild(0).GetComponent<Outline>().OutlineColor = HttpManager.instance.outlineShowBook;
     }
 
     public Recorder recorder;

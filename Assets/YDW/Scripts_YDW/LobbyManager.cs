@@ -131,7 +131,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         }
         if (Input.GetKeyDown(KeyCode.F11))
         {
-            setRoomlist.SetActive(true);
+            TestChatroom();
         }
         ToggleCheck();
 
@@ -163,6 +163,19 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         roomOptions.IsVisible = false;
 
         PhotonNetwork.JoinOrCreateRoom("Room", roomOptions, null);
+
+    }
+    public void TestChatroom()
+    {
+        //mapThumbs.texture = loadGallery.gameObject.GetComponent<RawImage>().texture;
+        // 방 옵션을 설정
+        RoomOptions roomOptions = new RoomOptions();
+        // 최대 인원 (0이면 최대인원)
+        roomOptions.MaxPlayers = 4;
+        // 룸 리스트에 보이지 않게? 보이게?
+        roomOptions.IsVisible = false;
+
+        PhotonNetwork.JoinOrCreateRoom("RoomTest", roomOptions, null);
 
     }
 
@@ -235,14 +248,16 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             PhotonNetwork.LoadLevel("SB_Player_Photon");
         }
-        else if (currentRoomname == "TestRoom")
+        else if (currentRoomname == "RoomTest")
         {
             PhotonNetwork.LoadLevel("CamInteraction");
         }
+       
         else
         {
             PhotonNetwork.LoadLevel("CamInteraction");
         }
+
     }
 
     //방 참가가 실패 되었을 때 호출 되는 함수

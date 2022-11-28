@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 
 
-public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class Joystick2DLobby : MonoBehaviourPun//, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField]
     private RectTransform innerCircle;  // Inspector 창에서 Drag 해서 넣어줌
@@ -40,15 +40,18 @@ public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler
     }
     private void Update()
     {
-        if (isInput)
+       
+            if (isInput)
         {
             InputControl();
         }
+
+       
 #if !PC
         Touch touch = Input.GetTouch(0);
 
         bool isIn = Vector3.Distance(outerCircle.position, touch.position) <= 400;
-
+      
         if (isIn)
         {
             if (touch.phase == TouchPhase.Began)
@@ -65,6 +68,7 @@ public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler
                 innerCircle.anchoredPosition = Vector2.zero;    // 원점으로 돌아옴
                 isInput = false;    // 입력 끝
             }
+       
         }
 #endif
 

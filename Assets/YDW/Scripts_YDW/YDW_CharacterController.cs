@@ -44,11 +44,15 @@ public class YDW_CharacterController : MonoBehaviour
         {
             myself.SetActive(true);
         }
-        GetTouchInput();
         
     }
     private void FixedUpdate()
     {
+        if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false) ;
+        {
+
+        GetTouchInput();
+        }
         CollisionCheck();
     }
     public void Move(Vector2 vector2)
@@ -132,9 +136,9 @@ public class YDW_CharacterController : MonoBehaviour
                         if (Input.touchCount == 1)
                         {
                             Vector2 delta = t.position - startPos;
-                            rotX += delta.y * Time.deltaTime;
+                            rotX += delta.y * Time.deltaTime * 0.5f;
                             rotX = Mathf.Clamp(rotX, 5f, 20f);
-                            rotY += delta.x * Time.deltaTime;
+                            rotY += delta.x * Time.deltaTime * 0.5f;
                             cameraArm.eulerAngles = new Vector3(rotX, rotY, 0);
                         }
                         else if (Input.touchCount == 2)

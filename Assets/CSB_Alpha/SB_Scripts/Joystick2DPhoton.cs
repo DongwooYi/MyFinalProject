@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 using Photon.Pun;
 
 //, IBeginDragHandler, IDragHandler, IEndDragHandler
-public class Joystick2DPhoton : MonoBehaviourPun, IBeginDragHandler, IDragHandler, IEndDragHandler
+public class Joystick2DPhoton : MonoBehaviourPun //, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     [SerializeField]
     private RectTransform innerCircle;  // Inspector 창에서 Drag 해서 넣어줌
@@ -19,6 +19,7 @@ public class Joystick2DPhoton : MonoBehaviourPun, IBeginDragHandler, IDragHandle
 
     public YDW_CharacterControllerPhoton playerController;
     public bool isInput;
+
 
     public float moveSpeed = 10;
     Vector2 touchOrigin;

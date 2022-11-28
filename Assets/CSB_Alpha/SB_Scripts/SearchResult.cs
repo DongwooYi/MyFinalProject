@@ -40,7 +40,6 @@ public class SearchResult : MonoBehaviour
     /* 책 담기 관련 */
     public void OnClickAddBook()
     {
-        //HttpPostMyBook();
         imageData = TexToTex2D(thumbnail.texture).EncodeToJPG();
         StartCoroutine(SendBookData());
 

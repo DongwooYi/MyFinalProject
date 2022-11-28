@@ -61,8 +61,8 @@ public class RegisterManager : MonoBehaviour
         HttpRequester requester = new HttpRequester();
 
         ///post/1, GET, 완료되었을 때 호출되는 함수
-        requester.url = "http://172.16.20.50:8080/v1/members";
-
+        //requester.url = "http://172.16.20.50:80/v1/members";
+        requester.url = "http://15.165.28.206:80/v1/members";
         UserData data = new UserData();
         data.memberId = id.text;
         data.memberPwd = pw.text;
@@ -94,13 +94,9 @@ public class RegisterManager : MonoBehaviour
         }
         else
         {
+        print("OnPostFailed, 통신 실패");
             Fail.SetActive(true);
         }
-    }
-
-    void OnPostFailed()
-    {
-        print("OnPostFailed, 통신 실패");
     }
     
     

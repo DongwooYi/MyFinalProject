@@ -659,6 +659,84 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 167665435}
   m_CullTransparentMesh: 1
+--- !u!1 &250888786
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 250888789}
+  - component: {fileID: 250888788}
+  - component: {fileID: 250888787}
+  m_Layer: 0
+  m_Name: ChatManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &250888787
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250888786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  Synchronization: 3
+  OwnershipTransfer: 0
+  observableSearch: 2
+  ObservedComponents: []
+  sceneViewId: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &250888788
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250888786}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee75f4c67d7069f4687a977a14cdb9d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputChat: {fileID: 1764866544}
+  trContent: {fileID: 398851085}
+  chatItemFactory: {fileID: 7615626875906248610, guid: e36651287759e2247974d85a26e7879b, type: 3}
+  chatList: []
+  ChattingPannel: {fileID: 1839324522}
+  btnChattingOn: {fileID: 0}
+  btnChattingOff: {fileID: 0}
+  player: {fileID: 0}
+  anim: {fileID: 0}
+  enterchat: 0
+  AIScrollView: {fileID: 1346012640}
+--- !u!4 &250888789
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 250888786}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 648, y: 70, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &272395454
 GameObject:
   m_ObjectHideFlags: 0
@@ -1239,7 +1317,6 @@ GameObject:
   m_Component:
   - component: {fileID: 478735162}
   - component: {fileID: 478735163}
-  - component: {fileID: 478735164}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -1285,29 +1362,6 @@ MonoBehaviour:
   remoteView1st: {fileID: 862444136}
   remoteView2nd: {fileID: 1060113532}
   recorder: {fileID: 1493110335134075351}
---- !u!114 &478735164
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 478735161}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ee75f4c67d7069f4687a977a14cdb9d6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  inputChat: {fileID: 1764866544}
-  trContent: {fileID: 398851085}
-  chatItemFactory: {fileID: 7615626875906248610, guid: e36651287759e2247974d85a26e7879b, type: 3}
-  chatList: []
-  ChattingPannel: {fileID: 1839324522}
-  btnChattingOn: {fileID: 0}
-  btnChattingOff: {fileID: 0}
-  player: {fileID: 0}
-  anim: {fileID: 0}
-  enterchat: 0
-  AIScrollView: {fileID: 1346012640}
 --- !u!1 &530732712
 GameObject:
   m_ObjectHideFlags: 0

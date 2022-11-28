@@ -82,7 +82,7 @@ public class WorldManager2D : MonoBehaviour
     {
         
         showBook = GameObject.Find("ShowBook");
-
+        
         book = GameObject.Find("Book");
         bookBest = GameObject.Find("myroom/MyBestBookShelf");
         print(bookBest.name);
@@ -94,7 +94,7 @@ public class WorldManager2D : MonoBehaviour
         inputBookTitleName.onEndEdit.AddListener(OnEndEdit);
        
     }
-
+    public GameObject showBookJr;
     #region 월드 세팅
     // 월드 입장 시 월드 세팅
     // 책장, 낮은 책장, 리워드, 머리에 대표책
@@ -133,6 +133,7 @@ public class WorldManager2D : MonoBehaviour
             {
                 // 머리에 띄우기
                 showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnailImgListNet[i]);
+                showBookJr.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnailImgListNet[i]);
                 HttpManager.instance.TextureShowBook.texture = showBook.GetComponent<MeshRenderer>().material.mainTexture;
             }
 
@@ -141,27 +142,33 @@ public class WorldManager2D : MonoBehaviour
         if (bookCount < 10)
         {
             showBook.GetComponent<Outline>().OutlineColor = Color.red;
+            showBookJr.GetComponent<Outline>().OutlineColor = Color.red;
         }
         else if (bookCount < 20)
         {
             showBook.GetComponent<Outline>().OutlineColor = Color.yellow;
+            showBookJr.GetComponent<Outline>().OutlineColor = Color.yellow;
         }
         else if (bookCount < 30)
         {
             showBook.GetComponent<Outline>().OutlineColor = Color.green;
+            showBookJr.GetComponent<Outline>().OutlineColor = Color.green;
         }
         else if (bookCount < 40)
         {
             showBook.GetComponent<Outline>().OutlineColor = Color.blue;
+            showBookJr.GetComponent<Outline>().OutlineColor = Color.blue;
         }
         else if (bookCount < 50)
         {
             showBook.GetComponent<Outline>().OutlineColor = Color.cyan;
+            showBookJr.GetComponent<Outline>().OutlineColor = Color.cyan;
         }
         else 
         {
             ColorUtility.TryParseHtmlString("#8B80F8", out color);
             showBook.GetComponent<Outline>().OutlineColor = color;
+            showBookJr.GetComponent<Outline>().OutlineColor = color;
              }
 
         HttpManager.instance.outlineShowBook = showBook.GetComponent<Outline>().OutlineColor;

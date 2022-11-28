@@ -27,9 +27,11 @@ public class BannerManager : MonoBehaviour
     float currTime = 0;
 
     public int idx;
+    public GameObject PannelSpinner;
 
     void Start()
     {
+        PannelSpinner.SetActive(true);
         HttpGetGetOneLineReview();
         // AI 에서 받아오기 전 임시로
         // 내가 다 읽은 책 list 받아옴 -> 여기서 (랜덤으로) 일정 시간마다 생성
@@ -51,6 +53,7 @@ public class BannerManager : MonoBehaviour
         currTime += Time.deltaTime;
         if (currTime > bannerTime)
         {
+            PannelSpinner.SetActive(false);
             // 랜덤 인덱스 하나 뽑기
             idx = Random.Range(0, myAllBookListNet.Count);
 
@@ -136,6 +139,7 @@ public class BannerManager : MonoBehaviour
 
 
             GETThumbnailTexture();
+            
         }
     }
 
@@ -176,6 +180,7 @@ public class BannerManager : MonoBehaviour
             myBookInfo.texture = thumbnailImgListNet[i];
             myAllBookListNet.Add(myBookInfo);
         }
+       
     }
 
     // data parsing

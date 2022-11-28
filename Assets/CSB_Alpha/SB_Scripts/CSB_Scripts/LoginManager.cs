@@ -73,9 +73,11 @@ public class LoginManager : MonoBehaviourPunCallbacks
     {
         registerImage.SetActive(true);
     }
+    public GameObject succesLoginPannel;
     public void OkaytoLogin()
     {
         registerImage.SetActive(false);
+        succesLoginPannel.SetActive(false);
     }
     #endregion
 

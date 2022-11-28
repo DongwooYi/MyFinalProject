@@ -1259,6 +1259,7 @@ MonoBehaviour:
   registerImage: {fileID: 1745119491}
   id: {fileID: 1582701612}
   pw: {fileID: 575272973}
+  succesLoginPannel: {fileID: 871085794}
 --- !u!1 &575272971
 GameObject:
   m_ObjectHideFlags: 0
@@ -1490,9 +1491,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: ConnectionManager, Assembly-CSharp
-        m_MethodName: OnClickConnect
+      - m_Target: {fileID: 531432183}
+        m_TargetAssemblyTypeName: RegisterManager, Assembly-CSharp
+        m_MethodName: OnClickUserRegister
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

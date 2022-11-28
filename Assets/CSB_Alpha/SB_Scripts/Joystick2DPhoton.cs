@@ -54,7 +54,7 @@ public class Joystick2DPhoton : MonoBehaviourPun //, IBeginDragHandler, IDragHan
 
         bool isIn = Vector3.Distance(outerCircle.position, touch.position) <= 600;
 
-        if (isIn)
+        if (isIn&&photonView.IsMine)
         {
             if (touch.phase == TouchPhase.Began)
             {
@@ -64,6 +64,12 @@ public class Joystick2DPhoton : MonoBehaviourPun //, IBeginDragHandler, IDragHan
             else if (touch.phase == TouchPhase.Moved || touch.phase == TouchPhase.Stationary)
             {
                 ControlJoystickInnerCircle((touch.position - touchOrigin).normalized);
+            }
+            else if (touch.phase == TouchPhase.Ended)
+            {
+
+                innerCircle.anchoredPosition = Vector2.zero;    // 원점으로 돌아옴
+                isInput = false;    // 입력 끝
             }
         }
 #endif

@@ -65,6 +65,7 @@ public class Joystick2DLobby : MonoBehaviourPun//, IBeginDragHandler, IDragHandl
             }
             else if(touch.phase == TouchPhase.Ended)
             {
+                
                 innerCircle.anchoredPosition = Vector2.zero;    // 원점으로 돌아옴
                 isInput = false;    // 입력 끝
             }
@@ -140,7 +141,7 @@ public class Joystick2DLobby : MonoBehaviourPun//, IBeginDragHandler, IDragHandl
             case JoystickType.Move:
                 if (playerController)
                 {
-                    playerController.Move(inputVector);
+                    playerController.Move(inputVector, isInput);
                 }
                 break;
             case JoystickType.Rotate:

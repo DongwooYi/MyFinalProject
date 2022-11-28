@@ -68,7 +68,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
     }
     private void FixedUpdate()
     {
-        if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false) ;
+        if (EventSystem.current.IsPointerOverGameObject(/*Input.GetTouch(0).fingerId*/) == false) ;
         {
 
             GetTouchInput();

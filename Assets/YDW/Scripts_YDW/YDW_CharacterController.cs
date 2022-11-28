@@ -131,7 +131,7 @@ public class YDW_CharacterController : MonoBehaviour
                     startPos = t.position;
                     break;
                 case TouchPhase.Moved:
-                    if (EventSystem.current.IsPointerOverGameObject(Input.GetTouch(0).fingerId) == false)
+                    if (EventSystem.current.IsPointerOverGameObject(/*Input.GetTouch(0).fingerId*/) == false)
                     {
                         if (Input.touchCount == 1)
                         {

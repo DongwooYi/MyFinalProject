@@ -3,14 +3,17 @@ using System.Collections.Generic;
 using System.Text;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UI;
 
 public class HttpManager : MonoBehaviour
 {
-    public Texture showBookTex;
+    
 
     public static HttpManager instance;
     public string nickName = "";
-    
+    public RawImage TextureShowBook;
+    public Color outlineShowBook;
+
     private void Awake()
     {
         //만약에 instance가 null이라면

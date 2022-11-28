@@ -219,7 +219,7 @@ public class MyBookManager : MonoBehaviour
             return;
         }
 
-        print("들어오니 책장");
+        //print("들어오니 책장");
         // 손가락 쿼드를 띄워준다
         myBookshelf.transform.GetChild(0).gameObject.SetActive(true);
         // 손가락 쿼드 항상 카메라 방향
@@ -229,10 +229,10 @@ public class MyBookManager : MonoBehaviour
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             RaycastHit hitInfo;
-            print("클릭했니?");
+       //     print("클릭했니?");
             if (Physics.Raycast(ray, out hitInfo))
             {
-                print(hitInfo.transform.name);
+               // print(hitInfo.transform.name);
                 if (hitInfo.transform.gameObject.tag == "ClickHere" || hitInfo.transform.gameObject.name.Contains("MyBookshelf"))
                 {
                     print("완독도서 목록 출력");

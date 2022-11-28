@@ -128,6 +128,7 @@ public class CurrBookInfoPanel : MonoBehaviour
             myAllBookListToArray[idx].isOverHead = isOverHead;
             myAllBookListToArray[idx].isOverHeadString = isOverHeadString;
 
+
             // POSt 로 보내기
             HttpPostMyBookDataD();
         }
@@ -149,10 +150,13 @@ public class CurrBookInfoPanel : MonoBehaviour
             HttpPostMyBookData();
         }
 
+        if(isDoneString == "N")
+        {
+            // <등록 되었습니다>
+            confirmMsg = Instantiate(doneBookConfirm, gameObject.transform);    // 나의 자식으로 생성
+                                                                                // myBookManager.SetActive(false);
+        }
 
-        // <등록 되었습니다>
-        confirmMsg = Instantiate(doneBookConfirm, gameObject.transform);    // 나의 자식으로 생성
-       // myBookManager.SetActive(false);
     }
 
     GameObject confirmMsg;
@@ -165,7 +169,7 @@ public class CurrBookInfoPanel : MonoBehaviour
 
     }
     /*
-        // <나의 서재에 담겼었습니다> 닫기 버튼
+        // <나의 서재에 담겼습니다> 닫기 버튼
         public void OnClickConfirmMyBook()
         {
             Destroy(gameObject);

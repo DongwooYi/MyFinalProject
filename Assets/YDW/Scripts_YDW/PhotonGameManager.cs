@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
+using Photon.Voice.Unity;
+using UnityEngine.UI;
 public class PhotonGameManager : MonoBehaviourPunCallbacks
 {
     public static PhotonGameManager instance;
@@ -19,9 +21,29 @@ public class PhotonGameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.SerializationRate = 60;
         //Rpc »£√‚ ∫Ûµµ
         PhotonNetwork.SendRate = 60;
-        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+       GameObject go = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+        go = GameObject.FindWithTag("ShowBook");
+        go.GetComponent<MeshRenderer>().material.mainTexture = HttpManager.instance.TextureShowBook.texture;
+        go.GetComponent<Outline>().OutlineColor = HttpManager.instance.outlineShowBook;
+        go.transform.GetChild(0).GetComponent<MeshRenderer>().material.mainTexture = HttpManager.instance.TextureShowBook.texture;
+        go.transform.GetChild(0).GetComponent<Outline>().OutlineColor = HttpManager.instance.outlineShowBook;
     }
-  
+
+    public Recorder recorder;
+    public Button buttonMicOn;
+    public Button buttonMicOff;
+    public void MicOn()
+    {
+        recorder.TransmitEnabled = true;
+        buttonMicOn.gameObject.SetActive(false);
+        buttonMicOff.gameObject.SetActive(true);
+    }
+    public void MicOff()
+    {
+        recorder.TransmitEnabled = false;
+        buttonMicOff.gameObject.SetActive(false);
+        buttonMicOn.gameObject.SetActive(true);
+    }
     private void Update()
     {
         if(NPC.isShowRoomList)

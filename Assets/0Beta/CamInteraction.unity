@@ -333,7 +333,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8e02a2652a50f184a82d3b4f620e3c0d, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 5a2246ea390b8c646a0d27bc18764e99, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -1239,6 +1239,7 @@ GameObject:
   m_Component:
   - component: {fileID: 478735162}
   - component: {fileID: 478735163}
+  - component: {fileID: 478735164}
   m_Layer: 0
   m_Name: Manager
   m_TagString: Untagged
@@ -1284,6 +1285,29 @@ MonoBehaviour:
   remoteView1st: {fileID: 862444136}
   remoteView2nd: {fileID: 1060113532}
   recorder: {fileID: 1493110335134075351}
+--- !u!114 &478735164
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 478735161}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ee75f4c67d7069f4687a977a14cdb9d6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  inputChat: {fileID: 1764866544}
+  trContent: {fileID: 398851085}
+  chatItemFactory: {fileID: 356185162197043259, guid: 15a15981542e4e948906f696a2171cd0, type: 3}
+  chatList: []
+  ChattingPannel: {fileID: 1839324522}
+  btnChattingOn: {fileID: 0}
+  btnChattingOff: {fileID: 0}
+  player: {fileID: 0}
+  anim: {fileID: 0}
+  enterchat: 0
+  AIScrollView: {fileID: 1346012640}
 --- !u!1 &530732712
 GameObject:
   m_ObjectHideFlags: 0
@@ -3014,7 +3038,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.19607843, g: 0.19607843, b: 0.19607843, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
@@ -3951,7 +3975,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5639c939f404fb544b649179f6ab99bc, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 493eb3cebffdcee43ad644dddb8bc3e7, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1

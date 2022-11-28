@@ -14,7 +14,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
     [Header("카메라")]
     public Transform cameraArm;
 
-    Animator animator;
+   public Animator animator;
 
     bool isCollisionCheck;
     [Range(1, 10)]
@@ -55,8 +55,8 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
             cameraArm.gameObject.SetActive(true);
             mainbody.gameObject.tag = "Player";
             characterBody.gameObject.tag = "Player";
-            showBook.gameObject.GetComponent<MeshRenderer>().material.mainTexture = HttpManager.instance.TextureShowBook.texture;
-            showBook.gameObject.GetComponent<Outline>().OutlineColor = HttpManager.instance.outlineShowBook;
+           // showBook.gameObject.GetComponent<MeshRenderer>().material.mainTexture = HttpManager.instance.TextureShowBook.texture;
+           // showBook.gameObject.GetComponent<Outline>().OutlineColor = HttpManager.instance.outlineShowBook;
         }
         sceneName = SceneManager.GetActiveScene();
         animator = characterBody.GetComponent<Animator>();
@@ -81,7 +81,10 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
         // 이동 방향키 입력 판정 : 이동 방향 벡터가 0보다 크면 입력이 발생하고 있는 중
         bool isMove = moveInput.magnitude != 0;
         // 입력이 발생하는 중이라면 이동 애니메이션 재생
+        if(photonView.IsMine)
+        {
         animator.SetBool("isMove", isMove);
+        }
         if (isMove)
         {
             // 카메라가 바라보는 방향

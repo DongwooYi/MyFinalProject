@@ -8,6 +8,7 @@ using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UI;
+using Photon.Voice.Unity;
 
 public class LobbyManager : MonoBehaviourPunCallbacks
 {
@@ -1107,6 +1108,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         readerMate.SetActive(false);
     }
     #endregion
+
 }
 
 

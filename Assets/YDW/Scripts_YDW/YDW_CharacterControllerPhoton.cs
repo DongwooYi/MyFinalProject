@@ -58,6 +58,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
         {
             cameraArm.gameObject.SetActive(true);
             mainbody.gameObject.tag = "Player";
+            characterBody.gameObject.tag = "Player";
             showBook.gameObject.GetComponent<MeshRenderer>().material.mainTexture = HttpManager.instance.TextureShowBook.texture;
             showBook.gameObject.GetComponent<Outline>().OutlineColor = HttpManager.instance.outlineShowBook;
         }

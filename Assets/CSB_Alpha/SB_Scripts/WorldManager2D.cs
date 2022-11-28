@@ -92,20 +92,33 @@ public class WorldManager2D : MonoBehaviour
         // 책 제목 입력
         inputBookTitleName.onValueChanged.AddListener(OnValueChanged);
         inputBookTitleName.onEndEdit.AddListener(OnEndEdit);
+        Invoke("Loading", 3.0f);
     }
 
     float loadTime = 3f;
     float currentTime = 0f;
+    int currntLoading = 0;
     private void Update()
     {
         currentTime += Time.deltaTime;
-        if(currentTime > loadTime)
-        {
-            loading.SetActive(false);
-            currentTime = 0;
-        }
 
+
+       
     }
+    void Loading()
+    {
+        /*if(currntLoading>0)
+        {
+            return;
+        }*/
+        //if (currentTime > loadTime)
+        //{
+            loading.SetActive(false);
+          //  currentTime = 0;
+        //}
+       // currntLoading++;
+    }
+
 
     #region 월드 세팅
     // 월드 입장 시 월드 세팅

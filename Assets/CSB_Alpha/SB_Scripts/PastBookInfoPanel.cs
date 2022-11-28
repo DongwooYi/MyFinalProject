@@ -160,7 +160,7 @@ public class PastBookInfoPanel : MonoBehaviour
 
         BestBookData bookData = new()
         {
-            recordDTOList = httpList,
+            recordList = httpList,
         };
         print(bookData);
         requester.body = JsonUtility.ToJson(bookData, true);

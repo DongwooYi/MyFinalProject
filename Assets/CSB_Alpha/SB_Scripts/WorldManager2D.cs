@@ -131,6 +131,7 @@ public class WorldManager2D : MonoBehaviour
             {
                 // 머리에 띄우기
                 showBook.GetComponent<MeshRenderer>().material.SetTexture("_MainTex", thumbnailImgListNet[i]);
+                HttpManager.instance.TextureShowBook.texture = showBook.GetComponent<MeshRenderer>().material.mainTexture;
             }
 
         }
@@ -155,7 +156,9 @@ public class WorldManager2D : MonoBehaviour
         {
             showBook.GetComponent<Outline>().OutlineColor = Color.cyan;
         }
-        else showBook.GetComponent<Outline>().OutlineColor = Color.magenta;
+        else { showBook.GetComponent<Outline>().OutlineColor = Color.magenta; }
+
+        HttpManager.instance.outlineShowBook = showBook.GetComponent<Outline>().OutlineColor;
         #endregion
     }
     #endregion

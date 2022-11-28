@@ -10,7 +10,7 @@ public class PhotonGameManager : MonoBehaviourPunCallbacks
     {
         instance = this;
     }
-    
+    public GameObject playerPrefab;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,6 +19,7 @@ public class PhotonGameManager : MonoBehaviourPunCallbacks
         //Rpc »£√‚ ∫Ûµµ
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+        
     //playerPrefab.GetComponentInChildren<MeshRenderer>().material.mainTexture= 
     }
   

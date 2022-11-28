@@ -75,7 +75,7 @@ public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler
     // Drag 를 시작
     public void OnBeginDrag(PointerEventData eventData)
     {
-        Debug.Log("Begin");
+        //Debug.Log("Begin");
         ControlJoystickInnerCircle(eventData);
         
         isInput = true;
@@ -85,7 +85,7 @@ public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler
     // Drag 중 (마우스 멈추면 이벤트가 들어오지 않음)
     public void OnDrag(PointerEventData eventData)
     {
-        Debug.Log("Drag");
+       // Debug.Log("Drag");
         ControlJoystickInnerCircle(eventData);
     }
 
@@ -93,7 +93,7 @@ public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler
     // 원점으로
     public void OnEndDrag(PointerEventData eventData)
     {
-        Debug.Log("End");
+      //  Debug.Log("End");
         innerCircle.anchoredPosition = Vector2.zero;    // 원점으로 돌아옴
         isInput = false;    // 입력 끝
         switch (joystickType)
@@ -130,7 +130,7 @@ public class Joystick2DLobby : MonoBehaviourPun, IBeginDragHandler, IDragHandler
     // Player 에 조이스틱 입력 전달
     private void InputControl()
     {
-        print(joystickType);
+        //print(joystickType);
         switch (joystickType)
         {
             case JoystickType.Move:

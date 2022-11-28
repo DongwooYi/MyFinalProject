@@ -38,6 +38,14 @@ public class PastBookInfoPanel : MonoBehaviour
 
     private void Start()
     {
+        if (isBestStr == "Y")
+        {
+            isBest = true;
+        }
+        else
+        {
+            isBest = false;
+        }
         worldManager = GameObject.Find("WorldManager");
         wm = worldManager.GetComponent<WorldManager2D>();
 
@@ -65,6 +73,7 @@ public class PastBookInfoPanel : MonoBehaviour
     {
         temp = isBest;  // 이전 값 저장
         isBest = checkBool; // 변한 값
+        isBestToggle.isOn = checkBool;
         // 받은 인덱스에 해당하는 책의 isBest 바꾸고
         //tempMyBook = contentDoneBook.transform.GetChild(myIndex).gameObject.GetComponent<MyBook>().isBestTemp;
         //isBestMyBook = contentDoneBook.transform.GetChild(myIndex).gameObject.GetComponent<MyBook>().isBest;

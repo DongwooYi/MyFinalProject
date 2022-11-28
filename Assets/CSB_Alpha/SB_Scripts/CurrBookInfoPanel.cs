@@ -200,7 +200,8 @@ public class CurrBookInfoPanel : MonoBehaviour
 
     public void SetRating(string s)
     {
-        rating.text = s;
+        //rating.text = s;
+        RateApplication(int.Parse(s));
     }
 
     public void SetReview(string s)
@@ -373,8 +374,7 @@ public class CurrBookInfoPanel : MonoBehaviour
         if (type == 200)
         {
             print("µÇ³ª?");
-            wm.myAllBookListNet.Clear();
-            //HttpGetMyBookData();
+            HttpGetMyBookData();
         }
     }
 

@@ -43,19 +43,6 @@ public class MyBook : MonoBehaviour
         scroll = myPastBookPanel.Find("Scroll View_Done").transform;
         contentDoneBook = scroll.Find("Viewport/Content").transform;
 
-/*        if (gameObject.name.Contains("PastBook"))
-        {
-            if (isBestStr == "Y")
-            {
-                isBest = true;
-                transform.GetChild(0).gameObject.GetComponent<Image>().sprite = checkMark;
-            }
-            else
-            {
-                isBest = false;
-                transform.GetChild(0).gameObject.GetComponent<Image>().sprite = checkMarkOutline;
-            }
-        }*/
     }
 
     void Update()
@@ -73,7 +60,7 @@ public class MyBook : MonoBehaviour
         go.GetComponent<CurrBookInfoPanel>().SetAuthor(bookAuthor);
         go.GetComponent<CurrBookInfoPanel>().SetIsbn(bookIsbn);
         go.GetComponent<CurrBookInfoPanel>().SetPublishInfo(bookInfo);
-       // go.GetComponent<CurrBookInfoPanel>().SetRating(bookRating);
+        go.GetComponent<CurrBookInfoPanel>().SetRating(bookRating);
         go.GetComponent<CurrBookInfoPanel>().SetReview(bookReview);
         go.GetComponent<CurrBookInfoPanel>().SetThumbnail(thumbnail.texture);
 
@@ -87,6 +74,8 @@ public class MyBook : MonoBehaviour
     // 나를 클릭하면 canvas
     public void OnClickDoneBookInfo()
     {
+        if (isBestStr == "Y") isBest = true;
+        else isBest = false;
         // 나의 인덱스 찾기
         int idxDone = contentDoneBook.GetSiblingIndex();
         print("담은도서 인덱스: " + idx);
@@ -107,58 +96,10 @@ public class MyBook : MonoBehaviour
 
     }
 
-    // 인생책 선정 관련
-    // 만약 나의 이름이 PastBook 일 때
-/*
-    public Sprite checkMark;
-    public Sprite checkMarkOutline;
 
-    bool temp;
-    public void OnClickBestBook()
-    {
-        print(temp);
-        temp = isBest;
-        print(temp);
-        // bool 값 
-        // 만약 bool 값이 false 면 true 로
-        if (!isBest)
-        {
-            print(temp);
-            isBest = true;
-            isBestStr = "Y";
-            // 스프라이트 CheckMark 로 변경
-            transform.GetChild(0).gameObject.GetComponent<Image>().sprite = checkMark;
-        }
-        else if (isBest)
-        {
-            print(temp);
-            isBest = false;
-            isBestStr = "N";
-            transform.GetChild(0).gameObject.GetComponent<Image>().sprite = checkMarkOutline;
-
-        }
-
-    }*/
 
     public List<BestBook> bestBookList = new List<BestBook>();
-    // 인생책 저장(<인생책 등록>버튼 클릭)
-/*    public void OnClickSetBestBook()
-    {
-        print("들어와?");
-        // content의 자식 중 temp 와 값이 달라진 애들 전송
-        for (int i = 0; i < contentDoneBook.childCount; i++)
-        {
-            if(temp != isBest)
-            {
-                BestBook bestBook = new BestBook();
-                bestBook.bookISBN = bookIsbn;
-                bestBook.isBest = isBestStr;
-                print(bestBook.bookISBN + bestBook.isBest);
-                bestBookList.Add(bestBook);
-            }
-        }
-        //HttpPostMyBestBook();
-    }*/
+
 
 
 

@@ -5,8 +5,11 @@ using UnityEngine.UI;
 using UnityEngine.Android;
 using Agora.Rtc;
 using Photon.Pun;
+using Photon.Realtime;
+using Photon.Voice;
+using Photon.Voice.Unity;
 
-public class OnlineMeeting : MonoBehaviour
+public class OnlineMeeting : MonoBehaviourPunCallbacks
 {
     private ArrayList permissionList = new ArrayList() { Permission.Camera, Permission.Microphone };
 
@@ -27,9 +30,13 @@ public class OnlineMeeting : MonoBehaviour
     public Transform[] transformCamPostioneven;
     public Transform[] transformCamPostionoddNum;
 
+    public Toggle toggleCamOnOff;
+    public Toggle toggleMicOnOff;
     // Start is called before the first frame update
     void Start()
     {
+        toggleCamOnOff.onValueChanged.AddListener(delegate { BtnCamOnOFfToggleValueChanged(toggleCamOnOff); });
+        toggleMicOnOff.onValueChanged.AddListener(delegate { BtnCamOnOFfToggleValueChanged(toggleMicOnOff); });
         SetupVideoSDKEngine();
         InitEventHandler();
         SetupUI();
@@ -145,16 +152,24 @@ public class OnlineMeeting : MonoBehaviour
     }
 
 
+    
+
     public void Leave()
     {
         // Leaves the channel.
         RtcEngine.LeaveChannel();
+        PhotonNetwork.LeaveRoom();
         // Disable the video modules.
-        RtcEngine.DisableVideo();
+      //  RtcEngine.DisableVideo();
         // Stops rendering the remote video.
-        RemoteView.SetEnable(false);
+      //  RemoteView.SetEnable(false);
         // Stops rendering the local video.
-        LocalView.SetEnable(false);
+      //  LocalView.SetEnable(false);
+    }
+    public override void OnLeftRoom()
+    {
+        base.OnLeftRoom();
+        PhotonNetwork.LoadLevel(1);
     }
     void OnApplicationQuit()
     {
@@ -164,5 +179,35 @@ public class OnlineMeeting : MonoBehaviour
             RtcEngine.Dispose();
             RtcEngine = null;
         }
+    }
+    public void BtnCamOnOFfToggleValueChanged(Toggle change)
+    {
+        if(!toggleCamOnOff.isOn)
+        {
+            RtcEngine.DisableVideo();
+            LocalView.SetEnable(false);
+        }
+        else
+        {
+            RtcEngine.EnableVideo();
+            LocalView.SetEnable(true);
+        }
+    }
+    public Recorder recorder;
+    public void BtnMicOnOFfToggleValueChanged(Toggle change)
+    {
+        if(photonView.IsMine)
+        {            
+            if (!toggleCamOnOff.isOn)
+            {
+                recorder.TransmitEnabled = true;
+            }
+            else
+            {
+                recorder.TransmitEnabled = false;
+
+            }
+        }
+        
     }
 }

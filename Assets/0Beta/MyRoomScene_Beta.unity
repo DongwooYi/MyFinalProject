@@ -18754,7 +18754,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 310, y: 0}
+  m_AnchoredPosition: {x: 545, y: 0}
   m_SizeDelta: {x: 400, y: 400}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1146684143
@@ -27035,7 +27035,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6751332933112428136, guid: 54c4be415fe97b44ba5f3f862dfdfe77, type: 3}
       propertyPath: m_Layer
-      value: 12
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6751332933112428136, guid: 54c4be415fe97b44ba5f3f862dfdfe77, type: 3}
       propertyPath: m_StaticEditorFlags
@@ -30105,8 +30105,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 1080, y: 800}
+  m_AnchoredPosition: {x: -0.00012207031, y: 236}
+  m_SizeDelta: {x: 1080, y: 1267.2744}
   m_Pivot: {x: 0, y: 0}
 --- !u!114 &1842758847
 MonoBehaviour:

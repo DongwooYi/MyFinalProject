@@ -155,7 +155,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &42036074
 MonoBehaviour:
@@ -191,17 +191,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ee75f4c67d7069f4687a977a14cdb9d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputChat: {fileID: 0}
-  trContent: {fileID: 0}
+  inputChat: {fileID: 7728410700160956284}
+  trContent: {fileID: 5815760831104234672}
   chatItemFactory: {fileID: 7615626875906248610, guid: e36651287759e2247974d85a26e7879b, type: 3}
   chatList: []
-  ChattingPannel: {fileID: 0}
-  btnChattingOn: {fileID: 0}
-  btnChattingOff: {fileID: 0}
+  ChattingPannel: {fileID: 8221367594757015540}
+  btnChattingOn: {fileID: 8221367595457822710}
+  btnChattingOff: {fileID: 8221367595222616391}
   player: {fileID: 9169603034657642646, guid: 2526485701f45224988dc590a7c54c66, type: 3}
-  anim: {fileID: 0}
+  anim: {fileID: 8221367594757015538}
   enterchat: 0
-  AIScrollView: {fileID: 0}
+  AIScrollView: {fileID: 5815760830873255037}
 --- !u!114 &42036076
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1050,7 +1050,7 @@ Light:
     serializedVersion: 2
     m_Bits: 4294967295
   m_RenderingLayerMask: 1
-  m_Lightmapping: 4
+  m_Lightmapping: 2
   m_LightShadowCasterMode: 0
   m_AreaSize: {x: 1, y: 1}
   m_BounceIntensity: 1
@@ -1915,7 +1915,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1095647355}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
@@ -2481,10 +2481,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 037abdb68413f144d8bface8348bc410, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bannerFactory: {fileID: 4889056022409588485, guid: 24e59f5e4e4e7344faabbd3f694d339c, type: 3}
+  bannerFactory: {fileID: 8139976283741529435, guid: 290c87d1250b727498636b3bef866cc8, type: 3}
   bannerTime: 5
   idx: 0
-  transformBanner: {fileID: 0}
+  transformBanner: {fileID: 6619871228000665053}
   myAllBookListNet: []
   titleListNet: []
   thumbnailLinkListNet: []
@@ -2504,7 +2504,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1417194308
 GameObject:
@@ -2642,7 +2642,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1630956909
 GameObject:
@@ -3082,7 +3082,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1853578887
 MonoBehaviour:
@@ -6245,7 +6245,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1080918859643197391
 GameObject:
   m_ObjectHideFlags: 0
@@ -7841,7 +7841,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1834934527891040800
 GameObject:
   m_ObjectHideFlags: 0
@@ -10062,7 +10062,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &2910029632046947513
 GameObject:
   m_ObjectHideFlags: 0
@@ -12386,7 +12386,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3219369011946332629}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -12698,7 +12698,7 @@ Transform:
   - {fileID: 1106703107}
   - {fileID: 1305203083}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &3219369011946332629
 GameObject:
@@ -17147,7 +17147,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!33 &3521609943418118442
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -20214,14 +20214,14 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1012497222380943851}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.0772457, y: -0.4973973, z: -6.941475}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalPosition: {x: -7.0772457, y: -0.4973973, z: 8.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 3219369011946332628}
   m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!1 &4847677114239199478
 GameObject:
   m_ObjectHideFlags: 0
@@ -20887,8 +20887,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 9131810485724949806}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.097246, y: -0.09739733, z: -6.941475}
+  m_LocalRotation: {x: 0, y: -1, z: 0, w: 0}
+  m_LocalPosition: {x: -7.097246, y: -0.09739733, z: 8.05}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -20897,7 +20897,7 @@ Transform:
   - {fileID: 1699704777}
   m_Father: {fileID: 3219369011946332628}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: -180, z: 0}
 --- !u!33 &5282422037706790098
 MeshFilter:
   m_ObjectHideFlags: 0
@@ -21745,7 +21745,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!64 &5472621815839858403
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -26069,7 +26069,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!23 &7043942165609359202
 MeshRenderer:
   m_ObjectHideFlags: 0
@@ -26581,15 +26581,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c1034f4708f339d488469f019943b59d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  textNPC: {fileID: 0}
-  textNPCSpeechBUbble: {fileID: 0}
+  textNPC: {fileID: 8221367594744028053}
+  textNPCSpeechBUbble: {fileID: 869978203}
   NPCSpeaking: {fileID: 1095647355}
   joyStickMove: {fileID: 0}
-  pannelforNPC: {fileID: 0}
-  btnCraeteRoom: {fileID: 0}
-  btnOnlist: {fileID: 0}
-  btnNo: {fileID: 0}
-  btnGoBack: {fileID: 0}
+  pannelforNPC: {fileID: 8221367594930178881}
+  btnCraeteRoom: {fileID: 8221367594183331805}
+  btnOnlist: {fileID: 8221367594760712807}
+  btnNo: {fileID: 8221367595103844604}
+  btnGoBack: {fileID: 8221367595359724699}
 --- !u!65 &7187089091285160887
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -27970,7 +27970,7 @@ GameObject:
   - component: {fileID: 1559889079100174169}
   - component: {fileID: 5899711232321527884}
   m_Layer: 0
-  m_Name: floor_2.121
+  m_Name: "\uC774\uCE5C\uAD6C\uB97C \uBCA0\uB108\uC5D0 \uB123\uC5B4\uC8FC\uC138\uC694"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -30555,7 +30555,7 @@ RectTransform:
   - {fileID: 8221367593813590593}
   - {fileID: 8221367594930178880}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -31869,7 +31869,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 127.20002, y: -76.39995}
+  m_AnchoredPosition: {x: 127.20001, y: -76.400024}
   m_SizeDelta: {x: 200, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8221367595359724696
@@ -33607,7 +33607,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!65 &8705111061311040262
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -34470,7 +34470,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &9070908236627983178
 GameObject:
   m_ObjectHideFlags: 0

@@ -83,7 +83,7 @@ public class YDW_CharacterController : MonoBehaviour
             characterBody.forward = moveDir;
             // 이동
             if (!isCollisionCheck)
-                transform.position += moveDir * Time.deltaTime * 6f;
+                transform.position += moveDir * Time.deltaTime * 5f;
         }
     }
 

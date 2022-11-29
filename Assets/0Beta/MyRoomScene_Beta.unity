@@ -46025,7 +46025,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7652074178039953364}
   m_LocalRotation: {x: 0, y: 0.7071068, z: 0, w: 0.7071068}
-  m_LocalPosition: {x: -0.11, y: -0.10100007, z: 3.35}
+  m_LocalPosition: {x: -0.11, y: -0.10100007, z: 3.53}
   m_LocalScale: {x: 1.5, y: 2, z: 2}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -47182,7 +47182,7 @@ GameObject:
   - component: {fileID: 7452280778705036256}
   - component: {fileID: 3683698131523554229}
   - component: {fileID: 7652074178039953365}
-  m_Layer: 12
+  m_Layer: 0
   m_Name: MyDesk
   m_TagString: ClickHere
   m_Icon: {fileID: 0}
@@ -47200,8 +47200,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.8151737, y: 0.55884546, z: 1.2683486}
-  m_Center: {x: 0.0000007599594, y: 0.27942273, z: -0.0000011324885}
+  m_Size: {x: 0.51115555, y: 0.55884546, z: 1.2683486}
+  m_Center: {x: -0.15200824, y: 0.27942273, z: -0.0000011324883}
 --- !u!1 &7672145976930371234
 GameObject:
   m_ObjectHideFlags: 0

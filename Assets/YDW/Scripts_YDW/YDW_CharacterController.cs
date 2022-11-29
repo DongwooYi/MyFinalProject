@@ -169,7 +169,7 @@ public class YDW_CharacterController : MonoBehaviour
                         {
                             Vector2 delta = t.position - startPos;
                             rotX += delta.y * Time.deltaTime * 0.5f;
-                            rotX = Mathf.Clamp(rotX, 5f, 20f);
+                            rotX = Mathf.Clamp(rotX, 10f, 20f);
                             rotY += delta.x * Time.deltaTime * 0.5f;
                             cameraArm.eulerAngles = new Vector3(rotX, rotY, 0);
                         }

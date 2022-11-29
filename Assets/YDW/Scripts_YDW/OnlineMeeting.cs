@@ -16,9 +16,9 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
     // Fill in your app ID.
     private string _appID = "851fe70440134a8d9fc8b79026988088";
     // Fill in your channel name.
-    private string _channelName = "A";
+    private string _channelName = "Test";
     // Fill in the temporary token you obtained from Agora Console.
-    private string _token = "007eJxTYMiVbk+Ra/suLt/y8u8htWfLzk3Z+ujMvgiF8tbbXyf8bj+qwGBhapiWam5gYmJgaGySaJFimZZskWRuaWBkZmlhYWBhsaisJbkhkJHhbXQtEyMDBIL4jAyODAwAqyogmw==";
+    private string _token = "007eJxTYNjmNCtlxaWLjW2/JX0v2gZmJcxWyLlVun3n74/rzH12qPxVYLAwNUxLNTcwMTEwNDZJtEixTEu2SDK3NDAys7SwMLCwOODSmtwQyMigUPqImZEBAkF8FoaQ1OISBgYAyb4giw==";
     // A variable to save the remote user uid.
     private uint remoteUid;
     internal VideoSurface LocalView;

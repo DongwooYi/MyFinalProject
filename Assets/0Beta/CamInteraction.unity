@@ -1618,7 +1618,7 @@ GameObject:
   - component: {fileID: 862444139}
   - component: {fileID: 862444138}
   m_Layer: 5
-  m_Name: RemoteView2
+  m_Name: RemoteViewTwo
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

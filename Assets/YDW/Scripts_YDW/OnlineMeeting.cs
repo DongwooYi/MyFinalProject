@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Android;
 using Agora.Rtc;
-/*using Photon.Pun;
+using Photon.Pun;
 using Photon.Realtime;
 using Photon.Voice;
-using Photon.Voice.Unity;*/
+using Photon.Voice.Unity;
 
-public class OnlineMeeting : MonoBehaviour
+public class OnlineMeeting : MonoBehaviourPunCallbacks
 {
     private ArrayList permissionList = new ArrayList() { Permission.Camera, Permission.Microphone };
 
@@ -88,8 +88,19 @@ public class OnlineMeeting : MonoBehaviour
         }
         public override void OnUserJoined(RtcConnection connection, uint uid, int elapsed)
         {
-            // Setup remote view.
+            print(uid);
+            if(uid == 4122959556)
+            {
             _videoSample.RemoteView.SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+
+            }
+            else
+            {
+                _videoSample.RemoteView2nd.SetForUser(uid, connection.channelId, VIDEO_SOURCE_TYPE.VIDEO_SOURCE_REMOTE);
+
+            }
+            // Setup remote view.
+
             // Save the remote user ID in a variable.
             _videoSample.remoteUid = uid;
         }
@@ -101,7 +112,8 @@ public class OnlineMeeting : MonoBehaviour
    
     public void SetupUI()
     {
-   GameObject go = GameObject.Find("MyView");
+        
+         GameObject go = GameObject.Find("MyView");
         LocalView = go.AddComponent<VideoSurface>();
         go.transform.Rotate(0.0f, 0.0f, -180.0f);
 
@@ -110,15 +122,15 @@ public class OnlineMeeting : MonoBehaviour
         go.transform.Rotate(0.0f, 0.0f, -180.0f);
 
 
-        go = GameObject.Find("RemoteView2");
+        go = GameObject.Find("RemoteViewTwo");
         RemoteView2nd = go.AddComponent<VideoSurface>();
         go.transform.Rotate(0.0f, 0.0f, -180.0f);
 
 
-        go = GameObject.Find("RemoteView3");
+       /* go = GameObject.Find("RemoteView3");
         RemoteView2nd = go.AddComponent<VideoSurface>();
         go.transform.Rotate(0.0f, 0.0f, -180.0f);
-
+*/
 
         go = GameObject.Find("ButtonLeave");
         go.GetComponent<Button>().onClick.AddListener(Leave);
@@ -141,7 +153,8 @@ public class OnlineMeeting : MonoBehaviour
         RtcEngine.JoinChannel(_token, _channelName);
         btnJoin.gameObject.SetActive(false);
         btnCamOff.gameObject.SetActive(true);
-        for (int i = 0; i < viewImg.Count; i++)
+
+        for (int i = 0; i < 3; i++)
         {
             viewImg[i].SetActive(false);
         }
@@ -165,7 +178,7 @@ public class OnlineMeeting : MonoBehaviour
         RemoteView.SetEnable(false);
         // Stops rendering the local video.
         LocalView.SetEnable(false);
-        //  PhotonNetwork.LeaveRoom();
+          PhotonNetwork.LeaveRoom();
     }
     /* public override void OnLeftRoom()
      {

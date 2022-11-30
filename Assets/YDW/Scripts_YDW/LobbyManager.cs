@@ -109,6 +109,15 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         Debug.Log(Application.persistentDataPath);
         AMPM.onValueChanged.AddListener(delegate { AMPMToggleCheck(AMPM); });
     }
+    void WriteTest()
+    {
+      
+        inputRoomName.text = "파친코 완독해요.";
+        inputFieldRoomDescription.text = "방금 광장에서 책 추천받았습니다. 파친코 1권 완독을 목표로 하고요, 매주 3일 꼬박꼬박 모여서 열심히 완독할 친구들을 모집합니다.욕설 및 비방 금지캠에 책 증빙 필요.열심히 해요!!";
+        inputBookName.text = "파친코";
+        inputFieldRoomDescriptionShortForm.text = "파친코 1권 열심히 꾸준히 완독해요";
+
+    }
     private void Update()
     {
         dateTime = DateTime.Now;
@@ -124,6 +133,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         if (Input.GetKeyDown(KeyCode.F9))
         {
             setRoom.SetActive(true);
+           // WriteTest();
         }
         if (Input.GetKeyDown(KeyCode.F10))
         {
@@ -207,7 +217,7 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         hash["roomHost_Name"] = PhotonNetwork.LocalPlayer.NickName;
         hash["book_Name"] = inputBookName.text;
         hash["meetingTime"] = textTimeforMeeting.text;
-        hash["dayOfWeeks"] = $"회의 요일: {monText}{tueText}{wedText}{thuText}{friText}{sunText}{sunText}";
+        hash["dayOfWeeks"] = $"{monText}{tueText}{wedText}{thuText}{friText}{sunText}{sunText}";
         roomOptions.CustomRoomProperties = hash;
 
         // custom 정보를 공개하는 설정

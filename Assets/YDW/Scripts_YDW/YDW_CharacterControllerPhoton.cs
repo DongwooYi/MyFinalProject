@@ -9,6 +9,8 @@ using Photon.Pun;
 public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
 {
 
+
+    
     public GameObject mainbody;
     public Transform characterBody;
     [Header("카메라")]
@@ -21,7 +23,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
     public float rayDistance;
 
     [Header("카메라")]
-    [Range(1, 50)]
+    [Range(0.1f, 50)]
     public float rotSpeed = 50f;
     [Range(0.1f, 1f)]
     public float zoomIn = 1f;
@@ -62,9 +64,12 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
         animator = characterBody.GetComponent<Animator>();
         camAngle = cameraArm.rotation.eulerAngles;
     }
+
     private void FixedUpdate()
     {
-        GetTouchInput();
+        if (EventSystem.current.IsPointerOverGameObject() == false)
+            CameraRot();
+
         CollisionCheck();
     }
     public void Move(Vector2 vector2)
@@ -101,13 +106,33 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
             characterBody.forward = moveDir;
             // 이동
             if (!isCollisionCheck)
-                transform.position += moveDir * Time.deltaTime * 6f;
+                transform.position += moveDir * Time.deltaTime * 2f;
         }
     }
     void CollisionCheck()
     {
         Debug.DrawRay(transform.position, characterBody.forward * rayDistance, Color.black);
         isCollisionCheck = Physics.Raycast(transform.position, characterBody.forward, rayDistance, LayerMask.GetMask("CollisionCheck"));
+
+    }
+
+    public void CameraRot()
+    {
+
+        //Debug.DrawRay(cameraArm.position, new Vector3(cameraArm.forward.x, 0f, cameraArm.forward.z).normalized, Color.red);
+
+        Vector2 mouseDelta = new Vector2(Input.GetAxis("Mouse X"), Input.GetAxis("Mouse Y"));
+        Vector3 camAngle = cameraArm.rotation.eulerAngles;
+        float x = camAngle.x - mouseDelta.y;
+        if (x < 180f)
+        {
+            x = Mathf.Clamp(x, -1f, 70f);
+        }
+        else
+        {
+            x = Mathf.Clamp(x, 335f, 361f);
+        }
+        cameraArm.rotation = Quaternion.Euler(x, camAngle.y + mouseDelta.x, camAngle.z);
 
     }
     // 카메라 줌인 줌아웃 관련

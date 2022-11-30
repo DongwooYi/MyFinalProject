@@ -23,7 +23,7 @@ public class BannerManager : MonoBehaviour
     // 스폰 포지션 정해둘까 -> 이건 맵 받으면
 
 
-    public float bannerTime = 5f;
+    public float bannerTime = 10f;
     float currTime = 0;
 
     public int idx;
@@ -150,7 +150,7 @@ public class BannerManager : MonoBehaviour
 
     public IEnumerator GetThumbnailImg(string[] url)
     {
-        for (int j = 0; j < 40; j++)
+        for (int j = 0; j < 5; j++)
         {
             UnityWebRequest www = UnityWebRequestTexture.GetTexture(url[j]);
             yield return www.SendWebRequest();

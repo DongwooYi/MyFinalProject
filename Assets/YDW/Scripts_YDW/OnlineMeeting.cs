@@ -4,12 +4,12 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Android;
 using Agora.Rtc;
-using Photon.Pun;
+/*using Photon.Pun;
 using Photon.Realtime;
 using Photon.Voice;
-using Photon.Voice.Unity;
+using Photon.Voice.Unity;*/
 
-public class OnlineMeeting : MonoBehaviourPunCallbacks
+public class OnlineMeeting : MonoBehaviour
 {
     private ArrayList permissionList = new ArrayList() { Permission.Camera, Permission.Microphone };
 
@@ -18,40 +18,27 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
     // Fill in your channel name.
     private string _channelName = "Test";
     // Fill in the temporary token you obtained from Agora Console.
-    private string _token = "007eJxTYNjmNCtlxaWLjW2/JX0v2gZmJcxWyLlVun3n74/rzH12qPxVYLAwNUxLNTcwMTEwNDZJtEixTEu2SDK3NDAys7SwMLCwOODSmtwQyMigUPqImZEBAkF8FoaQ1OISBgYAyb4giw==";
-    // A variable to save the remote user uid.
+    private string _token = "007eJxTYNj1OkEg723spaWSE+V9/Tya+SvzFp5YtOroHL5fNTal3csUGCxMDdNSzQ1MTAwMjU0SLVIs05ItkswtDYzMLC0sDCwsrr5pS24IZGRwuSrOysgAgSA+C0NIanEJAwMASmsfOw==";
     private uint remoteUid;
     internal VideoSurface LocalView;
     internal VideoSurface RemoteView;
-    internal VideoSurface RemoteViewOne;
-    internal VideoSurface RemoteViewTwo;
+    internal VideoSurface RemoteView2nd;
+    internal VideoSurface RemoteView3rd;
     internal IRtcEngine RtcEngine;
-    public GameObject btnJoin;
-    [Header(" È­»óÄ· À§Ä¡ È¦¼ö&Â¦¼ö °æ¿ì")]
-    public Transform[] transformCamPostioneven;
-    public Transform[] transformCamPostionoddNum;
 
-    public Text textRoomName;
+    public Button btnJoin;
+    public Button btnCamOff;
     // Start is called before the first frame update
     void Start()
     {
-        textRoomName.text = $"{PhotonNetwork.CurrentRoom.Name}";
-        btnJoin.SetActive(true);
-        btnJoin.GetComponent<Button>().onClick.AddListener(Join);
+        
+        btnJoin.onClick.AddListener(Join);
         SetupVideoSDKEngine();
         InitEventHandler();
         SetupUI();
-        buttonCamON.onClick.AddListener(BtnCamOn);
-        //buttonCamOff.onClick.AddListener(BtnCamOff);
-        buttonMicON.onClick.AddListener(BtnMicOn);
-        buttonMicOff.onClick.AddListener(BtnMicOff);
-        buttonCamOff.gameObject.SetActive(true);
-        buttonMicOff.gameObject.SetActive(true);
-        buttonMicON.gameObject.SetActive(false);
-        buttonCamON.gameObject.SetActive(false);
     }
 
-    // Update is called once per frame
+
     void Update()
     {
         CheckPermissions();
@@ -111,21 +98,35 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
             _videoSample.RemoteView.SetEnable(false);
         }
     }
-
-    private void SetupUI()
+   
+    public void SetupUI()
     {
-        GameObject go = GameObject.Find("MyView");
+   GameObject go = GameObject.Find("MyView");
         LocalView = go.AddComponent<VideoSurface>();
-        go.transform.Rotate(0.0f, 0.0f, 180 );
-        go = GameObject.Find("RemoteView");
+        go.transform.Rotate(0.0f, 0.0f, -180.0f);
+
+          go = GameObject.Find("RemoteView");
         RemoteView = go.AddComponent<VideoSurface>();
-        go.transform.Rotate(0.0f, 0.0f, 180);
+        go.transform.Rotate(0.0f, 0.0f, -180.0f);
+
+
+        go = GameObject.Find("RemoteView2");
+        RemoteView2nd = go.AddComponent<VideoSurface>();
+        go.transform.Rotate(0.0f, 0.0f, -180.0f);
+
+
+        go = GameObject.Find("RemoteView3");
+        RemoteView2nd = go.AddComponent<VideoSurface>();
+        go.transform.Rotate(0.0f, 0.0f, -180.0f);
+
 
         go = GameObject.Find("ButtonLeave");
         go.GetComponent<Button>().onClick.AddListener(Leave);
-        go = GameObject.Find("ButtonJoin");
-        go.GetComponent<Button>().onClick.AddListener(Join);
+
+        
     }
+
+    public List<GameObject> viewImg;
     public void Join()
     {
         // Enable the video module.
@@ -138,6 +139,17 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
         LocalView.SetEnable(true);
         // Join a channel.
         RtcEngine.JoinChannel(_token, _channelName);
+        btnJoin.gameObject.SetActive(false);
+        btnCamOff.gameObject.SetActive(true);
+        for (int i = 0; i < viewImg.Count; i++)
+        {
+            viewImg[i].SetActive(false);
+        }
+    }
+    public void CamOff()
+    {
+        btnJoin.gameObject.SetActive(true);
+        btnCamOff.gameObject.SetActive(false);
     }
 
 
@@ -147,19 +159,19 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
     {
         // Leaves the channel.
         RtcEngine.LeaveChannel();
-        PhotonNetwork.LeaveRoom();
         // Disable the video modules.
-        //  RtcEngine.DisableVideo();
+        RtcEngine.DisableVideo();
         // Stops rendering the remote video.
-        //  RemoteView.SetEnable(false);
+        RemoteView.SetEnable(false);
         // Stops rendering the local video.
-        //  LocalView.SetEnable(false);
+        LocalView.SetEnable(false);
+        //  PhotonNetwork.LeaveRoom();
     }
-    public override void OnLeftRoom()
-    {
-        base.OnLeftRoom();
-        PhotonNetwork.LoadLevel(1);
-    }
+    /* public override void OnLeftRoom()
+     {
+         base.OnLeftRoom();
+         PhotonNetwork.LoadLevel(1);
+     }*/
     void OnApplicationQuit()
     {
         if (RtcEngine != null)
@@ -170,42 +182,4 @@ public class OnlineMeeting : MonoBehaviourPunCallbacks
         }
     }
 
-
-    public Button buttonCamON;
-    public Button buttonCamOff;
-    public Button buttonMicON;
-    public Button buttonMicOff;
-    public void BtnCamOn()
-    {
-        Join();
-        buttonCamON.gameObject.SetActive(false);
-        buttonCamOff.gameObject.SetActive(true);
-    }
-   /* public void BtnCamOff()
-    {
-        RtcEngine.DisableVideo();
-        LocalView.SetEnable(false);
-        myView.SetActive(false);
-        buttonCamON.gameObject.SetActive(true);
-        buttonCamOff.gameObject.SetActive(false);
-
-    }*/
-    public Recorder recorder;
-    public void BtnMicOn()
-    {
-        
-            recorder.TransmitEnabled = true;
-            buttonMicON.gameObject.SetActive(false);
-            buttonMicOff.gameObject.SetActive(true);
-        
-
-    }
-    public void BtnMicOff()
-    {
-       
-            recorder.TransmitEnabled = false;
-            buttonMicON.gameObject.SetActive(true);
-            buttonMicOff .gameObject.SetActive(false);        
-        
-    }
 }

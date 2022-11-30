@@ -30,6 +30,16 @@ public class NPC : MonoBehaviour
         NPCSpeechBubble.SetActive(false);
         btnNo.onClick.AddListener(OnClickNo);
         btnYes.onClick.AddListener(OnClickOut);
+       
+    }
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.F1))
+        {
+            NPCSpeechBubble.SetActive(true);
+            pannelforNPC.SetActive(true);
+            StartCoroutine(TextPannel());
+        }
     }
     private void OnTriggerEnter(Collider other)
     {       

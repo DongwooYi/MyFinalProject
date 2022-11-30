@@ -9,6 +9,8 @@ using Photon.Pun;
 public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
 {
 
+
+    
     public GameObject mainbody;
     public Transform characterBody;
     [Header("카메라")]
@@ -21,7 +23,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
     public float rayDistance;
 
     [Header("카메라")]
-    [Range(1, 50)]
+    [Range(0.1f, 50)]
     public float rotSpeed = 50f;
     [Range(0.1f, 1f)]
     public float zoomIn = 1f;
@@ -62,6 +64,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
         animator = characterBody.GetComponent<Animator>();
         camAngle = cameraArm.rotation.eulerAngles;
     }
+
     private void FixedUpdate()
     {
         if (EventSystem.current.IsPointerOverGameObject() == false)
@@ -103,7 +106,7 @@ public class YDW_CharacterControllerPhoton : MonoBehaviourPunCallbacks
             characterBody.forward = moveDir;
             // 이동
             if (!isCollisionCheck)
-                transform.position += moveDir * Time.deltaTime * 6f;
+                transform.position += moveDir * Time.deltaTime * 2f;
         }
     }
     void CollisionCheck()

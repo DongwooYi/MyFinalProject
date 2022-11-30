@@ -133,6 +133,11 @@ public class LobbyManager : MonoBehaviourPunCallbacks
         {
             TestChatroom();
         }
+
+        if(Input.GetKeyDown(KeyCode.F2))
+        {
+            TestChatroom();
+        }
         ToggleCheck();
 
     }

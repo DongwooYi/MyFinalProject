@@ -162,8 +162,11 @@ public class ChatManager : MonoBehaviourPun
 
         if (sceneName.name == "SB_Player_Photon")
         {
+            
         StopAllCoroutines();
         StartCoroutine("ChattingSpeech");
+
+            
         }
                 
        item= Instantiate(chatItemFactory, trContent);
